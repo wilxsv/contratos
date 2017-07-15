@@ -1,6 +1,10 @@
-minsal_contrato:
+minsal_contrato_analizador:
     resource: "@MinsalContratoBundle/Resources/config/Routing/Analizador/routing.yml"
     prefix:   /analizador
+
+minsal_contrato_inicioproceso:
+    resource: "@MinsalContratoBundle/Resources/config/Routing/InicioProceso/routing.yml"
+    prefix:   /inicioProceso
 
 minsal_contrato_homepage:
     path:     /

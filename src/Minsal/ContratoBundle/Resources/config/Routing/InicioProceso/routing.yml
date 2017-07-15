@@ -1,0 +1,4 @@
+
+minsal_contrato_inicio_proceso_inicio:
+    path:     /
+    defaults: { _controller: MinsalContratoBundle:InicioProceso:inicio }
