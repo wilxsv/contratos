@@ -1,3 +1,7 @@
+minsal_contrato:
+    resource: "@MinsalContratoBundle/Resources/config/Routing/Analizador/routing.yml"
+    prefix:   /analizador
+
 minsal_contrato_homepage:
     path:     /
     defaults: { _controller: MinsalContratoBundle:Default:index }
