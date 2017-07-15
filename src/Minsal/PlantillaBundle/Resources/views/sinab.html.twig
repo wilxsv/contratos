@@ -18,11 +18,11 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <!-- Incluir la navegacion -->
+        {% include 'MinsalPlantillaBundle::Sinab/nav.html.twig' %}
 
         <!-- End Top Navigation -->
         <!-- ============================================================== -->
-        <!-- Agregar el sidebar izquierdo -->
+        {% include 'MinsalPlantillaBundle::Sinab/left_sidebar.html.twig' %}
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Page Content -->
@@ -48,17 +48,17 @@
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- Agregar el sidebar derecho -->
+                {% include 'MinsalPlantillaBundle::Sinab/right_sidebar.html.twig' %}
                 <!-- ============================================================== -->
             </div>
             <!-- /.container-fluid -->
-            <!-- Aca va el footer del html -->
+            {% include 'MinsalPlantillaBundle::Sinab/footer.html.twig' %}
         </div>
         <!-- ============================================================== -->
         <!-- End Page Content -->
         <!-- ============================================================== -->
     </div>
-   <!-- aca va el footer de javascript -->
+   {% include 'MinsalPlantillaBundle::Sinab/footer_js.html.twig' %}
 </body>
 
 </html>
