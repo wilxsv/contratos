@@ -43,13 +43,11 @@
     <div id="wrapper">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
-<<<<<<< HEAD
         <!-- =======================================================z======= -->
         <!-- Incluir la navegacion -->
-=======
+
         <!-- ============================================================== -->
-        {% include 'MinsalPlantillaBundle::Sinab/nav.html.twig' %}
->>>>>>> 28ae7029bbc1a67c4682757d42e4e80c7dadb6f4
+
 
         <!-- End Top Navigation -->
         <!-- ============================================================== -->
@@ -75,7 +73,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="white-box">
-                            <h3 class="box-title">Blank Starter page</h3> </div>
+                            <h3 class="box-title">Blank Starter page</h3> 
+                            {% block body %}
+                            {% endblock %}
+                        </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
