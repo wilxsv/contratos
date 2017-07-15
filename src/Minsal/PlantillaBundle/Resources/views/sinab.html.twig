@@ -17,12 +17,17 @@
     <div id="wrapper">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
+<<<<<<< HEAD
         <!-- =======================================================z======= -->
         <!-- Incluir la navegacion -->
+=======
+        <!-- ============================================================== -->
+        {% include 'MinsalPlantillaBundle::Sinab/nav.html.twig' %}
+>>>>>>> 28ae7029bbc1a67c4682757d42e4e80c7dadb6f4
 
         <!-- End Top Navigation -->
         <!-- ============================================================== -->
-        <!-- Agregar el sidebar izquierdo -->
+        {% include 'MinsalPlantillaBundle::Sinab/left_sidebar.html.twig' %}
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Page Content -->
@@ -48,17 +53,17 @@
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- Agregar el sidebar derecho -->
+                {% include 'MinsalPlantillaBundle::Sinab/right_sidebar.html.twig' %}
                 <!-- ============================================================== -->
             </div>
             <!-- /.container-fluid -->
-            <!-- Aca va el footer del html -->
+            {% include 'MinsalPlantillaBundle::Sinab/footer.html.twig' %}
         </div>
         <!-- ============================================================== -->
         <!-- End Page Content -->
         <!-- ============================================================== -->
     </div>
-   <!-- aca va el footer de javascript -->
+   {% include 'MinsalPlantillaBundle::Sinab/footer_js.html.twig' %}
 </body>
 
 </html>
