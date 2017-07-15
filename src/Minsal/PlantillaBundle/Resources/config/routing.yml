@@ -1,0 +1,3 @@
+minsal_plantilla_homepage:
+    path:     /
+    defaults: { _controller: MinsalPlantillaBundle:Default:index }

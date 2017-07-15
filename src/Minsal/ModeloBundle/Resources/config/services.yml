@@ -1,0 +1,4 @@
+services:
+#    minsal_modelo.example:
+#        class: Minsal\ModeloBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

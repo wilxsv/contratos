@@ -1,0 +1,4 @@
+services:
+#    minsal_core.example:
+#        class: Minsal\CoreBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

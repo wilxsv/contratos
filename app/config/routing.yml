@@ -1,0 +1,19 @@
+minsal_contrato:
+    resource: "@MinsalContratoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+minsal_modelo:
+    resource: "@MinsalModeloBundle/Resources/config/routing.yml"
+    prefix:   /
+
+minsal_plantilla:
+    resource: "@MinsalPlantillaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+minsal_core:
+    resource: "@MinsalCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

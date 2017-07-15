@@ -1,0 +1,3 @@
+minsal_modelo_homepage:
+    path:     /
+    defaults: { _controller: MinsalModeloBundle:Default:index }
