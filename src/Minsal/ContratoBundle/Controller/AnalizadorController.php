@@ -18,7 +18,17 @@ class AnalizadorController extends Controller
 	*/
 	public function dashboardAction()
 	{
+		
 		return $this->render('MinsalPlantillaBundle:Analizador:dashboard.html.twig');
+	}
+
+	/*
+		* funcion para guardar el analisis generado por unabas en la vista dashboard
+	*/
+
+	public function guardarAnalisis($analisis_json)
+	{
+		
 	}
 
 }
