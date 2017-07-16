@@ -3,5 +3,5 @@ minsal_contrato_listado_proceso:
     defaults: { _controller: MinsalContratoBundle:Uaci:uaciInicio }
 
 minsal_contrato_proveedores_uaci:
-    path:     /proveedoresUaci
+    path:     /proveedoresUaci/{id}
     defaults: { _controller: MinsalContratoBundle:Uaci:proveedorUaci }
