@@ -1,4 +1,64 @@
 {% extends 'base.html.twig' %}
+{% block head_css %}
+	{{ parent() }}
+    <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<!-- Menu CSS -->
+    <link href="{{ asset('assets/') }}plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+{% endblock %}
 {% block body %}
-	Aqui van los proveedores de la UACI en una tabla
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="white-box">
+				<h3 class="box-title m-b-0">Data Table</h3>
+				<p class="text-muted m-b-30">Data table example</p>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Codigo de contrato</th>
+								<th>Proveedor</th>
+								<th>Habilitar/Deshabilitar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Tiger Nixon</td>
+								<td>System Architect</td>
+								<td><input type="checkbox" value="1" checked="checked" id="prov1"></td>
+								
+							</tr>
+							<tr>
+								<td>Garrett Winters</td>
+								<td>Accountant</td>
+								<td><input type="checkbox" value="1" checked="checked" id="prov1"></td>
+							
+							</tr>
+							<tr>
+								<td>Ashton Cox</td>
+								<td>Junior Technical Author</td>
+								<td><input type="checkbox" value="1" checked="checked" id="prov1"></td>
+								
+							</tr>
+							<tr>
+								<td>Cedric Kelly</td>
+								<td>Senior Javascript Developer</td>
+								<td><input type="checkbox" value="1" checked="checked" id="prov1"></td>
+							</tr>
+							<tr>
+								<td>Airi Satou</td>
+								<td>Accountant</td>
+								<td><input type="checkbox" value="1" checked="checked" id="prov1"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
