@@ -57,7 +57,7 @@
                                             <td>1223.00</td>
                                             <td>4.1</td>
                                             <td><input type="number"></td>
-                                            <td>3</td>
+                                            <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
@@ -68,7 +68,7 @@
                                             <td>1223.00</td>
                                             <td>4.1</td>
                                             <td><input type="number"></td>
-                                            <td>3</td>
+                                            <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
@@ -79,7 +79,7 @@
                                             <td>1223.00</td>
                                             <td>4.1</td>
                                             <td><input type="number"></td>
-                                            <td>3</td>
+                                            <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
@@ -87,10 +87,10 @@
                                             <td>Contrato</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
-                                            <td>1223.00</td>
+                                            <td>23.00</td>
                                             <td>4.1</td>
                                             <td><input type="number"></td>
-                                            <td>3</td>
+                                            <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
@@ -98,10 +98,10 @@
                                             <td>Contrato</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
-                                            <td>1223.00</td>
-                                            <td>4.1</td>
+                                            <td>12430</td>
+                                            <td>45.1</td>
                                             <td><input type="number"></td>
-                                            <td>3</td>
+                                            <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
@@ -109,10 +109,10 @@
                                             <td>Contrato</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
-                                            <td>1223.00</td>
+                                            <td>12100</td>
                                             <td>4.1</td>
                                             <td><input type="number"></td>
-                                            <td>3</td>
+                                            <td>0</td>
                                         </tr>
                                         
                                     </tbody>
@@ -123,14 +123,14 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                            <td id="montoTotalComprado"></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td id="TotalAComprar"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <a class="btn btn-info" onclick="calcular();">calcular</a>
+                                <a class="btn btn-info">calcular</a>
                             </div>
                         </div>
                     </div>
@@ -152,8 +152,77 @@
 {{ parent() }}
 <script type="text/javascript">
 	$(document).ready(function() {
-
+        iniciar();
+        calcular();
     });
+    function calcularSubTotales() {
+        var subtotal = 0;
+        $('#tabla tbody tr').each(function () {
+            
+            subtotal = subtotal + parseInt($(this).find("td").eq(8).html());
+            });
+        $('#TotalAComprar').html(subtotal);
+        return subtotal;
+             
+    }
+    function iniciar() {
+        var monto_comprado = 0;
+        
+        $('#tabla tbody tr').each(function () {
+            monto_comprado = monto_comprado + parseInt($(this).find("td").eq(5).html());
+            $(this).find("td").eq(8).html(0);
+            calcularSubTotales();
+
+        });
+        $('#montoTotalComprado').html(monto_comprado);
+        
+
+    }
+    function calcular() {
+        var fila = $("input[type=number]");
+        fila.change(function() {
+            $('#tabla tbody tr').each(function () {
+
+            var monto_comprado = $(this).find("td").eq(5).html();
+            var precio_unitario = $(this).find("td").eq(6).html();
+            var unidadesComprar = $(this).find("td").eq(7).find("input").val();
+            var subtotal = $(this).find("td").eq(8);
+            subtotal.html((unidadesComprar*precio_unitario).toFixed(2));
+            });
+            var montoOriginal = parseInt($('#montoTotalComprado').html());
+            var montoNuevo = calcularSubTotales();
+            if(montoNuevo>(montoOriginal*0.2)){
+                fila.val(0);
+                var rowPadre = fila.parent();
+                var PadrerowPadre = rowPadre.parent();
+                PadrerowPadre.find("td").eq(8).html(0);
+
+            }
+        });
+    }
+
+    /*function calcularTotales() {
+        var TotalComprado=0;
+        var subTotalAComprar = 0;
+        $('#tabla tbody tr').each(function () {
+            var monto_comprado = $(this).find("td").eq(5).html();
+            TotalComprado =TotalComprado+parseInt(monto_comprado);
+            var subtotal = $(this).find("td").eq(8).html();
+            subTotalAComprar =+ parseInt(subtotal);
+
+        });
+        var montoT=$('#montoTotalComprado');
+        var tc=$('#TotalAComprar');
+        montoT.html(TotalComprado);
+        tc.html(subTotalAComprar);
+        if (parseInt($('#montoTotalComprado').html())*0.20 <= parseInt($('#TotalAComprar').html())) {
+
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     function calcular() {
         $('#tabla tbody tr').each(function () {
 
@@ -161,10 +230,17 @@
             var precio_unitario = $(this).find("td").eq(6).html();
             var unidadesComprar = $(this).find("td").eq(7).find("input").val();
             var subtotal = $(this).find("td").eq(8);
-            subtotal.html((unidadesComprar*precio_unitario).toFixed(2));
+            if (calcularTotales) {
+                subtotal.html((unidadesComprar*precio_unitario).toFixed(2));
+            }
+            else{
+                subtotal.html('<p>error este valor hace que se pase del 20%</p>');
+            }
+            
 
         });
     }
+*/
 </script>
     
 {% endblock %}
