@@ -37,7 +37,7 @@ class ResumenIncremento
 
     /**
      * One Product has One Shipment.
-     * @ORM\OneToOne(targetEntity="Estado", mappedBy="resumen")
+     * @ORM\OneToOne(targetEntity="Estado", inversedBy="resumen")
      */
     private $estado;
 

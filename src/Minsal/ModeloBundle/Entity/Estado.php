@@ -25,7 +25,7 @@ class Estado
     private $id;
 
     /*
-    * @ORM\OneToOne(targetEntity="ResumenIncremento", inversedBy="estado")
+    * @ORM\OneToOne(targetEntity="ResumenIncremento", mappedBy="estado")
     */
     protected $resumen;
 
