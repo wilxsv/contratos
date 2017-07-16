@@ -27,11 +27,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for item in datos %}
-								<tr>
-									<td>{{ item.contratos }}</td>
-								</tr>
+							{% for dato in datos %}
+							<tr>
+								<td>{{ dato.contratos }}</td>
+							</tr>
 							{% endfor %}
+							
+								
+							
 						</tbody>
 					</table>
 				</div>

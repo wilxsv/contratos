@@ -4,6 +4,8 @@ namespace Minsal\ContratoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\DependencyInjection\ContainerInterface;  
+use \Twig_Extension;
 
 class UaciController extends Controller
 {
@@ -22,8 +24,7 @@ class UaciController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 		$datosJSON = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->obtenerJSON($id);
-
-
+		
 		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
 			'id'=> $id,
 			'datos'=>$datosJSON,
