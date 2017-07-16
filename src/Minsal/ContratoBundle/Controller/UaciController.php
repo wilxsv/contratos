@@ -18,9 +18,15 @@ class UaciController extends Controller
 	}
 
 
-	public function proveedorUaciAction()
+	public function proveedorUaciAction($id)
 	{
-		
-		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig');
+		$em = $this->getDoctrine()->getManager();
+		$datosJSON = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->obtenerJSON($id);
+
+
+		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
+			'id'=> $id,
+			'datos'=>$datosJSON,
+			));
 	}
 }

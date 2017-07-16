@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class ResumenIncrementoRepository extends EntityRepository
 {
+	public function obtenerJson($idCompra)
+	{
+		$qb = $this->createQueryBuilder('r')
+            ->select('r.contratos')
+            ->where('r.id = :id')->setParameter('id', $idCompra);
+
+        return $qb->getQuery()->getResult();
+	}
 }
