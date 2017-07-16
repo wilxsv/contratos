@@ -111,8 +111,12 @@
     cb(matches);
   };
 };
-// var codigosLicitacion = JSON QUE DEBO ENVIAR
-var codigosLicitacion = ["LP 05/2017"];
+// var codigosLicitacion = array de la consulta
+var codigosLicitacion=[] ;
+{% for codigosl in codigosLicitaciones %}
+    codigosLicitacion.push('{{codigosl}}')
+{% endfor %}
+
 
 // ---------- Bloodhound ----------
 
@@ -120,7 +124,6 @@ var codigosLicitacion = ["LP 05/2017"];
 var codigosLicitacion = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.whitespace,
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  // `codigosLicitacion` is an array of state names defined in "The Basics"
   local: codigosLicitacion
 });
 
