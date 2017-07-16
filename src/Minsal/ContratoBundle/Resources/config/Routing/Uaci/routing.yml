@@ -1,0 +1,3 @@
+minsal_contrato_analizador_dashboard:
+    path:     /listadoProcesos
+    defaults: { _controller: MinsalContratoBundle:Uaci:uaciInicio }

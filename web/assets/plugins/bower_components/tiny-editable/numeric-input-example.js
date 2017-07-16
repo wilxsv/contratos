@@ -43,6 +43,7 @@ $.fn.numericInputExample = function () {
 			return !isNaN(parseFloat(value)) && isFinite(value);
 		}
 	});
+
 	initialTotal();
 	return this;
 };

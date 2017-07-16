@@ -6,6 +6,12 @@ minsal_contrato_inicioproceso:
     resource: "@MinsalContratoBundle/Resources/config/Routing/InicioProceso/routing.yml"
     prefix:   /inicioProceso
 
+minsal_contrato_uaci:
+   resource: "@MinsalContratoBundle/Resources/config/Routing/Uaci/routing.yml"
+   prefix:   /uaci
+
 minsal_contrato_homepage:
     path:     /
     defaults: { _controller: MinsalContratoBundle:Default:index }
+
+
