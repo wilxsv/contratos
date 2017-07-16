@@ -24,6 +24,12 @@ class Producto
     private $id;
 
     /**
+     * Muchos contratos tienen un resumen
+     * @ORM\ManyToOne(targetEntity="Proveedor", inversedBy="producto")
+     */
+    protected $proveedor;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="codigo_producto", type="string", length=255)
