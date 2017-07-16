@@ -75,7 +75,9 @@
         <!-- End Page Content -->
         <!-- ============================================================== -->
     </div>
-   {% include 'MinsalPlantillaBundle::Sinab/footer_js.html.twig' %}
+   {% block js %}
+    {% include 'MinsalPlantillaBundle::Sinab/footer_js.html.twig' %}s
+   {% endblock %}
 </body>
 
 </html>
