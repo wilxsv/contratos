@@ -1,4 +1,89 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-	hola
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="white-box">
+				<h3 class="box-title">Primary Table</h3>
+				<div class="table-responsive">
+					<table id="mainTable" class="table color-table primary-table table editable-table table-bordered table-striped m-b-0">
+						<thead>
+							<tr>
+								<th>Codigo Licitacion</th>
+								<th>Numero de compra</th>
+								<th>Proveedor</th>
+								<th>Producto</th>
+								<th>Precio Unitario</th>
+								<th>Unidad de Medida</th>
+								<th>Monto Comprado</th>
+								<th>Unidades a Comprar</th>
+								<th>Subtotal 20%</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>LP 001</td>
+								<td>C001</td>
+								<td>Laboratorios Lopez</td>
+								<td>Acetaminofen</td>
+								<td>$12.32 </td>
+								<td>mg</td>
+								<td>1000</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>LP 002</td>
+								<td>C002</td>
+								<td>Laboratorios Mikasa</td>
+								<td>Ibuprofeno</td>
+								<td>$50 </td>
+								<td>mg</td>
+								<td>1800</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th><strong>TOTAL</strong></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>     
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+
+{% block js %}
+{{ parent() }}
+    <!-- jQuery peity -->
+    <script src="{{ asset('assets/') }}plugins/bower_components/peity/jquery.peity.min.js"></script>
+    <script src="{{ asset('assets/') }}plugins/bower_components/peity/jquery.peity.init.js"></script>
+
+    <!-- Editable -->
+    <script src="{{ asset('assets/') }}plugins/bower_components/jquery-datatables-editable/jquery.dataTables.js"></script>
+    <script src="{{ asset('assets/') }}plugins/bower_components/datatables/dataTables.bootstrap.js"></script>
+    <script src="{{ asset('assets/') }}plugins/bower_components/tiny-editable/mindmup-editabletable.js"></script>
+    <script src="{{ asset('assets/') }}plugins/bower_components/tiny-editable/numeric-input-example.js"></script>
+    <script>
+    $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+    $('#editable-datatable').editableTableWidget().numericInputExample().find('td:first').focus();
+    $(document).ready(function() {
+        $('#editable-datatable').DataTable();
+    });
+    </script>
+    <!--Style Switcher -->
+    <script src="{{ asset('assets/') }}splugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
 {% endblock %}
