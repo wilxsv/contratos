@@ -4,6 +4,8 @@ namespace Minsal\ContratoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class InicioProcesoController extends Controller
 {
@@ -18,5 +20,9 @@ class InicioProcesoController extends Controller
 		return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig',array(
 			'codigosLicitaciones' => $codigosLicitaciones
 			));
+	}
+	public function crearIncrementoAction(Request $request)
+	{
+		
 	}
 }

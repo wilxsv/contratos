@@ -12,13 +12,13 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Codigo de licitacion</label>
                             <i<div id="scrollable-dropdown-menu">
-                                <input class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
+                                <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Meses a desestimar</label>
                             <input type="number" class="form-control"> </div>    
                         
-                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+                        <a onclick="incremento_inicio();" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>
                     </form>
                 </div>
             </div>
@@ -26,45 +26,18 @@
     </div>
     <div class="col-md-6">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Sample Horizontal form</h3>
-            <p class="text-muted m-b-30 font-13"> Use Bootstrap's predefined grid classes for horizontal form </p>
+            <h3 class="box-title m-b-0">Formulario para Prorrogas</h3>
+            <p class="text-muted m-b-30 font-13"> Unidad de Abastecimiento </p>
             <form class="form-horizontal">
+                
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-3 control-label">Username*</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="Username"> </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-3 control-label">Email*</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email"> </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-3 control-label">Website</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="Website"> </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-3 control-label">Password*</label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password"> </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword4" class="col-sm-3 control-label">Re Password*</label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" id="inputPassword4" placeholder="Retype Password"> </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-9">
-                        <div class="checkbox checkbox-success">
-                            <input id="checkbox33" type="checkbox">
-                            <label for="checkbox33">Check me out !</label>
+                            <label for="exampleInputEmail1">Codigo de licitacion</label>
+                            <i<div id="scrollable-dropdown-menu">
+                                <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                         </div>
-                    </div>
-                </div>
                 <div class="form-group m-b-0">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Sign in</button>
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Inciar Prorroga</button>
                     </div>
                 </div>
             </form>
@@ -148,6 +121,24 @@ $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
   name: 'codigosLicitacion',
   limit: 10,
   source: codigosLicitacion
+});
+
+function incremento_inicio() {
+    var licitacionIncremento = $('#codigoCompra').val();
+    $.ajax({
+        url: '{{ path('minsal_contrato_inicio_proceso_crear') }}',
+        data: {
+            'cod':licitacionIncremento
+        },
+        type: 'POST',
+    }).done(function(data) {
+    }).fail(function() {
+        alert('error la peticion ha sido rechazada');
+    });
+}
+
+$(document).ready(function() {
+
 });
 
     </script>
