@@ -33,7 +33,7 @@
                             <h3 class="box-title">Analisis Presupuestario</h3>
                             <p class="text-muted">Recuerde que no el monto total a incrementar no debe ser mayor al 20% de la compra de periodo anterior</p>
                             <div class="table-responsive">
-                                <table class="table color-bordered-table red-bordered-table">
+                                <table class="table color-bordered-table red-bordered-table" id="tabla">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -48,10 +48,77 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>LP N. 21/2017</td>
+                                            <td>Contrato</td>
+                                            <td>Proveedor</td>
+                                            <td>Producto</td>
+                                            <td>1223.00</td>
+                                            <td>4.1</td>
+                                            <td><input type="number"></td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>LP N. 21/2017</td>
+                                            <td>Contrato</td>
+                                            <td>Proveedor</td>
+                                            <td>Producto</td>
+                                            <td>1223.00</td>
+                                            <td>4.1</td>
+                                            <td><input type="number"></td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>LP N. 21/2017</td>
+                                            <td>Contrato</td>
+                                            <td>Proveedor</td>
+                                            <td>Producto</td>
+                                            <td>1223.00</td>
+                                            <td>4.1</td>
+                                            <td><input type="number"></td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>LP N. 21/2017</td>
+                                            <td>Contrato</td>
+                                            <td>Proveedor</td>
+                                            <td>Producto</td>
+                                            <td>1223.00</td>
+                                            <td>4.1</td>
+                                            <td><input type="number"></td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>LP N. 21/2017</td>
+                                            <td>Contrato</td>
+                                            <td>Proveedor</td>
+                                            <td>Producto</td>
+                                            <td>1223.00</td>
+                                            <td>4.1</td>
+                                            <td><input type="number"></td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>LP N. 21/2017</td>
+                                            <td>Contrato</td>
+                                            <td>Proveedor</td>
+                                            <td>Producto</td>
+                                            <td>1223.00</td>
+                                            <td>4.1</td>
+                                            <td><input type="number"></td>
+                                            <td>3</td>
+                                        </tr>
                                         
                                         
                                     </tbody>
                                 </table>
+                                <a class="btn btn-info" onclick="calcular();">calcular</a>
                             </div>
                         </div>
                     </div>
@@ -69,14 +136,23 @@
 	</div>
 {% endblock %}
 
-
-
 {% block js %}
 {{ parent() }}
 <script type="text/javascript">
-	{% for item in incremento %}
-		console.log(JSON.parse({{item|json_encode}}));
-	{% endfor %}
+	$(document).ready(function() {
+
+    });
+    function calcular() {
+        $('#tabla tbody tr').each(function () {
+
+            var monto_comprado = $(this).find("td").eq(5).html();
+            var precio_unitario = $(this).find("td").eq(6).html();
+            var unidadesComprar = $(this).find("td").eq(7).find("input").val();
+            var subtotal = $(this).find("td").eq(8);
+            subtotal.html((unidadesComprar*precio_unitario).toFixed(2));
+
+        });
+    }
 </script>
     
 {% endblock %}
