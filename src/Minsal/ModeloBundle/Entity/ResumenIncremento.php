@@ -3,6 +3,8 @@
 namespace Minsal\ModeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * ResumenIncremento
@@ -21,6 +23,17 @@ class ResumenIncremento
      */
     private $id;
 
+
+    /**
+     * Un Resumen tiene varios contratos.
+     * @ORM\OneToMany(targetEntity="Contrato", mappedBy="resumenes")
+     */
+    private $contrato;
+
+     public function __construct() {
+        $this->contrato = new ArrayCollection();
+    }
+
     /**
      * @var string
      *
@@ -35,7 +48,7 @@ class ResumenIncremento
      */
     private $contratos;
 
-     // ...
+
     /**
      * Muchos resumens tienen un estado.
      * @ORM\ManyToOne(targetEntity="Estado", inversedBy="resumenes")

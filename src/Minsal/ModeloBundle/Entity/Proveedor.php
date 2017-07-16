@@ -22,6 +22,12 @@ class Proveedor
     private $id;
 
     /**
+     * Un proveedor tiene varios contratos.
+     * @ORM\OneToMany(targetEntity="Contrato", mappedBy="proveedor")
+     */
+    private $contrato;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="codigo_proveedor", type="string", length=255)
