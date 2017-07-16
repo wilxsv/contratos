@@ -13,4 +13,11 @@ class UaciController extends Controller
 		
 		return $this->render('MinsalPlantillaBundle:Uaci:inicio.html.twig');
 	}
+
+
+	public function proveedorUaciAction()
+	{
+		
+		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig');
+	}
 }
