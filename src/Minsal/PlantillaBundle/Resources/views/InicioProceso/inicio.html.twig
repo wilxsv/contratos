@@ -55,6 +55,7 @@
                     <th>Codigo de Compra</th>
                     <th>Estado</th>
                     <th>Fecha de creacion</th>
+                    <th>Generar Calculos</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,6 +65,13 @@
                     <td>{{ incremento.codigoCompra }}</td>
                     <td>{{ incremento.estado.descripcion }}</td>
                     <td>{{ incremento.fechaCreacion|date('d-m-Y') }}</td>
+                    <td>
+                        {% if incremento.estado.id == 2 %}
+                            <a href="{{ path('minsal_contrato_analizador_dashboard', {id: incremento.id}) }}" class="btn btn-info"><span class="glyphicon glyphicon-usd"></span>Calcular</a>
+                        {% else %}
+                            <p class="text-danger">Aun no Puede generar calculos</p>
+                        {% endif %}
+                    </td>
                     </tr>
                 {% endfor %}
             </tbody>

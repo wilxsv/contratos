@@ -16,10 +16,14 @@ class AnalizadorController extends Controller
 		* funcion para el renderizado de la dashboard del analisis, recibe como parametro
 		el codigo de licitacion
 	*/
-	public function dashboardAction()
+	public function dashboardAction($id)
 	{
-		
-		return $this->render('MinsalPlantillaBundle:Analizador:dashboard.html.twig');
+		$em = $this->getDoctrine()->getManager();
+		$datosJSON = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->obtenerJSON($id);
+
+		return $this->render('MinsalPlantillaBundle:Analizador:dashboard.html.twig', array(
+			'incremento' => $datosJSON,
+			));
 	}
 
 	/*

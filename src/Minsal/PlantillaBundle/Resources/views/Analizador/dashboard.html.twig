@@ -2,65 +2,70 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col-sm-12">
-			<div class="white-box">
-				<h3 class="box-title">Primary Table</h3>
-				<div class="table-responsive">
-					<table id="mainTable" class="table color-table primary-table table editable-table table-bordered table-striped m-b-0">
-						<thead>
-							<tr>
-								<th>Codigo Licitacion</th>
-								<th>Numero de compra</th>
-								<th>Proveedor</th>
-								<th>Producto</th>
-								<th>Precio Unitario</th>
-								<th>Unidad de Medida</th>
-								<th>Monto Comprado</th>
-								<th>Unidades a Comprar</th>
-								<th>Subtotal 20%</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>LP 001</td>
-								<td>C001</td>
-								<td>Laboratorios Lopez</td>
-								<td>Acetaminofen</td>
-								<td>$12.32 </td>
-								<td>mg</td>
-								<td>1000</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>LP 002</td>
-								<td>C002</td>
-								<td>Laboratorios Mikasa</td>
-								<td>Ibuprofeno</td>
-								<td>$50 </td>
-								<td>mg</td>
-								<td>1800</td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<th><strong>TOTAL</strong></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-							</tr>     
-                           </tfoot>
-					</table>
-				</div>
-			</div>
-		</div>
+		<div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="white-box">
+                <h3 class="box-title m-b-0">Comision analizadora</h3>
+                <p class="text-muted m-b-40">UNABAS</p>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                    	<a href="#presupuesto" aria-controls="presupuesto" role="tab" data-toggle="tab" aria-expanded="true">
+                    		<span class="visible-xs">
+                    			<i class="ti-presupuesto"></i>
+                    		</span>
+                    		<span class="hidden-xs">Analisis de 20% de incremento</span>
+                    	</a>
+                    </li>
+                    <li role="presentation" class="">
+                    	<a href="#criticidad" aria-controls="criticidad" role="tab" data-toggle="tab" aria-expanded="false">
+                    		<span class="visible-xs">
+                    			<i class="ti-user"></i>
+                    		</span> 
+                    		<span class="hidden-xs">Analisis de Criticidad</span>
+                    	</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="presupuesto">
+                        <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Analisi Presupuestario</h3>
+                            <p class="text-muted">Recuerde que no el monto total a incrementar no debe ser mayor al 20% de la compra de periodo anterior</p>
+                            <div class="table-responsive">
+                                <table class="table color-bordered-table red-bordered-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Codigo de Compra(LP,LA,CD)</th>
+                                            <th>Contrato</th>
+                                            <th>Proveedor</th>
+                                            <th>Producto</th>
+                                            <th>Monto Comprado</th>
+                                            <th>Precio Unitario</th>
+                                            <th>Unidades a incrementar</th>
+                                            <th>SubTotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+                    <div role="tabpanel" class="tab-pane" id="criticidad">
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>
 {% endblock %}
 
@@ -68,22 +73,10 @@
 
 {% block js %}
 {{ parent() }}
-    <!-- jQuery peity -->
-    <script src="{{ asset('assets/') }}plugins/bower_components/peity/jquery.peity.min.js"></script>
-    <script src="{{ asset('assets/') }}plugins/bower_components/peity/jquery.peity.init.js"></script>
-
-    <!-- Editable -->
-    <script src="{{ asset('assets/') }}plugins/bower_components/jquery-datatables-editable/jquery.dataTables.js"></script>
-    <script src="{{ asset('assets/') }}plugins/bower_components/datatables/dataTables.bootstrap.js"></script>
-    <script src="{{ asset('assets/') }}plugins/bower_components/tiny-editable/mindmup-editabletable.js"></script>
-    <script src="{{ asset('assets/') }}plugins/bower_components/tiny-editable/numeric-input-example.js"></script>
-    <script>
-    $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
-    $('#editable-datatable').editableTableWidget().numericInputExample().find('td:first').focus();
-    $(document).ready(function() {
-        $('#editable-datatable').DataTable();
-    });
-    </script>
-    <!--Style Switcher -->
-    <script src="{{ asset('assets/') }}splugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+<script type="text/javascript">
+	{% for item in incremento %}
+		console.log(JSON.parse({{item|json_encode}}));
+	{% endfor %}
+</script>
+    
 {% endblock %}
