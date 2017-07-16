@@ -23,23 +23,24 @@ class Contrato
      */
     private $id;
 
-     /**
-     * Muchos resumens tienen un estado.
-     * @ORM\ManyToOne(targetEntity="ResumenIncremento", inversedBy="resumenes")
+    /**
+     * Muchos contratos tienen un resumen
+     * @ORM\ManyToOne(targetEntity="ResumenIncremento", inversedBy="contrato")
      */
-    private $estado;
+    protected $resumenes;
 
 
-     /**
-     * Un Resumen tiene varios contratos.
-     * @ORM\OneToMany(targetEntity="Proveedor", mappedBy="contrato")
+    /**
+     * Un proveedor tiene varios contratos.
+     * @ORM\OneToMany(targetEntity="Proveedor", mappedBy="contratos")
      */
-    private $proveedor;
+    protected $proveedor;
 
-     public function __construct() {
+    public function __construct() {
         $this->proveedor = new ArrayCollection();
     }
 
+   
     /**
      * @var string
      *

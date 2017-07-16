@@ -28,6 +28,12 @@ class Proveedor
     private $contrato;
 
     /**
+     * Muchos contratos tienen un resumen
+     * @ORM\ManyToOne(targetEntity="Contrato", inversedBy="proveedor")
+     */
+    private $contratos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="codigo_proveedor", type="string", length=255)
