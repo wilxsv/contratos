@@ -44,6 +44,32 @@
         </div>
     </div>
 </div>
+
+<div class="white-box">
+    <h3 class="box-title">Listado de Compras en Proceso de Licitacion o Prorroga</h3>
+    <div class="table-responsive">
+        <table class="table color-table success-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Codigo de Compra</th>
+                    <th>Estado</th>
+                    <th>Fecha de creacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for incremento in incrementos %}
+                    <td>{{ incremento.id }}</td>
+                    <td>{{ incremento.codigoCompra }}</td>
+                    <td>{{ incremento.estado.descripcion }}</td>
+                    <td>{{ incremento.fechaCreacion|date('d-m-Y') }}</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 {% endblock %}
 
 {% block js %}
@@ -132,7 +158,7 @@ function incremento_inicio() {
         },
         type: 'POST',
     }).done(function(data) {
-        console.log(data);
+        location.reload();
     }).fail(function() {
         alert('error la peticion ha sido rechazada');
     });

@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Minsal\ModeloBundle\Entity\ResumenIncremento;
-
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
 class InicioProcesoController extends Controller
@@ -20,10 +20,15 @@ class InicioProcesoController extends Controller
 			'LP 43/2017',
 			'LP 05/2017',
 			);
+		$em = $this->getDoctrine()->getManager();
+        $resumen = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->findAll();
+
 		return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig',array(
-			'codigosLicitaciones' => $codigosLicitaciones
+			'codigosLicitaciones' => $codigosLicitaciones,
+			'incrementos' => $resumen
 			));
 	}
+
 	public function crearIncrementoAction(Request $request)
 	{
 		$codigoLicitacion = $request->get('cod');
@@ -53,12 +58,16 @@ class InicioProcesoController extends Controller
 			);
 		$contratosJSON = json_encode($array);
 		$Incremento->setContratos($contratosJSON);
-		$Incremento->setEstado(1);
-		$Incremento->setFechaCreacion('2017-02-12');
 		$em = $this->getDoctrine()->getManager();
+		$estado = $em->getRepository('MinsalModeloBundle:Estado')->find(1);
+		$Incremento->setEstado($estado);
+
+		$Incremento->setFechaCreacion(new \DateTime("now"));
         $em->persist($Incremento);
         $em->flush();
-
-		return $this->redirectToRoute('minsal_contrato_inicio_proceso_inicio');
+        $em = $this->getDoctrine()->getManager();
+       
+		return new Response('Exito');
 	}
+	
 }
