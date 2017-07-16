@@ -132,6 +132,7 @@ function incremento_inicio() {
         },
         type: 'POST',
     }).done(function(data) {
+        console.log(data);
     }).fail(function() {
         alert('error la peticion ha sido rechazada');
     });
