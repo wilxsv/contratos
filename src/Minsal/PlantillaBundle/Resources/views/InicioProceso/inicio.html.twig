@@ -3,8 +3,8 @@
 <div class="row">
     <div class="col-md-6">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Sample Basic Forms</h3>
-            <p class="text-muted m-b-30 font-13"> Bootstrap Elements </p>
+            <h3 class="box-title m-b-0">Formulario para Incrementos</h3>
+            <p class="text-muted m-b-30 font-13"> Unidad de Abastecimiento </p>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
                     <form>
@@ -15,8 +15,8 @@
                                 <input class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">User Name</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Username"> </div>
+                            <label for="exampleInputEmail1">Meses a desestimar</label>
+                            <input type="number" class="form-control"> </div>    
                         
                         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
                     </form>
@@ -75,6 +75,7 @@
 
 {% block js %}
     {{ parent() }}
+
     <!-- jQuery -->
     <!-- Menu Plugin JavaScript -->
     <!--slimscroll JavaScript -->
@@ -85,7 +86,66 @@
     <script src="{{ asset('assets/') }}sinab/js/custom.min.js"></script>
     <!-- Typehead Plugin JavaScript -->
     <script src="{{ asset('assets/') }}plugins/bower_components/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
-    <script src="{{ asset('assets/') }}plugins/bower_components/typeahead.js-master/dist/typeahead-init.js"></script>
+    <!--<script src="{{ asset('assets/') }}plugins/bower_components/typeahead.js-master/dist/typeahead-init.js"></script>-->
     <!--Style Switcher -->
     <script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+    <script type="text/javascript">
+    var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+
+    // an array that will be populated with substring matches
+    matches = [];
+
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+
+    cb(matches);
+  };
+};
+// var codigosLicitacion = JSON QUE DEBO ENVIAR
+var codigosLicitacion = ["LP 05/2017"];
+
+// ---------- Bloodhound ----------
+
+// constructs the suggestion engine
+var codigosLicitacion = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  // `codigosLicitacion` is an array of state names defined in "The Basics"
+  local: codigosLicitacion
+});
+
+$('#bloodhound .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'codigosLicitacion',
+  source: codigosLicitacion
+});
+
+
+
+
+// -------- Scrollable --------
+
+
+
+$('#scrollable-dropdown-menu .typeahead').typeahead(null, {
+  name: 'codigosLicitacion',
+  limit: 10,
+  source: codigosLicitacion
+});
+
+    </script>
 {% endblock %}
