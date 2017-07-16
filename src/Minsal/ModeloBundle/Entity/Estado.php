@@ -1,6 +1,7 @@
 <?php
 
 namespace Minsal\ModeloBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,10 +25,16 @@ class Estado
      */
     private $id;
 
-    /*
-    * @ORM\OneToOne(targetEntity="ResumenIncremento", mappedBy="estado")
-    */
-    protected $resumen;
+    /**
+     * Un estado tiene varios resumenes.
+     * @ORM\OneToMany(targetEntity="ResumenIncremento", mappedBy="estado")
+     */
+    private $resumenes;
+    // ...
+
+    public function __construct() {
+        $this->resumenes = new ArrayCollection();
+    }
 
     /**
      * @var string

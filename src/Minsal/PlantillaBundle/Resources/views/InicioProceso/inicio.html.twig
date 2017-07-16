@@ -59,10 +59,12 @@
             </thead>
             <tbody>
                 {% for incremento in incrementos %}
-                    <td>{{ incremento.id }}</td>
+                    <tr>
+                        <td>{{ incremento.id }}</td>
                     <td>{{ incremento.codigoCompra }}</td>
                     <td>{{ incremento.estado.descripcion }}</td>
                     <td>{{ incremento.fechaCreacion|date('d-m-Y') }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

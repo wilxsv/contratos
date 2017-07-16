@@ -35,9 +35,10 @@ class ResumenIncremento
      */
     private $contratos;
 
+     // ...
     /**
-     * One Product has One Shipment.
-     * @ORM\OneToOne(targetEntity="Estado", inversedBy="resumen")
+     * Muchos resumens tienen un estado.
+     * @ORM\ManyToOne(targetEntity="Estado", inversedBy="resumenes")
      */
     private $estado;
 
