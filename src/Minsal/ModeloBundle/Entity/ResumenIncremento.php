@@ -37,17 +37,9 @@ class ResumenIncremento
 
     /**
      * One Product has One Shipment.
-     * @ORM\OneToMany(targetEntity="Estado", mappedBy="resumen")
+     * @ORM\OneToOne(targetEntity="Estado", mappedBy="resumen")
      */
     private $estado;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->estado = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * @var \DateTime

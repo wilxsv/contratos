@@ -12,11 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Estado
 {
-    /**
-     *Muchos contratos tiene una sola compra
-     *@ORM\ManyToOne(targetEntity="ResumenIncremento", inversedBy="estado")
-    */
-    protected $resumen;
+
+    
+
     /**
      * @var int
      *
@@ -25,6 +23,11 @@ class Estado
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /*
+    * @ORM\OneToOne(targetEntity="ResumenIncremento", inversedBy="estado")
+    */
+    protected $resumen;
 
     /**
      * @var string
