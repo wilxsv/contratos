@@ -21,11 +21,7 @@ class Proveedor
      */
     private $id;
 
-    /**
-     * Un proveedor tiene varios contratos.
-     * @ORM\OneToMany(targetEntity="Contrato", mappedBy="proveedor")
-     */
-    private $contrato;
+    
 
     /**
      * Muchos contratos tienen un resumen
