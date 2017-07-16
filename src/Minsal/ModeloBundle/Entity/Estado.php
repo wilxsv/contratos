@@ -13,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Estado
 {
     /**
+     *Muchos contratos tiene una sola compra
+     *@ORM\ManyToOne(targetEntity="ResumenIncremento", inversedBy="estado")
+    */
+    protected $resumen;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
