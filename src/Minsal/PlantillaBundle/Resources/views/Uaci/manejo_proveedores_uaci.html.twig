@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Depuracion Proveedores{% endblock %}
 {% block head_css %}
 	{{ parent() }}
     <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -27,11 +28,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for item in datos %}
-								<tr>
-									<td>{{ item.contratos }}</td>
-								</tr>
+							{% for dato in datos %}
+							<tr>
+								<td>{{ dato.contratos }}</td>
+							</tr>
 							{% endfor %}
+							
+								
+							
 						</tbody>
 					</table>
 				</div>
