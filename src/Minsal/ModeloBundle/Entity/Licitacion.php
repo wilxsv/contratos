@@ -26,7 +26,7 @@ class Licitacion
     /**
      * @ORM\OneToMany(targetEntity="Contrato", mappedBy="licitacion")
      */
-    private $contratos;
+    protected $contratos;
 
     public function __construct()
     {

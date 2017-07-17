@@ -25,21 +25,9 @@ class Proveedor
 
 
     /**
-     * @ORM\OneToMany(targetEntity="EstadoProveedor", mappedBy="proveedor")
-     */
-    private $estadosproveedor;
-
-    public function __construct()
-    {
-        $this->estadosproveedor = new ArrayCollection();
-    }
-
-
-
-    /**
      * @ORM\OneToMany(targetEntity="Producto", mappedBy="proveedor")
      */
-    private $productos;
+    protected $productos;
 
     public function __construct()
     {
@@ -51,7 +39,21 @@ class Proveedor
      * @ORM\ManyToOne(targetEntity="Contrato", inversedBy="proveedores")
      * 
      */
-    private $contrato;
+    protected $contrato;
+
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_cambio_at", type="datetime")
+     */
+    private $fechaCambioAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado_actual", type="string", length=255)
+     */
+    private $estadoActual;
 
 
     /**
@@ -123,5 +125,52 @@ class Proveedor
     public function getEntidadLegal()
     {
         return $this->entidadLegal;
+    }
+
+
+     /**
+     * Set fechaCambioAt
+     *
+     * @param \DateTime $fechaCambioAt
+     * @return EstadoProveedor
+     */
+    public function setFechaCambioAt($fechaCambioAt)
+    {
+        $this->fechaCambioAt = $fechaCambioAt;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaCambioAt
+     *
+     * @return \DateTime 
+     */
+    public function getFechaCambioAt()
+    {
+        return $this->fechaCambioAt;
+    }
+
+    /**
+     * Set estadoActual
+     *
+     * @param string $estadoActual
+     * @return EstadoProveedor
+     */
+    public function setEstadoActual($estadoActual)
+    {
+        $this->estadoActual = $estadoActual;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoActual
+     *
+     * @return string 
+     */
+    public function getEstadoActual()
+    {
+        return $this->estadoActual;
     }
 }

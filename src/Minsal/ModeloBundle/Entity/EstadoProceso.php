@@ -25,7 +25,7 @@ class EstadoProceso
      * @ORM\ManyToOne(targetEntity="ProcesoIncremento", inversedBy="estadosproceso")
      * 
      */
-    private $procesoincremento;
+    protected $procesoincremento;
 
 
     /**

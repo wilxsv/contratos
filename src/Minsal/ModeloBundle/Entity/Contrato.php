@@ -26,7 +26,7 @@ class Contrato
     /**
      * @ORM\OneToMany(targetEntity="Proveedor", mappedBy="contrato")
      */
-    private $proveedores;
+    protected $proveedores;
 
     public function __construct()
     {
@@ -38,7 +38,7 @@ class Contrato
      * @ORM\ManyToOne(targetEntity="Licitacion", inversedBy="contratos")
      * 
      */
-    private $licitacion;
+    protected $licitacion;
 
 
     /**
