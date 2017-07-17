@@ -21,7 +21,7 @@ class InicioProcesoController extends Controller
 			'LP 05/2017',
 			);
 		$em = $this->getDoctrine()->getManager();
-        $resumen = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->findAll();
+        $resumen = $em->getRepository('MinsalModeloBundle:ProcesoIncremento')->findAll();
 
 		return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig',array(
 			'codigosLicitaciones' => $codigosLicitaciones,

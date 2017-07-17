@@ -19,7 +19,7 @@ class AnalizadorController extends Controller
 	public function dashboardAction($id)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$datosJSON = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->obtenerJSON($id);
+		$datosJSON = $em->getRepository('MinsalModeloBundle:ProcesoIncremento')->obtenerJSON($id);
 
 		return $this->render('MinsalPlantillaBundle:Analizador:dashboard.html.twig', array(
 			'incremento' => $datosJSON,
