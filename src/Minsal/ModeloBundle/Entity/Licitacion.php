@@ -1,6 +1,8 @@
 <?php
 
 namespace Minsal\ModeloBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,6 +22,16 @@ class Licitacion
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Contrato", mappedBy="licitacion")
+     */
+    private $contratos;
+
+    public function __construct()
+    {
+        $this->contratos = new ArrayCollection();
+    }
 
     /**
      * @var string

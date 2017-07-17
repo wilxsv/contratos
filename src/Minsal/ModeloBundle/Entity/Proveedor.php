@@ -3,6 +3,7 @@
 namespace Minsal\ModeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Proveedor
@@ -20,6 +21,38 @@ class Proveedor
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="EstadoProveedor", mappedBy="proveedor")
+     */
+    private $estadosproveedor;
+
+    public function __construct()
+    {
+        $this->estadosproveedor = new ArrayCollection();
+    }
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Producto", mappedBy="proveedor")
+     */
+    private $productos;
+
+    public function __construct()
+    {
+        $this->productos = new ArrayCollection();
+    }
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Contrato", inversedBy="proveedores")
+     * 
+     */
+    private $contrato;
+
 
     /**
      * @var string

@@ -21,6 +21,12 @@ class EstadoProveedor
      */
     private $id;
 
+     /**
+     * @ORM\ManyToOne(targetEntity="Proveedor", inversedBy="estadosproveedor")
+     * 
+     */
+    private $proveedor;
+
     /**
      * @var \DateTime
      *

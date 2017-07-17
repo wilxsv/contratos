@@ -3,6 +3,8 @@
 namespace Minsal\ModeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * ProcesoIncremento
@@ -20,6 +22,17 @@ class ProcesoIncremento
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="EstadoProceso", mappedBy="procesoincremento")
+     */
+    private $estadosproceso;
+
+    public function __construct()
+    {
+        $this->estadosprocesos = new ArrayCollection();
+    }
+
 
     /**
      * @var string

@@ -22,6 +22,12 @@ class Producto
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Proveedor", inversedBy="productos")
+     * 
+     */
+    private $proveedor;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="codigo_producto", type="string", length=255)

@@ -22,6 +22,13 @@ class EstadoProceso
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ProcesoIncremento", inversedBy="estadosproceso")
+     * 
+     */
+    private $procesoincremento;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="descripcion", type="string", length=255)
