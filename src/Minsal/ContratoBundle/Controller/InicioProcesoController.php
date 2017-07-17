@@ -14,17 +14,14 @@ class InicioProcesoController extends Controller
 {
 	public function inicioAction()
 	{	
-		$codigosLicitaciones = array(
-			'LP 02/2017',
-			'LP 12/2017',
-			'LP 43/2017',
-			'LP 05/2017',
-			);
+		$em = $this->getDoctrine()->getManager();
+		$licitaciones = $em->getRepository('MinsalModeloBundle:Licitacion')->findAll();
+		
 		$em = $this->getDoctrine()->getManager();
         $resumen = $em->getRepository('MinsalModeloBundle:ProcesoIncremento')->findAll();
 
 		return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig',array(
-			'codigosLicitaciones' => $codigosLicitaciones,
+			'codigosLicitaciones' => $licitaciones,
 			'incrementos' => $resumen
 			));
 	}

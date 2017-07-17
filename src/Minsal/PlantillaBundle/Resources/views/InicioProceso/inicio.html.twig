@@ -123,13 +123,10 @@
 };
 // var codigosLicitacion = array de la consulta
 var codigosLicitacion=[] ;
-{% for codigosl in codigosLicitaciones %}
-    codigosLicitacion.push('{{codigosl}}')
+{% for codigos in codigosLicitaciones %}
+    codigosLicitacion.push('{{codigos.codigoLicitacion}}')
 {% endfor %}
-
-
 // ---------- Bloodhound ----------
-
 // constructs the suggestion engine
 var codigosLicitacion = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.whitespace,
@@ -160,6 +157,7 @@ $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
   source: codigosLicitacion
 });
 
+// -------- Funcion para cargar el contenido en e inicio ----------//
 function incremento_inicio() {
     var licitacionIncremento = $('#codigoCompra').val();
     $.ajax({
