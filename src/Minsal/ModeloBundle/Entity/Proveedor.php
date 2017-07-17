@@ -1,8 +1,6 @@
 <?php
 
 namespace Minsal\ModeloBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,22 +20,6 @@ class Proveedor
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * Un estado tiene varios resumenes.
-     * @ORM\OneToMany(targetEntity="Producto", mappedBy="proveedor")
-     */
-    private $producto;
-
-    public function __construct() {
-        $this->producto = new ArrayCollection();
-    }
-
-    /**
-     * Muchos contratos tienen un resumen
-     * @ORM\ManyToOne(targetEntity="Contrato", inversedBy="proveedor")
-     */
-    private $contratos;
 
     /**
      * @var string

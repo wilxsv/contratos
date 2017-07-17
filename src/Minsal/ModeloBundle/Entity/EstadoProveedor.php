@@ -1,8 +1,6 @@
 <?php
 
 namespace Minsal\ModeloBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,9 +24,16 @@ class EstadoProveedor
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fechaCambio", type="datetime", nullable=true)
+     * @ORM\Column(name="fecha_cambio_at", type="datetime")
      */
-    private $fechaCambio;
+    private $fechaCambioAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado_actual", type="string", length=255)
+     */
+    private $estadoActual;
 
 
     /**
@@ -42,25 +47,48 @@ class EstadoProveedor
     }
 
     /**
-     * Set fechaCambio
+     * Set fechaCambioAt
      *
-     * @param \DateTime $fechaCambio
+     * @param \DateTime $fechaCambioAt
      * @return EstadoProveedor
      */
-    public function setFechaCambio($fechaCambio)
+    public function setFechaCambioAt($fechaCambioAt)
     {
-        $this->fechaCambio = $fechaCambio;
+        $this->fechaCambioAt = $fechaCambioAt;
 
         return $this;
     }
 
     /**
-     * Get fechaCambio
+     * Get fechaCambioAt
      *
      * @return \DateTime 
      */
-    public function getFechaCambio()
+    public function getFechaCambioAt()
     {
-        return $this->fechaCambio;
+        return $this->fechaCambioAt;
+    }
+
+    /**
+     * Set estadoActual
+     *
+     * @param string $estadoActual
+     * @return EstadoProveedor
+     */
+    public function setEstadoActual($estadoActual)
+    {
+        $this->estadoActual = $estadoActual;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoActual
+     *
+     * @return string 
+     */
+    public function getEstadoActual()
+    {
+        return $this->estadoActual;
     }
 }

@@ -3,8 +3,6 @@
 namespace Minsal\ModeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-
 
 /**
  * Contrato
@@ -24,43 +22,18 @@ class Contrato
     private $id;
 
     /**
-     * Muchos contratos tienen un resumen
-     * @ORM\ManyToOne(targetEntity="ResumenIncremento", inversedBy="contrato")
-     */
-    protected $resumenes;
-
-
-    /**
-     * Un proveedor tiene varios contratos.
-     * @ORM\OneToMany(targetEntity="Proveedor", mappedBy="contratos")
-     */
-    protected $proveedor;
-
-    public function __construct() {
-        $this->proveedor = new ArrayCollection();
-    }
-
-   
-    /**
      * @var string
      *
-     * @ORM\Column(name="num_contrato", type="string", length=255, nullable=true)
+     * @ORM\Column(name="numero_contrato", type="string", length=255)
      */
-    private $numContrato;
+    private $numeroContrato;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="monto_contrato", type="float", nullable=true)
+     * @ORM\Column(name="monto_contrato", type="float")
      */
     private $montoContrato;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="codigolicitacion", type="string", length=255, nullable=true)
-     */
-    private $codigolicitacion;
 
 
     /**
@@ -74,26 +47,26 @@ class Contrato
     }
 
     /**
-     * Set numContrato
+     * Set numeroContrato
      *
-     * @param string $numContrato
+     * @param string $numeroContrato
      * @return Contrato
      */
-    public function setNumContrato($numContrato)
+    public function setNumeroContrato($numeroContrato)
     {
-        $this->numContrato = $numContrato;
+        $this->numeroContrato = $numeroContrato;
 
         return $this;
     }
 
     /**
-     * Get numContrato
+     * Get numeroContrato
      *
      * @return string 
      */
-    public function getNumContrato()
+    public function getNumeroContrato()
     {
-        return $this->numContrato;
+        return $this->numeroContrato;
     }
 
     /**
@@ -117,28 +90,5 @@ class Contrato
     public function getMontoContrato()
     {
         return $this->montoContrato;
-    }
-
-    /**
-     * Set codigolicitacion
-     *
-     * @param string $codigolicitacion
-     * @return Contrato
-     */
-    public function setCodigolicitacion($codigolicitacion)
-    {
-        $this->codigolicitacion = $codigolicitacion;
-
-        return $this;
-    }
-
-    /**
-     * Get codigolicitacion
-     *
-     * @return string 
-     */
-    public function getCodigolicitacion()
-    {
-        return $this->codigolicitacion;
     }
 }

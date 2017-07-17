@@ -3,8 +3,6 @@
 namespace Minsal\ModeloBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-
 
 /**
  * Producto
@@ -24,12 +22,6 @@ class Producto
     private $id;
 
     /**
-     * Muchos contratos tienen un resumen
-     * @ORM\ManyToOne(targetEntity="Proveedor", inversedBy="producto")
-     */
-    protected $proveedor;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="codigo_producto", type="string", length=255)
@@ -44,9 +36,9 @@ class Producto
     private $nombreProducto;
 
     /**
-     * @var float
+     * @var string
      *
-     * @ORM\Column(name="precio_actual", type="float")
+     * @ORM\Column(name="precio_actual", type="string", length=255)
      */
     private $precioActual;
 
@@ -117,7 +109,7 @@ class Producto
     /**
      * Set precioActual
      *
-     * @param float $precioActual
+     * @param string $precioActual
      * @return Producto
      */
     public function setPrecioActual($precioActual)
@@ -130,7 +122,7 @@ class Producto
     /**
      * Get precioActual
      *
-     * @return float 
+     * @return string 
      */
     public function getPrecioActual()
     {

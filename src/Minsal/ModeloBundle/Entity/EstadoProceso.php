@@ -1,21 +1,17 @@
 <?php
 
 namespace Minsal\ModeloBundle\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Estado
+ * EstadoProceso
  *
- * @ORM\Table(name="mnt_estado")
- * @ORM\Entity(repositoryClass="Minsal\ModeloBundle\Repository\EstadoRepository")
+ * @ORM\Table(name="estado_proceso")
+ * @ORM\Entity(repositoryClass="Minsal\ModeloBundle\Repository\EstadoProcesoRepository")
  */
-class Estado
+class EstadoProceso
 {
-
-    
-
     /**
      * @var int
      *
@@ -24,17 +20,6 @@ class Estado
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * Un estado tiene varios resumenes.
-     * @ORM\OneToMany(targetEntity="ResumenIncremento", mappedBy="estado")
-     */
-    private $resumenes;
-    // ...
-
-    public function __construct() {
-        $this->resumenes = new ArrayCollection();
-    }
 
     /**
      * @var string
@@ -72,7 +57,7 @@ class Estado
      * Set descripcion
      *
      * @param string $descripcion
-     * @return Estado
+     * @return EstadoProceso
      */
     public function setDescripcion($descripcion)
     {
@@ -95,7 +80,7 @@ class Estado
      * Set responsable
      *
      * @param string $responsable
-     * @return Estado
+     * @return EstadoProceso
      */
     public function setResponsable($responsable)
     {
@@ -118,7 +103,7 @@ class Estado
      * Set puesto
      *
      * @param string $puesto
-     * @return Estado
+     * @return EstadoProceso
      */
     public function setPuesto($puesto)
     {
