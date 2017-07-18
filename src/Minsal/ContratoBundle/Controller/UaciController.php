@@ -13,7 +13,7 @@ class UaciController extends Controller
 	public function uaciInicioAction()
 	{
 	 	$em = $this->getDoctrine()->getManager();
-        $incrementos = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->findAll();
+        $incrementos = $em->getRepository('MinsalModeloBundle:ProcesoIncremento')->findAll();
 		return $this->render('MinsalPlantillaBundle:Uaci:inicio.html.twig',array(
 			'incrementos' => $incrementos
 			));
@@ -23,11 +23,9 @@ class UaciController extends Controller
 	public function proveedorUaciAction($id)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$datosJSON = $em->getRepository('MinsalModeloBundle:ResumenIncremento')->obtenerJSON($id);
 		
 		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
-			'id'=> $id,
-			'datos'=>$datosJSON,
+			
 			));
 	}
 }

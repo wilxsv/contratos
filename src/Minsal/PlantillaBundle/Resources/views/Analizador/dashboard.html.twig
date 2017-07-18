@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 {% block title%} Analizador {% endblock %}
 {% block body %}
-	<div class="row">
-		<div class="col-lg-12 col-sm-12 col-xs-12">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
             <div class="white-box">
                 <h3 class="box-title m-b-0">Comision analizadora</h3>
                 <p class="text-muted m-b-40">UNABAS</p>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
-                    	<a href="#presupuesto" aria-controls="presupuesto" role="tab" data-toggle="tab" aria-expanded="true">
-                    		<span class="visible-xs">
-                    			<i class="ti-presupuesto"></i>
-                    		</span>
-                    		<span class="hidden-xs">Analisis de 20% de incremento</span>
-                    	</a>
+                        <a href="#presupuesto" aria-controls="presupuesto" role="tab" data-toggle="tab" aria-expanded="true">
+                            <span class="visible-xs">
+                                <i class="ti-presupuesto"></i>
+                            </span>
+                            <span class="hidden-xs">Analisis de 20% de incremento</span>
+                        </a>
                     </li>
                     <li role="presentation" class="">
-                    	<a href="#criticidad" aria-controls="criticidad" role="tab" data-toggle="tab" aria-expanded="false">
-                    		<span class="visible-xs">
-                    			<i class="ti-user"></i>
-                    		</span> 
-                    		<span class="hidden-xs">Analisis de Criticidad</span>
-                    	</a>
+                        <a href="#criticidad" aria-controls="criticidad" role="tab" data-toggle="tab" aria-expanded="false">
+                            <span class="visible-xs">
+                                <i class="ti-user"></i>
+                            </span> 
+                            <span class="hidden-xs">Analisis de Criticidad</span>
+                        </a>
                     </li>
                 </ul>
                 <!-- Tab panes -->
@@ -31,7 +31,7 @@
                         <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">Analisis Presupuestario</h3>
-                            <p class="text-muted">Recuerde que no el monto total a incrementar no debe ser mayor al 20% de la compra de periodo anterior</p>
+                            <p class="text-muted">Recuerde que no el monto total a incrementar no debe ser mayor al 20% de la compra de periodo anterior <span style="color:red;">EL MONTO DEL 20% DE LA COMPRA ANTERIOR ES DE : $ <span id="mtn20" style="color:blue"></span></span> </p></p>
                             <div class="table-responsive">
                                 <table class="table color-bordered-table red-bordered-table" id="tabla">
                                     <thead>
@@ -51,67 +51,67 @@
                                         <tr>
                                             <td>1</td>
                                             <td>LP N. 21/2017</td>
-                                            <td>Contrato</td>
+                                            <td>4232</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
                                             <td>1223.00</td>
-                                            <td>4.1</td>
-                                            <td><input type="number"></td>
+                                            <td>2.33</td>
+                                            <td><input type="number" onchange="calcular(4232);" id="4232"></td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>LP N. 21/2017</td>
-                                            <td>Contrato</td>
+                                            <td>353</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
                                             <td>1223.00</td>
                                             <td>4.1</td>
-                                            <td><input type="number"></td>
+                                            <td><input type="number" onchange="calcular(353);" id="353"></td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>LP N. 21/2017</td>
-                                            <td>Contrato</td>
+                                            <td>4343</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
                                             <td>1223.00</td>
-                                            <td>4.1</td>
-                                            <td><input type="number"></td>
+                                            <td>23.45</td>
+                                            <td><input type="number" onchange="calcular(4343);" id="4343"></td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>LP N. 21/2017</td>
-                                            <td>Contrato</td>
+                                            <td>345</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
                                             <td>23.00</td>
-                                            <td>4.1</td>
-                                            <td><input type="number"></td>
+                                            <td>43.5</td> 
+                                            <td><input type="number" onchange="calcular(345);" id="345"></td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>LP N. 21/2017</td>
-                                            <td>Contrato</td>
+                                            <td>123</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
                                             <td>12430</td>
                                             <td>45.1</td>
-                                            <td><input type="number"></td>
+                                            <td><input type="number" onchange="calcular(123);" id="123"></td>
                                             <td>0</td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>LP N. 21/2017</td>
-                                            <td>Contrato</td>
+                                            <td>678</td>
                                             <td>Proveedor</td>
                                             <td>Producto</td>
                                             <td>12100</td>
                                             <td>4.1</td>
-                                            <td><input type="number"></td>
+                                            <td><input type="number" onchange="calcular(678);" id="678"></td>
                                             <td>0</td>
                                         </tr>
                                         
@@ -145,102 +145,81 @@
                 </div>
             </div>
         </div>
-	</div>
+    </div>
 {% endblock %}
 
 {% block js %}
 {{ parent() }}
 <script type="text/javascript">
-	$(document).ready(function() {
+    $(document).ready(function() {
         iniciar();
-        calcular();
     });
+    function escrituraSubTotales() {
+        var subtotal = 0;
+        var preUni = 0;
+        var unidades = 0;
+        $('#tabla tbody tr').each(function () {
+            preUni = parseFloat($(this).find("td").eq(6).html());
+            unidades = $(this).find("td").eq(7).find("input").val();
+            $(this).find("td").eq(8).html((preUni*unidades).toFixed(2));
+            subtotal = subtotal + (preUni * unidades);
+            });
+
+        $('#TotalAComprar').html(subtotal.toFixed(2));
+    }
+    function escrituraInicialSubTotales() {
+        var subtotal = 0;
+        $('#tabla tbody tr').each(function () {
+            subtotal = subtotal + parseFloat($(this).find("td").eq(8).html());
+            });
+        $('#TotalAComprar').html(subtotal);
+    }
     function calcularSubTotales() {
         var subtotal = 0;
         $('#tabla tbody tr').each(function () {
             
-            subtotal = subtotal + parseInt($(this).find("td").eq(8).html());
+            subtotal = subtotal + parseFloat($(this).find("td").eq(8).html());
             });
-        $('#TotalAComprar').html(subtotal);
+        
+
         return subtotal;
              
     }
     function iniciar() {
-        var monto_comprado = 0;
+        var monto_comprado = 0.00;
         
         $('#tabla tbody tr').each(function () {
-            monto_comprado = monto_comprado + parseInt($(this).find("td").eq(5).html());
+            monto_comprado = monto_comprado + parseFloat($(this).find("td").eq(5).html());
             $(this).find("td").eq(8).html(0);
-            calcularSubTotales();
+            escrituraInicialSubTotales();
 
         });
-        $('#montoTotalComprado').html(monto_comprado);
+        $('#montoTotalComprado').html(monto_comprado.toFixed(2));
+        $('#mtn20').html((monto_comprado*0.20).toFixed(2));
         
 
     }
-    function calcular() {
-        var fila = $("input[type=number]");
-        fila.change(function() {
-            $('#tabla tbody tr').each(function () {
+    function calcular(id) {
 
-            var monto_comprado = $(this).find("td").eq(5).html();
-            var precio_unitario = $(this).find("td").eq(6).html();
-            var unidadesComprar = $(this).find("td").eq(7).find("input").val();
-            var subtotal = $(this).find("td").eq(8);
-            subtotal.html((unidadesComprar*precio_unitario).toFixed(2));
-            });
-            var montoOriginal = parseInt($('#montoTotalComprado').html());
-            var montoNuevo = calcularSubTotales();
-            if(montoNuevo>(montoOriginal*0.2)){
-                fila.val(0);
-                var rowPadre = fila.parent();
-                var PadrerowPadre = rowPadre.parent();
-                PadrerowPadre.find("td").eq(8).html(0);
+        var fila = $('#'+id).parent().parent();
 
-            }
-        });
-    }
-
-    /*function calcularTotales() {
-        var TotalComprado=0;
-        var subTotalAComprar = 0;
-        $('#tabla tbody tr').each(function () {
-            var monto_comprado = $(this).find("td").eq(5).html();
-            TotalComprado =TotalComprado+parseInt(monto_comprado);
-            var subtotal = $(this).find("td").eq(8).html();
-            subTotalAComprar =+ parseInt(subtotal);
-
-        });
-        var montoT=$('#montoTotalComprado');
-        var tc=$('#TotalAComprar');
-        montoT.html(TotalComprado);
-        tc.html(subTotalAComprar);
-        if (parseInt($('#montoTotalComprado').html())*0.20 <= parseInt($('#TotalAComprar').html())) {
-
-            return true;
+        var preUni = parseFloat(fila.find("td").eq(6).html());
+        var unidades = fila.find("td").eq(7).find("input").val();
+        var posibleSubtotal = parseFloat($('#TotalAComprar').html())+(preUni*unidades);
+        var campoSubtotal = fila.find("td").eq(8);
+        if((calcularSubTotales()+posibleSubtotal)>parseFloat($('#montoTotalComprado').html())){
+          alert('el valor hara que se pase el 20% que puede incrementar');  
+          fflush();
+          exit();
         }
         else{
-            return false;
+            
+            campoSubtotal.html(posibleSubtotal.toFixed(2));
+            escrituraSubTotales();
+            fflush()
+            exit()
         }
     }
-    function calcular() {
-        $('#tabla tbody tr').each(function () {
-
-            var monto_comprado = $(this).find("td").eq(5).html();
-            var precio_unitario = $(this).find("td").eq(6).html();
-            var unidadesComprar = $(this).find("td").eq(7).find("input").val();
-            var subtotal = $(this).find("td").eq(8);
-            if (calcularTotales) {
-                subtotal.html((unidadesComprar*precio_unitario).toFixed(2));
-            }
-            else{
-                subtotal.html('<p>error este valor hace que se pase del 20%</p>');
-            }
-            
-
-        });
-    }
-*/
 </script>
     
 {% endblock %}

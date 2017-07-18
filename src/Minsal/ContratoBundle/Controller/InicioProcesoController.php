@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Minsal\ModeloBundle\Entity\ResumenIncremento;
+use Minsal\ModeloBundle\Entity\ProcesoIncremento;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 
@@ -29,42 +29,25 @@ class InicioProcesoController extends Controller
 	public function crearIncrementoAction(Request $request)
 	{
 		$codigoLicitacion = $request->get('cod');
-		$Incremento = new ResumenIncremento();
-		$Incremento->setCodigoCompra($codigoLicitacion);
-		#aqui tiene que ir el jalado por las bases de datos
-		
-		$array = array(
-			"0" => array(
-					"num_contrato" =>"12/2017",
-					"cod_proveedor"=>"prov123",
-					"is_valid"=>1,
-					"cod_medicamento"=> "ibu123",
-					"medicamento_valid"=>0,
-					"precioUnitario"=>12.23,
-					"cantidad_comprada"=>12
-				),
-			"1" => array(
-					"num_contrato" =>"12/2017",
-					"cod_proveedor"=>"prov123",
-					"is_valid"=>1,
-					"cod_medicamento"=> "ibu123",
-					"medicamento_valid"=>0,
-					"precioUnitario"=>12.23,
-					"cantidad_comprada"=>12
-				)
-			);
-		$contratosJSON = json_encode($array);
-		$Incremento->setContratos($contratosJSON);
-		$em = $this->getDoctrine()->getManager();
-		$estado = $em->getRepository('MinsalModeloBundle:Estado')->find(1);
-		$Incremento->setEstado($estado);
 
-		$Incremento->setFechaCreacion(new \DateTime("now"));
+		$em = $this->getDoctrine()->getManager();
+		$licitacionID = $em->getRepository('MinsalModeloBundle:Licitacion')->findByCodigoLicitacion($codigoLicitacion);
+
+		$Incremento = new ProcesoIncremento();
+		$Incremento->setCodigoCompra($licitacionID[0]->getId());
+		
+		$estado = $em->getRepository('MinsalModeloBundle:EstadoProceso')->findById(1);
+	
+		/*$contratos = $em->getRepository('MinsalModeloBundle:Contrato')->findByLicitacion($licitacionID[0]->getId());
+		$Incremento->setContratos($contratos);
+*/
+		$Incremento->setFechaCreacionAt(new \DateTime("now"));
+
+		
         $em->persist($Incremento);
         $em->flush();
-        $em = $this->getDoctrine()->getManager();
        
-		return new Response('Exito');
+		return new Response('');
 	}
 	
 }

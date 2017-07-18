@@ -45,6 +45,12 @@ class ProcesoIncremento
      */
     private $fechaCreacionAt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_contrato", type="string", length=255)
+     */
+    private $numeroContrato;
 
 
     /**
@@ -270,7 +276,7 @@ class ProcesoIncremento
      * @param \Minsal\ModeloBundle\Entity\EstadoProceso $estadoproceso
      * @return ProcesoIncremento
      */
-    public function setEstadoproceso(Minsal\ModeloBundle\Entity\EstadoProceso $estadoproceso = null)
+    public function setEstadoproceso(\Minsal\ModeloBundle\Entity\EstadoProceso $estadoproceso = null)
     {
         $this->estadoproceso = $estadoproceso;
 
