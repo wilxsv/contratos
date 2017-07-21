@@ -1,0 +1,113 @@
+<?php
+
+namespace Minsal\ModeloBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * MtnProductoContrato
+ *
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="id_establecimiento", columns={"mtn_id_establecimiento", "mtn_id_contrato", "mtn_id_proveedor", "mtn_id_producto", "mtn_id_unidad_medida", "mtn_id_almacen"}), @ORM\Index(name="mtn_id_producto", columns={"mtn_id_producto"}), @ORM\Index(name="mtn_id_proveedor", columns={"mtn_id_proveedor"}), @ORM\Index(name="mtn_id_contrato", columns={"mtn_id_contrato"}), @ORM\Index(name="mtn_id_unidad_medida", columns={"mtn_id_unidad_medida"}), @ORM\Index(name="mtn_id_almacen", columns={"mtn_id_almacen"}), @ORM\Index(name="IDX_1166726113CE8877", columns={"mtn_id_establecimiento"})})
+ * @ORM\Entity
+ */
+class MtnProductoContrato
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="renglon", type="integer", nullable=false)
+     */
+    private $renglon;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cantidad", type="integer", nullable=false)
+     */
+    private $cantidad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="precio_unitario", type="decimal", precision=16, scale=8, nullable=false)
+     */
+    private $precioUnitario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion_proveedor", type="string", length=100, nullable=false)
+     */
+    private $descripcionProveedor;
+
+    /**
+     * @var \CtlProducto
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProducto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_id_producto", referencedColumnName="id")
+     * })
+     */
+    private $mtnProducto;
+
+    /**
+     * @var \CtlProveedor
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_id_proveedor", referencedColumnName="id")
+     * })
+     */
+    private $mtnProveedor;
+
+    /**
+     * @var \CtlContrato
+     *
+     * @ORM\ManyToOne(targetEntity="CtlContrato")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_id_contrato", referencedColumnName="id")
+     * })
+     */
+    private $mtnContrato;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_id_establecimiento", referencedColumnName="id")
+     * })
+     */
+    private $mtnEstablecimiento;
+
+    /**
+     * @var \CtlUnidadMedida
+     *
+     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_id_unidad_medida", referencedColumnName="id")
+     * })
+     */
+    private $mtnUnidadMedida;
+
+    /**
+     * @var \CtlAlmacen
+     *
+     * @ORM\ManyToOne(targetEntity="CtlAlmacen")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_id_almacen", referencedColumnName="id")
+     * })
+     */
+    private $mtnAlmacen;
+
+
+}
