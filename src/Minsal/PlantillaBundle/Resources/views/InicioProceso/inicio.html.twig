@@ -9,9 +9,17 @@
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
                     <form>
-                        
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Codigo de licitacion</label>
+                            <label for="exampleInputEmail1">Tipo de Compra</label>
+                            <i<div id="scrollable-dropdown-menu">
+                                <select>
+                                    <option value="1">LP</option>
+                                    <option value="2">LA</option>
+                                    <option value="3">CD</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Codigo de Compra</label>
                             <i<div id="scrollable-dropdown-menu">
                                 <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                         </div>
@@ -50,32 +58,7 @@
     <h3 class="box-title">Listado de Compras en Proceso de Licitacion o Prorroga</h3>
     <div class="table-responsive">
         <table class="table color-table success-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Codigo de Compra</th>
-                    <th>Estado</th>
-                    <th>Fecha de creacion</th>
-                    <th>Generar Calculos</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for incremento in incrementos %}
-                    <tr>
-                        <td>{{ incremento.id }}</td>
-                        <td>{{ incremento.codigoCompra }}</td>
-                        <td>en proceso de depuracion de proveedores</td>
-                        <td>{{ incremento.fechaCreacionAt|date('d-m-Y') }}</td>
-                        <td>
-                            {% if incremento.estadoproceso != null %}
-                                <a href="{{ path('minsal_contrato_analizador_dashboard', {id: incremento.id}) }}" class="btn btn-info"><span class="glyphicon glyphicon-usd"></span>Calcular</a>
-                            {% else %}
-                                <p class="text-danger">Aun no Puede generar calculos</p>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
+            
         </table>
     </div>
 </div>
@@ -121,28 +104,7 @@
     cb(matches);
   };
 };
-// var codigosLicitacion = array de la consulta
-var codigosLicitacion=[] ;
-{% for codigos in codigosLicitaciones %}
-    codigosLicitacion.push('{{codigos.codigoLicitacion}}')
-{% endfor %}
-// ---------- Bloodhound ----------
-// constructs the suggestion engine
-var codigosLicitacion = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.whitespace,
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  local: codigosLicitacion
-});
 
-$('#bloodhound .typeahead').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: 'codigosLicitacion',
-  source: codigosLicitacion
-});
 
 
 
