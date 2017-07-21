@@ -1,3 +1,7 @@
 minsal_contrato_analizador_dashboard:
     path:     /dashboard/{id}
     defaults: { _controller: MinsalContratoBundle:Analizador:dashboard }
+
+minsal_contrato_analizador_depurar_medicamenntos:
+    path:     /depurarMedicamentos/{id}
+    defaults: { _controller: MinsalContratoBundle:Analizador:depurarMedicamentos }

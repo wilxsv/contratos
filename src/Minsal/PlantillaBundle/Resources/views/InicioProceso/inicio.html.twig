@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block title %}Modulo de prorroga o incremento{% endblock %}
 {% block body %}
+<style type="text/css">
+    #scrollable-dropdown-menu .tt-dropdown-menu {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+</style>
 <div class="row">
     <div class="col-md-6">
         <div class="white-box">
@@ -10,22 +16,20 @@
                 <div class="col-sm-12 col-xs-12">
                     <form>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Tipo de Compra</label>
-                            <i<div id="scrollable-dropdown-menu">
-                                <select>
-                                    <option value="1">LP</option>
-                                    <option value="2">LA</option>
-                                    <option value="3">CD</option>
-                                </select>
-                        </div>
-                        <div class="form-group">
                             <label for="exampleInputEmail1">Codigo de Compra</label>
                             <i<div id="scrollable-dropdown-menu">
                                 <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Meses a desestimar</label>
-                            <input type="number" class="form-control"> </div>    
+                            <input type="number" class="form-control"> </div>
+                        <div class="form-group">
+                            <label>Desea utilizar una estimacion?</label>
+                            Si:<input type="radio" id="estimacionSi"> No:<input type="radio" checked="" id="estimacionNo">
+                        </div>
+                        <div class="form-group" id="estimaciones">
+                            hola
+                        </div>    
                         
                         <a onclick="incremento_inicio();" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>
                     </form>
@@ -50,6 +54,10 @@
                     </div>
                 </div>
             </form>
+            
+        </div>
+        <div class="white-box">
+                <a id="btnsync" onclick="sync()" class="btn btn-info"><span class="glyphicon glyphicon-refresh"></span> Sincronizar Base de datos</a>
         </div>
     </div>
 </div>
@@ -83,16 +91,16 @@
     <!--Style Switcher -->
     <script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
     <script type="text/javascript">
-    var substringMatcher = function(strs) {
+    /*---------------TYPE HEAD -------------------*/
+    // constructs the suggestion engine
+    function creaTypeHead() {
+        var substringMatcher = function(strs) {
   return function findMatches(q, cb) {
     var matches, substringRegex;
-
     // an array that will be populated with substring matches
     matches = [];
-
     // regex used to determine if a string contains the substring `q`
     substrRegex = new RegExp(q, 'i');
-
     // iterate through the pool of strings and for any string that
     // contains the substring `q`, add it to the `matches` array
     $.each(strs, function(i, str) {
@@ -100,43 +108,84 @@
         matches.push(str);
       }
     });
-
     cb(matches);
   };
 };
-
-
-
-
-
+// var codigosLicitacion = array de la consulta
+var codigosLicitacion=[] ;
+{% for codigos in contratos %}
+    codigosLicitacion.push('{{codigos.numeroModalidadCompra}}')
+{% endfor %}
+// ---------- Bloodhound ----------
+// constructs the suggestion engine
+var codigosLicitacion = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  local: codigosLicitacion
+});
+$('#bloodhound .typeahead').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'codigosLicitacion',
+  source: codigosLicitacion
+});
 // -------- Scrollable --------
-
-
-
 $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
   name: 'codigosLicitacion',
   limit: 10,
   source: codigosLicitacion
 });
+    }
+    /*----------Funcion para sincronizar la base de datos ---------------*/
+    function sync() {
+        $.ajax({
+            url: '{{path('minsal_core_sync')}}',
+            data: '',
+            method: 'POST'
+        }).success(function(data) {
+                alert('la base de de datos ha sido actualizada');
+                creaTypeHead();
 
-// -------- Funcion para cargar el contenido en e inicio ----------//
-function incremento_inicio() {
-    var licitacionIncremento = $('#codigoCompra').val();
-    $.ajax({
-        url: '{{ path('minsal_contrato_inicio_proceso_crear') }}',
-        data: {
-            'cod':licitacionIncremento
-        },
-        type: 'POST',
-    }).done(function(data) {
-        location.reload();
-    }).fail(function() {
+        }).fail(function(data) {
+        });
+    }
+/*-------------------Funcion para verificar el uso de estimaciones -------------------*/
+function verificaEstimacion() {
+    $('#estimaciones').hide();
+    $("#estimacionSi").on( 'change', function() {
+    if( $(this).is(':checked') ) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        if ($('#estimacionNo').is(':checked')) {
+            $('#estimacionNo').removeAttr('checked');
+            $('#estimaciones').show();
+        }
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+        }
+
+    });
+    $("#estimacionNo").on( 'change', function() {
+    if( $(this).is(':checked') ) {
+        // Hacer algo si el checkbox ha sido seleccionado
+        if ($('#estimacionSi').is(':checked')) {
+            $('#estimaciones').hide();
+            $('#estimacionSi').removeAttr('checked');
+        }
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+        }
+
     });
 }
+    $(document).ready(function() {
+        creaTypeHead();
+        verificaEstimacion();
+    });
 
-$(document).ready(function() {
 
-});
 
     </script>
 {% endblock %}

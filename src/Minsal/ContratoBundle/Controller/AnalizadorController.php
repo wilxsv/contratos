@@ -25,12 +25,13 @@ class AnalizadorController extends Controller
 	}
 
 	/*
-		* funcion para guardar el analisis generado por unabas en la vista dashboard
+		* funcion que renderiza la depuracion de medicamentos
+
 	*/
 
-	public function guardarAnalisis($analisis_json)
+	public function depurarMedicamentosAction()
 	{
-		
+		return $this->render('MinsalPlantillaBundle:Analizador:depurarMedicamentos.html.twig');
 	}
 
 }
