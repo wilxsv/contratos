@@ -1,0 +1,31 @@
+Minsal\ModeloBundle\Entity\CtlContratos:
+    type: entity
+    table: ctl_contratos
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        numeroContrato:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            column: numero_contrato
+        numeroModalidadCompra:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            column: numero_modalidad_compra
+        montoContrato:
+            type: decimal
+            nullable: true
+            precision: 16
+            scale: 8
+            column: monto_contrato
+    lifecycleCallbacks: {  }
