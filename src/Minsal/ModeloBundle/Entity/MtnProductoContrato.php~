@@ -25,6 +25,13 @@ class MtnProductoContrato
     /**
      * @var integer
      *
+     * @ORM\Column(name="mtn_id_contrato", type="bigint", nullable=true)
+     */
+    private $mtnIdContrato;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="renglon", type="integer", nullable=false)
      */
     private $renglon;
@@ -69,16 +76,6 @@ class MtnProductoContrato
      * })
      */
     private $mtnProducto;
-
-    /**
-     * @var \CtlContrato
-     *
-     * @ORM\ManyToOne(targetEntity="CtlContrato")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="mtn_id_contrato", referencedColumnName="id")
-     * })
-     */
-    private $mtnContrato;
 
 
 }

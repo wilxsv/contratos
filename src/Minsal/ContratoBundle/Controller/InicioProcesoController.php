@@ -108,7 +108,7 @@ class InicioProcesoController extends Controller
       $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
       $incremento->setMesesDesestimar($meses);
       $incremento->setFechaCreacion(new \DateTime("now"));
-      $incremento->setestadoIncremento($estado);
+      $incremento->setestadoIncremento($estado["0"]);
       $incremento->setNumeroModalidadCompra($compra);
     }
 
