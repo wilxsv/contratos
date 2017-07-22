@@ -94,7 +94,9 @@ function crearIncremento() {
                 {% for incremento in incrementos %}
                     <tr>
                         <td>{{ incremento.id }}</td>
-                        <td>{{ incremento.fechaCreacion }}</td>
+                        <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
+                        <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
+                        <td></td>
                     </tr>
                 {% endfor %}
             </tbody>
