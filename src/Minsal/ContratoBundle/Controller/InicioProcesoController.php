@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Minsal\ModeloBundle\Entity\CtlContrato;
 use Minsal\ModeloBundle\Entity\CtlEstablecimiento;
 use Minsal\ModeloBundle\Entity\CtlProveedor;
+use Minsal\ModeloBundle\Entity\CtlIncremento;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 
@@ -95,6 +96,13 @@ class InicioProcesoController extends Controller
 	{
     $cod = $request->get('cod');
     $meses = $request->get('meses');
+    if ($request->get('estimacion')) {
+      
+    }
+    else{
+      
+    }
+
     $em = $this->getDoctrine()->getManager();
 
     $contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
