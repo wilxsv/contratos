@@ -22,7 +22,7 @@ class UaciController extends Controller
 	}
 
 
-	public function proveedorUaciAction($id)
+	public function proveedorUaciAction($cod)
 	{
 		$em = $this->getDoctrine()->getManager();
 		

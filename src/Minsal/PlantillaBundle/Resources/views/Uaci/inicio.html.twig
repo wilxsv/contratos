@@ -33,7 +33,7 @@
 								<td>{{ proceso.id }}</td>
 								<td>{{ proceso.incrementoModalidadCompra.numeroModalidad }}</td>
 								<td>{{ proceso.fechaCreacion|date('d/m/Y') }}</td>
-								<td><a class="btn btn-info" href="{{ path('minsal_contrato_proveedores_uaci', {id:1}) }}"><span class="glyphicon glyphicon-eye-open" ></span> Ver</a></td>
+								<td><a class="btn btn-info" href="{{ path('minsal_contrato_proveedores_uaci', {cod:proceso.incrementoModalidadCompra.numeroModalidad}) }}"><span class="glyphicon glyphicon-eye-open" ></span> Ver</a></td>
 							{% endfor %}
 						</tbody>
 					</table>
