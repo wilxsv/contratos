@@ -12,11 +12,8 @@ class UaciController extends Controller
 
 	public function uaciInicioAction()
 	{
-	 	$em = $this->getDoctrine()->getManager();
-        $incrementos = $em->getRepository('MinsalModeloBundle:ProcesoIncremento')->findAll();
-		return $this->render('MinsalPlantillaBundle:Uaci:inicio.html.twig',array(
-			'incrementos' => $incrementos
-			));
+		return $this->render('MinsalPlantillaBundle:Uaci:inicio.html.twig'
+			);
 	}
 
 

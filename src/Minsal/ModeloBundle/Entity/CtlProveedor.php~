@@ -1,0 +1,54 @@
+<?php
+
+namespace Minsal\ModeloBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlProveedor
+ *
+ * @ORM\Table(name="ctl_proveedor")
+ * @ORM\Entity
+ */
+class CtlProveedor
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_proveedor_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_proveedor", type="string", length=50, nullable=false)
+     */
+    private $codigoProveedor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_proveedor", type="string", length=50, nullable=false)
+     */
+    private $nombreProveedor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nit", type="string", length=50, nullable=false)
+     */
+    private $nit;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="proveedor_id_proveedor", type="integer", nullable=true)
+     */
+    private $proveedorIdProveedor;
+
+
+}

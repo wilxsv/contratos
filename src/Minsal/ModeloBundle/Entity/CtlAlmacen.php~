@@ -30,37 +30,4 @@ class CtlAlmacen
     private $nombreAlmacen;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nombreAlmacen
-     *
-     * @param string $nombreAlmacen
-     * @return CtlAlmacen
-     */
-    public function setNombreAlmacen($nombreAlmacen)
-    {
-        $this->nombreAlmacen = $nombreAlmacen;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreAlmacen
-     *
-     * @return string 
-     */
-    public function getNombreAlmacen()
-    {
-        return $this->nombreAlmacen;
-    }
 }

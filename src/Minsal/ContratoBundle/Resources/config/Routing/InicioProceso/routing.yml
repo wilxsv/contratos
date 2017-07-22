@@ -1,3 +1,6 @@
+minsal_contrato_inicio_depurar_medicamentos:
+    path:     /depurarMedicamentos
+    defaults: { _controller: MinsalContratoBundle:InicioProceso:depurarMedicamentos }
 
 minsal_contrato_inicio_proceso_inicio:
     path:     /

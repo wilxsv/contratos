@@ -17,7 +17,8 @@ class CtlEstablecimiento
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_establecimiento_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -35,5 +36,91 @@ class CtlEstablecimiento
      */
     private $nombreEstablecimiento;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="establecimiento_id_establecimiento", type="integer", nullable=true)
+     */
+    private $establecimientoIdEstablecimiento;
 
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set codigoEstablecimiento
+     *
+     * @param string $codigoEstablecimiento
+     * @return CtlEstablecimiento
+     */
+    public function setCodigoEstablecimiento($codigoEstablecimiento)
+    {
+        $this->codigoEstablecimiento = $codigoEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoEstablecimiento
+     *
+     * @return string 
+     */
+    public function getCodigoEstablecimiento()
+    {
+        return $this->codigoEstablecimiento;
+    }
+
+    /**
+     * Set nombreEstablecimiento
+     *
+     * @param string $nombreEstablecimiento
+     * @return CtlEstablecimiento
+     */
+    public function setNombreEstablecimiento($nombreEstablecimiento)
+    {
+        $this->nombreEstablecimiento = $nombreEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreEstablecimiento
+     *
+     * @return string 
+     */
+    public function getNombreEstablecimiento()
+    {
+        return $this->nombreEstablecimiento;
+    }
+
+    /**
+     * Set establecimientoIdEstablecimiento
+     *
+     * @param integer $establecimientoIdEstablecimiento
+     * @return CtlEstablecimiento
+     */
+    public function setEstablecimientoIdEstablecimiento($establecimientoIdEstablecimiento)
+    {
+        $this->establecimientoIdEstablecimiento = $establecimientoIdEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimientoIdEstablecimiento
+     *
+     * @return integer 
+     */
+    public function getEstablecimientoIdEstablecimiento()
+    {
+        return $this->establecimientoIdEstablecimiento;
+    }
 }

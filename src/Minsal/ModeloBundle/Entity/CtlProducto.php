@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="id_establecimiento", columns={"producto_id_establecimiento", "producto_id_unidad_medida"}), @ORM\Index(name="producto_id_unidad_medida", columns={"producto_id_unidad_medida"}), @ORM\Index(name="IDX_CE4BEAC37E474584", columns={"producto_id_establecimiento"})})
+ * @ORM\Table(name="ctl_producto")
  * @ORM\Entity
  */
 class CtlProducto
@@ -17,9 +17,24 @@ class CtlProducto
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_producto_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="producto_id_unidad_medida", type="integer", nullable=true)
+     */
+    private $productoIdUnidadMedida;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="producto_id_establecimiento", type="integer", nullable=true)
+     */
+    private $productoIdEstablecimiento;
 
     /**
      * @var string
@@ -42,25 +57,130 @@ class CtlProducto
      */
     private $estadoProducto;
 
-    /**
-     * @var \CtlUnidadMedida
-     *
-     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="producto_id_unidad_medida", referencedColumnName="id")
-     * })
-     */
-    private $productoUnidadMedida;
+
 
     /**
-     * @var \CtlEstablecimiento
+     * Get id
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="producto_id_establecimiento", referencedColumnName="id")
-     * })
+     * @return integer 
      */
-    private $productoEstablecimiento;
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set productoIdUnidadMedida
+     *
+     * @param integer $productoIdUnidadMedida
+     * @return CtlProducto
+     */
+    public function setProductoIdUnidadMedida($productoIdUnidadMedida)
+    {
+        $this->productoIdUnidadMedida = $productoIdUnidadMedida;
 
+        return $this;
+    }
+
+    /**
+     * Get productoIdUnidadMedida
+     *
+     * @return integer 
+     */
+    public function getProductoIdUnidadMedida()
+    {
+        return $this->productoIdUnidadMedida;
+    }
+
+    /**
+     * Set productoIdEstablecimiento
+     *
+     * @param integer $productoIdEstablecimiento
+     * @return CtlProducto
+     */
+    public function setProductoIdEstablecimiento($productoIdEstablecimiento)
+    {
+        $this->productoIdEstablecimiento = $productoIdEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get productoIdEstablecimiento
+     *
+     * @return integer 
+     */
+    public function getProductoIdEstablecimiento()
+    {
+        return $this->productoIdEstablecimiento;
+    }
+
+    /**
+     * Set codigoProducto
+     *
+     * @param string $codigoProducto
+     * @return CtlProducto
+     */
+    public function setCodigoProducto($codigoProducto)
+    {
+        $this->codigoProducto = $codigoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoProducto
+     *
+     * @return string 
+     */
+    public function getCodigoProducto()
+    {
+        return $this->codigoProducto;
+    }
+
+    /**
+     * Set nombreProducto
+     *
+     * @param string $nombreProducto
+     * @return CtlProducto
+     */
+    public function setNombreProducto($nombreProducto)
+    {
+        $this->nombreProducto = $nombreProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreProducto
+     *
+     * @return string 
+     */
+    public function getNombreProducto()
+    {
+        return $this->nombreProducto;
+    }
+
+    /**
+     * Set estadoProducto
+     *
+     * @param string $estadoProducto
+     * @return CtlProducto
+     */
+    public function setEstadoProducto($estadoProducto)
+    {
+        $this->estadoProducto = $estadoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProducto
+     *
+     * @return string 
+     */
+    public function getEstadoProducto()
+    {
+        return $this->estadoProducto;
+    }
 }

@@ -1,0 +1,74 @@
+<?php
+
+namespace Minsal\ModeloBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CtlContrato
+ *
+ * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="IDX_F9989F5858B56E9", columns={"contrato_id_proveedor"}), @ORM\Index(name="IDX_F9989F5235C3B82", columns={"contrato_id_establecimiento"})})
+ * @ORM\Entity
+ */
+class CtlContrato
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_contrato_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_contrato", type="string", length=50, nullable=false)
+     */
+    private $numeroContrato;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_modalidad_compra", type="string", length=50, nullable=false)
+     */
+    private $numeroModalidadCompra;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="monto_contrato", type="decimal", precision=16, scale=2, nullable=false)
+     */
+    private $montoContrato;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="contrato_id_contrato", type="integer", nullable=true)
+     */
+    private $contratoIdContrato;
+
+    /**
+     * @var \CtlProveedor
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="contrato_id_proveedor", referencedColumnName="id")
+     * })
+     */
+    private $contratoProveedor;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="contrato_id_establecimiento", referencedColumnName="id")
+     * })
+     */
+    private $contratoEstablecimiento;
+
+
+}

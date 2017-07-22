@@ -2,7 +2,3 @@ minsal_core_homepage:
     path:     /
     defaults: { _controller: MinsalCoreBundle:Default:index }
 
-minsal_core_sync:
-    path:       /sync
-    defaults:   { _controller:MinsalCoreBundle:Rest:sincronizarbd }
-    methods:    POST

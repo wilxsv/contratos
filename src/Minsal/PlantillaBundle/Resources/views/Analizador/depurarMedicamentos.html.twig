@@ -1,4 +1,63 @@
 {% extends 'base.html.twig' %}
+{% block head_css %}
+	{{ parent() }}
+    <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<!-- Menu CSS -->
+    <link href="{{ asset('assets/') }}plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+{% endblock %}
 {% block body %}
-	{{parent()}}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="white-box">
+				<h3 class="box-title m-b-0">Depuracion de provedores</h3>
+				<p class="text-muted m-b-30">UACI</p>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Codigo de medicamento</th>
+								<th>Proveedor</th>
+								<th>Habilitar/Deshabilitar</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							<tr>
+								<th>1233</th>
+								<th>Laboratorios Suizos</th>
+								<th><input type="checkbox" name="" checked=""></th>
+							</tr>
+							<tr>
+								<th>5333</th>
+								<th>Drogueria Martinez</th>
+								<th><input type="checkbox" name=""></th>
+							</tr>
+							<tr>
+								<th>57565</th>
+								<th>Laboratorios Independiente</th>
+								<th><input type="checkbox" checked="" name=""></th>
+							</tr>
+							<tr>
+								<th>86786</th>
+								<th>Laboratorios Medicia</th>
+								<th><input type="checkbox" name=""></th>
+							</tr>
+							
+						</tbody>
+					</table>
+					<button class="btn btn-danger">Guardar</button>
+				</div>
+				<div>
+					<p>Recuerde verificar estos datos en el siguiente link</p>
+					<a href="https://www.comprasal.gob.sv/comprasal_web/sanciones">Link de estado de proveedores</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
