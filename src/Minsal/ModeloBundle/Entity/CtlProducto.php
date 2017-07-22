@@ -23,20 +23,6 @@ class CtlProducto
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="producto_id_unidad_medida", type="integer", nullable=true)
-     */
-    private $productoIdUnidadMedida;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="producto_id_establecimiento", type="integer", nullable=true)
-     */
-    private $productoIdEstablecimiento;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="codigo_producto", type="string", length=50, nullable=false)
@@ -67,52 +53,6 @@ class CtlProducto
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set productoIdUnidadMedida
-     *
-     * @param integer $productoIdUnidadMedida
-     * @return CtlProducto
-     */
-    public function setProductoIdUnidadMedida($productoIdUnidadMedida)
-    {
-        $this->productoIdUnidadMedida = $productoIdUnidadMedida;
-
-        return $this;
-    }
-
-    /**
-     * Get productoIdUnidadMedida
-     *
-     * @return integer 
-     */
-    public function getProductoIdUnidadMedida()
-    {
-        return $this->productoIdUnidadMedida;
-    }
-
-    /**
-     * Set productoIdEstablecimiento
-     *
-     * @param integer $productoIdEstablecimiento
-     * @return CtlProducto
-     */
-    public function setProductoIdEstablecimiento($productoIdEstablecimiento)
-    {
-        $this->productoIdEstablecimiento = $productoIdEstablecimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get productoIdEstablecimiento
-     *
-     * @return integer 
-     */
-    public function getProductoIdEstablecimiento()
-    {
-        return $this->productoIdEstablecimiento;
     }
 
     /**

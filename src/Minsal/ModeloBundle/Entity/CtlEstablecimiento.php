@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlEstablecimiento
  *
- * @ORM\Table(name="ctl_establecimiento")
+ * @ORM\Table(name="ctl_establecimiento", indexes={@ORM\Index(name="establecimiento_id_almacen", columns={"establecimiento_id_almacen"})})
  * @ORM\Entity
  */
 class CtlEstablecimiento
@@ -37,11 +37,14 @@ class CtlEstablecimiento
     private $nombreEstablecimiento;
 
     /**
-     * @var integer
+     * @var \CtlAlmacen
      *
-     * @ORM\Column(name="establecimiento_id_establecimiento", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="CtlAlmacen")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_id_almacen", referencedColumnName="id")
+     * })
      */
-    private $establecimientoIdEstablecimiento;
+    private $establecimientoAlmacen;
 
 
 
@@ -102,25 +105,25 @@ class CtlEstablecimiento
     }
 
     /**
-     * Set establecimientoIdEstablecimiento
+     * Set establecimientoAlmacen
      *
-     * @param integer $establecimientoIdEstablecimiento
+     * @param \Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen
      * @return CtlEstablecimiento
      */
-    public function setEstablecimientoIdEstablecimiento($establecimientoIdEstablecimiento)
+    public function setEstablecimientoAlmacen(\Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen = null)
     {
-        $this->establecimientoIdEstablecimiento = $establecimientoIdEstablecimiento;
+        $this->establecimientoAlmacen = $establecimientoAlmacen;
 
         return $this;
     }
 
     /**
-     * Get establecimientoIdEstablecimiento
+     * Get establecimientoAlmacen
      *
-     * @return integer 
+     * @return \Minsal\ModeloBundle\Entity\CtlAlmacen 
      */
-    public function getEstablecimientoIdEstablecimiento()
+    public function getEstablecimientoAlmacen()
     {
-        return $this->establecimientoIdEstablecimiento;
+        return $this->establecimientoAlmacen;
     }
 }

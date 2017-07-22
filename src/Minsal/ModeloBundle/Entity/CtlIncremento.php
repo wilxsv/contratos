@@ -37,6 +37,13 @@ class CtlIncremento
     private $fechaCreacion;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_incremento", type="integer", nullable=false)
+     */
+    private $estadoIncremento;
+
+    /**
      * @var \CtlContrato
      *
      * @ORM\ManyToOne(targetEntity="CtlContrato")
@@ -102,6 +109,29 @@ class CtlIncremento
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
+    }
+
+    /**
+     * Set estadoIncremento
+     *
+     * @param integer $estadoIncremento
+     * @return CtlIncremento
+     */
+    public function setEstadoIncremento($estadoIncremento)
+    {
+        $this->estadoIncremento = $estadoIncremento;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoIncremento
+     *
+     * @return integer 
+     */
+    public function getEstadoIncremento()
+    {
+        return $this->estadoIncremento;
     }
 
     /**

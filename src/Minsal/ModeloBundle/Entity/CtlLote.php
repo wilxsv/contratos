@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlLote
  *
- * @ORM\Table(name="ctl_lote", indexes={@ORM\Index(name="id_almacen", columns={"lote_id_almacen", "lote_id_producto", "lote_id_unidad_medida"}), @ORM\Index(name="idx_a2e4f6b1c30ee381", columns={"lote_id_almacen"}), @ORM\Index(name="lote_id_producto", columns={"lote_id_producto"}), @ORM\Index(name="lote_id_unidad_medida", columns={"lote_id_unidad_medida"})})
+ * @ORM\Table(name="ctl_lote", indexes={@ORM\Index(name="idx_a2e4f6b156795866", columns={"lote_id_producto"}), @ORM\Index(name="lote_id_unidad_medida", columns={"lote_id_unidad_medida"}), @ORM\Index(name="id_almacen", columns={"lote_id_producto", "lote_id_unidad_medida"})})
  * @ORM\Entity
  */
 class CtlLote
@@ -44,14 +44,14 @@ class CtlLote
     private $precioLote;
 
     /**
-     * @var \CtlAlmacen
+     * @var \CtlUnidadMedida
      *
-     * @ORM\ManyToOne(targetEntity="CtlAlmacen")
+     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lote_id_almacen", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="lote_id_unidad_medida", referencedColumnName="id")
      * })
      */
-    private $loteAlmacen;
+    private $loteUnidadMedida;
 
     /**
      * @var \CtlProducto
@@ -62,16 +62,6 @@ class CtlLote
      * })
      */
     private $loteProducto;
-
-    /**
-     * @var \CtlUnidadMedida
-     *
-     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lote_id_unidad_medida", referencedColumnName="id")
-     * })
-     */
-    private $loteUnidadMedida;
 
 
 
@@ -155,26 +145,26 @@ class CtlLote
     }
 
     /**
-     * Set loteAlmacen
+     * Set loteUnidadMedida
      *
-     * @param \Minsal\ModeloBundle\Entity\CtlAlmacen $loteAlmacen
+     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $loteUnidadMedida
      * @return CtlLote
      */
-    public function setLoteAlmacen(\Minsal\ModeloBundle\Entity\CtlAlmacen $loteAlmacen = null)
+    public function setLoteUnidadMedida(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $loteUnidadMedida = null)
     {
-        $this->loteAlmacen = $loteAlmacen;
+        $this->loteUnidadMedida = $loteUnidadMedida;
 
         return $this;
     }
 
     /**
-     * Get loteAlmacen
+     * Get loteUnidadMedida
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlAlmacen 
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida 
      */
-    public function getLoteAlmacen()
+    public function getLoteUnidadMedida()
     {
-        return $this->loteAlmacen;
+        return $this->loteUnidadMedida;
     }
 
     /**
@@ -198,28 +188,5 @@ class CtlLote
     public function getLoteProducto()
     {
         return $this->loteProducto;
-    }
-
-    /**
-     * Set loteUnidadMedida
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $loteUnidadMedida
-     * @return CtlLote
-     */
-    public function setLoteUnidadMedida(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $loteUnidadMedida = null)
-    {
-        $this->loteUnidadMedida = $loteUnidadMedida;
-
-        return $this;
-    }
-
-    /**
-     * Get loteUnidadMedida
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida 
-     */
-    public function getLoteUnidadMedida()
-    {
-        return $this->loteUnidadMedida;
     }
 }

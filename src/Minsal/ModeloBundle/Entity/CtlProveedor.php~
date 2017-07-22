@@ -44,11 +44,11 @@ class CtlProveedor
     private $nit;
 
     /**
-     * @var integer
+     * @var boolean
      *
-     * @ORM\Column(name="proveedor_id_proveedor", type="integer", nullable=true)
+     * @ORM\Column(name="estado_proveedor", type="boolean", nullable=false)
      */
-    private $proveedorIdProveedor;
+    private $estadoProveedor;
 
 
 }

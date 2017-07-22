@@ -44,11 +44,11 @@ class CtlProveedor
     private $nit;
 
     /**
-     * @var integer
+     * @var boolean
      *
-     * @ORM\Column(name="proveedor_id_proveedor", type="integer", nullable=true)
+     * @ORM\Column(name="estado_proveedor", type="boolean", nullable=false)
      */
-    private $proveedorIdProveedor;
+    private $estadoProveedor;
 
 
 
@@ -132,25 +132,25 @@ class CtlProveedor
     }
 
     /**
-     * Set proveedorIdProveedor
+     * Set estadoProveedor
      *
-     * @param integer $proveedorIdProveedor
+     * @param boolean $estadoProveedor
      * @return CtlProveedor
      */
-    public function setProveedorIdProveedor($proveedorIdProveedor)
+    public function setEstadoProveedor($estadoProveedor)
     {
-        $this->proveedorIdProveedor = $proveedorIdProveedor;
+        $this->estadoProveedor = $estadoProveedor;
 
         return $this;
     }
 
     /**
-     * Get proveedorIdProveedor
+     * Get estadoProveedor
      *
-     * @return integer 
+     * @return boolean 
      */
-    public function getProveedorIdProveedor()
+    public function getEstadoProveedor()
     {
-        return $this->proveedorIdProveedor;
+        return $this->estadoProveedor;
     }
 }

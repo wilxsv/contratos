@@ -37,6 +37,13 @@ class CtlIncremento
     private $fechaCreacion;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_incremento", type="integer", nullable=false)
+     */
+    private $estadoIncremento;
+
+    /**
      * @var \CtlContrato
      *
      * @ORM\ManyToOne(targetEntity="CtlContrato")

@@ -23,20 +23,6 @@ class CtlProducto
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="producto_id_unidad_medida", type="integer", nullable=true)
-     */
-    private $productoIdUnidadMedida;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="producto_id_establecimiento", type="integer", nullable=true)
-     */
-    private $productoIdEstablecimiento;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="codigo_producto", type="string", length=50, nullable=false)
