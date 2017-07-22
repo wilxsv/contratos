@@ -44,13 +44,6 @@ class CtlContrato
     private $montoContrato;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="codigo_licitacion", type="string", length=50, nullable=false)
-     */
-    private $codigoLicitacion;
-
-    /**
      * @var \CtlProveedor
      *
      * @ORM\ManyToOne(targetEntity="CtlProveedor")
@@ -149,29 +142,6 @@ class CtlContrato
     public function getMontoContrato()
     {
         return $this->montoContrato;
-    }
-
-    /**
-     * Set codigoLicitacion
-     *
-     * @param string $codigoLicitacion
-     * @return CtlContrato
-     */
-    public function setCodigoLicitacion($codigoLicitacion)
-    {
-        $this->codigoLicitacion = $codigoLicitacion;
-
-        return $this;
-    }
-
-    /**
-     * Get codigoLicitacion
-     *
-     * @return string 
-     */
-    public function getCodigoLicitacion()
-    {
-        return $this->codigoLicitacion;
     }
 
     /**
