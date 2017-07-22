@@ -46,6 +46,18 @@ class CtlEstablecimiento
      */
     private $establecimientoAlmacen;
 
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return CtlEstablecimiento
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
 
     /**

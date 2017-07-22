@@ -73,7 +73,7 @@ class InicioProcesoController extends Controller
         // $respuesta = json_decode($curl_response,true);
         // foreach ($respuesta['respuesta'] as $establecimiento ) {
         // 	$nuevoEstablecimiento = new CtlEstablecimiento();
-        // 	$nuevoEstablecimiento->setEstablecimientoIdEstablecimiento($establecimiento["0"]);
+        // 	$nuevoEstablecimiento->setId($establecimiento["0"]);
         // 	$nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
         // 	$nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
         // 	$em->persist($nuevoEstablecimiento);
