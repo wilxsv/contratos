@@ -9,7 +9,18 @@ function crearIncremento() {
     var estimacion ;
 
     if( $('#estimacionSi').is(':checked') ) {
-        estimacion = '';
+        estimacion = $('#estimacion').val();
+        $.ajax({
+            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
+            data : {
+                'cod':codigoLicitacion,
+                'meses':meses,
+                'estimacion':estimacion
+            },
+            type : 'post'
+        }).done(function(data) {
+    });
+
     }else{
         $.ajax({
             url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
@@ -46,7 +57,11 @@ function crearIncremento() {
                             Si:<input type="radio" id="estimacionSi"> No:<input type="radio" checked="" id="estimacionNo">
                         </div>
                         <div class="form-group" id="estimaciones">
-                            hola
+                            <label>Eliga la Estimacion a utilizar</label>
+                            <select id="estimacion">
+                                <option value="1">Estimacion 1</option>
+                                <option value="2">Estimacion 2</option>
+                            </select>
                         </div>    
                         
                         <a onclick="crearIncremento()" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>

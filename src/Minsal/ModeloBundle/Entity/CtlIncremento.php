@@ -37,6 +37,13 @@ class CtlIncremento
     private $fechaCreacion;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="estimacion", type="integer", nullable=true)
+     */
+    private $estimacion;
+
+    /**
      * @var \CtlEstados
      *
      * @ORM\ManyToOne(targetEntity="CtlEstados")
@@ -112,6 +119,29 @@ class CtlIncremento
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
+    }
+
+    /**
+     * Set estimacion
+     *
+     * @param integer $estimacion
+     * @return CtlIncremento
+     */
+    public function setEstimacion($estimacion)
+    {
+        $this->estimacion = $estimacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estimacion
+     *
+     * @return integer 
+     */
+    public function getEstimacion()
+    {
+        return $this->estimacion;
     }
 
     /**

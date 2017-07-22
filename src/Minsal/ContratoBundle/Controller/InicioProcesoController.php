@@ -100,7 +100,16 @@ class InicioProcesoController extends Controller
     $cod = $request->get('cod');
     $meses = $request->get('meses');
     if ($request->get('estimacion')) {
+      $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
+      $incremento = new CtlIncremento();
+      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
+      $incremento->setestadoIncremento($estado);
+      $incremento->setMesesDesestimar($meses);
+      $incremento->setFechaCreacion(new \DateTime("now"));
+      $incremento->setIncrementoModalidadCompra($compra);
       
+      $em->persist($incremento);
+      $em->flush($incremento);
     }
     else{
       $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);

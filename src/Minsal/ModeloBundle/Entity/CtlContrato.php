@@ -66,18 +66,6 @@ class CtlContrato
      */
     private $contratoEstablecimiento;
 
-    /**
-     * Set id
-     *
-     * @param integer $numeroContrato
-     * @return CtlContrato
-     */
-    public function setNumeroContrato($numeroContrato)
-    {
-        $this->numeroContrato = $numeroContrato;
-
-        return $this;
-    }
 
 
     /**
