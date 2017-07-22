@@ -2,28 +2,28 @@
 {% block title %}Modulo de prorroga o incremento{% endblock %}
 {% block body %}
 <script type="text/javascript">
-    /*----------------funcion para crear incrementos ---------------------*/
-    function crearIncremento() {
-        var codigoLicitacion = $('#codigoCompra').val();
-        var meses = $('#meses').val();
-        var estimacion ;
+/*----------------funcion para crear incrementos ---------------------*/
+function crearIncremento() {
+    var codigoLicitacion = $('#codigoCompra').val();
+    var meses = $('#meses').val();
+    var estimacion ;
 
-        if( $('#estimacionSi').is(':checked') ) {
-         estimacion = '';
-        }else{
-            $.ajax({
-                    url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
-                    data : {
-                        'cod':codigoLicitacion,
-                        'meses':meses
-                    },
-                    type : 'post'
-                }).done(function(data) {
-            });
-        }
+    if( $('#estimacionSi').is(':checked') ) {
+        estimacion = '';
+    }else{
+        $.ajax({
+            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
+        data : {
+            'cod':codigoLicitacion,
+            'meses':meses
+        },
+        type : 'post'
+    }).done(function(data) {
+    });
+}
 
-        
-    }
+
+}
 </script>
 <div class="row">
     <div class="col-md-6">
