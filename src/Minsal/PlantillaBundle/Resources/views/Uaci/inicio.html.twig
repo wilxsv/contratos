@@ -29,7 +29,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+							{% for proceso in procesos %}
+								<td>{{ proceso.id }}</td>
+								<td>{{ proceso.incrementoModalidadCompra.numeroModalidad }}</td>
+								<td>{{ proceso.fechaCreacion|date('d/m/Y') }}</td>
+								<td><a class="btn btn-info" href=""><span class="glyphicon glyphicon-eye-open" ></span> Ver</a></td>
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>
