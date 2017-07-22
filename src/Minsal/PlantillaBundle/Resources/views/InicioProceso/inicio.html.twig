@@ -147,8 +147,8 @@
 };
 // var codigosLicitacion = array de la consulta
 var codigosLicitacion=[] ;
-{% for codigos in contratos %}
-    codigosLicitacion.push('{{codigos.numeroModalidadCompra}}')
+{% for codigos in compras %}
+    codigosLicitacion.push('{{codigos.numeroModalidad}}')
 {% endfor %}
 // ---------- Bloodhound ----------
 // constructs the suggestion engine

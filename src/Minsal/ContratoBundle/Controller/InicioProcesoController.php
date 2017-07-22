@@ -10,6 +10,8 @@ use Minsal\ModeloBundle\Entity\CtlContrato;
 use Minsal\ModeloBundle\Entity\CtlEstablecimiento;
 use Minsal\ModeloBundle\Entity\CtlProveedor;
 use Minsal\ModeloBundle\Entity\CtlIncremento;
+use Minsal\ModeloBundle\Entity\CtlEstados;
+use Minsal\ModeloBundle\Entity\CtlModalidadCompra;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 
@@ -40,27 +42,27 @@ class InicioProcesoController extends Controller
         }*/
 		/*--------------Sincronizacion de contratos y verificacion de actualizacion------------------*/
 
-		// $contratosEnBd = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
-		// $service_url = 'http://192.168.1.2:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
-  //       $curl = curl_init($service_url);
-  //       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-  //       $curl_response = curl_exec($curl);
-  //       curl_close($curl);
-  //       /* verificacion */
-  //      	$listadoNuevo = json_decode($curl_response,true);
-  //      	foreach ($listadoNuevo['respuesta'] as $datoNuevo) {
-  //      		foreach ($contratosEnBd as $contrato) {
-  //      			if ($datoNuevo =! $contrato) {
-  //       			$nuevoContrato = new CtlContrato();
-  //      				$nuevoContrato->setNumeroContrato($datoNuevo["0"]);
-		//         	$nuevoContrato->setNumeroModalidadCompra($datoNuevo["4"]);
-		//         	$nuevoContrato->setMontoContrato($datoNuevo["5"]);
-		//         	$nuevoContrato->setContratoIdContrato($datoNuevo["3"]);
-		//         	$em->persist($nuevoContrato);
-  //       			$em->flush($nuevoContrato);
-  //      			}
-  //      		}
-  //      	}   
+		$contratosEnBd = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
+		$service_url = 'http://192.168.1.2:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+        $curl = curl_init($service_url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $curl_response = curl_exec($curl);
+        curl_close($curl);
+        /* verificacion */
+       	$respuesta = json_decode($curl_response,true);
+        foreach ($respuesta['respuesta'] as $datoNuevo) {
+              $nuevoContrato = new CtlContrato();
+              $nuevaModalidadCompra = new CtlModalidadCompra();
+              $nuevaModalidadCompra->setNumeroModalidad($datoNuevo["4"]);
+              $em->persist($nuevaModalidadCompra);
+              $em->flush($nuevaModalidadCompra);
+              $nuevoContrato->setId($datoNuevo["3"]);
+              $nuevoContrato->setNumeroContrato($datoNuevo["0"]);
+              $nuevoContrato->setNumeroModalidadCompra($nuevaModalidadCompra);
+              $nuevoContrato->setMontoContrato($datoNuevo["5"]);
+              $em->persist($nuevoContrato);
+              $em->flush($nuevoContrato);
+        } 
 
         /*---------------Sincronizacion de Establecimientos-------------*/
         // $service_url = 'http://192.168.1.2:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
@@ -80,13 +82,13 @@ class InicioProcesoController extends Controller
 
 
         /*se renderizan los contratos*/
-		    $contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
+		    $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
 		    $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
 
 
         return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
-    			'contratos' => $contratos,
+    			'compras' => $compras,
           'incrementos' => $incrementos
   			));
 	
@@ -100,7 +102,12 @@ class InicioProcesoController extends Controller
       
     }
     else{
-      
+      $estado = $em->getRepository('MinsalModeloBundle:CtlContrato')->findById('1');
+      $incremento = new CtlIncremento();
+      $incremento->setMesesDesestimar($meses);
+      $incremento->setFechaCreacion(new \DateTime("now"));
+      $incremento->setestadoIncremento($estado);
+
     }
 
     $em = $this->getDoctrine()->getManager();

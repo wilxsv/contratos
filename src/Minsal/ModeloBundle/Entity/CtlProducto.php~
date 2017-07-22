@@ -44,4 +44,83 @@ class CtlProducto
     private $estadoProducto;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set codigoProducto
+     *
+     * @param string $codigoProducto
+     * @return CtlProducto
+     */
+    public function setCodigoProducto($codigoProducto)
+    {
+        $this->codigoProducto = $codigoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoProducto
+     *
+     * @return string 
+     */
+    public function getCodigoProducto()
+    {
+        return $this->codigoProducto;
+    }
+
+    /**
+     * Set nombreProducto
+     *
+     * @param string $nombreProducto
+     * @return CtlProducto
+     */
+    public function setNombreProducto($nombreProducto)
+    {
+        $this->nombreProducto = $nombreProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreProducto
+     *
+     * @return string 
+     */
+    public function getNombreProducto()
+    {
+        return $this->nombreProducto;
+    }
+
+    /**
+     * Set estadoProducto
+     *
+     * @param string $estadoProducto
+     * @return CtlProducto
+     */
+    public function setEstadoProducto($estadoProducto)
+    {
+        $this->estadoProducto = $estadoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProducto
+     *
+     * @return string 
+     */
+    public function getEstadoProducto()
+    {
+        return $this->estadoProducto;
+    }
 }
