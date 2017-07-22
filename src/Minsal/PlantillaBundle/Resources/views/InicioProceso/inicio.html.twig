@@ -1,12 +1,30 @@
 {% extends 'base.html.twig' %}
 {% block title %}Modulo de prorroga o incremento{% endblock %}
 {% block body %}
-<style type="text/css">
-    #scrollable-dropdown-menu .tt-dropdown-menu {
-      max-height: 150px;
-      overflow-y: auto;
+<script type="text/javascript">
+    /*----------------funcion para crear incrementos ---------------------*/
+    function crearIncremento() {
+        var codigoLicitacion = $('#codigoCompra').val();
+        var meses = $('#meses').val();
+        var estimacion ;
+
+        if( $('#estimacionSi').is(':checked') ) {
+         estimacion = '';
+        }else{
+            $.ajax({
+                    url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
+                    data : {
+                        'cod':codigoLicitacion,
+                        'meses':meses
+                    },
+                    type : 'post'
+                }).done(function(data) {
+            });
+        }
+
+        
     }
-</style>
+</script>
 <div class="row">
     <div class="col-md-6">
         <div class="white-box">
@@ -21,8 +39,8 @@
                                 <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Meses a desestimar</label>
-                            <input type="number" class="form-control"> </div>
+                            <label >Meses a desestimar</label>
+                            <input id="meses" type="number" class="form-control"> </div>
                         <div class="form-group">
                             <label>Desea utilizar una estimacion?</label>
                             Si:<input type="radio" id="estimacionSi"> No:<input type="radio" checked="" id="estimacionNo">
@@ -31,7 +49,7 @@
                             hola
                         </div>    
                         
-                        <a onclick="incremento_inicio();" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>
+                        <a onclick="crearIncremento()" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>
                     </form>
                 </div>
             </div>
@@ -63,7 +81,22 @@
     <h3 class="box-title">Listado de Compras en Proceso de Licitacion o Prorroga</h3>
     <div class="table-responsive">
         <table class="table color-table success-table">
-            
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Compra</th>
+                    <th>Fecha de creacion</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="detalleIncremento">
+                {% for incremento in incrementos %}
+                    <tr>
+                        <td>{{ incremento.id }}</td>
+                        <td>{{ incremento.fechaCreacion }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>
@@ -88,6 +121,10 @@
     <!--Style Switcher -->
     <script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
     <script type="text/javascript">
+    
+
+
+
 /*--------------------------    TYPE HEAD    --------------------*/
     // constructs the suggestion engine
     function creaTypeHead() {

@@ -39,85 +39,76 @@ class InicioProcesoController extends Controller
         }*/
 		/*--------------Sincronizacion de contratos y verificacion de actualizacion------------------*/
 
-		$contratosEnBd = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
-		$service_url = 'http://192.168.1.2:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
-        $curl = curl_init($service_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $curl_response = curl_exec($curl);
-        curl_close($curl);
-        /* verificacion */
-       	$listadoNuevo = json_decode($curl_response,true);
-       	foreach ($listadoNuevo['respuesta'] as $datoNuevo) {
-       		foreach ($contratosEnBd as $contrato) {
-       			if ($datoNuevo =! $contrato) {
-        			$nuevoContrato = new CtlContrato();
-       				$nuevoContrato->setNumeroContrato($datoNuevo["0"]);
-		        	$nuevoContrato->setNumeroModalidadCompra($datoNuevo["4"]);
-		        	$nuevoContrato->setMontoContrato($datoNuevo["5"]);
-		        	$nuevoContrato->setContratoIdContrato($datoNuevo["3"]);
-		        	$em->persist($nuevoContrato);
-        			$em->flush($nuevoContrato);
-       			}
-       		}
-       	}   
+		// $contratosEnBd = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
+		// $service_url = 'http://192.168.1.2:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+  //       $curl = curl_init($service_url);
+  //       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  //       $curl_response = curl_exec($curl);
+  //       curl_close($curl);
+  //       /* verificacion */
+  //      	$listadoNuevo = json_decode($curl_response,true);
+  //      	foreach ($listadoNuevo['respuesta'] as $datoNuevo) {
+  //      		foreach ($contratosEnBd as $contrato) {
+  //      			if ($datoNuevo =! $contrato) {
+  //       			$nuevoContrato = new CtlContrato();
+  //      				$nuevoContrato->setNumeroContrato($datoNuevo["0"]);
+		//         	$nuevoContrato->setNumeroModalidadCompra($datoNuevo["4"]);
+		//         	$nuevoContrato->setMontoContrato($datoNuevo["5"]);
+		//         	$nuevoContrato->setContratoIdContrato($datoNuevo["3"]);
+		//         	$em->persist($nuevoContrato);
+  //       			$em->flush($nuevoContrato);
+  //      			}
+  //      		}
+  //      	}   
 
         /*---------------Sincronizacion de Establecimientos-------------*/
-        $establecimientosEnBd = $em->getRepository('MinsalModeloBundle:CtlEstablecimiento')->findAll();
-
-        $service_url = 'http://192.168.1.2:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
-        $curl = curl_init($service_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $curl_response = curl_exec($curl);
-        curl_close($curl);
-        /* verificacion */
-       	$listadoNuevo = json_decode($curl_response,true);
-       	foreach ($listadoNuevo['respuesta'] as $datoNuevo) {
-       		foreach ($establecimientosEnBd as $establecimiento) {
-       			if ($datoNuevo =! $establecimiento) {
-        			$nuevoEstablecimiento = new CtlEstablecimiento();
-              $nuevoEstablecimiento->setEstablecimientoIdEstablecimiento($establecimiento["0"]);
-              $nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
-              $nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
-              $em->persist($nuevoEstablecimiento);
-              $em->flush($nuevoEstablecimiento);
-       			}
-       		}
-       	} 
-
+        // $service_url = 'http://192.168.1.2:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+        // $curl = curl_init($service_url);
+        // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        // $curl_response = curl_exec($curl);
+        // curl_close($curl);
+        // $respuesta = json_decode($curl_response,true);
+        // foreach ($respuesta['respuesta'] as $establecimiento ) {
+        // 	$nuevoEstablecimiento = new CtlEstablecimiento();
+        // 	$nuevoEstablecimiento->setEstablecimientoIdEstablecimiento($establecimiento["0"]);
+        // 	$nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
+        // 	$nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
+        // 	$em->persist($nuevoEstablecimiento);
+        // 	$em->flush($nuevoEstablecimiento);
+        // }
 
 
         /*se renderizan los contratos*/
-		  $contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
+		    $contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
+
+		    $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
+
 
         return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
-			'contratos' => $contratos
-			));
+    			'contratos' => $contratos,
+          'incrementos' => $incrementos
+  			));
 	
 	}
 
 	public function crearIncrementoAction(Request $request)
 	{
-		$codigoLicitacion = $request->get('cod');
+    $cod = $request->get('cod');
+    $meses = $request->get('meses');
+    $em = $this->getDoctrine()->getManager();
 
-		$em = $this->getDoctrine()->getManager();
-		$licitacionID = $em->getRepository('MinsalModeloBundle:Licitacion')->findByCodigoLicitacion($codigoLicitacion);
+    $contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
 
-		$Incremento = new ProcesoIncremento();
-		$Incremento->setCodigoCompra($licitacionID[0]->getId());
-		
-		$estado = $em->getRepository('MinsalModeloBundle:EstadoProceso')->findById(1);
-	
-		/*$contratos = $em->getRepository('MinsalModeloBundle:Contrato')->findByLicitacion($licitacionID[0]->getId());
-		$Incremento->setContratos($contratos);
-*/
-		$Incremento->setFechaCreacionAt(new \DateTime("now"));
+    $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
 
-		
-        $em->persist($Incremento);
-        $em->flush();
-       
-		return new Response('');
-	}
+
+    return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
+          'contratos' => $contratos,
+          'incrementos' => $incrementos
+        ));
+
+
+  }
 	public function depurarMedicamentosAction(Request $request)
 	{
 		return $this->render('MinsalPlantillaBundle:Analizador:depurarMedicamentos.html.twig');	
