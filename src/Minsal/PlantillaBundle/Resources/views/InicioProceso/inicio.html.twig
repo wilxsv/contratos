@@ -9,7 +9,7 @@ function crearIncremento() {
     var estimacion ;
 
     if( $('#estimacionSi').is(':checked') ) {
-        estimacion = $('#estimacion').val();
+        estimacion = 1;
         $.ajax({
             url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
             data : {
@@ -19,6 +19,7 @@ function crearIncremento() {
             },
             type : 'post'
         }).done(function(data) {
+            location.reload();
     });
 
     }else{
@@ -30,6 +31,7 @@ function crearIncremento() {
         },
         type : 'post'
     }).done(function(data) {
+        location.reload();
     });
 }
 
@@ -55,14 +57,7 @@ function crearIncremento() {
                         <div class="form-group">
                             <label>Desea utilizar una estimacion?</label>
                             Si:<input type="radio" id="estimacionSi"> No:<input type="radio" checked="" id="estimacionNo">
-                        </div>
-                        <div class="form-group" id="estimaciones">
-                            <label>Eliga la Estimacion a utilizar</label>
-                            <select id="estimacion">
-                                <option value="1">Estimacion 1</option>
-                                <option value="2">Estimacion 2</option>
-                            </select>
-                        </div>    
+                        </div>  
                         
                         <a onclick="crearIncremento()" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>
                     </form>
@@ -112,7 +107,13 @@ function crearIncremento() {
                         <td>{{ incremento.id }}</td>
                         <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
                         <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
-                        <td></td>
+                        <td>
+                            {% if incremento.estimacion == 1 %}
+                                Utiliza estimacion
+                            {% else %}
+                                no utiliza estimacion
+                            {% endif %}
+                        </td>
                         <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
                         <td>{% if incremento.estadoIncremento.id == 1 %}
                             aun no puede continuar el proceso

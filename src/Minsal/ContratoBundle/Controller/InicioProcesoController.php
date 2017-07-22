@@ -99,15 +99,17 @@ class InicioProcesoController extends Controller
     $em = $this->getDoctrine()->getManager();
     $cod = $request->get('cod');
     $meses = $request->get('meses');
-    if ($request->get('estimacion')) {
+    if ($request->get('estimacion') == 1) {
       $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
       $incremento = new CtlIncremento();
       $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
       $incremento->setestadoIncremento($estado);
       $incremento->setMesesDesestimar($meses);
       $incremento->setFechaCreacion(new \DateTime("now"));
-      $incremento->setIncrementoModalidadCompra($compra);
-      
+      foreach($compra as $com){
+        $incremento->setIncrementoModalidadCompra($com);
+       }
+       $incremento->setEstimacion(1);
       $em->persist($incremento);
       $em->flush($incremento);
     }
@@ -118,7 +120,10 @@ class InicioProcesoController extends Controller
       $incremento->setestadoIncremento($estado);
       $incremento->setMesesDesestimar($meses);
       $incremento->setFechaCreacion(new \DateTime("now"));
-      $incremento->setIncrementoModalidadCompra($compra);
+      foreach($compra as $com){
+        $incremento->setIncrementoModalidadCompra($com);
+       }
+       $incremento->setEstimacion(0);
       $em->persist($incremento);
       $em->flush($incremento);
 
