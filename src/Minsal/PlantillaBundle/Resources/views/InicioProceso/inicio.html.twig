@@ -88,6 +88,7 @@ function crearIncremento() {
                     <th>Fecha de creacion</th>
                     <th>Estimacion de necesidades</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody id="detalleIncremento">
@@ -97,6 +98,14 @@ function crearIncremento() {
                         <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
                         <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
                         <td></td>
+                        <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
+                        <td>{% if incremento.estadoIncremento.id == 1 %}
+                            aun no puede continuar el proceso
+                            {% else %}
+                                <a class="btn btn-info">Continuar Proceso</a>
+                        {% endif %}
+
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
