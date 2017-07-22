@@ -62,20 +62,7 @@ class InicioProcesoController extends Controller
        	}   
 
         /*---------------Sincronizacion de Establecimientos-------------*/
-        $service_url = 'http://192.168.1.2:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
-        $curl = curl_init($service_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $curl_response = curl_exec($curl);
-        curl_close($curl);
-        $respuesta = json_decode($curl_response,true);
-        foreach ($respuesta['respuesta'] as $establecimiento ) {
-        	$nuevoEstablecimiento = new CtlEstablecimiento();
-        	$nuevoEstablecimiento->setEstablecimientoIdEstablecimiento($establecimiento["0"]);
-        	$nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
-        	$nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
-        	$em->persist($nuevoEstablecimiento);
-        	$em->flush($nuevoEstablecimiento);
-        }
+        $establecimientosEnBd = $em->getRepository('MinsalModeloBundle:CtlEstablecimiento')->findAll();
 
         $service_url = 'http://192.168.1.2:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
         $curl = curl_init($service_url);
@@ -85,15 +72,14 @@ class InicioProcesoController extends Controller
         /* verificacion */
        	$listadoNuevo = json_decode($curl_response,true);
        	foreach ($listadoNuevo['respuesta'] as $datoNuevo) {
-       		foreach ($contratosEnBd as $contrato) {
-       			if ($datoNuevo =! $contrato) {
-        			$nuevoContrato = new CtlContrato();
-       				$nuevoContrato->setNumeroContrato($datoNuevo["0"]);
-		        	$nuevoContrato->setNumeroModalidadCompra($datoNuevo["4"]);
-		        	$nuevoContrato->setMontoContrato($datoNuevo["5"]);
-		        	$nuevoContrato->setContratoIdContrato($datoNuevo["3"]);
-		        	$em->persist($nuevoContrato);
-        			$em->flush($nuevoContrato);
+       		foreach ($establecimientosEnBd as $establecimiento) {
+       			if ($datoNuevo =! $establecimiento) {
+        			$nuevoEstablecimiento = new CtlEstablecimiento();
+              $nuevoEstablecimiento->setEstablecimientoIdEstablecimiento($establecimiento["0"]);
+              $nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
+              $nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
+              $em->persist($nuevoEstablecimiento);
+              $em->flush($nuevoEstablecimiento);
        			}
        		}
        	} 
@@ -101,10 +87,7 @@ class InicioProcesoController extends Controller
 
 
         /*se renderizan los contratos*/
-		$contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
-
-		
-
+		  $contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
 
         return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
 			'contratos' => $contratos
