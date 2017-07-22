@@ -30,37 +30,4 @@ class CtlModalidadCompra
     private $numeroModalidad;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set numeroModalidad
-     *
-     * @param string $numeroModalidad
-     * @return CtlModalidadCompra
-     */
-    public function setNumeroModalidad($numeroModalidad)
-    {
-        $this->numeroModalidad = $numeroModalidad;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroModalidad
-     *
-     * @return string 
-     */
-    public function getNumeroModalidad()
-    {
-        return $this->numeroModalidad;
-    }
 }

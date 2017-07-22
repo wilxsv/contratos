@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlIncremento
  *
- * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"})})
+ * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"})})
  * @ORM\Entity
  */
 class CtlIncremento
@@ -37,13 +37,6 @@ class CtlIncremento
     private $fechaCreacion;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="incremento_modalidad_compra", type="integer", nullable=true)
-     */
-    private $incrementoModalidadCompra;
-
-    /**
      * @var \CtlEstados
      *
      * @ORM\ManyToOne(targetEntity="CtlEstados")
@@ -52,6 +45,16 @@ class CtlIncremento
      * })
      */
     private $estadoIncremento;
+
+    /**
+     * @var \CtlModalidadCompra
+     *
+     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="incremento_modalidad_compra", referencedColumnName="id")
+     * })
+     */
+    private $incrementoModalidadCompra;
 
 
 
@@ -112,29 +115,6 @@ class CtlIncremento
     }
 
     /**
-     * Set incrementoModalidadCompra
-     *
-     * @param integer $incrementoModalidadCompra
-     * @return CtlIncremento
-     */
-    public function setIncrementoModalidadCompra($incrementoModalidadCompra)
-    {
-        $this->incrementoModalidadCompra = $incrementoModalidadCompra;
-
-        return $this;
-    }
-
-    /**
-     * Get incrementoModalidadCompra
-     *
-     * @return integer 
-     */
-    public function getIncrementoModalidadCompra()
-    {
-        return $this->incrementoModalidadCompra;
-    }
-
-    /**
      * Set estadoIncremento
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoIncremento
@@ -155,5 +135,28 @@ class CtlIncremento
     public function getEstadoIncremento()
     {
         return $this->estadoIncremento;
+    }
+
+    /**
+     * Set incrementoModalidadCompra
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $incrementoModalidadCompra
+     * @return CtlIncremento
+     */
+    public function setIncrementoModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $incrementoModalidadCompra = null)
+    {
+        $this->incrementoModalidadCompra = $incrementoModalidadCompra;
+
+        return $this;
+    }
+
+    /**
+     * Get incrementoModalidadCompra
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra 
+     */
+    public function getIncrementoModalidadCompra()
+    {
+        return $this->incrementoModalidadCompra;
     }
 }

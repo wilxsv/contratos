@@ -66,16 +66,6 @@ class CtlContrato
      */
     private $numeroModalidadCompra;
 
-    /**
-     *  Set id
-     * @param id
-     * @return id 
-    */
-    public  function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
 
 
     /**

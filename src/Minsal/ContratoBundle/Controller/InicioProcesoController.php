@@ -96,6 +96,7 @@ class InicioProcesoController extends Controller
 
 	public function crearIncrementoAction(Request $request)
 	{
+    $em = $this->getDoctrine()->getManager();
     $cod = $request->get('cod');
     $meses = $request->get('meses');
     if ($request->get('estimacion')) {
@@ -104,13 +105,14 @@ class InicioProcesoController extends Controller
     else{
       $estado = $em->getRepository('MinsalModeloBundle:CtlContrato')->findById('1');
       $incremento = new CtlIncremento();
+      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
       $incremento->setMesesDesestimar($meses);
       $incremento->setFechaCreacion(new \DateTime("now"));
       $incremento->setestadoIncremento($estado);
-
+      $incremento->setNumeroModalidadCompra($compra);
     }
 
-    $em = $this->getDoctrine()->getManager();
+    
 
     $contratos= $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
 
