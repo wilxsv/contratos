@@ -7,16 +7,25 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProveedor
  *
- * @ORM\Table(name="ctl_proveedor", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_proveedor_id_key", columns={"id"})})
+ * @ORM\Table(name="ctl_proveedor")
  * @ORM\Entity
  */
 class CtlProveedor
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_proveedor_id_seq", allocationSize=1, initialValue=1)
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="codigo_proveedor", type="string", length=50, nullable=false)
-     * @ORM\Id
      */
     private $codigoProveedor;
 
@@ -44,14 +53,26 @@ class CtlProveedor
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id_proveedor_sibasi", type="integer", nullable=false)
      */
-    private $id;
+    private $idProveedorSibasi;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set codigoProveedor
      *
-     * @param integer $codigoProveedor
+     * @param string $codigoProveedor
      * @return CtlProveedor
      */
     public function setCodigoProveedor($codigoProveedor)
@@ -141,25 +162,25 @@ class CtlProveedor
     }
 
     /**
-     * Set id
+     * Set idProveedorSibasi
      *
-     * @param integer $id
+     * @param integer $idProveedorSibasi
      * @return CtlProveedor
      */
-    public function setId($id)
+    public function setIdProveedorSibasi($idProveedorSibasi)
     {
-        $this->id = $id;
+        $this->idProveedorSibasi = $idProveedorSibasi;
 
         return $this;
     }
 
     /**
-     * Get id
+     * Get idProveedorSibasi
      *
      * @return integer 
      */
-    public function getId()
+    public function getIdProveedorSibasi()
     {
-        return $this->id;
+        return $this->idProveedorSibasi;
     }
 }

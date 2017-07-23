@@ -7,16 +7,25 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlContrato
  *
- * @ORM\Table(name="ctl_contrato", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_contrato_id_key", columns={"id"})}, indexes={@ORM\Index(name="fki_proveedor", columns={"contrato_proveedor"}), @ORM\Index(name="fki_modalidad_compra", columns={"numero_modalidad_compra"}), @ORM\Index(name="fki_proveedor_contrato", columns={"contrato_proveedor"}), @ORM\Index(name="fki_establecimiento_contrato", columns={"contrato_establecimiento"})})
+ * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_proveedor", columns={"contrato_proveedor"}), @ORM\Index(name="fki_modalidad_compra", columns={"numero_modalidad_compra"}), @ORM\Index(name="fki_proveedor_contrato", columns={"contrato_proveedor"}), @ORM\Index(name="fki_establecimiento_contrato", columns={"contrato_establecimiento"})})
  * @ORM\Entity
  */
 class CtlContrato
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_contrato", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="ctl_contrato_id_contrato_seq", allocationSize=1, initialValue=1)
+     */
+    private $idContrato;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="numero_contrato", type="string", length=50, nullable=false)
-     * @ORM\Id
      */
     private $numeroContrato;
 
@@ -30,9 +39,9 @@ class CtlContrato
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=true)
+     * @ORM\Column(name="id_contrato_sibasi", type="integer", nullable=true)
      */
-    private $id;
+    private $idContratoSibasi;
 
     /**
      * @var \CtlModalidadCompra
@@ -45,6 +54,16 @@ class CtlContrato
     private $numeroModalidadCompra;
 
     /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="contrato_establecimiento", referencedColumnName="establecimiento_id")
+     * })
+     */
+    private $contratoEstablecimiento;
+
+    /**
      * @var \CtlProveedor
      *
      * @ORM\ManyToOne(targetEntity="CtlProveedor")
@@ -54,20 +73,22 @@ class CtlContrato
      */
     private $contratoProveedor;
 
+
+
     /**
-     * @var \CtlEstablecimiento
+     * Get idContrato
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="contrato_establecimiento", referencedColumnName="id")
-     * })
+     * @return integer 
      */
-    private $contratoEstablecimiento;
+    public function getIdContrato()
+    {
+        return $this->idContrato;
+    }
 
     /**
      * Set numeroContrato
      *
-     * @param integer $numeroContrato
+     * @param string $numeroContrato
      * @return CtlContrato
      */
     public function setNumeroContrato($numeroContrato)
@@ -111,26 +132,26 @@ class CtlContrato
     }
 
     /**
-     * Set id
+     * Set idContratoSibasi
      *
-     * @param integer $id
+     * @param integer $idContratoSibasi
      * @return CtlContrato
      */
-    public function setId($id)
+    public function setIdContratoSibasi($idContratoSibasi)
     {
-        $this->id = $id;
+        $this->idContratoSibasi = $idContratoSibasi;
 
         return $this;
     }
 
     /**
-     * Get id
+     * Get idContratoSibasi
      *
      * @return integer 
      */
-    public function getId()
+    public function getIdContratoSibasi()
     {
-        return $this->id;
+        return $this->idContratoSibasi;
     }
 
     /**
@@ -157,29 +178,6 @@ class CtlContrato
     }
 
     /**
-     * Set contratoProveedor
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlProveedor $contratoProveedor
-     * @return CtlContrato
-     */
-    public function setContratoProveedor(\Minsal\ModeloBundle\Entity\CtlProveedor $contratoProveedor = null)
-    {
-        $this->contratoProveedor = $contratoProveedor;
-
-        return $this;
-    }
-
-    /**
-     * Get contratoProveedor
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlProveedor 
-     */
-    public function getContratoProveedor()
-    {
-        return $this->contratoProveedor;
-    }
-
-    /**
      * Set contratoEstablecimiento
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $contratoEstablecimiento
@@ -200,5 +198,28 @@ class CtlContrato
     public function getContratoEstablecimiento()
     {
         return $this->contratoEstablecimiento;
+    }
+
+    /**
+     * Set contratoProveedor
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlProveedor $contratoProveedor
+     * @return CtlContrato
+     */
+    public function setContratoProveedor(\Minsal\ModeloBundle\Entity\CtlProveedor $contratoProveedor = null)
+    {
+        $this->contratoProveedor = $contratoProveedor;
+
+        return $this;
+    }
+
+    /**
+     * Get contratoProveedor
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlProveedor 
+     */
+    public function getContratoProveedor()
+    {
+        return $this->contratoProveedor;
     }
 }

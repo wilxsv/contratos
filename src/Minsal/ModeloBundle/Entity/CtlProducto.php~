@@ -39,7 +39,7 @@ class CtlProducto
     /**
      * @var string
      *
-     * @ORM\Column(name="estado_producto", type="string", length=50, nullable=false)
+     * @ORM\Column(name="estado_producto", type="string", length=50, nullable=true)
      */
     private $estadoProducto;
 
