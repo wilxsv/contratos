@@ -33,7 +33,7 @@ function cargarProveedores($em){
       $respuesta2 = json_decode($curl_response2,true);
       foreach ($respuesta2['respuesta'] as $proveedor ) {
         $nuevoProveedor = new CtlProveedor();
-        $nuevoProveedor->setId($proveedor["0"]);
+        $nuevoProveedor->setIdProveedorSibasi($proveedor["0"]);
         $nuevoProveedor->setCodigoProveedor($proveedor["3"]);
         $nuevoProveedor->setNombreProveedor($proveedor["1"]);
         $nuevoProveedor->setNit($proveedor["2"]);
@@ -51,7 +51,6 @@ function cargarContratos($em)
   {
     /*--------------Sincronizacion de contratos y verificacion de actualizacion------------------*/
 
-    
     $service_url = 'http://192.168.1.2:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -59,30 +58,38 @@ function cargarContratos($em)
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
     foreach ($respuesta['respuesta'] as $datoNuevo) {
+
           $nuevoContrato = new CtlContrato();
-          $nuevoContrato->setId($datoNuevo["3"]);
+
+          //ingreso de numero de contrato
           $nuevoContrato->setNumeroContrato($datoNuevo["0"]);
+
+          //Ingreso de proveedor
+          $proveedorGuardar = $em->getRepository('MinsalModeloBundle:CtlProveedor')->findByIdProveedorSibasi($datoNuevo["1"]);
+          $nuevoContrato->setContratoProveedor($proveedorGuardar[0]);
+
+          //ingreso de establecimiento
+          $establecimiento =  $em->getRepository('MinsalModeloBundle:CtlEstablecimiento')->findByIdEstablecimientoSibasi($datoNuevo["2"]);
+          
+          $nuevoContrato->setContratoEstablecimiento($establecimiento[0]);
+          
+
+          //ingreso de id
+          $nuevoContrato->setidContratoSibasi($datoNuevo["3"]);
+          
+          //ingreso de compra
           $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
           $nuevoContrato->setNumeroModalidadCompra($compra[0]);
+
+          //ingreso del monto de contrato
           $nuevoContrato->setMontoContrato($datoNuevo["5"]);
-          $proveedorGuardar = $em->getRepository('MinsalModeloBundle:CtlProveedor')->findByCodigoProveedor($datoNuevo["1"]);
-          //VERIFICA SI EXISTE PROVEEDOR PARA ESTE CONTRATO SI NO ES ASI NO LO GUARDA
-          if ($proveedorGuardar[0] != null) {
-             $nuevoContrato->setContratoProveedor($proveedorGuardar[0]);
-            /*INGRESO DE ESTABLECIMIENTOS*/
 
-            $establecimiento =  $em->getRepository('MinsalModeloBundle:CtlEstablecimiento')->findByCodigoEstablecimiento($datoNuevo["2"]);
-            //VERIFICA SI EXISTE UN ESTABLECIMIENTO PARA ESTE CONTRATO SI NO ES ASI NO LO GUARDA
-            if ($establecimiento[0] != null) {
-              $nuevoContrato->setContratoEstablecimiento($establecimiento[0]);
-
-              $em->persist($nuevoContrato);
-              $em->flush($nuevoContrato);
-            }
-            
-          }
+            $em->persist($nuevoContrato);
+            $em->flush($nuevoContrato);
           
-    } 
+    }
+
+    
   }
 
   function cargarCompras($em)
@@ -120,7 +127,7 @@ function cargarContratos($em)
         $respuesta = json_decode($curl_response,true);
         foreach ($respuesta['respuesta'] as $establecimiento ) {
           $nuevoEstablecimiento = new CtlEstablecimiento();
-          $nuevoEstablecimiento->setId($establecimiento["0"]);
+          $nuevoEstablecimiento->setidEstablecimientoSibasi($establecimiento["0"]);
           $nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
           $nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
           $em->persist($nuevoEstablecimiento);
@@ -130,13 +137,13 @@ function cargarContratos($em)
 
 class InicioProcesoController extends Controller
 {
-	public function inicioAction()
-	{	     
+  public function inicioAction()
+  {      
 
     $em = $this->getDoctrine()->getManager();
     /* funciones para la carga de datos*/
-    // cargarEstablecimientos($em);
-    // cargarCompras($em);
+    //cargarEstablecimientos($em);
+    //cargarCompras($em);
     //cargarProveedores($em); 
     //cargarContratos($em);
     /*se renderizan los contratos e incrementos */
@@ -146,15 +153,15 @@ class InicioProcesoController extends Controller
 
 
     return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
-			'compras' => $compras,
+      'compras' => $compras,
       'incrementos' => $incrementos
-		));
-	
-	}
+    ));
+  
+  }
   
 
-	public function crearIncrementoAction(Request $request)
-	{
+  public function crearIncrementoAction(Request $request)
+  {
     $em = $this->getDoctrine()->getManager();
     $cod = $request->get('cod');
     $meses = $request->get('meses');
@@ -202,8 +209,8 @@ class InicioProcesoController extends Controller
 
 
   }
-	public function depurarMedicamentosAction(Request $request)
-	{
-		return $this->render('MinsalPlantillaBundle:Analizador:depurarMedicamentos.html.twig');	
-	}
+  public function depurarMedicamentosAction(Request $request)
+  {
+    return $this->render('MinsalPlantillaBundle:Analizador:depurarMedicamentos.html.twig'); 
+  }
 }
