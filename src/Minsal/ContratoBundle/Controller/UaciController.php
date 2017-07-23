@@ -24,9 +24,10 @@ class UaciController extends Controller
 
 	public function proveedorUaciAction($cod)
 	{
-		$em = $this->getDoctrine()->getManager();
+		$url = $cod;
 		
 		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
+			'valor'=>$url,
 			
 			));
 	}

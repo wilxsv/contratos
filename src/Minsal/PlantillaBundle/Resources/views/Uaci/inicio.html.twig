@@ -28,12 +28,14 @@
 								<th>Revisar</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody>				
 							{% for proceso in procesos %}
-								<td>{{ proceso.id }}</td>
-								<td>{{ proceso.incrementoModalidadCompra.numeroModalidad }}</td>
-								<td>{{ proceso.fechaCreacion|date('d/m/Y') }}</td>
-								<td><a class="btn btn-info" href="{{ path('minsal_contrato_proveedores_uaci', {cod:proceso.incrementoModalidadCompra.numeroModalidad}) }}"><span class="glyphicon glyphicon-eye-open" ></span> Ver</a></td>
+								<tr>
+									<td>{{ proceso.id }}</td>
+									<td>{{ proceso.incrementoModalidadCompra.numeroModalidad }}</td>
+									<td>{{ proceso.fechaCreacion|date('d/m/Y') }}</td>
+									<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:proceso.incrementoModalidadCompra.numeroModalidad}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
+								</tr>
 							{% endfor %}
 						</tbody>
 					</table>
