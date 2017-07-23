@@ -12,6 +12,7 @@ use Minsal\ModeloBundle\Entity\CtlProveedor;
 use Minsal\ModeloBundle\Entity\CtlIncremento;
 use Minsal\ModeloBundle\Entity\CtlEstados;
 use Minsal\ModeloBundle\Entity\CtlModalidadCompra;
+use Minsal\ModeloBundle\Entity\CtlProgramacion;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 function cargarProveedores($em){
@@ -135,6 +136,24 @@ function cargarContratos($em)
         }
   }
 
+  function cargarProgramaciones($em){
+    /*--------SINCRONIZACION DE PROGRAMACIONES-------------*/
+    $service_url = 'http://192.168.1.2:8080/v1/sinab/estimacionesmedicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $curl = curl_init($service_url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $curl_response = curl_exec($curl);
+    curl_close($curl);
+    $respuesta = json_decode($curl_response,true);
+        foreach ($respuesta['respuesta'] as $pr ) {
+          $nuevaProgramacion = new CtlProgramacion();
+          $nuevaProgramacion->setIdProgramacion($pr["0"]);
+          $nuevaProgramacion->setDescripcionProgramacion($pr["1"]);
+
+          $em->persist($nuevaProgramacion);
+          $em->flush($nuevaProgramacion);
+        }
+  }
+
 class InicioProcesoController extends Controller
 {
   public function inicioAction()
@@ -146,6 +165,7 @@ class InicioProcesoController extends Controller
     //cargarCompras($em);
     //cargarProveedores($em); 
     //cargarContratos($em);
+    cargarProgramaciones($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
