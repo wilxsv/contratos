@@ -24,18 +24,23 @@
 							<tr>
 								<th>Codigo de contrato</th>
 								<th>Proveedor</th>
-								<th>Habilitar/Deshabilitar</th>
+								<th id="p">Habilitar/Deshabilitar</th>
 							</tr>
 						</thead>
 						<tbody>
-						{% for proveedor in proveedores %}
-							<tr>
-								<td>{{ proveedor.proveedor }}</td>
-							</tr>
-						{% endfor %}					
+						<tr>
+							{% for proveedor in proveedores %}
+								<tr id="checkList">
+									 <td>{{ proveedor.numeroContrato }}</td>
+									 <td>{{ proveedor.nombreProveedor }}</td>
+									 <td><input type="checkbox" value="{{ proveedor.id }}" checked></td>
+								</tr>
+							{% endfor %}
+							
+						</tr>					
 						</tbody>
 					</table>
-					<button class="btn btn-danger">Guardar</button>
+					<button id="Guardar" class="btn btn-danger">Guardar</button>
 				</div>
 				<div>
 					<p>Recuerde verificar estos datos en el siguiente link</p>
@@ -44,4 +49,36 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block js %}
+{{ parent() }}
+
+<script>
+	$(document).ready(function() {
+		$("#Guardar").click(function() {
+			obtenerValores();
+		});
+		
+	});
+
+	function obtenerValores(){
+
+		var arregloCheck = [];
+
+		$("#checkList input:checked").each(function() {
+			arregloCheck.push($(this).val());
+		});
+
+		var selecionados;
+		selecionados = arregloCheck.join(',') + ","
+
+		if(selecionados.length > 1){
+			alert('Tu has selecionado' + selecionados);
+		}
+		else{
+			alert('No has selecionado nada');
+		}
+	}
+</script>
 {% endblock %}
