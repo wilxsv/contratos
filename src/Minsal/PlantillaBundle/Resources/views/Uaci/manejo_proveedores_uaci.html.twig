@@ -17,7 +17,7 @@
 		<div class="col-sm-12">
 			<div class="white-box">
 				<h3 class="box-title m-b-0">Depuracion de provedores</h3>
-				<p class="text-muted m-b-30">UACI {{ valor }}</p>
+				<p class="text-muted m-b-30">UACI</p>
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
@@ -28,28 +28,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							
+						{% for proveedor in proveedores %}
 							<tr>
-								<th>1233</th>
-								<th>Laboratorios Suizos</th>
-								<th><input type="checkbox" name="Laboratorios" value="1" checked></th>
+								<td>{{ proveedor.proveedor }}</td>
 							</tr>
-							<tr>
-								<th>5333</th>
-								<th>Drogueria Martinez</th>
-								<th><input type="checkbox" name="Drogueta" checked></th>
-							</tr>
-							<tr>
-								<th>57565</th>
-								<th>Laboratorios Independiente</th>
-								<th><input type="checkbox" name="Independiente" checked></th>
-							</tr>
-							<tr>
-								<th>86786</th>
-								<th>Laboratorios Medicia</th>
-								<th><input type="checkbox" name="Medicia" checked></th>
-							</tr>
-							
+						{% endfor %}					
 						</tbody>
 					</table>
 					<button class="btn btn-danger">Guardar</button>

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;  
 use \Twig_Extension;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class UaciController extends Controller
 {
@@ -24,10 +25,19 @@ class UaciController extends Controller
 
 	public function proveedorUaciAction($cod)
 	{
-		$url = $cod;
-		
+
+		$sql = "SELECT co.numero_contrato, p.nombre_proveedor FROM ctl_modalidad_compra AS c JOIN ctl_contrato AS co ON co.numero_modalidad_compra = c.id JOIN ctl_proveedor AS p ON co.contrato_proveedor=p.id WHERE c.numero_modalidad LIKE '$cod' ";
+
+		$rsm = new ResultSetMapping();
+		$rsm->addEntityResult('MinsalModeloBundle:CtlContrato', 'co');
+		$rsm->addEntityResult('MinsalModeloBundle:CtlProveedor', 'p');
+		$rsm->addFieldResult('co','numero_contrato','numeroContrato');
+		$rsm->addFieldResult('p','nombre_proveedor','nombreProveedor');
+		$nq = $this->getDoctrine()->getManager()->createNativeQuery($sql, $rsm);
+		$proveedores = $nq->getResult();
+
 		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
-			'valor'=>$url,
+			'proveedores'=>$proveedores,
 			
 			));
 	}
