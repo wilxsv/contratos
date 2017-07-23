@@ -4,7 +4,9 @@ namespace Minsal\ContratoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\DependencyInjection\ContainerInterface;  
+use Symfony\Component\DependencyInjection\ContainerInterface; 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response; 
 use \Twig_Extension;
 use Doctrine\ORM\Query\ResultSetMapping;
 
@@ -41,5 +43,10 @@ class UaciController extends Controller
 		));
 
 			
+	}
+
+	public function cambiarEstadoAction(Request $request)
+	{
+		return new Response('');
 	}
 }

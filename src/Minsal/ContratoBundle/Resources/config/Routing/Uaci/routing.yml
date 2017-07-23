@@ -8,3 +8,8 @@ minsal_contrato_proveedores_uaci:
     methods: GET
     requirements:
         "cod": ".+"
+
+minsal_contrato_estado_proveedores:
+    path:       /cambiarEstado
+    defaults:   { _controller:MinsalContratoBundle:Uaci:cambiarEstado }
+    methods:    POST
