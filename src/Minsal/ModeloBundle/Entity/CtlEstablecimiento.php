@@ -7,25 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlEstablecimiento
  *
- * @ORM\Table(name="ctl_establecimiento", indexes={@ORM\Index(name="establecimiento_id_almacen", columns={"establecimiento_id_almacen"})})
+ * @ORM\Table(name="ctl_establecimiento", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_establecimiento_id_key", columns={"id"})}, indexes={@ORM\Index(name="IDX_332BD42C66617F31", columns={"establecimiento_id_almacen"})})
  * @ORM\Entity
  */
 class CtlEstablecimiento
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="ctl_establecimiento_id_seq", allocationSize=1, initialValue=1)
-     */
-    private $id;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="codigo_establecimiento", type="string", length=50, nullable=false)
+     * @ORM\Id
      */
     private $codigoEstablecimiento;
 
@@ -37,6 +28,13 @@ class CtlEstablecimiento
     private $nombreEstablecimiento;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=true)
+     */
+    private $id;
+
+    /**
      * @var \CtlAlmacen
      *
      * @ORM\ManyToOne(targetEntity="CtlAlmacen")
@@ -46,22 +44,10 @@ class CtlEstablecimiento
      */
     private $establecimientoAlmacen;
 
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set codigoEstablecimiento
      *
-     * @param string $codigoEstablecimiento
+     * @param integer $codigoEstablecimiento
      * @return CtlEstablecimiento
      */
     public function setCodigoEstablecimiento($codigoEstablecimiento)
@@ -70,6 +56,7 @@ class CtlEstablecimiento
 
         return $this;
     }
+
 
     /**
      * Get codigoEstablecimiento
@@ -102,6 +89,29 @@ class CtlEstablecimiento
     public function getNombreEstablecimiento()
     {
         return $this->nombreEstablecimiento;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return CtlEstablecimiento
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

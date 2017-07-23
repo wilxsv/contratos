@@ -7,65 +7,51 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProveedor
  *
- * @ORM\Table(name="ctl_proveedor")
+ * @ORM\Table(name="ctl_proveedor", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_proveedor_id_key", columns={"id"})})
  * @ORM\Entity
  */
 class CtlProveedor
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="ctl_proveedor_id_seq", allocationSize=1, initialValue=1)
-     */
-    private $id;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="codigo_proveedor", type="string", length=50, nullable=false)
+     * @ORM\Id
      */
     private $codigoProveedor;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_proveedor", type="string", length=50, nullable=false)
+     * @ORM\Column(name="nombre_proveedor", type="string", length=255, nullable=false)
      */
     private $nombreProveedor;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_proveedor", type="integer", nullable=true)
+     */
+    private $estadoProveedor;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="nit", type="string", length=50, nullable=false)
+     * @ORM\Column(name="nit", type="string", nullable=true)
      */
     private $nit;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="estado_proveedor", type="boolean", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      */
-    private $estadoProveedor;
-
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $id;
 
     /**
      * Set codigoProveedor
      *
-     * @param string $codigoProveedor
+     * @param integer $codigoProveedor
      * @return CtlProveedor
      */
     public function setCodigoProveedor($codigoProveedor)
@@ -109,6 +95,29 @@ class CtlProveedor
     }
 
     /**
+     * Set estadoProveedor
+     *
+     * @param integer $estadoProveedor
+     * @return CtlProveedor
+     */
+    public function setEstadoProveedor($estadoProveedor)
+    {
+        $this->estadoProveedor = $estadoProveedor;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProveedor
+     *
+     * @return integer 
+     */
+    public function getEstadoProveedor()
+    {
+        return $this->estadoProveedor;
+    }
+
+    /**
      * Set nit
      *
      * @param string $nit
@@ -132,25 +141,25 @@ class CtlProveedor
     }
 
     /**
-     * Set estadoProveedor
+     * Set id
      *
-     * @param boolean $estadoProveedor
+     * @param integer $id
      * @return CtlProveedor
      */
-    public function setEstadoProveedor($estadoProveedor)
+    public function setId($id)
     {
-        $this->estadoProveedor = $estadoProveedor;
+        $this->id = $id;
 
         return $this;
     }
 
     /**
-     * Get estadoProveedor
+     * Get id
      *
-     * @return boolean 
+     * @return integer 
      */
-    public function getEstadoProveedor()
+    public function getId()
     {
-        return $this->estadoProveedor;
+        return $this->id;
     }
 }
