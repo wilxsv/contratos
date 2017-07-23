@@ -24,15 +24,20 @@
 							<tr>
 								<th>Codigo de contrato</th>
 								<th>Proveedor</th>
-								<th>Habilitar/Deshabilitar</th>
+								<th id="p">Habilitar/Deshabilitar</th>
 							</tr>
 						</thead>
 						<tbody>
-						{% for proveedor in proveedores %}
-							<tr>
-								<td>{{ proveedor.proveedor }}</td>
-							</tr>
-						{% endfor %}					
+						<tr>
+							{% for proveedor in proveedores %}
+								<tr>
+									 <td>{{ proveedor.numeroContrato }}</td>
+									 <td>{{ proveedor.nombreProveedor }}</td>
+									 <td><input type="checkbox" value="{{ proveedor.id }}"></td>
+								</tr>
+							{% endfor %}
+							
+						</tr>					
 						</tbody>
 					</table>
 					<button class="btn btn-danger">Guardar</button>
