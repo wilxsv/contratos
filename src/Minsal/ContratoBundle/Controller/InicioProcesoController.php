@@ -171,10 +171,11 @@ class InicioProcesoController extends Controller
 
     $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
 
-
+    $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
     return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
       'compras' => $compras,
-      'incrementos' => $incrementos
+      'incrementos' => $incrementos,
+      'estimaciones' => $estimaciones
     ));
   
   }
