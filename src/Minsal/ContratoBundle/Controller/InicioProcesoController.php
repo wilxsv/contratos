@@ -208,7 +208,7 @@ class InicioProcesoController extends Controller
     //cargarContratos($em);
     //cargarProgramaciones($em);
     //cargarUnidades($em);
-    cargarProductos($em);
+    //cargarProductos($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
