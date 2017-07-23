@@ -1,0 +1,7 @@
+minsal_contrato_listado_medicamentos:
+    path:     /medicamentos
+    defaults: { _controller: MinsalContratoBundle:Unabas:medicamentos }
+
+minsal_contrato_listado_contratos:
+    path:     /contratos
+    defaults: { _controller: MinsalContratoBundle:Unabas:contratos }

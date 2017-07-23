@@ -29,9 +29,5 @@ class AnalizadorController extends Controller
 
 	*/
 
-	public function depurarMedicamentosAction()
-	{
-		return $this->render('MinsalPlantillaBundle:Analizador:depurarMedicamentos.html.twig');
-	}
 
 }
