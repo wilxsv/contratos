@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface; 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response; 
+use Minsal\ModeloBundle\Entity\CtlProveedor;
 use \Twig_Extension;
 use Doctrine\ORM\Query\ResultSetMapping;
 
@@ -47,6 +48,20 @@ class UaciController extends Controller
 
 	public function cambiarEstadoAction(Request $request)
 	{
-		return new Response('');
+		//Obtenemos el listado de objetos
+		$parametros = $request->get('listado');
+
+		//recorremos esos parametros
+		foreach ($parametros as $proveedor) {
+			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
+			$nuevoEstado = new CtlProveedor(); //Creamos un objeto al cual asignarle los valores
+			$obj = $em->getRepository('MinsalModeloBundle:CtlProveedor')->find($proveedor['proveedor']);//Buscamos por ID
+			$nuevoEstado->setEstadoProveedor($proveedor['estado']); //Se establece el estado\
+			if ($obj == null) {
+			$em->persist($nuevoEstado); //Se persisten los datos
+        	$em->flush($nuevoEstado); //Se guardan los datos
+        	}
+		}
+		return  new Response('');
 	}
 }

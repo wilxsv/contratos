@@ -79,7 +79,7 @@
 		});
 		$.ajax({
 			url: url,
-			data: listadoProveedores,
+			data: {'listado':listadoProveedores},
 			type: 'post',
 		}).done(function(data) {
 			alert('proveedores guardados');
