@@ -13,6 +13,8 @@ use Minsal\ModeloBundle\Entity\CtlIncremento;
 use Minsal\ModeloBundle\Entity\CtlEstados;
 use Minsal\ModeloBundle\Entity\CtlModalidadCompra;
 use Minsal\ModeloBundle\Entity\CtlProgramacion;
+use Minsal\ModeloBundle\Entity\CtlUnidadMedida;
+use Minsal\ModeloBundle\Entity\CtlProducto;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 function cargarProveedores($em){
@@ -153,7 +155,46 @@ function cargarContratos($em)
           $em->flush($nuevaProgramacion);
         }
   }
+  function cargarUnidades($em){
+    /*--------SINCRONIZACION DE UNIDADES DE MEDIDA----------*/
+    $service_url = 'http://192.168.1.2:8080/v1/sinab/unidadesmedidas?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $curl = curl_init($service_url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $curl_response = curl_exec($curl);
+    curl_close($curl);
+    $respuesta = json_decode($curl_response,true);
+        foreach ($respuesta['respuesta'] as $u) {
+          $nuevaUnidad = new CtlUnidadMedida();
+          $nuevaUnidad->setDescripcion($u["1"]);
 
+          $em->persist($nuevaUnidad);
+          $em->flush($nuevaUnidad);
+        }
+  }
+function cargarProductos($em){
+  /*-------SINCRONIZACION DE PRODUCTOS ---------------*/
+  
+   $service_url = 'http://192.168.1.2:8080/v1/sinab/medicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $curl = curl_init($service_url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $curl_response = curl_exec($curl);
+    curl_close($curl);
+    $respuesta = json_decode($curl_response,true);
+        foreach ($respuesta['respuesta'] as $p) {
+          $nuevoProducto = new CtlProducto();
+          $nuevoProducto->setIdProductoSibasi($p["0"]);
+          $nuevoProducto->setCodigoProducto($p["1"]);
+          $nuevoProducto->setNombreProducto($p["2"]);
+          $um=$em->getRepository('MinsalModeloBundle:CtlUnidadMedida')->find($p["3"]);
+          $nuevoProducto->setUnidadMedidaProducto($um);
+          $nuevoProducto->setProductoConcentracion($p["4"]);
+          $nuevoProducto->setProductoPresentacion($p["5"]);
+
+          $em->persist($nuevoProducto);
+          $em->flush($nuevoProducto);
+        }
+
+}
 class InicioProcesoController extends Controller
 {
   public function inicioAction()
@@ -165,7 +206,9 @@ class InicioProcesoController extends Controller
     //cargarCompras($em);
     //cargarProveedores($em); 
     //cargarContratos($em);
-    cargarProgramaciones($em);
+    //cargarProgramaciones($em);
+    //cargarUnidades($em);
+    cargarProductos($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 

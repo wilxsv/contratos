@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto")
+ * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
@@ -32,7 +32,7 @@ class CtlProducto
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_producto", type="string", length=50, nullable=false)
+     * @ORM\Column(name="nombre_producto", type="string", length=255, nullable=false)
      */
     private $nombreProducto;
 
@@ -42,6 +42,37 @@ class CtlProducto
      * @ORM\Column(name="estado_producto", type="string", length=50, nullable=true)
      */
     private $estadoProducto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="producto_concentracion", type="string", length=255, nullable=true)
+     */
+    private $productoConcentracion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="producto_presentacion", type="string", length=255, nullable=true)
+     */
+    private $productoPresentacion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=true)
+     */
+    private $idProductoSibasi;
+
+    /**
+     * @var \CtlUnidadMedida
+     *
+     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unidad_medida_producto", referencedColumnName="id")
+     * })
+     */
+    private $unidadMedidaProducto;
 
 
 }

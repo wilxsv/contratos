@@ -29,19 +29,5 @@ class CtlUnidadMedida
      */
     private $descripcion;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="unidades_contenidas", type="integer", nullable=false)
-     */
-    private $unidadesContenidas;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cantidad_decimal", type="decimal", precision=16, scale=8, nullable=false)
-     */
-    private $cantidadDecimal;
-
 
 }

@@ -29,20 +29,6 @@ class CtlUnidadMedida
      */
     private $descripcion;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="unidades_contenidas", type="integer", nullable=false)
-     */
-    private $unidadesContenidas;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cantidad_decimal", type="decimal", precision=16, scale=8, nullable=false)
-     */
-    private $cantidadDecimal;
-
 
 
     /**
@@ -76,51 +62,5 @@ class CtlUnidadMedida
     public function getDescripcion()
     {
         return $this->descripcion;
-    }
-
-    /**
-     * Set unidadesContenidas
-     *
-     * @param integer $unidadesContenidas
-     * @return CtlUnidadMedida
-     */
-    public function setUnidadesContenidas($unidadesContenidas)
-    {
-        $this->unidadesContenidas = $unidadesContenidas;
-
-        return $this;
-    }
-
-    /**
-     * Get unidadesContenidas
-     *
-     * @return integer 
-     */
-    public function getUnidadesContenidas()
-    {
-        return $this->unidadesContenidas;
-    }
-
-    /**
-     * Set cantidadDecimal
-     *
-     * @param string $cantidadDecimal
-     * @return CtlUnidadMedida
-     */
-    public function setCantidadDecimal($cantidadDecimal)
-    {
-        $this->cantidadDecimal = $cantidadDecimal;
-
-        return $this;
-    }
-
-    /**
-     * Get cantidadDecimal
-     *
-     * @return string 
-     */
-    public function getCantidadDecimal()
-    {
-        return $this->cantidadDecimal;
     }
 }
