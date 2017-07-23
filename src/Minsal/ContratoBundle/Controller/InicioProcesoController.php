@@ -137,7 +137,7 @@ class InicioProcesoController extends Controller
     /* funciones para la carga de datos*/
     // cargarEstablecimientos($em);
     // cargarCompras($em);
-    // cargarProveedores($em); 
+    //cargarProveedores($em); 
     //cargarContratos($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
