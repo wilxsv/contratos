@@ -61,6 +61,7 @@
 	function obtenerValores(){
 		var proveedor;
 		var listadoProveedores = [];
+		
 		var url = "{{ path('minsal_contrato_estado_proveedores') }}";
 		var tabla = $('#datos tbody tr').each(function() {
 			
@@ -82,7 +83,7 @@
 			data: {'listado':listadoProveedores},
 			type: 'post',
 		}).done(function(data) {
-			alert('proveedores guardados');
+			alert(data);
 		}).fail(function() {
 			alert('upps algo ha pasado en el ajax');
 		});

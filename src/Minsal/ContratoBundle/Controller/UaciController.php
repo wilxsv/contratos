@@ -55,11 +55,10 @@ class UaciController extends Controller
 		foreach ($parametros as $proveedor) {
 			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
 			$obj = $em->getRepository('MinsalModeloBundle:CtlProveedor')->find($proveedor['proveedor']);//Buscamos por ID
-			$obj->setEstadoProveedor($proveedor['estado']); //Se establece el estado\
+			$obj->setEstadoProveedor($proveedor['estado']); //Se establece el estado alos proveedores
 			$em->persist($obj); //Se persisten los datos
         	$em->flush($obj); //Se guardan los datos
-        	
 		}
-		return  new Response('');
+		return  new Response('Datos Ingresados correctamente'); //se devuelve la respuesta del proceso
 	}
 }
