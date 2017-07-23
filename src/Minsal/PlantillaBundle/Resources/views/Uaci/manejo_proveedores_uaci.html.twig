@@ -19,7 +19,7 @@
 				<h3 class="box-title m-b-0">Depuracion de provedores</h3>
 				<p class="text-muted m-b-30">UACI</p>
 				<div class="table-responsive">
-					<table class="table table-striped">
+					<table class="table table-striped" id="datos">
 						<thead>
 							<tr>
 								<th>Codigo de contrato</th>
@@ -28,7 +28,6 @@
 							</tr>
 						</thead>
 						<tbody>
-						<tr>
 							{% for proveedor in proveedores %}
 								<tr id="checkList">
 									 <td>{{ proveedor.numeroContrato }}</td>
@@ -36,11 +35,10 @@
 									 <td><input type="checkbox" value="{{ proveedor.id }}" checked></td>
 								</tr>
 							{% endfor %}
-							
-						</tr>					
+									
 						</tbody>
 					</table>
-					<button id="Guardar" class="btn btn-danger">Guardar</button>
+					<a id="Guardar" class="btn btn-danger">Guardar</a>
 				</div>
 				<div>
 					<p>Recuerde verificar estos datos en el siguiente link</p>
@@ -59,26 +57,36 @@
 		$("#Guardar").click(function() {
 			obtenerValores();
 		});
-		
 	});
-
 	function obtenerValores(){
+		var proveedor;
+		var listadoProveedores = [];
+		var tabla = $('#datos tbody tr').each(function() {
+			
+			if ($(this).find("td").eq(2).find("input").is(":checked")) {
+				proveedor = $(this).find("td").eq(2).find("input").val();
+				var nodo = {'proveedor':proveedor,'estado':4};
+				listadoProveedores.push(nodo);
+			}
+			else{
+				proveedor = $(this).find("td").eq(2).find("input").val();
+				var nodo = {'proveedor':proveedor,'estado':3};
+				listadoProveedores.push(nodo);
+			}
 
-		var arregloCheck = [];
-
-		$("#checkList input:checked").each(function() {
-			arregloCheck.push($(this).val());
+			
 		});
-
-		var selecionados;
-		selecionados = arregloCheck.join(',') + ","
-
-		if(selecionados.length > 1){
-			alert('Tu has selecionado' + selecionados);
-		}
-		else{
-			alert('No has selecionado nada');
-		}
+		$.ajax({
+			url:,
+			data:listadoProveedores,
+			type:post,
+		}).done(function(data) {
+			alert('proveedores guardados');
+		}).fail(function() {
+			alert('upps algo ha pasado en el ajax');
+		});
+		
 	}
+
 </script>
 {% endblock %}
