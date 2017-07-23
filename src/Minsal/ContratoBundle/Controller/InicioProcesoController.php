@@ -229,47 +229,38 @@ class InicioProcesoController extends Controller
     $em = $this->getDoctrine()->getManager();
     $cod = $request->get('cod');
     $meses = $request->get('meses');
-    if ($request->get('estimacion') == 1) {
-      $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
-      $incremento = new CtlIncremento();
-      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
-      $incremento->setestadoIncremento($estado);
-      $incremento->setMesesDesestimar($meses);
-      $incremento->setFechaCreacion(new \DateTime("now"));
-      foreach($compra as $com){
-        $incremento->setIncrementoModalidadCompra($com);
-       }
-       $incremento->setEstimacion(1);
-      $em->persist($incremento);
-      $em->flush($incremento);
-    }
-    else{
-      $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
-      $incremento = new CtlIncremento();
-      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
-      $incremento->setestadoIncremento($estado);
-      $incremento->setMesesDesestimar($meses);
-      $incremento->setFechaCreacion(new \DateTime("now"));
-      foreach($compra as $com){
-        $incremento->setIncrementoModalidadCompra($com);
-       }
-       $incremento->setEstimacion(0);
-      $em->persist($incremento);
-      $em->flush($incremento);
+    $estimacion = $request->get('estimacion');
+    $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
+    $incremento = new CtlIncremento();
+    $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
+    $incremento->setestadoIncremento($estado);
+    $incremento->setMesesDesestimar($meses);
+    $incremento->setFechaCreacion(new \DateTime("now"));
+    foreach($compra as $com){
+      $incremento->setIncrementoModalidadCompra($com);
+     }
 
-    }
+     $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->find($estimacion);
+    
+    $incremento->setEstimacion($programacion);
+     
+     
+    $em->persist($incremento);
+    $em->flush($incremento);
+    
 
     
 
-    $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
+     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
     $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
 
-
+    $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
     return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
-          'compras' => $compras,
-          'incrementos' => $incrementos
-        ));
+      'compras' => $compras,
+      'incrementos' => $incrementos,
+      'estimaciones' => $estimaciones
+    ));
 
 
   }

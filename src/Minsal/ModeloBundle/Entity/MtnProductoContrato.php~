@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnProductoContrato
  *
- * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="idx_116672617def239f", columns={"mtn_id_contrato"}), @ORM\Index(name="idx_1166726152511505", columns={"mtn_id_almacen"}), @ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_id_producto"})})
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="idx_116672617def239f", columns={"mtn_id_contrato"}), @ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_id_producto"})})
  * @ORM\Entity
  */
 class MtnProductoContrato
@@ -56,16 +56,6 @@ class MtnProductoContrato
      * @ORM\Column(name="descripcion_proveedor", type="string", length=100, nullable=false)
      */
     private $descripcionProveedor;
-
-    /**
-     * @var \CtlAlmacen
-     *
-     * @ORM\ManyToOne(targetEntity="CtlAlmacen")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="mtn_id_almacen", referencedColumnName="id")
-     * })
-     */
-    private $mtnAlmacen;
 
     /**
      * @var \CtlProducto

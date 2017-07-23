@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlIncremento
  *
- * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"})})
+ * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"}), @ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_estimacion", columns={"estimacion"})})
  * @ORM\Entity
  */
 class CtlIncremento
@@ -37,13 +37,6 @@ class CtlIncremento
     private $fechaCreacion;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="estimacion", type="integer", nullable=true)
-     */
-    private $estimacion;
-
-    /**
      * @var \CtlEstados
      *
      * @ORM\ManyToOne(targetEntity="CtlEstados")
@@ -62,6 +55,16 @@ class CtlIncremento
      * })
      */
     private $incrementoModalidadCompra;
+
+    /**
+     * @var \CtlProgramacion
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProgramacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estimacion", referencedColumnName="id")
+     * })
+     */
+    private $estimacion;
 
 
 
@@ -122,29 +125,6 @@ class CtlIncremento
     }
 
     /**
-     * Set estimacion
-     *
-     * @param integer $estimacion
-     * @return CtlIncremento
-     */
-    public function setEstimacion($estimacion)
-    {
-        $this->estimacion = $estimacion;
-
-        return $this;
-    }
-
-    /**
-     * Get estimacion
-     *
-     * @return integer 
-     */
-    public function getEstimacion()
-    {
-        return $this->estimacion;
-    }
-
-    /**
      * Set estadoIncremento
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoIncremento
@@ -188,5 +168,28 @@ class CtlIncremento
     public function getIncrementoModalidadCompra()
     {
         return $this->incrementoModalidadCompra;
+    }
+
+    /**
+     * Set estimacion
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
+     * @return CtlIncremento
+     */
+    public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
+    {
+        $this->estimacion = $estimacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estimacion
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion 
+     */
+    public function getEstimacion()
+    {
+        return $this->estimacion;
     }
 }

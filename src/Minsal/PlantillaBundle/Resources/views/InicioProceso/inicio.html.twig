@@ -6,10 +6,7 @@
 function crearIncremento() {
     var codigoLicitacion = $('#codigoCompra').val();
     var meses = $('#meses').val();
-    var estimacion ;
-
-    if( $('#estimacionSi').is(':checked') ) {
-        estimacion = 1;
+    var estimacion = $('#estimacion').val();
         $.ajax({
             url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
             data : {
@@ -20,20 +17,7 @@ function crearIncremento() {
             type : 'post'
         }).done(function(data) {
             location.reload();
-    });
-
-    }else{
-        $.ajax({
-            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
-        data : {
-            'cod':codigoLicitacion,
-            'meses':meses
-        },
-        type : 'post'
-    }).done(function(data) {
-        location.reload();
-    });
-}
+        });
 
 
 }
@@ -55,8 +39,12 @@ function crearIncremento() {
                             <label >Meses a desestimar</label>
                             <input id="meses" type="number" class="form-control"> </div>
                         <div class="form-group">
-                            <label>Desea utilizar una estimacion?</label>
-                            Si:<input type="radio" id="estimacionSi"> No:<input type="radio" checked="" id="estimacionNo">
+                            <label>Elija una estimacion</label>
+                            <select id="estimacion">
+                                {% for estima in estimaciones %}
+                                    <option value="{{estima.id}}">{{estima.descripcionProgramacion}}</option>
+                                {% endfor %}
+                            </select>
                         </div>  
                         
                         <a onclick="crearIncremento()" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>
@@ -107,13 +95,7 @@ function crearIncremento() {
                         <td>{{ incremento.id }}</td>
                         <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
                         <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
-                        <td>
-                            {% if incremento.estimacion == 1 %}
-                                Utiliza estimacion
-                            {% else %}
-                                no utiliza estimacion
-                            {% endif %}
-                        </td>
+                        <td>{{incremento.estimacion.descripcionProgramacion}}</td>
                         <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
                         <td>{% if incremento.estadoIncremento.id == 1 %}
                             aun no puede continuar el proceso
