@@ -5,3 +5,7 @@ minsal_contrato_listado_medicamentos:
 minsal_contrato_listado_contratos:
     path:     /contratos
     defaults: { _controller: MinsalContratoBundle:Unabas:contratos }
+
+minsal_contrato_mensajeria:
+    path:     /correoAjax
+    defaults: { _controller: MinsalContratoBundle:Unabas:mensajeria }

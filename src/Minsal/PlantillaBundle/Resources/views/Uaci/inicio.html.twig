@@ -41,9 +41,9 @@
 		</div>
 	</div>
 
-	<div class="row">
+	<!-- <div class="row">
 		<button alt="default" data-toggle="modal" data-target="#responsive-modal" class="model_img img-responsive"> Modal Hacer Caso Omiso a este botn por el momento</button>
-	</div>
+	</div> -->
 <!-- ========================================================================================= -->
 <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	<div class="modal-dialog">
@@ -58,11 +58,11 @@
 						<form>
 							<div class="form-group">
 								<label  for="recipient-name" class="control-label">Asunto:</label>
-								<input type="text" class="form-control" id="asunto" recipient-name"> 
+								<input type="text" class="form-control" id="asunto"> 
 							</div>
-							<div class="form-group">
-								<label for="message-text" class="control-label">Invitacion:</label>
-								<textarea class="form-control" id="invitacion" message-text"></textarea>
+							<div>
+								<label for="message-text" class="control-label">Cuerpo del mensaje:</label>
+								<textarea class="form-control" id="invitacion message-text"></textarea>
 							</div>
 							<div class="form-group">
 								<label for="message-text" class="control-label">Fecha:</label>
@@ -195,22 +195,34 @@
 		 asunto = $("#asunto").val();
 		 fecha = $(".fecha").val();
 		 invitacion = $("#invitacion").val();
-
-		 alert(asunto)
-
 		 var correo;
 		 var emails = [];
+		 var url = "{{ path('minsal_contrato_mensajeria') }}";
 
 		 var correos = $('#correos div div').each(function(){
 		 	correo = $(this).find("input").val();
 		 	var nodo = {'email':correo};
 		 	emails.push(nodo);
 		 });
-
-		 alert(emails[0]['email'])
-		 alert(emails[1]['email'])
-		 alert(emails[2]['email'])
-		 alert(emails[3]['email'])	
+		 $.ajax({
+		 		url: url,
+		 		type: 'POST',
+		 		data: {
+		 			'asunto':asunto,
+		 			'invitacion':invitacion,
+		 			'correos':emails,
+		 		},
+		 	})
+		 	.done(function(data) {
+		 		alert(data);
+		 	})
+		 	.fail(function() {
+		 		console.log("error");
+		 	})
+		 	.always(function() {
+		 		console.log("complete");
+		 	});
+		 		
 		}
 
     });

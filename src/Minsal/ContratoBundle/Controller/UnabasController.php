@@ -4,6 +4,8 @@ namespace Minsal\ContratoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UnabasController extends Controller
 {
@@ -15,5 +17,10 @@ class UnabasController extends Controller
 	public function contratosAction()
 	{
 		return $this->render('MinsalPlantillaBundle:Unabast:contratos.html.twig');
+	}
+
+	public function mensajeriaAction(Request $request)
+	{
+		return new Response('Todo Maravilloso');
 	}
 }
