@@ -6,8 +6,8 @@ minsal_contrato_proveedores_uaci:
     path:     /proveedoresUaci/{cod}
     defaults: { _controller: MinsalContratoBundle:Uaci:proveedorUaci }
     methods: GET
-    requirements:
-        "cod": ".+"
+    # requirements:
+    #     "cod": ".+"
 
 minsal_contrato_estado_proveedores:
     path:       /cambiarEstado

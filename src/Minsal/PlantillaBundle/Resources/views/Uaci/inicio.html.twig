@@ -6,8 +6,6 @@
     <!-- ================================================== -->
     <link href="{{ asset('assets/') }}plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
     <!-- ================================================== -->
-    
-    
 {% endblock %}
 {% block body %}
 	<div class="row">
@@ -31,7 +29,7 @@
 									<td>{{ proceso.id }}</td>
 									<td>{{ proceso.incrementoModalidadCompra.numeroModalidad }}</td>
 									<td>{{ proceso.fechaCreacion|date('d/m/Y') }}</td>
-									<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:proceso.incrementoModalidadCompra.numeroModalidad}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
+									<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:proceso.incrementoModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
 								</tr>
 							{% endfor %}
 						</tbody>
