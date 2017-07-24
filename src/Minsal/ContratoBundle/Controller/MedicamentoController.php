@@ -37,4 +37,21 @@ class MedicamentoController extends Controller
 	   
 	    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig');
 	}
+	public function listadoAction($incremento)
+	{	
+		$em = $this->getDoctrine()->getManager();
+	    $contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findByNumeroModalidadCompra($incremento);
+
+	    $incremento = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(
+	    	array(
+	    		'incrementoModalidadCompra'=>$incremento
+	    		)
+	    	);
+
+	   
+	    return $this->render('MinsalPlantillaBundle:Unabast:contratos.html.twig',array(
+	    	'contratos' => $contratos,
+	    	'incremento' => $incremento
+	    	));
+	}
 }
