@@ -47,6 +47,10 @@
 			</div>
 		</div>
 	</div>
+
+
+
+
 {% endblock %}
 
 {% block js %}
@@ -61,7 +65,7 @@
 	function obtenerValores(){
 		var proveedor;
 		var listadoProveedores = [];
-		
+
 		var url = "{{ path('minsal_contrato_estado_proveedores') }}";
 		var tabla = $('#datos tbody tr').each(function() {
 			
