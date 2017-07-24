@@ -102,8 +102,9 @@ function crearIncremento() {
                             {% else %}
                                 {% if incremento.estadoIncremento.id == 2 %}
                                 <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
-                                    {% if incremento.estadoIncremento.id == 3 %}
-                                        <a class="btn btn-info">Iniciar Comision</a>
+                                {% else %}
+                                    {% if incremento.estadoIncremento.id == 5 %}
+                                         <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
                                     {% endif %}
 
                                 {% endif %}

@@ -1,3 +1,66 @@
 {% extends 'base.html.twig' %}
+{% block head_css %}
+	{{ parent() }}
+    <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<!-- Menu CSS -->
+    <link href="{{ asset('assets/') }}plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+{% endblock %}
 {% block body %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="white-box">
+				<h3 class="box-title m-b-0">Depuracion de Medicamentos Por Contrato</h3>
+				<p class="text-muted m-b-30">UACI</p>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Codigo de medicamento</th>
+								<th>Nombre del medicamento</th>
+								<th>Concentracion</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if medicamentos is empty %}
+								<tr>
+									<td></td>
+									<td>ESTE CONTRATO NO POSEE MEDICAMENTOS, POSIBLEMENTE CONTENGA OTRO TIPO DE SUMINISTROS</td>
+									<td></td>
+									<td></td>
+								</tr>
+							{% else %}
+								{% for med in medicamentos %}
+								{% if med != null %}
+									<tr>
+										<td>{{med.id}}</td>
+										<td>{{med.nombreProducto}}</td>
+										<td>{{med.productoConcentracion}}</td>
+										<td><input type="checkbox" name=""></td>
+									</tr>
+								{% else %}
+									<tr>
+										<td></td>
+									<td>ESTE PRODUCTO NO ES UN MEDICAMENTO, POSIBLEMENTE CONTENGA OTRO TIPO DE SUMINISTROS</td>
+									<td></td>
+									<td></td>
+									</tr>
+								{% endif %}
+									
+							{% endfor %}
+								
+							{% endif %}
+						</tbody>
+					</table>
+					<button class="btn btn-danger">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

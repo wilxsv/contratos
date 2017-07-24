@@ -16,7 +16,7 @@ class AnalizadorController extends Controller
 		* funcion para el renderizado de la dashboard del analisis, recibe como parametro
 		el codigo de licitacion
 	*/
-	public function dashboardAction($id)
+	public function dashboardAction($incremento,$contrato)
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -25,9 +25,25 @@ class AnalizadorController extends Controller
 	}
 
 	/*
-		* funcion que renderiza la depuracion de medicamentos
-
+		* funcion que renderiza los contratos a incrementar
 	*/
 
+	public function listadoAction($incremento)
+	{	
+		$em = $this->getDoctrine()->getManager();
+	    $contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findByNumeroModalidadCompra($incremento);
+
+	    $incremento = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(
+	    	array(
+	    		'incrementoModalidadCompra'=>$incremento
+	    		)
+	    	);
+
+	   
+	    return $this->render('MinsalPlantillaBundle:Analizador:contratos.html.twig',array(
+	    	'contratos' => $contratos,
+	    	'incremento' => $incremento
+	    	));
+	}
 
 }
