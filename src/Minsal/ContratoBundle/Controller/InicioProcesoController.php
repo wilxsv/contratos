@@ -15,6 +15,7 @@ use Minsal\ModeloBundle\Entity\CtlModalidadCompra;
 use Minsal\ModeloBundle\Entity\CtlProgramacion;
 use Minsal\ModeloBundle\Entity\CtlUnidadMedida;
 use Minsal\ModeloBundle\Entity\CtlProducto;
+use Minsal\ModeloBundle\Entity\MtnProductoContrato;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 function cargarProveedores($em){
@@ -195,6 +196,24 @@ function cargarProductos($em){
         }
 
 }
+function cargarproductoContrato($em){
+  $service_url = 'http://192.168.1.2:8080/v1/sinab/medicamentoscontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+  $curl = curl_init($service_url);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  $curl_response = curl_exec($curl);
+  curl_close($curl);
+  $respuesta = json_decode($curl_response,true);
+  foreach ($respuesta['respuesta'] as $p) {
+    $nuevoProductoContrato = new MtnProductoContrato();
+    $nuevoProductoContrato->setMtnProducto($p["0"]);
+    $nuevoProductoContrato->setMtnContrato($p["2"]);
+    $nuevoProductoContrato->setMtnProveedor($p["1"]);
+    $nuevoProductoContrato->setCantidad($p["3"]);
+    $nuevoProductoContrato->setPrecioUnitario($p["4"]);
+    $em->persist($nuevoProductoContrato);
+    $em->flush($nuevoProductoContrato);
+  }
+}
 class InicioProcesoController extends Controller
 {
   public function inicioAction()
@@ -209,6 +228,7 @@ class InicioProcesoController extends Controller
     //cargarProgramaciones($em);
     //cargarUnidades($em);
     //cargarProductos($em);
+    //cargarproductoContrato($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 

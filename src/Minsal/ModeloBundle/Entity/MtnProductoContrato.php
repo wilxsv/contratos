@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnProductoContrato
  *
- * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="idx_116672617def239f", columns={"mtn_id_contrato"}), @ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_id_producto"})})
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_producto"}), @ORM\Index(name="idx_116672617def239f", columns={"mtn_contrato"})})
  * @ORM\Entity
  */
 class MtnProductoContrato
@@ -25,21 +25,21 @@ class MtnProductoContrato
     /**
      * @var integer
      *
-     * @ORM\Column(name="mtn_id_contrato", type="bigint", nullable=true)
+     * @ORM\Column(name="mtn_producto", type="integer", nullable=true)
      */
-    private $mtnIdContrato;
+    private $mtnProducto;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="renglon", type="integer", nullable=false)
+     * @ORM\Column(name="mtn_contrato", type="bigint", nullable=true)
      */
-    private $renglon;
+    private $mtnContrato;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="cantidad", type="integer", nullable=false)
+     * @ORM\Column(name="cantidad", type="decimal", precision=10, scale=0, nullable=false)
      */
     private $cantidad;
 
@@ -51,21 +51,11 @@ class MtnProductoContrato
     private $precioUnitario;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="descripcion_proveedor", type="string", length=100, nullable=false)
+     * @ORM\Column(name="mtn_proveedor", type="integer", nullable=true)
      */
-    private $descripcionProveedor;
-
-    /**
-     * @var \CtlProducto
-     *
-     * @ORM\ManyToOne(targetEntity="CtlProducto")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="mtn_id_producto", referencedColumnName="id")
-     * })
-     */
-    private $mtnProducto;
+    private $mtnProveedor;
 
 
 
@@ -80,55 +70,55 @@ class MtnProductoContrato
     }
 
     /**
-     * Set mtnIdContrato
+     * Set mtnProducto
      *
-     * @param integer $mtnIdContrato
+     * @param integer $mtnProducto
      * @return MtnProductoContrato
      */
-    public function setMtnIdContrato($mtnIdContrato)
+    public function setMtnProducto($mtnProducto)
     {
-        $this->mtnIdContrato = $mtnIdContrato;
+        $this->mtnProducto = $mtnProducto;
 
         return $this;
     }
 
     /**
-     * Get mtnIdContrato
+     * Get mtnProducto
      *
      * @return integer 
      */
-    public function getMtnIdContrato()
+    public function getMtnProducto()
     {
-        return $this->mtnIdContrato;
+        return $this->mtnProducto;
     }
 
     /**
-     * Set renglon
+     * Set mtnContrato
      *
-     * @param integer $renglon
+     * @param integer $mtnContrato
      * @return MtnProductoContrato
      */
-    public function setRenglon($renglon)
+    public function setMtnContrato($mtnContrato)
     {
-        $this->renglon = $renglon;
+        $this->mtnContrato = $mtnContrato;
 
         return $this;
     }
 
     /**
-     * Get renglon
+     * Get mtnContrato
      *
      * @return integer 
      */
-    public function getRenglon()
+    public function getMtnContrato()
     {
-        return $this->renglon;
+        return $this->mtnContrato;
     }
 
     /**
      * Set cantidad
      *
-     * @param integer $cantidad
+     * @param string $cantidad
      * @return MtnProductoContrato
      */
     public function setCantidad($cantidad)
@@ -141,7 +131,7 @@ class MtnProductoContrato
     /**
      * Get cantidad
      *
-     * @return integer 
+     * @return string 
      */
     public function getCantidad()
     {
@@ -172,48 +162,25 @@ class MtnProductoContrato
     }
 
     /**
-     * Set descripcionProveedor
+     * Set mtnProveedor
      *
-     * @param string $descripcionProveedor
+     * @param integer $mtnProveedor
      * @return MtnProductoContrato
      */
-    public function setDescripcionProveedor($descripcionProveedor)
+    public function setMtnProveedor($mtnProveedor)
     {
-        $this->descripcionProveedor = $descripcionProveedor;
+        $this->mtnProveedor = $mtnProveedor;
 
         return $this;
     }
 
     /**
-     * Get descripcionProveedor
+     * Get mtnProveedor
      *
-     * @return string 
+     * @return integer 
      */
-    public function getDescripcionProveedor()
+    public function getMtnProveedor()
     {
-        return $this->descripcionProveedor;
-    }
-
-    /**
-     * Set mtnProducto
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto
-     * @return MtnProductoContrato
-     */
-    public function setMtnProducto(\Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto = null)
-    {
-        $this->mtnProducto = $mtnProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get mtnProducto
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlProducto 
-     */
-    public function getMtnProducto()
-    {
-        return $this->mtnProducto;
+        return $this->mtnProveedor;
     }
 }

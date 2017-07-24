@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
+ * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_producto_id_producto_sibasi_key", columns={"id_producto_sibasi"})}, indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
