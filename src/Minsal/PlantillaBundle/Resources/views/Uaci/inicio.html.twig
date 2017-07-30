@@ -39,7 +39,7 @@
 										<td>{{ incremento.id }}</td>
 										<td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
 										<td>{{ incremento.fechaCreacion|date('d/m/Y') }}</td>
-										<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.incrementoModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
+										<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.incrementoModalidadCompra.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
 									</tr>
 								{% endfor %}
 
@@ -50,7 +50,7 @@
 									<td>{{ prorroga.id }}</td>
 									<td>{{ prorroga.prorrogaModalidadCompra.numeroModalidad }}</td>
 									<td>{{ prorroga.fechaCreacion|date('d/m/Y') }}</td>
-									<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
+									<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
 								</tr>
 							{% endfor %}
 

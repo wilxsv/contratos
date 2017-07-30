@@ -139,10 +139,10 @@
                             aun no puede continuar el proceso
                         {% else %}
                             {% if prorroga.estadoProrroga.id == 7 %}
-                                <a href="{{ path('minsal_contrato_listado_medicamentos',{'prorroga': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+                                <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
                             {% else %}
                                 {% if prorroga.estadoProrroga.id == 5 %}
-                                    <a href="{{ path('minsal_contrato_analizador_contratos',{'prorroga': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
+                                    <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
                                 {% endif %}
 
                             {% endif %}
