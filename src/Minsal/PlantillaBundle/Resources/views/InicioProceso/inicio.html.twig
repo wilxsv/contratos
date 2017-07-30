@@ -34,7 +34,7 @@
         </div>
     </div>
     <!--======================Fin Formulario para incremento =============================== -->
-    
+
     <!--======================Formulario para prorroga ===================================== -->
     <div class="col-md-6">
         <div class="white-box">
@@ -57,20 +57,72 @@
         </div>
     </div>
     <!--======================Fin Formulario para prorroga ===================================== -->
-    <div class="col-md-6">
 </div>
 
-<!--======================Tabla de procesos ===================================== -->
+<!--======================Area de procesos ===================================== -->
 <div class="white-box">
-    <h3 class="box-title">Listado de Compras en Proceso de Licitacion o Prorroga</h3>
+
+    <!--======================Tabla de incrementos ===================================== -->
+
+    <div class="col-md-6">
+        <h3 class="box-title">Listado de Compras en Proceso de Incremento</h3>
+        <div class="table-responsive">
+            <table class="table color-table success-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Compra</th>
+                        <th>Fecha de creacion</th>
+                        <th>Estimacion de necesidades</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="detalleIncremento">
+                    {% for incremento in incrementos %}
+                        <tr>
+                            <td>{{ incremento.id }}</td>
+                            <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
+                            <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
+                            <td>{{incremento.estimacion.descripcionProgramacion}}</td>
+                            <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
+                            <td>{% if incremento.estadoIncremento.id == 1 %}
+                                aun no puede continuar el proceso
+                            {% else %}
+                                {% if incremento.estadoIncremento.id == 2 %}
+                                    <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+                                {% else %}
+                                    {% if incremento.estadoIncremento.id == 5 %}
+                                        <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!--======================Fin Tabla de incrementos ===================================== -->
+
+<!--======================Tabla de prorroga ============================= -->
+
+
+<div class="col-md-6">
+    <h3 class="box-title">Listado de Compras en Proceso de Prorroga</h3>
     <div class="table-responsive">
-        <table class="table color-table success-table">
+        <table class="table color-table muted-table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Compra</th>
                     <th>Fecha de creacion</th>
-                    <th>Estimacion de necesidades</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -81,31 +133,33 @@
                         <td>{{ incremento.id }}</td>
                         <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
                         <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
-                        <td>{{incremento.estimacion.descripcionProgramacion}}</td>
                         <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
                         <td>{% if incremento.estadoIncremento.id == 1 %}
                             aun no puede continuar el proceso
-                            {% else %}
-                                {% if incremento.estadoIncremento.id == 2 %}
+                        {% else %}
+                            {% if incremento.estadoIncremento.id == 2 %}
                                 <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
-                                {% else %}
-                                    {% if incremento.estadoIncremento.id == 5 %}
-                                         <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
-                                    {% endif %}
-
+                            {% else %}
+                                {% if incremento.estadoIncremento.id == 5 %}
+                                    <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
                                 {% endif %}
-                                
+
+                            {% endif %}
+
                         {% endif %}
 
-                        </td>
-                            
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
-<!--====================== Fin Tabla de resultados ===================================== -->
+
+</div>
+<!--======================Fin Tabla de prorroga ============================= -->
+</div>
+<!--====================== FinTabla de resultados ===================================== -->
 
 
 {% endblock %}
