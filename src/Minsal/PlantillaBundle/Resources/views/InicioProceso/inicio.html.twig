@@ -128,21 +128,21 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="detalleIncremento">
-                {% for incremento in incrementos %}
+            <tbody id="detalleProrroga">
+                {% for prorroga in prorrogas %}
                     <tr>
-                        <td>{{ incremento.id }}</td>
-                        <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
-                        <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
-                        <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
-                        <td>{% if incremento.estadoIncremento.id == 1 %}
+                        <td>{{ prorroga.id }}</td>
+                        <td>{{ prorroga.prorrogaModalidadCompra.numeroModalidad }}</td>
+                        <td>{{ prorroga.fechaCreacion|date("d/m/Y") }}</td>
+                        <td>{{ prorroga.estadoProrroga.descripcionEstado }}</td>
+                        <td>{% if prorroga.estadoProrroga.id == 6 %}
                             aun no puede continuar el proceso
                         {% else %}
-                            {% if incremento.estadoIncremento.id == 2 %}
-                                <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+                            {% if prorroga.estadoProrroga.id == 7 %}
+                                <a href="{{ path('minsal_contrato_listado_medicamentos',{'prorroga': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
                             {% else %}
-                                {% if incremento.estadoIncremento.id == 5 %}
-                                    <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
+                                {% if prorroga.estadoProrroga.id == 5 %}
+                                    <a href="{{ path('minsal_contrato_analizador_contratos',{'prorroga': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
                                 {% endif %}
 
                             {% endif %}
@@ -190,7 +190,7 @@ function crearIncremento() {
             },
             type : 'post'
         }).done(function(data) {
-           // location.reload();
+           location.reload();
         });
 
 
@@ -207,7 +207,6 @@ $(document).ready(function() {
 
     function crearProrroga() {
     var codigoLicitacion = $('#codigoCompraP').val();
-    alert(codigoLicitacion);
     var esProrroga = $('#esProrroga').val();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
     $.ajax({

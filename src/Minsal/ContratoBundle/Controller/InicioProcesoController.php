@@ -234,12 +234,14 @@ class InicioProcesoController extends Controller
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
     $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
+    $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findAll();
 
     $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
     return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
       'compras' => $compras,
       'incrementos' => $incrementos,
-      'estimaciones' => $estimaciones
+      'estimaciones' => $estimaciones,
+      'prorrogas' => $prorrogas
     ));
   
   }
@@ -250,11 +252,10 @@ class InicioProcesoController extends Controller
   {
    
     
+      $prorroga = $request->get('esProrroga');
 
-    $prorroga = $request->get('esProrroga');
-
-      //Confirmamos que sea un prorroga
-      if($prorroga == 1){
+        //Confirmamos que sea un prorroga
+        if($prorroga == 1){
         $em = $this->getDoctrine()->getManager();
 
         //Obtenemos los valores que nos interesan
@@ -273,6 +274,8 @@ class InicioProcesoController extends Controller
 
         $em->persist($prorroga);
         $em->flush($prorroga);
+
+        
 
 
     }
@@ -301,19 +304,22 @@ class InicioProcesoController extends Controller
       $em->persist($incremento);
       $em->flush($incremento);
     
-      $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
-
-      $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
-
-      $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
+      
 
     }
 
+      $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
+      $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
+      $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
+      $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findAll();
     
     return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
+      'prorrogas' => $prorrogas,
       'compras' => $compras,
       'incrementos' => $incrementos,
-      'estimaciones' => $estimaciones
+      'estimaciones' => $estimaciones,
+      
+
     ));
 
 
