@@ -46,6 +46,7 @@
                             <label for="exampleInputEmail1">Codigo de licitacion</label>
                             <i<div id="scrollable-dropdown-menu">
                                 <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
+                                <input id="esProrroga" type="hidden" value="1">
                         </div>
                 <div class="form-group m-b-0">
                     <div class="col-sm-offset-3 col-sm-9">
@@ -189,7 +190,7 @@ function crearIncremento() {
             },
             type : 'post'
         }).done(function(data) {
-            location.reload();
+           // location.reload();
         });
 
 
@@ -206,18 +207,25 @@ $(document).ready(function() {
 
     function crearProrroga() {
     var codigoLicitacion = $('#codigoCompra').val();
+    var esProrroga = $('#esProrroga').val();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
-    alert('Se creara un prorroga');
-
-    /*$.ajax({
-        url : ,
-        data : {
+    $.ajax({
+           url: url,
+           type: 'POST',
+           data: {
             'cod':codigoLicitacion,
+            'esProrroga': esProrroga
             },
-            type : 'post'
-        }).done(function(data) {
+       })
+       .done(function(data) {
+           console.log("success");
+            alert(data);
             location.reload();
-        });*/
+       })
+       .fail(function(data) {
+           console.log("error");
+       })
+      
 
 
 }

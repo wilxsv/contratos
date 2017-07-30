@@ -46,7 +46,7 @@ class CtlProveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="nit", type="string", nullable=true)
+     * @ORM\Column(name="nit", type="string", length=255, nullable=true)
      */
     private $nit;
 

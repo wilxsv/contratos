@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnProductoContrato
  *
- * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_producto"}), @ORM\Index(name="idx_116672617def239f", columns={"mtn_contrato"})})
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="idx_116672617def239f", columns={"mtn_contrato"}), @ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_producto"})})
  * @ORM\Entity
  */
 class MtnProductoContrato
