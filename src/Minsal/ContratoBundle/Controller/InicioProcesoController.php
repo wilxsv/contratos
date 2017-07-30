@@ -248,35 +248,36 @@ class InicioProcesoController extends Controller
   /*Funcion para crear incrementos*/
   public function crearIncrementoAction(Request $request)
   {
-    $em = $this->getDoctrine()->getManager();
+   
     
 
     $prorroga = $request->get('esProrroga');
 
-    //Confirmamos que sea un prorroga
+      //Confirmamos que sea un prorroga
+      if($prorroga == 1){
+        $em = $this->getDoctrine()->getManager();
 
-    if($prorroga == 1){
+        //Obtenemos los valores que nos interesan
+        $cod = $request->get('cod');
+        $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
+        $prorroga = new CtlProrroga();
+        $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
 
-      //Obtenemos los valores que nos interesan
-      $cod = $request->get('cod');
-      $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
-      $prorroga = new CtlProrroga();
-      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
+        $prorroga->setEstadoProrroga($estado);
+        $prorroga->setFechaCreacion(new \DateTime("now"));
 
-      $prorroga->setEstadoProrroga($estado);
-      $prorroga->setFechaCreacion(new \DateTime("now"));
+        foreach($compra as $com)
+        {
+          $prorroga->setProrrogaModalidadCompra($com);
+         }
 
-      foreach($compra as $com)
-      {
-        $prorroga->setProrrogaModalidadCompra($com);
-       }
-
-      $em->persist($prorroga);
-      $em->flush($prorroga);
+        $em->persist($prorroga);
+        $em->flush($prorroga);
 
 
     }
     {
+      $em = $this->getDoctrine()->getManager();
       $cod = $request->get('cod');
       $meses = $request->get('meses');
       $estimacion = $request->get('estimacion');

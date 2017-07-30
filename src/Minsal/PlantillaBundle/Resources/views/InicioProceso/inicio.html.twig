@@ -45,7 +45,7 @@
                 <div class="form-group">
                             <label for="exampleInputEmail1">Codigo de licitacion</label>
                             <i<div id="scrollable-dropdown-menu">
-                                <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
+                                <input id="codigoCompraP" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                                 <input id="esProrroga" type="hidden" value="1">
                         </div>
                 <div class="form-group m-b-0">
@@ -206,7 +206,8 @@ $(document).ready(function() {
     });
 
     function crearProrroga() {
-    var codigoLicitacion = $('#codigoCompra').val();
+    var codigoLicitacion = $('#codigoCompraP').val();
+    alert(codigoLicitacion);
     var esProrroga = $('#esProrroga').val();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
     $.ajax({
@@ -221,10 +222,7 @@ $(document).ready(function() {
            console.log("success");
             alert(data);
             location.reload();
-       })
-       .fail(function(data) {
-           console.log("error");
-       })
+       });
       
 
 
