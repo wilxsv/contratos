@@ -177,11 +177,16 @@ $(document).ready(function() {
         });
     });
 function crearIncremento() {
-    var codigoLicitacion = $('#codigoCompra').val();
-    var meses = $('#meses').val();
-    var estimacion = $('#estimacion').val();
+    var codigoLicitacion = $('#codigoCompra').val().trim();
+    var meses = $('#meses').val().trim();
+    var estimacion = $('#estimacion').val().trim();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
-        $.ajax({
+
+    if(codigoLicitacion){
+
+        if(meses >= 0 && meses != ''){
+
+            $.ajax({
             url : url,
             data : {
                 'cod':codigoLicitacion,
@@ -192,6 +197,18 @@ function crearIncremento() {
         }).done(function(data) {
            location.reload();
         });
+
+        }
+        else{
+            alert('Los meses de estimacion son mayores a 0')
+        }
+        
+    }
+    else{
+
+        alert('No se puede procesar debido a que no ha llenado todos los campos de este formulario')
+    }
+        
 
 
 }
@@ -206,10 +223,12 @@ $(document).ready(function() {
     });
 
     function crearProrroga() {
-    var codigoLicitacion = $('#codigoCompraP').val();
+    var codigoLicitacion = $('#codigoCompraP').val().trim();
     var esProrroga = $('#esProrroga').val();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
-    $.ajax({
+
+    if(codigoLicitacion){
+        $.ajax({
            url: url,
            type: 'POST',
            data: {
@@ -222,6 +241,11 @@ $(document).ready(function() {
             alert(data);
             location.reload();
        });
+    }
+    else{
+        alert("Debe elegir el codigo de la licitacion");
+    }
+    
       
 
 

@@ -24,7 +24,7 @@ class MedicamentoController extends Controller
 			));
 		$programacion= $increment->getEstimacion()->getId();
 		
-		$service_url = "http://192.168.1.2:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}";
+		$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}";
 	    $curl = curl_init($service_url);
 	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	    $curl_response = curl_exec($curl);
