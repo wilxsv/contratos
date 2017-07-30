@@ -15,6 +15,7 @@ use Minsal\ModeloBundle\Entity\CtlModalidadCompra;
 use Minsal\ModeloBundle\Entity\CtlProgramacion;
 use Minsal\ModeloBundle\Entity\CtlUnidadMedida;
 use Minsal\ModeloBundle\Entity\CtlProducto;
+use Minsal\ModeloBundle\Entity\CtlProrroga;
 use Minsal\ModeloBundle\Entity\MtnProductoContrato;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -255,28 +256,23 @@ class InicioProcesoController extends Controller
     //Confirmamos que sea un prorroga
 
     if($prorroga == 1){
-      
+
       //Obtenemos los valores que nos interesan
       $cod = $request->get('cod');
-      $meses = 1;
-      $estimacion = 1;
       $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
-      $incremento = new CtlIncremento();
+      $prorroga = new CtlProrroga();
       $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
 
-      $incremento->setestadoIncremento($estado);
-      $incremento->setMesesDesestimar($meses);
-      $incremento->setFechaCreacion(new \DateTime("now"));
+      $prorroga->setEstadoProrroga($estado);
+      $prorroga->setFechaCreacion(new \DateTime("now"));
 
       foreach($compra as $com)
       {
-        $incremento->setIncrementoModalidadCompra($com);
+        $prorroga->setProrrogaModalidadCompra($com);
        }
 
-      $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->find($estimacion);
-      $incremento->setEstimacion($programacion);
-      $em->persist($incremento);
-      $em->flush($incremento);
+      $em->persist($prorroga);
+      $em->flush($prorroga);
 
 
     }
