@@ -1,28 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}Modulo de prorroga o incremento{% endblock %}
 {% block body %}
-<script type="text/javascript">
-/*----------------funcion para crear incrementos ---------------------*/
-function crearIncremento() {
-    var codigoLicitacion = $('#codigoCompra').val();
-    var meses = $('#meses').val();
-    var estimacion = $('#estimacion').val();
-        $.ajax({
-            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
-            data : {
-                'cod':codigoLicitacion,
-                'meses':meses,
-                'estimacion':estimacion
-            },
-            type : 'post'
-        }).done(function(data) {
-            location.reload();
-        });
-
-
-}
-</script>
 <div class="row">
+
+    <!--======================Formulario para incremento =============================== -->
     <div class="col-md-6">
         <div class="white-box">
             <h3 class="box-title m-b-0">Formulario para Incrementos</h3>
@@ -46,13 +27,15 @@ function crearIncremento() {
                                 {% endfor %}
                             </select>
                         </div>  
-                        
-                        <a onclick="crearIncremento()" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</a>
+                        <button id="Incremento" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!--======================Fin Formulario para incremento =============================== -->
+    
+    <!--======================Formulario para prorroga ===================================== -->
     <div class="col-md-6">
         <div class="white-box">
             <h3 class="box-title m-b-0">Formulario para Prorrogas</h3>
@@ -66,15 +49,18 @@ function crearIncremento() {
                         </div>
                 <div class="form-group m-b-0">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-info waves-effect waves-light m-t-10">Inciar Prorroga</button>
+                        <button id="Prorroga" type="submit" class="btn btn-info waves-effect waves-light m-t-10">Inciar Prorroga</button>
                     </div>
                 </div>
             </form>
             
         </div>
     </div>
+    <!--======================Fin Formulario para prorroga ===================================== -->
+    <div class="col-md-6">
 </div>
 
+<!--======================Tabla de procesos ===================================== -->
 <div class="white-box">
     <h3 class="box-title">Listado de Compras en Proceso de Licitacion o Prorroga</h3>
     <div class="table-responsive">
@@ -119,12 +105,67 @@ function crearIncremento() {
         </table>
     </div>
 </div>
+<!--====================== Fin Tabla de resultados ===================================== -->
 
 
 {% endblock %}
 
 {% block js %}
     {{ parent() }}
+
+
+<script type="text/javascript">
+/*----------------funcion para crear incrementos ---------------------*/
+$(document).ready(function() {
+        $("#Incremento").click(function() {
+           crearIncremento();
+        });
+    });
+function crearIncremento() {
+    var codigoLicitacion = $('#codigoCompra').val();
+    var meses = $('#meses').val();
+    var estimacion = $('#estimacion').val();
+        $.ajax({
+            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
+            data : {
+                'cod':codigoLicitacion,
+                'meses':meses,
+                'estimacion':estimacion
+            },
+            type : 'post'
+        }).done(function(data) {
+            location.reload();
+        });
+
+
+}
+</script>
+
+<script type="text/javascript">
+/*=================funcion para crear prorrogas =====================*/
+$(document).ready(function() {
+        $("#Prorroga").click(function() {
+           crearProrroga();
+        });
+    });
+
+    function crearProrroga() {
+    var codigoLicitacion = $('#codigoCompra').val();
+    alert('A continuacion se creara una prorooga');
+
+        /*$.ajax({
+            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
+            data : {
+                'cod':codigoLicitacion,
+            },
+            type : 'post'
+        }).done(function(data) {
+            location.reload();
+        });*/
+
+
+}
+</script>
 
     <!-- jQuery -->
     <!-- Menu Plugin JavaScript -->
