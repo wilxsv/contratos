@@ -179,8 +179,9 @@ function crearIncremento() {
     var codigoLicitacion = $('#codigoCompra').val();
     var meses = $('#meses').val();
     var estimacion = $('#estimacion').val();
+    var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
         $.ajax({
-            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
+            url : url,
             data : {
                 'cod':codigoLicitacion,
                 'meses':meses,
@@ -205,12 +206,13 @@ $(document).ready(function() {
 
     function crearProrroga() {
     var codigoLicitacion = $('#codigoCompra').val();
-    alert('A continuacion se creara una prorooga');
+    var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
+    alert('Se creara un prorroga');
 
-        /*$.ajax({
-            url : '{{ path('minsal_contrato_inicio_proceso_crear') }}',
-            data : {
-                'cod':codigoLicitacion,
+    /*$.ajax({
+        url : ,
+        data : {
+            'cod':codigoLicitacion,
             },
             type : 'post'
         }).done(function(data) {

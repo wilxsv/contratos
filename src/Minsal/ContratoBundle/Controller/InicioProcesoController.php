@@ -244,6 +244,7 @@ class InicioProcesoController extends Controller
   }
   
 
+  /*Funcion para crear incrementos*/
   public function crearIncrementoAction(Request $request)
   {
     $em = $this->getDoctrine()->getManager();
@@ -260,18 +261,15 @@ class InicioProcesoController extends Controller
       $incremento->setIncrementoModalidadCompra($com);
      }
 
-     $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->find($estimacion);
+    $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->find($estimacion);
     
     $incremento->setEstimacion($programacion);
      
      
     $em->persist($incremento);
     $em->flush($incremento);
-    
-
-    
-
-     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
+  
+    $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
     $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
 
@@ -284,6 +282,8 @@ class InicioProcesoController extends Controller
 
 
   }
+
+
   public function depurarMedicamentosAction(Request $request)
   {
     return $this->render('MinsalPlantillaBundle:Analizador:depurarMedicamentos.html.twig'); 
