@@ -59,9 +59,7 @@ class MedicamentoController extends Controller
 		    		));
 		    	array_push($medicamentos, $medica);
 		    }
-
-
-
+		    
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
 		    	'medicamentos' => $medicamentos
 		    	));
