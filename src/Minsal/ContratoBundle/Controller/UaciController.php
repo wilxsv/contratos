@@ -19,9 +19,11 @@ class UaciController extends Controller
 		$em = $this->getDoctrine()->getManager();
 
 
-		$procesos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
+		$incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
+		$prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findAll();
 		return $this->render('MinsalPlantillaBundle:Uaci:inicio.html.twig', array(
-			'procesos'=>$procesos,
+			'incrementos'=>$incrementos,
+			'prorrogas'=>$prorrogas
 			));
 	}
 
@@ -51,8 +53,10 @@ class UaciController extends Controller
 	{
 		//Obtenemos el listado de objetos
 		$parametros = $request->get('listado');
-
 		$idCompra = $request->get('compra');
+
+		//Capturamos el tipo de proceso a guardar
+		$proceso = $request->get('proceso');
 
 		//recorremos esos parametros
 		foreach ($parametros as $proveedor) {
@@ -62,16 +66,29 @@ class UaciController extends Controller
 			$em->persist($obj); //Se persisten los datos
         	$em->flush($obj); //Se guardan los datos
 		}
-		
-			$estado = 2;
+		if ($proceso == 'incremento'){
+			$estadoIncremento = 2;
 			$em = $this->getDoctrine()->getManager();
 			$qb = $em->createQueryBuilder();
 			$q = $qb->update('MinsalModeloBundle:CtlIncremento', 'i')
-        	->set('i.estadoIncremento', $qb->expr()->literal($estado))
+        	->set('i.estadoIncremento', $qb->expr()->literal($estadoIncremento))
         	->where('i.incrementoModalidadCompra = ?1')
         	->setParameter(1, $idCompra)
         	->getQuery();
 			$p = $q->execute();
+		}
+		else{
+			$estadoProrroga = 7;
+			$em = $this->getDoctrine()->getManager();
+			$qb = $em->createQueryBuilder();
+			$q = $qb->update('MinsalModeloBundle:CtlProrroga', 'i')
+        	->set('i.estadoProrroga', $qb->expr()->literal($estadoProrroga))
+        	->where('i.prorrogaModalidadCompra = ?1')
+        	->setParameter(1, $idCompra)
+        	->getQuery();
+			$p = $q->execute();
+		}
+			
         	
 		return  new Response('Datos Ingresados correctamente'); //se devuelve la respuesta del proceso
 	}
