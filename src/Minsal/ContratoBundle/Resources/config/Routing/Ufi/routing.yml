@@ -3,7 +3,7 @@ minsal_contrato_listado_incrementos:
     defaults: { _controller: MinsalContratoBundle:Ufi:incrementos }
 
 minsal_contrato_contratos_incremento:
-    path:     /contratosincremento
+    path:     /contratosincremento/{incremento}
     defaults: { _controller: MinsalContratoBundle:Ufi:contratosincremento }
 
 minsal_contrato_cifrado:

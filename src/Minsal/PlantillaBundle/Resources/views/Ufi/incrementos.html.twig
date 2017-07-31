@@ -13,116 +13,79 @@
 {% endblock %}
 {% block body %}
 <div class="row" >
-	<div class="col-sm-12">
-	    <div class="white-box">
-	        <h3 class="box-title m-b-0">Incrementos</h3>
-	        <p class="text-muted m-b-30">Listado de incrementos</p>
-	        <div class="table-responsive">
-	            <table id="myTable" class="table table-striped">
-	                <thead>
-	                    <tr>
-	                        <th>Numero de contrato</th>
-	                        <th>Proveedor</th>
-	                        <th>Nit</th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                    <tr>
-	                        <td>Tiger Nixon</td>
-	                        <td>System Architect</td>
-	                        <td>Edinburgh</td>
-	                       
-	                    </tr>
-	                    <tr>
-	                        <td>Garrett Winters</td>
-	                        <td>Accountant</td>
-	                        <td>Tokyo</td>
-	                       
-	                        
-	                    </tr>
-	                    <tr>
-	                        <td>Ashton Cox</td>
-	                        <td>Junior Technical Author</td>
-	                        <td>San Francisco</td>
-	                        
-	                        
-	                    </tr>
-	                    <tr>
-	                        <td>Cedric Kelly</td>
-	                        <td>Senior Javascript Developer</td>
-	                        <td>Edinburgh</td>
-	                
-	                       
-	                    </tr>
-	                    <tr>
-	                        <td>Airi Satou</td>
-	                        <td>Accountant</td>
-	                        <td>Tokyo</td>
-	                   
-	                        
-	                    </tr>
-	                    <tr>
-	                        <td>Brielle Williamson</td>
-	                        <td>Integration Specialist</td>
-	                        <td>New York</td>
-	                
-	                        
-	                    </tr>
-	                    <tr>
-	                        <td>Herrod Chandler</td>
-	                        <td>Sales Assistant</td>
-	                        <td>San Francisco</td>
-	                   
-	                        
-	                    </tr>
-	                    <tr>
-	                        <td>Rhona Davidson</td>
-	                        <td>Integration Specialist</td>
-	                        <td>Tokyo</td>
-	                
-	                       
-	                    </tr>
-	                    <tr>
-	                        <td>Colleen Hurst</td>
-	                        <td>Javascript Developer</td>
-	                        <td>San Francisco</td>
-	                   
-	                       
-	                    </tr>
-	                    <tr>
-	                        <td>Sonya Frost</td>
-	                        <td>Software Engineer</td>
-	                        <td>Edinburgh</td>
-	                   
-	                        
-	                    </tr>
-	                    
-	                    <tr>
-	                        <td>Thor Walton</td>
-	                        <td>Developer</td>
-	                        <td>New York</td>
-	                
-	                        
-	                    </tr>
-	                    <tr>
-	                        <td>Finn Camacho</td>
-	                        <td>Support Engineer</td>
-	                        <td>San Francisco</td>
-	                   
-	                       
-	                    </tr>
-	                    <tr>
-	                        <td>Serge Baldwin</td>
-	                        <td>Data Coordinator</td>
-	                        <td>Singapore</td>
-	                
-	                        
-	                    </tr>
-	                   
-	                </tbody>
-	            </table>
-	        </div>
-	    </div>		
+	<div class="col-md-6">
+        <h3 class="box-title">Listado de Compras en Proceso de Incremento</h3>
+        <div class="table-responsive">
+            <table class="table color-table success-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Compra</th>
+                        <th>Fecha de creacion</th>
+                        <th>Estimacion de necesidades</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="detalleIncremento">
+                    {% for incremento in incrementos %}
+                        <tr>
+                            <td>{{ incremento.id }}</td>
+                            <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
+                            <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
+                            <td>{{incremento.estimacion.descripcionProgramacion}}</td>
+                            <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
+                            <td>
+                            {% if incremento.estadoIncremento.id == 8 %}
+                                <a href="{{ path('minsal_contrato_contratos_incremento',{'incremento': incremento.incrementoModalidadCompra.id} ) }}" class="btn btn-info">Agregar Cifrado</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!--======================Fin Tabla de incrementos ===================================== -->
+
+<!--======================Tabla de prorroga ============================= -->
+
+
+<div class="col-md-6">
+    <h3 class="box-title">Listado de Compras en Proceso de Prorroga</h3>
+    <div class="table-responsive">
+        <table class="table color-table muted-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Compra</th>
+                    <th>Fecha de creacion</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="detalleProrroga">
+                {% for prorroga in prorrogas %}
+                    <tr>
+                        <td>{{ prorroga.id }}</td>
+                        <td>{{ prorroga.prorrogaModalidadCompra.numeroModalidad }}</td>
+                        <td>{{ prorroga.fechaCreacion|date("d/m/Y") }}</td>
+                        <td>{{ prorroga.estadoProrroga.descripcionEstado }}</td>
+                        <td>
+                            {% if prorroga.estadoProrroga.id == 8 %}
+                                <a href="{{ path('minsal_contrato_contratos_incremento') }}" class="btn btn-info">Agregar Cifrado</a>
+                            {% endif %}
+                        </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+<!--======================Fin Tabla de prorroga ============================= -->
 </div>
 {% endblock %}
 {% block js %}

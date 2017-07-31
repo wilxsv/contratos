@@ -9,7 +9,13 @@ class UfiController extends Controller
 {
 	public function incrementosAction()
 	{
-		return $this->render('MinsalPlantillaBundle:Ufi:incrementos.html.twig');
+		$em = $this->getDoctrine()->getManager();
+		$incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
+    $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findAll();
+		return $this->render('MinsalPlantillaBundle:Ufi:incrementos.html.twig',array(
+			'incrementos' => $incrementos,
+      'prorrogas' => $prorrogas,
+			));
 	}
 
 	public function cifradoAction()
@@ -17,9 +23,20 @@ class UfiController extends Controller
 		return $this->render('MinsalPlantillaBundle:Ufi:cifrado.html.twig');
 	}
 
-	public function contratosIncrementoAction()
+	public function contratosIncrementoAction($incremento)
 	{
-		return $this->render('MinsalPlantillaBundle:Ufi:contratosincremento.html.twig');
+		$em = $this->getDoctrine()->getManager();
+	    $contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findByNumeroModalidadCompra($incremento);
+
+	    $incremento = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(
+	    	array(
+	    		'incrementoModalidadCompra'=>$incremento
+	    		)
+	    	);
+		return $this->render('MinsalPlantillaBundle:Ufi:contratosincremento.html.twig',array(
+			'contratos' => $contratos,
+	    	'incremento' => $incremento
+			));
 	}
 
 }
