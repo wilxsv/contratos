@@ -42,11 +42,34 @@ class AnalizadorController extends Controller
 		$qb->where('e.idContrato = :contrato');
 		$qb->setParameter('contrato',$contrato);
 		$count = $qb->getQuery()->getSingleScalarResult();
-		return $this->render('MinsalPlantillaBundle:Analizador:dashboard.html.twig', array(
-			'productocontrato' => $productocontrato,'incre'=>$incre,'contrato'=>$contrat,
-			'saldoIncrementado' => $count
-			));
+		
 		/* analisis de criticidad*/
+		$estimacion = $incre->getEstimacion();
+		$programacion = 1;
+		$em = $this->getDoctrine()->getManager();
+		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoIncremento')->findOneBy(array(
+			'incrementoid'=>$incremento,'contratoid'=>$contrato
+			));
+		$productos = json_decode($re->getMedicamentos(),true);
+		$listadoCoberturas = array();
+
+		foreach ($productos['respuesta'] as $obj) {
+		    	$productoid = $obj["1"];
+		    	$service_url = 'http://192.168.1.4:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion='.$programacion.'&idproducto='.$productoid;
+
+			    $curl = curl_init($service_url);
+			    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			    $curl_response = curl_exec($curl);
+			    curl_close($curl);
+			    $respuesta = json_decode($curl_response,true);
+		    	array_push($listadoCoberturas, $respuesta);
+
+		    }
+	    return $this->render('MinsalPlantillaBundle:Analizador:dashboard.html.twig', array(
+			'productocontrato' => $productocontrato,'incre'=>$incre,'contrato'=>$contrat,
+			'saldoIncrementado' => $count,
+			'coberturas'=> $listadoCoberturas
+			));
 	}
 
 	/*

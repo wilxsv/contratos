@@ -80,18 +80,6 @@
                                                     </tr>
                                                 {% endfor %}
                                                 
-                                                {# formato para listar medicamentos 
-                                                <tr>
-                                                    <td>4351</td>
-                                                    <td>proveedor 4</td>
-                                                    <td>producto 4</td>
-                                                    <td></td>
-                                                    <td>21.23</td>
-                                                    <td>424.6</td>
-                                                    <td><input id="4351" type="number" onchange="calcular(4351)" ></td>
-                                                    <td></td>
-                                                </tr> #}
-                                                
                                             </tbody>
                                         </table>
                                         <div class="alert alert-inverse row">
@@ -128,19 +116,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                                <tr>
-                                                    <td>Producto</td>
-                                                    <td>Proveedor</td>
-                                                    <td>ext/tr</td>
-                                                    <td>CPM</td>
-                                                    <td>C. Trans</td>
-                                                    <td>Total</td>
-                                                    <td>Cobertura</td>
-                                                    <td>Criticidad</td>
-                                                    <td>Prioridad</td>
-                                                </tr>
-                                                
+                                                {{ dump(coberturas) }}
                                             </tbody>
                                         </table>
                                 </div>
