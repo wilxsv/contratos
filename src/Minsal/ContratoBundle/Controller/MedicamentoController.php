@@ -102,7 +102,7 @@ class MedicamentoController extends Controller
 
 		$q = $qb->update('MinsalModeloBundle:CtlIncremento', 'i')
     	->set('i.estadoIncremento', $qb->expr()->literal($estado))
-    	->where('i.incrementoModalidadCompra = ?1')
+    	->where('i.id = ?1')
     	->setParameter(1, $idCompra)
     	->getQuery();
 		$p = $q->execute();
