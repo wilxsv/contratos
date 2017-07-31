@@ -46,12 +46,43 @@
 	            </table>
 	        </div>
 	        {# aqui hay que cambiar el estado del incremento a 5 para enviar a comision #}
-	        <a href="" class="btn btn-danger">Terminar Depuracion</a>
+	        <button id="Finalizar" class="btn btn-danger">Terminar Depuracion</button>
 	    </div>		
 </div>
 {% endblock %}
 {% block js %}
 {{ parent() }}
+
+<script>
+	$(document).ready(function() {
+		$("#Finalizar").click(function() {
+			confirm('Esta seguro de finalizar la depuracion');
+			paramsEstado();
+		});
+	});
+
+	function paramsEstado(){
+		var estado = 5;
+		var incrementoID = '{{ incremento.id }}';
+		var url = "{{ path('minsal_contrato_cambiar_estado') }}";
+		alert(incrementoID);
+		alert(estado);
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: {
+				'estado':estado,
+				'incrementoID':incrementoID,
+				 },
+		})
+		.done(function(data) {
+			console.log("success");
+			alert(data)
+		});
+ }
+</script>
+
 	<script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
 	<script>
 		$(document).ready(function() {

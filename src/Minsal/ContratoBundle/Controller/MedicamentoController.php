@@ -5,6 +5,10 @@ namespace Minsal\ContratoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Minsal\ModeloBundle\Entity\MtnMedicamentoIncremento;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+
 
 
 class MedicamentoController extends Controller
@@ -85,5 +89,23 @@ class MedicamentoController extends Controller
 	    	'contratos' => $contratos,
 	    	'incremento' => $incremento
 	    	));
+	}
+
+	public function cambioEstadoAction(Request $request)
+	{
+		//Obtenemos el listado de objetos
+		$estado = $request->get('estado');
+		$idCompra = $request->get('incrementoID');
+
+		$em = $this->getDoctrine()->getManager();
+		$qb = $em->createQueryBuilder();
+
+		$q = $qb->update('MinsalModeloBundle:CtlIncremento', 'i')
+    	->set('i.estadoIncremento', $qb->expr()->literal($estado))
+    	->where('i.incrementoModalidadCompra = ?1')
+    	->setParameter(1, $idCompra)
+    	->getQuery();
+		$p = $q->execute();
+		return  new Response('Tarea Realizada existosamente'); 
 	}
 }

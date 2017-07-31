@@ -5,3 +5,7 @@ minsal_contrato_depuracion_medicamentos:
 minsal_contrato_listado_medicamentos:
     path:     /listado/{incremento}
     defaults: { _controller: MinsalContratoBundle:Medicamento:listado }
+
+minsal_contrato_cambiar_estado:
+    path:     /cambiarEstadoProceso
+    defaults: { _controller: MinsalContratoBundle:Medicamento:cambioEstado }
