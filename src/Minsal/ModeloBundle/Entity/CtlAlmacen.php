@@ -34,7 +34,7 @@ class CtlAlmacen
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -45,6 +45,7 @@ class CtlAlmacen
      * Set nombreAlmacen
      *
      * @param string $nombreAlmacen
+     *
      * @return CtlAlmacen
      */
     public function setNombreAlmacen($nombreAlmacen)
@@ -57,7 +58,7 @@ class CtlAlmacen
     /**
      * Get nombreAlmacen
      *
-     * @return string 
+     * @return string
      */
     public function getNombreAlmacen()
     {

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlEstablecimiento
  *
- * @ORM\Table(name="ctl_establecimiento", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_establecimiento_id_key", columns={"establecimiento_id"})}, indexes={@ORM\Index(name="idx_332bd42c66617f31", columns={"establecimiento_id_almacen"})})
+ * @ORM\Table(name="ctl_establecimiento", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_establecimiento_id_key", columns={"establecimiento_id"})}, indexes={@ORM\Index(name="IDX_332BD42C66617F31", columns={"establecimiento_id_almacen"})})
  * @ORM\Entity
  */
 class CtlEstablecimiento
@@ -58,7 +58,7 @@ class CtlEstablecimiento
     /**
      * Get establecimientoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstablecimientoId()
     {
@@ -69,6 +69,7 @@ class CtlEstablecimiento
      * Set codigoEstablecimiento
      *
      * @param string $codigoEstablecimiento
+     *
      * @return CtlEstablecimiento
      */
     public function setCodigoEstablecimiento($codigoEstablecimiento)
@@ -81,7 +82,7 @@ class CtlEstablecimiento
     /**
      * Get codigoEstablecimiento
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoEstablecimiento()
     {
@@ -92,6 +93,7 @@ class CtlEstablecimiento
      * Set nombreEstablecimiento
      *
      * @param string $nombreEstablecimiento
+     *
      * @return CtlEstablecimiento
      */
     public function setNombreEstablecimiento($nombreEstablecimiento)
@@ -104,7 +106,7 @@ class CtlEstablecimiento
     /**
      * Get nombreEstablecimiento
      *
-     * @return string 
+     * @return string
      */
     public function getNombreEstablecimiento()
     {
@@ -115,6 +117,7 @@ class CtlEstablecimiento
      * Set idEstablecimientoSibasi
      *
      * @param integer $idEstablecimientoSibasi
+     *
      * @return CtlEstablecimiento
      */
     public function setIdEstablecimientoSibasi($idEstablecimientoSibasi)
@@ -127,7 +130,7 @@ class CtlEstablecimiento
     /**
      * Get idEstablecimientoSibasi
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdEstablecimientoSibasi()
     {
@@ -138,6 +141,7 @@ class CtlEstablecimiento
      * Set establecimientoAlmacen
      *
      * @param \Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen
+     *
      * @return CtlEstablecimiento
      */
     public function setEstablecimientoAlmacen(\Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen = null)
@@ -150,7 +154,7 @@ class CtlEstablecimiento
     /**
      * Get establecimientoAlmacen
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlAlmacen 
+     * @return \Minsal\ModeloBundle\Entity\CtlAlmacen
      */
     public function getEstablecimientoAlmacen()
     {

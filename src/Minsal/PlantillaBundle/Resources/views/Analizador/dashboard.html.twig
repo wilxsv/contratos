@@ -4,8 +4,8 @@
     <div class="row">
         <div class="col-lg-12 col-sm-12 col-xs-12">
             <div class="white-box">
-                <h3 class="box-title m-b-0">Compra N. LP12/2017</h3>
-                <h3 class="text-muted m-b-40">Contrato N. 1221</h3>
+                <h3 class="box-title m-b-0">Compra N. {{incre.incrementoModalidadCompra.numeroModalidad}}</h3>
+                <h3 class="text-muted m-b-40">Contrato N. {{contrato.numeroContrato}}</h3>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
@@ -38,11 +38,12 @@
                                     </div>
                                     <div class="panel-wrapper collapse in" aria-expanded="true">
                                         <div class="panel-body row">
-                                            <div class="col-xs-6">
-                                                <p class="alert alert-info">Monto Total del Contrato: $ <span id="montoTotal">3415.2</span></p>
+                                            <div class="col-xs-3">
+                                                <p class="alert alert-info">Monto Total del Contrato: $ <span id="montocontrato">
+                                                    {{contrato.montoContrato}}</span></p>
                                             </div>
-                                            <div class="col-xs-6">
-                                                <p class="alert alert-warning">Monto del 20% de Incremento: $ <span id="incre"></span></p>
+                                            <div class="col-xs-3">
+                                                <p class="alert alert-info">Monto del 20% de Incremento: $ <span id="incre"></span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -65,36 +66,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1221</td>
-                                                    <td>proveedor 1</td>
-                                                    <td>producto 1</td>
+
+                                                {% for med in productocontrato %}
+                                                    <tr>
+                                                        <td>{{ med.mtnProducto }}</td>
+                                                        <td>{{ med.mtnProveedor }}</td>
+                                                        <td>nombreproducto</td>
+                                                        <td>{{ med.cantidad }}</td>
+                                                        <td>{{ med.precioUnitario }}</td>
+                                                        <td></td>
+                                                        <td><input id="{{med.mtnProducto}}" type="number" onchange="calcular({{med.mtnProducto}})" ></td>
                                                     <td></td>
-                                                    <td>12.33</td>
-                                                    <td>123.3</td>
-                                                    <td><input id="1221" type="number" onchange="calcular(1221)" ></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4222</td>
-                                                    <td>proveedor 2</td>
-                                                    <td>producto 2</td>
-                                                    <td></td>
-                                                    <td>23.32</td>
-                                                    <td>349.8</td>
-                                                    <td><input id="4222" type="number" onchange="calcular(4222)" ></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3541</td>
-                                                    <td>proveedor 3</td>
-                                                    <td>producto 3</td>
-                                                    <td></td>
-                                                    <td>34.5</td>
-                                                    <td>517.5</td>
-                                                    <td><input id="3541" type="number" onchange="calcular(3541)" ></td>
-                                                    <td></td>
-                                                </tr>
+                                                    </tr>
+                                                {% endfor %}
+                                                
+                                                {# formato para listar medicamentos 
                                                 <tr>
                                                     <td>4351</td>
                                                     <td>proveedor 4</td>
@@ -104,13 +90,16 @@
                                                     <td>424.6</td>
                                                     <td><input id="4351" type="number" onchange="calcular(4351)" ></td>
                                                     <td></td>
-                                                </tr>
+                                                </tr> #}
                                                 
                                             </tbody>
                                         </table>
-                                        <div class="alert alert-inverse">
-                                                    <p>total a incrementar:<span id="incremento"></span></p>
-                                                </div>
+                                        <div class="alert alert-inverse row">
+                                                    <p class="col-xs-6">total a incrementar:<span id="incremento"></span></p>
+                                                    <div class="col-xs-2">
+                                                        <a id="guardar" class="btn btn-danger">Guardar</a>
+                                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +109,43 @@
 
 
                     <div role="tabpanel" class="tab-pane" id="criticidad">
-                        
+                        <div class="white-box">
+                            <div class="col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table color-table dark-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>IdProducto</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Clasificacion</th>
+                                                    <th>Unidad Medida</th>
+                                                    <th>Compra en transito</th>
+                                                    <th>Consumo Promedio</th>
+                                                    <th>Existencias</th>
+                                                    <th>Cobertura</th>
+                                                    <th>Criticidad</th>
+                                                    <th>Prioridad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <td>Producto</td>
+                                                    <td>Proveedor</td>
+                                                    <td>ext/tr</td>
+                                                    <td>CPM</td>
+                                                    <td>C. Trans</td>
+                                                    <td>Total</td>
+                                                    <td>Cobertura</td>
+                                                    <td>Criticidad</td>
+                                                    <td>Prioridad</td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -134,13 +159,49 @@
 <script type="text/javascript">
     $(document).ready(function() {
         CalculosIniciales();
-        UnidadesCompradas();
+        //UnidadesCompradas();
+        
+        montosComprados();
         UnidadesAComprarPred();
         escrituraInicialSubTotales();
+        $('#guardar').click(function() {
+
+            $('#detalle tbody tr').each(function() {
+                var producto = $(this).find("td").eq(0).html();
+                var cantidad = $(this).find("td").eq(6).find("input").val();
+                var contrato = '{{contrato.idContrato}}';
+                var monto = $(this).find("td").eq(7).html();
+                $.ajax({
+                    url : '{{ path('minsal_contrato_analizador_ajax_guardar') }}',
+                    data: {
+                        'producto':producto,
+                        'cantidad':cantidad,
+                        'contrato':contrato,
+                        'monto':monto
+                    },
+                    type: 'POST'
+                }).done(function(data) {
+                     $('#detalle tbody tr').each(function() {
+                        var input = $(this).find("td").eq(6).find("input");
+                        input.prop('disabled',true);
+                        alert('Datos guardados exitosamente');
+                     });
+                });
+            });
+
+        });
     });
+    function montosComprados() {
+        $('#detalle tbody tr').each(function() {
+            var precio = parseFloat($(this).find("td").eq(4).html());
+            var cantidades = parseFloat($(this).find("td").eq(3).html());
+            $(this).find("td").eq(5).html(cantidades*precio);
+
+        });
+    }
     function CalculosIniciales(){
         /* calculod el 20% de monto total del incremento */
-        var monto = parseFloat($('#montoTotal').html());
+        var monto = parseFloat($('#montocontrato').html());
         var incre = monto * 0.20;
         $('#incre').html(incre);
 

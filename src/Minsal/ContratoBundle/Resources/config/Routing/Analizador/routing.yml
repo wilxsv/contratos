@@ -5,3 +5,8 @@ minsal_contrato_analizador_dashboard:
 minsal_contrato_analizador_contratos:
     path:     /listado/{incremento}
     defaults: { _controller: MinsalContratoBundle:Analizador:listado}
+
+minsal_contrato_analizador_ajax_guardar:
+    path:     /guardar
+    defaults: { _controller: MinsalContratoBundle:Analizador:guardarIncremento}
+    methods:  POST

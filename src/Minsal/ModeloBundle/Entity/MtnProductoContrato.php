@@ -62,7 +62,7 @@ class MtnProductoContrato
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -73,6 +73,7 @@ class MtnProductoContrato
      * Set mtnProducto
      *
      * @param integer $mtnProducto
+     *
      * @return MtnProductoContrato
      */
     public function setMtnProducto($mtnProducto)
@@ -85,7 +86,7 @@ class MtnProductoContrato
     /**
      * Get mtnProducto
      *
-     * @return integer 
+     * @return integer
      */
     public function getMtnProducto()
     {
@@ -96,6 +97,7 @@ class MtnProductoContrato
      * Set mtnContrato
      *
      * @param integer $mtnContrato
+     *
      * @return MtnProductoContrato
      */
     public function setMtnContrato($mtnContrato)
@@ -108,7 +110,7 @@ class MtnProductoContrato
     /**
      * Get mtnContrato
      *
-     * @return integer 
+     * @return integer
      */
     public function getMtnContrato()
     {
@@ -119,6 +121,7 @@ class MtnProductoContrato
      * Set cantidad
      *
      * @param string $cantidad
+     *
      * @return MtnProductoContrato
      */
     public function setCantidad($cantidad)
@@ -131,7 +134,7 @@ class MtnProductoContrato
     /**
      * Get cantidad
      *
-     * @return string 
+     * @return string
      */
     public function getCantidad()
     {
@@ -142,6 +145,7 @@ class MtnProductoContrato
      * Set precioUnitario
      *
      * @param string $precioUnitario
+     *
      * @return MtnProductoContrato
      */
     public function setPrecioUnitario($precioUnitario)
@@ -154,7 +158,7 @@ class MtnProductoContrato
     /**
      * Get precioUnitario
      *
-     * @return string 
+     * @return string
      */
     public function getPrecioUnitario()
     {
@@ -165,6 +169,7 @@ class MtnProductoContrato
      * Set mtnProveedor
      *
      * @param integer $mtnProveedor
+     *
      * @return MtnProductoContrato
      */
     public function setMtnProveedor($mtnProveedor)
@@ -177,7 +182,7 @@ class MtnProductoContrato
     /**
      * Get mtnProveedor
      *
-     * @return integer 
+     * @return integer
      */
     public function getMtnProveedor()
     {

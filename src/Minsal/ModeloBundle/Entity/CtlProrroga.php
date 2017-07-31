@@ -54,7 +54,7 @@ class CtlProrroga
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class CtlProrroga
      * Set fechaCreacion
      *
      * @param \DateTime $fechaCreacion
+     *
      * @return CtlProrroga
      */
     public function setFechaCreacion($fechaCreacion)
@@ -77,7 +78,7 @@ class CtlProrroga
     /**
      * Get fechaCreacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCreacion()
     {
@@ -88,6 +89,7 @@ class CtlProrroga
      * Set estadoProrroga
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga
+     *
      * @return CtlProrroga
      */
     public function setEstadoProrroga(\Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga = null)
@@ -100,7 +102,7 @@ class CtlProrroga
     /**
      * Get estadoProrroga
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstados 
+     * @return \Minsal\ModeloBundle\Entity\CtlEstados
      */
     public function getEstadoProrroga()
     {
@@ -111,6 +113,7 @@ class CtlProrroga
      * Set prorrogaModalidadCompra
      *
      * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra
+     *
      * @return CtlProrroga
      */
     public function setProrrogaModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra = null)
@@ -123,7 +126,7 @@ class CtlProrroga
     /**
      * Get prorrogaModalidadCompra
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra 
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
      */
     public function getProrrogaModalidadCompra()
     {

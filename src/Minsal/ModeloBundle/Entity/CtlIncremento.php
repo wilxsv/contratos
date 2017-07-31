@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlIncremento
  *
- * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"}), @ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_estimacion", columns={"estimacion"})})
+ * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_estimacion", columns={"estimacion"}), @ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"})})
  * @ORM\Entity
  */
 class CtlIncremento
@@ -71,7 +71,7 @@ class CtlIncremento
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,6 +82,7 @@ class CtlIncremento
      * Set mesesDesestimar
      *
      * @param integer $mesesDesestimar
+     *
      * @return CtlIncremento
      */
     public function setMesesDesestimar($mesesDesestimar)
@@ -94,7 +95,7 @@ class CtlIncremento
     /**
      * Get mesesDesestimar
      *
-     * @return integer 
+     * @return integer
      */
     public function getMesesDesestimar()
     {
@@ -105,6 +106,7 @@ class CtlIncremento
      * Set fechaCreacion
      *
      * @param \DateTime $fechaCreacion
+     *
      * @return CtlIncremento
      */
     public function setFechaCreacion($fechaCreacion)
@@ -117,7 +119,7 @@ class CtlIncremento
     /**
      * Get fechaCreacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCreacion()
     {
@@ -128,6 +130,7 @@ class CtlIncremento
      * Set estadoIncremento
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoIncremento
+     *
      * @return CtlIncremento
      */
     public function setEstadoIncremento(\Minsal\ModeloBundle\Entity\CtlEstados $estadoIncremento = null)
@@ -140,7 +143,7 @@ class CtlIncremento
     /**
      * Get estadoIncremento
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstados 
+     * @return \Minsal\ModeloBundle\Entity\CtlEstados
      */
     public function getEstadoIncremento()
     {
@@ -151,6 +154,7 @@ class CtlIncremento
      * Set incrementoModalidadCompra
      *
      * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $incrementoModalidadCompra
+     *
      * @return CtlIncremento
      */
     public function setIncrementoModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $incrementoModalidadCompra = null)
@@ -163,7 +167,7 @@ class CtlIncremento
     /**
      * Get incrementoModalidadCompra
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra 
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
      */
     public function getIncrementoModalidadCompra()
     {
@@ -174,6 +178,7 @@ class CtlIncremento
      * Set estimacion
      *
      * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
+     *
      * @return CtlIncremento
      */
     public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
@@ -186,7 +191,7 @@ class CtlIncremento
     /**
      * Get estimacion
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion 
+     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion
      */
     public function getEstimacion()
     {

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_producto_id_producto_sibasi_key", columns={"id_producto_sibasi"})}, indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
+ * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="id_sinab", columns={"id_producto_sibasi"})}, indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
@@ -60,7 +60,7 @@ class CtlProducto
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=true)
+     * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=false)
      */
     private $idProductoSibasi;
 
@@ -75,4 +75,182 @@ class CtlProducto
     private $unidadMedidaProducto;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set codigoProducto
+     *
+     * @param string $codigoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setCodigoProducto($codigoProducto)
+    {
+        $this->codigoProducto = $codigoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoProducto
+     *
+     * @return string
+     */
+    public function getCodigoProducto()
+    {
+        return $this->codigoProducto;
+    }
+
+    /**
+     * Set nombreProducto
+     *
+     * @param string $nombreProducto
+     *
+     * @return CtlProducto
+     */
+    public function setNombreProducto($nombreProducto)
+    {
+        $this->nombreProducto = $nombreProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreProducto
+     *
+     * @return string
+     */
+    public function getNombreProducto()
+    {
+        return $this->nombreProducto;
+    }
+
+    /**
+     * Set estadoProducto
+     *
+     * @param string $estadoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setEstadoProducto($estadoProducto)
+    {
+        $this->estadoProducto = $estadoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProducto
+     *
+     * @return string
+     */
+    public function getEstadoProducto()
+    {
+        return $this->estadoProducto;
+    }
+
+    /**
+     * Set productoConcentracion
+     *
+     * @param string $productoConcentracion
+     *
+     * @return CtlProducto
+     */
+    public function setProductoConcentracion($productoConcentracion)
+    {
+        $this->productoConcentracion = $productoConcentracion;
+
+        return $this;
+    }
+
+    /**
+     * Get productoConcentracion
+     *
+     * @return string
+     */
+    public function getProductoConcentracion()
+    {
+        return $this->productoConcentracion;
+    }
+
+    /**
+     * Set productoPresentacion
+     *
+     * @param string $productoPresentacion
+     *
+     * @return CtlProducto
+     */
+    public function setProductoPresentacion($productoPresentacion)
+    {
+        $this->productoPresentacion = $productoPresentacion;
+
+        return $this;
+    }
+
+    /**
+     * Get productoPresentacion
+     *
+     * @return string
+     */
+    public function getProductoPresentacion()
+    {
+        return $this->productoPresentacion;
+    }
+
+    /**
+     * Set idProductoSibasi
+     *
+     * @param integer $idProductoSibasi
+     *
+     * @return CtlProducto
+     */
+    public function setIdProductoSibasi($idProductoSibasi)
+    {
+        $this->idProductoSibasi = $idProductoSibasi;
+
+        return $this;
+    }
+
+    /**
+     * Get idProductoSibasi
+     *
+     * @return integer
+     */
+    public function getIdProductoSibasi()
+    {
+        return $this->idProductoSibasi;
+    }
+
+    /**
+     * Set unidadMedidaProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
+     *
+     * @return CtlProducto
+     */
+    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
+    {
+        $this->unidadMedidaProducto = $unidadMedidaProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get unidadMedidaProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
+     */
+    public function getUnidadMedidaProducto()
+    {
+        return $this->unidadMedidaProducto;
+    }
 }

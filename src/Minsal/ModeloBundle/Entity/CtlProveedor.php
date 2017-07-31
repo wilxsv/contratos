@@ -46,7 +46,7 @@ class CtlProveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="nit", type="string", length=255, nullable=true)
+     * @ORM\Column(name="nit", type="string", nullable=true)
      */
     private $nit;
 
@@ -62,7 +62,7 @@ class CtlProveedor
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -73,6 +73,7 @@ class CtlProveedor
      * Set codigoProveedor
      *
      * @param string $codigoProveedor
+     *
      * @return CtlProveedor
      */
     public function setCodigoProveedor($codigoProveedor)
@@ -85,7 +86,7 @@ class CtlProveedor
     /**
      * Get codigoProveedor
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoProveedor()
     {
@@ -96,6 +97,7 @@ class CtlProveedor
      * Set nombreProveedor
      *
      * @param string $nombreProveedor
+     *
      * @return CtlProveedor
      */
     public function setNombreProveedor($nombreProveedor)
@@ -108,7 +110,7 @@ class CtlProveedor
     /**
      * Get nombreProveedor
      *
-     * @return string 
+     * @return string
      */
     public function getNombreProveedor()
     {
@@ -119,6 +121,7 @@ class CtlProveedor
      * Set estadoProveedor
      *
      * @param integer $estadoProveedor
+     *
      * @return CtlProveedor
      */
     public function setEstadoProveedor($estadoProveedor)
@@ -131,7 +134,7 @@ class CtlProveedor
     /**
      * Get estadoProveedor
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstadoProveedor()
     {
@@ -142,6 +145,7 @@ class CtlProveedor
      * Set nit
      *
      * @param string $nit
+     *
      * @return CtlProveedor
      */
     public function setNit($nit)
@@ -154,7 +158,7 @@ class CtlProveedor
     /**
      * Get nit
      *
-     * @return string 
+     * @return string
      */
     public function getNit()
     {
@@ -165,6 +169,7 @@ class CtlProveedor
      * Set idProveedorSibasi
      *
      * @param integer $idProveedorSibasi
+     *
      * @return CtlProveedor
      */
     public function setIdProveedorSibasi($idProveedorSibasi)
@@ -177,7 +182,7 @@ class CtlProveedor
     /**
      * Get idProveedorSibasi
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdProveedorSibasi()
     {

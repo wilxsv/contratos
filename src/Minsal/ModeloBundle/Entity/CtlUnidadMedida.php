@@ -34,7 +34,7 @@ class CtlUnidadMedida
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -45,6 +45,7 @@ class CtlUnidadMedida
      * Set descripcion
      *
      * @param string $descripcion
+     *
      * @return CtlUnidadMedida
      */
     public function setDescripcion($descripcion)
@@ -57,7 +58,7 @@ class CtlUnidadMedida
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {

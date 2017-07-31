@@ -34,7 +34,7 @@ class CtlEstados
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -45,6 +45,7 @@ class CtlEstados
      * Set descripcionEstado
      *
      * @param string $descripcionEstado
+     *
      * @return CtlEstados
      */
     public function setDescripcionEstado($descripcionEstado)
@@ -57,7 +58,7 @@ class CtlEstados
     /**
      * Get descripcionEstado
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcionEstado()
     {

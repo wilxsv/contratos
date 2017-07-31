@@ -34,7 +34,7 @@ class CtlModalidadCompra
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -45,6 +45,7 @@ class CtlModalidadCompra
      * Set numeroModalidad
      *
      * @param string $numeroModalidad
+     *
      * @return CtlModalidadCompra
      */
     public function setNumeroModalidad($numeroModalidad)
@@ -57,7 +58,7 @@ class CtlModalidadCompra
     /**
      * Get numeroModalidad
      *
-     * @return string 
+     * @return string
      */
     public function getNumeroModalidad()
     {

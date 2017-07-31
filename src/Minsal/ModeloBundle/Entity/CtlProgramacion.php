@@ -41,7 +41,7 @@ class CtlProgramacion
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -52,6 +52,7 @@ class CtlProgramacion
      * Set idProgramacion
      *
      * @param integer $idProgramacion
+     *
      * @return CtlProgramacion
      */
     public function setIdProgramacion($idProgramacion)
@@ -64,7 +65,7 @@ class CtlProgramacion
     /**
      * Get idProgramacion
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdProgramacion()
     {
@@ -75,6 +76,7 @@ class CtlProgramacion
      * Set descripcionProgramacion
      *
      * @param string $descripcionProgramacion
+     *
      * @return CtlProgramacion
      */
     public function setDescripcionProgramacion($descripcionProgramacion)
@@ -87,7 +89,7 @@ class CtlProgramacion
     /**
      * Get descripcionProgramacion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcionProgramacion()
     {

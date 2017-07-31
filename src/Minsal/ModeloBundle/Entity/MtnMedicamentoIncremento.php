@@ -48,7 +48,7 @@ class MtnMedicamentoIncremento
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -59,6 +59,7 @@ class MtnMedicamentoIncremento
      * Set incrementoid
      *
      * @param integer $incrementoid
+     *
      * @return MtnMedicamentoIncremento
      */
     public function setIncrementoid($incrementoid)
@@ -71,7 +72,7 @@ class MtnMedicamentoIncremento
     /**
      * Get incrementoid
      *
-     * @return integer 
+     * @return integer
      */
     public function getIncrementoid()
     {
@@ -82,6 +83,7 @@ class MtnMedicamentoIncremento
      * Set contratoid
      *
      * @param integer $contratoid
+     *
      * @return MtnMedicamentoIncremento
      */
     public function setContratoid($contratoid)
@@ -94,7 +96,7 @@ class MtnMedicamentoIncremento
     /**
      * Get contratoid
      *
-     * @return integer 
+     * @return integer
      */
     public function getContratoid()
     {
@@ -105,6 +107,7 @@ class MtnMedicamentoIncremento
      * Set medicamentos
      *
      * @param string $medicamentos
+     *
      * @return MtnMedicamentoIncremento
      */
     public function setMedicamentos($medicamentos)
@@ -117,7 +120,7 @@ class MtnMedicamentoIncremento
     /**
      * Get medicamentos
      *
-     * @return string 
+     * @return string
      */
     public function getMedicamentos()
     {

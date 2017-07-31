@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_producto_id_producto_sibasi_key", columns={"id_producto_sibasi"})}, indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
+ * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="id_sinab", columns={"id_producto_sibasi"})}, indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
@@ -60,7 +60,7 @@ class CtlProducto
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=true)
+     * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=false)
      */
     private $idProductoSibasi;
 
@@ -79,7 +79,7 @@ class CtlProducto
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,6 +90,7 @@ class CtlProducto
      * Set codigoProducto
      *
      * @param string $codigoProducto
+     *
      * @return CtlProducto
      */
     public function setCodigoProducto($codigoProducto)
@@ -102,7 +103,7 @@ class CtlProducto
     /**
      * Get codigoProducto
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoProducto()
     {
@@ -113,6 +114,7 @@ class CtlProducto
      * Set nombreProducto
      *
      * @param string $nombreProducto
+     *
      * @return CtlProducto
      */
     public function setNombreProducto($nombreProducto)
@@ -125,7 +127,7 @@ class CtlProducto
     /**
      * Get nombreProducto
      *
-     * @return string 
+     * @return string
      */
     public function getNombreProducto()
     {
@@ -136,6 +138,7 @@ class CtlProducto
      * Set estadoProducto
      *
      * @param string $estadoProducto
+     *
      * @return CtlProducto
      */
     public function setEstadoProducto($estadoProducto)
@@ -148,7 +151,7 @@ class CtlProducto
     /**
      * Get estadoProducto
      *
-     * @return string 
+     * @return string
      */
     public function getEstadoProducto()
     {
@@ -159,6 +162,7 @@ class CtlProducto
      * Set productoConcentracion
      *
      * @param string $productoConcentracion
+     *
      * @return CtlProducto
      */
     public function setProductoConcentracion($productoConcentracion)
@@ -171,7 +175,7 @@ class CtlProducto
     /**
      * Get productoConcentracion
      *
-     * @return string 
+     * @return string
      */
     public function getProductoConcentracion()
     {
@@ -182,6 +186,7 @@ class CtlProducto
      * Set productoPresentacion
      *
      * @param string $productoPresentacion
+     *
      * @return CtlProducto
      */
     public function setProductoPresentacion($productoPresentacion)
@@ -194,7 +199,7 @@ class CtlProducto
     /**
      * Get productoPresentacion
      *
-     * @return string 
+     * @return string
      */
     public function getProductoPresentacion()
     {
@@ -205,6 +210,7 @@ class CtlProducto
      * Set idProductoSibasi
      *
      * @param integer $idProductoSibasi
+     *
      * @return CtlProducto
      */
     public function setIdProductoSibasi($idProductoSibasi)
@@ -217,7 +223,7 @@ class CtlProducto
     /**
      * Get idProductoSibasi
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdProductoSibasi()
     {
@@ -228,6 +234,7 @@ class CtlProducto
      * Set unidadMedidaProducto
      *
      * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
+     *
      * @return CtlProducto
      */
     public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
@@ -240,7 +247,7 @@ class CtlProducto
     /**
      * Get unidadMedidaProducto
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida 
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
      */
     public function getUnidadMedidaProducto()
     {
