@@ -28,14 +28,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% if medicamentos is empty %}
-								<tr>
-									<td></td>
-									<td>ESTE CONTRATO NO POSEE MEDICAMENTOS, POSIBLEMENTE CONTENGA OTRO TIPO DE SUMINISTROS</td>
-									<td></td>
-									<td></td>
-								</tr>
-							{% else %}
+							
 								{% for med in medicamentos %}
 								{% if med != null %}
 									<tr>
@@ -45,17 +38,12 @@
 										<td><input type="checkbox" name=""></td>
 									</tr>
 								{% else %}
-									<tr>
-										<td></td>
-									<td>ESTE PRODUCTO NO ES UN MEDICAMENTO, POSIBLEMENTE CONTENGA OTRO TIPO DE SUMINISTROS</td>
-									<td></td>
-									<td></td>
-									</tr>
+									
 								{% endif %}
 									
 							{% endfor %}
 								
-							{% endif %}
+							
 						</tbody>
 					</table>
 					<button class="btn btn-danger">Guardar</button>
