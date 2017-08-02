@@ -99,12 +99,13 @@ class UaciController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$dql = "SELECT pr.codigoProveedor, pr.nombreProveedor, c.numeroContrato, p.codigoProducto, p.nombreProducto, i.cantidadIncrementar, i.montoIncrementar
+		$dql = "SELECT pr.codigoProveedor, pr.nombreProveedor, c.numeroContrato, p.codigoProducto, p.nombreProducto, SUM(i.cantidadIncrementar) as cantidadIncrementar, SUM(i.montoIncrementar) as montoIncrementar
 		    	FROM MinsalModeloBundle:CtlContratosIncrementos i
 		        INNER JOIN MinsalModeloBundle:CtlContrato c WITH i.idContrato = c.idContrato
 		        INNER JOIN MinsalModeloBundle:CtlProducto p WITH i.idProducto = p.id
 		        INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.id
-		    	ORDER BY p.codigoProducto";
+		    	GROUP BY pr.codigoProveedor, pr.nombreProveedor, p.codigoProducto, p.nombreProducto, c.numeroContrato
+		    	ORDER BY pr.codigoProveedor DESC";
 
 		$detalles = $em->createQuery( $dql )->getResult();
 
@@ -113,6 +114,16 @@ class UaciController extends Controller
 		inner join ctl_contrato as contrato on incremento.id_contrato = contrato.id_contrato
 		inner join ctl_producto as productos on incremento.id_producto = productos.id
 		order by codigo_producto*/
+
+
+		/*select proveedor.codigo_proveedor, proveedor.nombre_proveedor, contrato.numero_contrato, producto.codigo_producto, producto.nombre_producto, sum(cantidad_incrementar), sum(monto_incrementar)
+		from ctl_contratos_incrementos as incremento
+		inner join ctl_contrato as contrato on incremento.id_contrato = contrato.id_contrato
+		inner join ctl_producto as producto on incremento.id_producto = producto.id
+		inner join ctl_proveedor as proveedor on contrato.contrato_proveedor = proveedor.id
+
+		group by proveedor.codigo_proveedor, proveedor.nombre_proveedor, producto.codigo_producto, producto.nombre_producto, contrato.numero_contrato
+		order by proveedor.codigo_proveedor desc*/
 
 		return $this->render('MinsalPlantillaBundle:Uaci:uaci_detalles.html.twig', array(
 			'detalles' => $detalles,
