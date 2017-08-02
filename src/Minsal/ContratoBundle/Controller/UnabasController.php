@@ -23,4 +23,9 @@ class UnabasController extends Controller
 	{
 		return new Response('Todo Maravilloso');
 	}
+
+	public function detalleNegociacionAction()
+	{
+		return $this->render('MinsalPlantillaBundle:Unabast:resultado_negociacion.html.twig');
+	}
 }
