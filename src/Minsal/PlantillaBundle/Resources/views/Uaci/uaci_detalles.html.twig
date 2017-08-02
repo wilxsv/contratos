@@ -18,7 +18,7 @@
 					<table id="myTable" class="table table-condensed table-hover table-responsive">
 						<thead>
 							<tr>
-								<th></th>
+								<th> </th>
 								<th>Codigo Proveedor</th>
 								<th>Nombre Proveedor</th>
 								<th>Numero Contrato</th>
@@ -30,29 +30,22 @@
 							</tr>
 						</thead>
 						<tbody>	
-							<tr>
-								<td><input type="checkbox" checked></td>
-								<td>S00000</td>
-								<td>Farmacias Luz</td>
-								<td>C000000</td>
-								<td>M0000</td>
-								<td>Nitroglicerina</td>
-								<td>12000</td>
-								<td>2700000</td>
-								<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" checked></td>
-								<td>S00001</td>
-								<td>Farmacias Manuela</td>
-								<td>C000001</td>
-								<td>M0001</td>
-								<td>Acetaminofen</td>
-								<td>12500</td>
-								<td>300000</td>
-								<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
-							</tr>
-						 	
+							
+								{% for detalle in detalles %}
+								<tr>
+									<td><input type="checkbox" checked></td>
+									<td>{{ detalle.codigoProveedor }}</td>
+									<td>{{ detalle.nombreProveedor }}</td>
+									<td>{{ detalle.numeroContrato }}</td>
+									<td>{{ detalle.codigoProducto }}</td>
+									<td>{{ detalle.nombreProducto }}</td>
+									<td>{{ detalle.cantidadIncrementar }}</td>
+									<td>{{ detalle.montoIncrementar }}</td>
+									<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
+								</tr>
+								{% endfor %}
+								
+							
 						</tbody>
 					</table>
 				</div>

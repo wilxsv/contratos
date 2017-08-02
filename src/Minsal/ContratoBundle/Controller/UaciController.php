@@ -97,7 +97,27 @@ class UaciController extends Controller
 	//Pantalla adicional del Lic Martin
 	public function detallesObservacionAction()
 	{
-		return $this->render('MinsalPlantillaBundle:Uaci:uaci_detalles.html.twig');
+		$em = $this->getDoctrine()->getManager();
+
+		$dql = "SELECT pr.codigoProveedor, pr.nombreProveedor, c.numeroContrato, p.codigoProducto, p.nombreProducto, i.cantidadIncrementar, i.montoIncrementar
+		    	FROM MinsalModeloBundle:CtlContratosIncrementos i
+		        INNER JOIN MinsalModeloBundle:CtlContrato c WITH i.idContrato = c.idContrato
+		        INNER JOIN MinsalModeloBundle:CtlProducto p WITH i.idProducto = p.id
+		        INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.id
+		    	ORDER BY p.codigoProducto";
+
+		$detalles = $em->createQuery( $dql )->getResult();
+
+		/*select contrato.numero_contrato, productos.codigo_producto, nombre_producto, incremento.cantidad_incrementar, incremento.monto_incrementar 
+		from ctl_contratos_incrementos as incremento
+		inner join ctl_contrato as contrato on incremento.id_contrato = contrato.id_contrato
+		inner join ctl_producto as productos on incremento.id_producto = productos.id
+		order by codigo_producto*/
+
+		return $this->render('MinsalPlantillaBundle:Uaci:uaci_detalles.html.twig', array(
+			'detalles' => $detalles,
+
+			));
 	}
 
 }

@@ -55,7 +55,7 @@ class AnalizadorController extends Controller
 
 		foreach ($productos['respuesta'] as $obj) {
 		    	$productoid = $obj["1"];
-		    	$service_url = 'http://192.168.1.4:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion='.$programacion.'&idproducto='.$productoid;
+		    	$service_url = 'http://192.168.1.13:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion='.$programacion.'&idproducto='.$productoid;
 
 			    $curl = curl_init($service_url);
 			    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
