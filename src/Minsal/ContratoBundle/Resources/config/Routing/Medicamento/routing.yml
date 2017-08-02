@@ -9,3 +9,7 @@ minsal_contrato_listado_medicamentos:
 minsal_contrato_cambiar_estado:
     path:     /cambiarEstadoProceso
     defaults: { _controller: MinsalContratoBundle:Medicamento:cambioEstado }
+
+minsal_contrato_cambiar_estado_medicamento:
+    path:     /estadoMedicamentoAjax
+    defaults: { _controller: MinsalContratoBundle:Medicamento:estadoMedicamentos }

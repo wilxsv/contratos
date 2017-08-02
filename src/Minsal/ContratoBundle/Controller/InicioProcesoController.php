@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 function cargarProveedores($em){
   /* ingreso de proveedores */
   //iterar las codigos de contrato
-   $service_url = 'http://192.168.1.4:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+   $service_url = 'http://192.168.1.13:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -30,7 +30,7 @@ function cargarProveedores($em){
     $respuesta = json_decode($curl_response,true);
     foreach ($respuesta['respuesta'] as $datoNuevo) {
       $codigo = $datoNuevo["0"];
-      $service_url2 = 'http://192.168.1.4:8080/v1/sinab/proveedoresporcontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&contrato='.$codigo;
+      $service_url2 = 'http://192.168.1.13:8080/v1/sinab/proveedoresporcontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&contrato='.$codigo;
       $curl2 = curl_init($service_url2);
       curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
       $curl_response2 = curl_exec($curl2);
@@ -56,7 +56,7 @@ function cargarContratos($em)
   {
     /*--------------Sincronizacion de contratos y verificacion de actualizacion------------------*/
 
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = 'http://192.168.1.13:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -101,7 +101,7 @@ function cargarContratos($em)
   {
     /*--------------------Sincronizacion de compras -----------------------------------*/
 
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = 'http://192.168.1.13:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
 
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -124,7 +124,7 @@ function cargarContratos($em)
   function cargarEstablecimientos($em)
   {
     /*---------------Sincronizacion de Establecimientos-------------*/
-        $service_url = 'http://192.168.1.4:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+        $service_url = 'http://192.168.1.13:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
         $curl = curl_init($service_url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $curl_response = curl_exec($curl);
@@ -142,7 +142,7 @@ function cargarContratos($em)
 
   function cargarProgramaciones($em){
     /*--------SINCRONIZACION DE PROGRAMACIONES-------------*/
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/estimacionesmedicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = 'http://192.168.1.13:8080/v1/sinab/estimacionesmedicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -159,7 +159,7 @@ function cargarContratos($em)
   }
   function cargarUnidades($em){
     /*--------SINCRONIZACION DE UNIDADES DE MEDIDA----------*/
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/unidadesmedidas?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = 'http://192.168.1.13:8080/v1/sinab/unidadesmedidas?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -176,7 +176,7 @@ function cargarContratos($em)
 function cargarProductos($em){
   /*-------SINCRONIZACION DE PRODUCTOS ---------------*/
   
-   $service_url = 'http://192.168.1.4:8080/v1/sinab/medicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+   $service_url = 'http://192.168.1.13:8080/v1/sinab/medicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -198,7 +198,7 @@ function cargarProductos($em){
 
 }
 function cargarproductoContrato($em){
-  $service_url = 'http://192.168.1.4:8080/v1/sinab/medicamentoscontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+  $service_url = 'http://192.168.1.13:8080/v1/sinab/medicamentoscontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
   $curl = curl_init($service_url);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
   $curl_response = curl_exec($curl);

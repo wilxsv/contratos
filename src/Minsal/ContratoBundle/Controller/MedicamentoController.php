@@ -28,7 +28,7 @@ class MedicamentoController extends Controller
 			));
 		$programacion= $increment->getEstimacion()->getId();
 		
-		$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}";
+		$service_url = "http://192.168.1.13:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}";
 	    $curl = curl_init($service_url);
 	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	    $curl_response = curl_exec($curl);
@@ -107,5 +107,28 @@ class MedicamentoController extends Controller
     	->getQuery();
 		$p = $q->execute();
 		return  new Response('Tarea Realizada existosamente'); 
+	}
+
+
+
+	public function estadoMedicamentosAction(Request $request){
+
+		$listaMedicamentos = $request->get('listaMedicamentos');
+
+		foreach ($listaMedicamentos as $medicamento) {
+			$em = $this->getDoctrine()->getManager(); 
+			$obj = $em->getRepository('MinsalModeloBundle:CtlProducto')->find($medicamento['medicamento']);
+			//Buscamos por ID
+
+			$obj->setEstadoProducto($medicamento['estado']); //con esto establecemos el estado a los productos (medicamentos de nuesta base local)
+
+			$em->persist($obj);
+			$em->flush($obj);
+		
+		}
+
+		return new Response('Productos Actualizados exitosamente');
+
+
 	}
 }
