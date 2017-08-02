@@ -93,4 +93,11 @@ class UaciController extends Controller
         	
 		return  new Response('Datos Ingresados correctamente'); //se devuelve la respuesta del proceso
 	}
+
+	//Pantalla adicional del Lic Martin
+	public function detallesObservacionAction()
+	{
+		return $this->render('MinsalPlantillaBundle:Uaci:uaci_detalles.html.twig');
+	}
+
 }

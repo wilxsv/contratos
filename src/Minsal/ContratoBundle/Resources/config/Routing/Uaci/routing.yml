@@ -13,3 +13,8 @@ minsal_contrato_estado_proveedores:
     path:       /cambiarEstado
     defaults:   { _controller:MinsalContratoBundle:Uaci:cambiarEstado }
     methods:    POST
+
+minsal_detalle_observacion:
+    path: /detallesObservacion
+    defaults:   { _controller:MinsalContratoBundle:Uaci:detallesObservacion }
+    
