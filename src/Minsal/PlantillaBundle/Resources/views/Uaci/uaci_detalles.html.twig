@@ -44,6 +44,17 @@
 									<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
 								</tr>
 								{% endfor %}
+								<tr>
+									<td><input type="checkbox" checked></td>
+									<td>PR0001</td>
+									<td>Proveedor 1</td>
+									<td>CO12001</td>
+									<td>N0001</td>
+									<td data-targer="#responsive-modal" data-med="Nitroglicerina">Nitroglicerina</td>
+									<td>12000</td>
+									<td>23455</td>
+									<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-id="N0001" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
+								</tr>
 								
 							
 						</tbody>
@@ -63,7 +74,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title">Nombre del Medicamento: Nitroglicerina </h4> 
+				<h4 class="modal-title">Nombre del Medicamento: </h4> 
 			</div>
 			<div class="modal-body">
 				<div class="container">
@@ -165,45 +176,17 @@
 
     {# SCRIPT PARA EL MODAL #}
     <script>
-    $(function(){
+    
+	  $('#responsive-modal').on('show.bs.modal', function (event) {
+	  	var button = $(event.relatedTarget); 
+	  	var recipient = button.data('id'); 
 
-    	$(document).ready(function() {
-			$("#Enviar").click(function() {
-				alert('se ha presionado el boton de enviar');
-				obtenerObservacion();
-				
-			});
-		});
+	  	var encabezado = $()
 
-		function obtenerObservacion() {
-		 codigo = $("#codigo").val();
-		 observacion = $("#observacion").val();
-
-		 alert(codigo);
-		 alert(observacion);
-		 //var url = "";
-
-		 $.ajax({
-		 		url: "",
-		 		type: 'POST',
-		 		data: {
-		 			'codigo':codigo,
-		 			'observacion':observacion,
-		 		},
-		 	})
-		 	.done(function(data) {
-		 		alert(data);
-		 	})
-		 	.fail(function() {
-		 		console.log("error");
-		 	})
-		 	.always(function() {
-		 		console.log("complete");
-		 	});
-		 		
-		}
-
-    });
+	  var modal = $(this)
+	  modal.find('.modal-title').text('Medicamento ' + recipient)
+	  modal.find('.modal-body input').val(recipient)
+	});
 
     </script>
      {# FIN SCRIPT PARA EL MODAL #}
