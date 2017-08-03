@@ -18,7 +18,7 @@
 	        <div class="panel-wrapper collapse in" aria-expanded="true">
 	            <div class="panel-body">
 	                <p><b>digite el monto disponible que tiene para comprar</b> <input type="text" id="presupuesto"></p>
-	                <p><b>Monto Actual Total a Incrementar:</b><span class="text-info" id="totalIncremento">0</span></p>
+	                <p><b>Monto Actual Total a Incrementar: $ </b><span class="text-info" id="totalIncremento"> 0</span></p>
 	                <p><b>Monto Disponible</b><span class="text-warning" id="montoDisponible"></span></p>
 	            </div>
 	        </div>
@@ -55,7 +55,7 @@
                 			
                 			<td>{{list.precioUnitario|round(2,'floor')}}</td>
                 			<td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-                			<td><input id="{{list.idContratoSibasi}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+                			<td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
                 			<td>0</td>
                 		</tr>
                 		{% else %}
@@ -70,24 +70,28 @@
 	                			
                 				<td>{{list.precioUnitario|round(2,'floor')}}</td>
 	                			<td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-	                			<td><input id="{{list.idContratoSibasi}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+	                			<td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
 	                			<td>0</td>
                 			</tr>
                 				{% if loop.last %}
-                					<tr class="warning" id="fila{{anterior.idContratoSibasi}}">
-                					<td colspan="3"><b>Monto total a incrementar del contrato(20%) {{list.numeroContrato}}:</b></td>
+                				<tr class="warning" id="fila{{list.idContratoSibasi}}">
+                					<td colspan="2"><b>Monto total a incrementar del contrato(20%) {{list.numeroContrato}}:</b></td>
                 					<td>0</td>
-                					<td colspan="4">Monto Total del Contrato:$</td>
+                					<td colspan="2"><b>Monto Total del Contrato:</b></td>
                 					<td>{{list.montoContrato}}</td>
+                					<td><b>Monto actual a incrementar por contrato</b></td>
+                					<td id="subtotalContrato">0</td>
                 				</tr>
                 				{% endif %}
                 			
                 			{% else %}
                 				<tr class="warning" id="fila{{anterior.idContratoSibasi}}">
-                					<td colspan="3"><b>Monto total a incrementar del contrato {{anterior.numeroContrato}}:</b></td>
+                					<td colspan="2"><b>Monto total a incrementar del contrato {{anterior.numeroContrato}}:</b></td>
                 					<td>0</td>
-                					<td colspan="4"><b>Monto total del Contrato:$</b></td>
+                					<td colspan="2"><b>Monto total del Contrato:</b></td>
                 					<td>{{anterior.montoContrato}}</td>
+                					<td><b>Monto actual a incrementar por contrato</b></td>
+                					<td id="subtotalContrato">0</td>
                 				</tr>
                 				<tr>
                 				<td><b>{{list.numeroContrato}}</b></td>
@@ -97,7 +101,7 @@
 	                			
                 				<td>{{list.precioUnitario|round(2,'floor')}}</td>
 	                			<td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-	                			<td><input id="{{list.idContratoSibasi}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+	                			<td><input id="{{contador}}" onchange="calcular({{contador}},{{list.idContratoSibasi}});" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
 	                			<td>0</td>
                 			</tr>
                 			{% endif %}
@@ -116,42 +120,85 @@
 {{ parent() }}
 <script type="text/javascript">
 $(document).ready(function() {
-
-	$("input[name=cantidad]").change(function() {
-		//se obtiene la fila de la tabla
-		var fila = $(this).parent().parent();
-		//se obtienen las variables necesarias
-		var diferencia;
-		var subtotalguardar;
-		var precioUnitario = parseFloat(fila.find("td").eq(4).html());
-
-		var cantidadIncremento =  $(this).val();
-
-		var subtotalviejo = parseFloat(fila.find("td").eq(7).html());
-
-        var subtotalnuevo = precioUnitario*cantidadIncremento;
-
-        if (subtotalnuevo>subtotalviejo) {
-        	diferencia = subtotalnuevo-subtotalviejo;
-        	subtotalguardar = subtotalviejo+diferencia;
-        }
-        else{
-        	diferencia = subtotalviejo-subtotalnuevo;
-        	subtotalguardar = subtotalviejo-diferencia;
-        }
-
-        if (subtotalguardar<=parseFloat(fila.find("td").eq(5).html())*0.20) {
-        	fila.find("td").eq(7).html(subtotalguardar);
-        }
-        else{
-        	alert('no sea mamon se paso');
-        }
-
+	calculosIniciales();
 
 		
 	});
+function calcular(id,contrato) {
+	
 
-});
+		//se obtiene la fila de la tabla
+
+		var fila = $('#'+id).parent().parent();
+
+		// fila donde se encuentra los montos del contrato y el 20%
+		var filamonto = $('#fila'+contrato);
+
+
+		//se obtienen las variables necesarias
+		var diferencia;
+		var subtotalguardar;
+
+		var montoincrementadototal = parseFloat(filamonto.find("td").eq(5).html());
+		var montoporcentaje = parseFloat(filamonto.find("td").eq(1).html());
+
+		var subtotalviejo = parseFloat(fila.find("td").eq(7).html());
+        var posiblesubtotal = fila.find("td").eq(6).find("input").eq(0).val()*parseFloat(fila.find("td").eq(4).html());
+        if (posiblesubtotal>subtotalviejo) {
+        	//entonces es un incremento
+        	if((montoincrementadototal+posiblesubtotal)<=montoporcentaje){
+        		diferencia = posiblesubtotal - subtotalviejo;
+        		subtotalguardar = subtotalviejo + diferencia;
+
+        		fila.find("td").eq(7).html(subtotalguardar.toFixed(2));
+        		diferencia2 = -montoincrementadototal + subtotalguardar;
+        		filamonto.find("td").eq(5).html(montoincrementadototal+diferencia2);
+        		calculosGenerales();
+
+        	}
+        	else{
+        		alert('la cantidad ingresa excede el 20% del contrato');
+        	}
+        }
+        else{
+        	//entonces es un decremento
+        	diferencia = subtotalviejo - posiblesubtotal;
+        	subtotalguardar = subtotalviejo - diferencia;
+        	fila.find("td").eq(7).html(subtotalguardar.toFixed(2));
+        	diferencia2 = montoincrementadototal - subtotalguardar;
+        	filamonto.find("td").eq(5).html(montoincrementadototal-diferencia2);
+        	calculosGenerales();
+
+
+
+        }
+}
+
+function calculosGenerales() {
+	var contador = 0;
+	$('#detalle tbody tr').each(function() {
+		
+		if ($(this).attr('class')=='warning') {
+			var fila = $(this);
+			contador = contador + parseFloat(fila.find("td").eq(5).html());
+		}
+	});
+	$('#totalIncremento').html(contador.toFixed(2));
+	if ((parseFloat($('#presupuesto').val())-contador) <= 0) {
+		alert('su presupuesto se ha agotado!!')
+	}
+	$('#montoDisponible').html((parseFloat($('#presupuesto').val())-contador).toFixed(2));
+	
+}
+function calculosIniciales() {
+	$('#detalle tbody tr').each(function() {
+		if ($(this).attr('class')=='warning') {
+			var fila = $(this);
+	fila.find("td").eq(1).html(parseFloat(fila.find("td").eq(3).html())*0.2);
+
+		}
+	})
+}
 </script>
 
 {% endblock %}
