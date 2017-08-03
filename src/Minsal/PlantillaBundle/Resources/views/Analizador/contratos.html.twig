@@ -1,103 +1,142 @@
 {% extends 'base.html.twig' %}
 {% block head_css %}
 	{{ parent() }}
+   <!-- Bootstrap Core CSS -->\
     <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-	<!-- Menu CSS -->
-    <link href="{{ asset('assets/') }}plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
-    <!-- animation CSS -->
-    <link href="{{ asset('assets/') }}sinab/css/animate.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="{{ asset('assets/') }}sinab/css/style.css" rel="stylesheet">
-    <!-- color CSS -->
-    <link href="{{ asset('assets/') }}sinab/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
 {% endblock %}
+
 {% block body %}
-<div class="row" >
-	<div class="col-sm-12">
-	    <div class="white-box">
-	        <h3 class="box-title m-b-0">Compra: {{incremento.incrementoModalidadCompra.numeroModalidad}}</h3>
-	        <p class="text-muted m-b-30">Lista de Contratos</p>
-	        <div class="table-responsive">
-	            <table id="myTable" class="table table-striped">
-	                <thead>
-	                    <tr>
-	                        <th>Id</th>
-	                        <th>Contrato</th>
-	                        <th>Proveedor</th>
-	                        <th>NIT</th>
-	                        <th>Accion</th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                    {% for contrato in contratos %}
-	                    	{% if contrato.contratoProveedor.estadoProveedor == 4 %}
-	                    		<tr>
-		                    		<td>{{contrato.idContrato}}</td>
-		                    		<td>{{contrato.numeroContrato}}</td>
-		                    		<td>{{contrato.contratoProveedor.nombreProveedor}}</td>
-		                    		<td>{{contrato.contratoProveedor.nit}}</td>
-		                    		
-		                    		<td><a href="{{ path('minsal_contrato_analizador_dashboard',{ 'incremento': incremento.id,'contrato':contrato.idContrato }) }}" class="btn btn-info">Iniciar Analisis</a></td>
-	                    		</tr>
-	                    	{% else %}
-	                    	{% endif %}
-	                    {% endfor %}
-	                </tbody>
-	            </table>
-	        </div>
-	        {# Al presionar este boton se finaliza el proceso de analisis de contrato #}
-	        <button id="Finalizar" class="btn btn-danger">Terminar Analisis</button>
-	    </div>		
+
+<div class="container">
+    <div class="white-box">
+        <h3 class="box-title m-b-0">Exportacion de datos</h3>
+        <div class="table-responsive">
+            <div id="tabla_wrapper" class="dataTables_wrapper">
+            	<table id="tabla" class="display nowrap dataTable">
+                <thead>
+                    <tr>
+                    	<th>Codigo Producto</th>
+                    	<th style="width:10px">Nombre Proveedor</th>
+                    	<th>Nombre Producto</th>
+                    	<th>Cantidad</th>
+                    	<th>monto comprado</th>
+                    	<th>Cantidad</th>
+                    	<th>SubTotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	{% for list in listado %}
+
+                		{% if loop.first %}
+                			{% set contador = 0 %}
+                		<tr>
+                			<td>{{list.codigoProducto}}</td>
+                			<td>{{list.nombreProveedor}}</td>
+                			<td>{{list.nombreProducto}}</td>
+                			<td>{{list.cantidad}}</td>
+                			<td>{{list.cantidad * list.precioUnitario}}</td>
+                			<td><input type="number" min="0" name="" style="max-width:60px;"></td>
+                			<td></td>
+                		</tr>
+                		{% else %}
+                			{% set contador = contador + 1 %}
+                			{% set anterior = cycle(listado,contador-1) %}
+                			{% if anterior.numeroContrato == list.numeroContrato %}
+                			<tr>
+	                			<td>{{list.codigoProducto}}</td>
+	                			<td>{{list.nombreProveedor}}</td>
+	                			<td>{{list.nombreProducto}}</td>
+	                			<td>{{list.cantidad}}</td>
+	                			<td>{{list.cantidad * list.precioUnitario}}</td>
+	                			<td><input type="number" min="0" name="" style="max-width:60px;"></td>
+	                			<td></td>
+                			</tr>
+                			{% else %}
+                				<tr>
+                					<td colspan="7">aqui termina el contrato{{anterior.numeroContrato}}</td>
+                				</tr>
+                				<tr>
+	                			<td>{{list.codigoProducto}}</td>
+	                			<td>{{list.nombreProveedor}}</td>
+	                			<td>{{list.nombreProducto}}</td>
+	                			<td>{{list.cantidad}}</td>
+	                			<td>{{list.cantidad * list.precioUnitario}}</td>
+	                			<td><input type="number" min="0" name="" style="max-width:60px;"></td>
+	                			<td></td>
+                			</tr>
+                			{% endif %}
+                		{% endif %}
+
+                		
+                	{% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}
+
 {% block js %}
 {{ parent() }}
-	<script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#myTable').DataTable();
-			$(document).ready(function() {
-				var table = $('#example').DataTable({
-					"columnDefs": [{
-						"visible": false,
-						"targets": 2
-					}],
-					"order": [
-					[2, 'asc']
-					],
-					"displayLength": 25,
-					"drawCallback": function(settings) {
-						var api = this.api();
-						var rows = api.rows({
-							page: 'current'
-						}).nodes();
-						var last = null;
-						api.column(2, {
-							page: 'current'
-						}).data().each(function(group, i) {
-							if (last !== group) {
-								$(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-								last = group;
-							}
-						});
-					}
-				});
-				// Order by the grouping
-				$('#example tbody').on('click', 'tr.group', function() {
-					var currentOrder = table.order()[0];
-					if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
-						table.order([2, 'desc']).draw();
-					} else {
-						table.order([2, 'asc']).draw();
-					}
-				});
-			});
-		});
-		$('#example23').DataTable({
-			dom: 'Bfrtip',
-			buttons: [
-			'copy', 'csv', 'excel', 'pdf', 'print'
-			]
-		});
-	</script>
+
+    <script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <!-- end - This is for export functionality only -->
+    <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+        $(document).ready(function() {
+            var table = $('#example').DataTable({
+                "columnDefs": [{
+                    "visible": false,
+                    "targets": 2
+                }],
+                "order": [
+                    [2, 'asc']
+                ],
+                "displayLength": 25,
+                "drawCallback": function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    api.column(2, {
+                        page: 'current'
+                    }).data().each(function(group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            last = group;
+                        }
+                    });
+                }
+            });
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function() {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                    table.order([2, 'desc']).draw();
+                } else {
+                    table.order([2, 'asc']).draw();
+                }
+            });
+        });
+    });
+    $('#tabla').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel', 'pdf'
+        ]
+    });
+    </script>
+
 {% endblock %}
