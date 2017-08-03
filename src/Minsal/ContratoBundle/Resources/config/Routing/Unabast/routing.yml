@@ -9,3 +9,8 @@ minsal_contrato_listado_contratos:
 minsal_contrato_mensajeria:
     path:     /correoAjax
     defaults: { _controller: MinsalContratoBundle:Unabas:mensajeria }
+
+
+minsal_contrato_resultado_negociacion:
+    path:     /detalleNegociacion
+    defaults: { _controller: MinsalContratoBundle:Unabas:detalleNegociacion }

@@ -1,0 +1,212 @@
+{% extends 'base.html.twig' %}
+{% block title %}Negociacion Minsal{% endblock %}
+{% block head_css %}
+	{{ parent() }}
+    <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <!-- ================================================== -->
+    <link href="{{ asset('assets/') }}plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <!-- ================================================== -->
+    <link href="{{ asset('assets/') }}sinab/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+{% endblock %}
+{% block body %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="white-box">
+				<h3 class="box-title m-b-0">Fase Negociacion Proveedor Minsal</h3>
+				<p class="text-muted m-b-30">Observaciones</p>
+				<div class="table-responsive">
+					<table id="myTable" class="table table-condensed table-hover table-responsive">
+						<thead>
+							<tr>
+								<th> </th>
+								<th>Codigo Proveedor</th>
+								<th>Nombre Proveedor</th>
+								<th>Numero Contrato</th>
+								<th>Codigo Medicamento</th>
+								<th>Nombre Medicamento</th>
+								<th>Cantidad Incremento</th>
+								<th>Monto Incremento</th>
+								<th>Observacion</th>
+							</tr>
+						</thead>
+						<tbody>	
+							
+								{% for detalle in detalles %}
+								<tr>
+									<td><input type="checkbox" checked></td>
+									<td>{{ detalle.codigoProveedor }}</td>
+									<td>{{ detalle.nombreProveedor }}</td>
+									<td>{{ detalle.numeroContrato }}</td>
+									<td>{{ detalle.codigoProducto }}</td>
+									<td>{{ detalle.nombreProducto }}</td>
+									<td>{{ detalle.cantidadIncrementar }}</td>
+									<td>{{ detalle.montoIncrementar }}</td>
+									<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
+								</tr>
+								{% endfor %}
+								
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="row">
+					<button alt="Guardar Negociacion" class="btn btn-success btn-lg">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	 
+<!-- ========================================================================================= -->
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">Nombre del Medicamento: Nitroglicerina </h4> 
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="col-md-9">
+						<form>
+							<div class="form-group">
+								<label  for="recipient-name" class="control-label">Codigo Medicamento: M0000</label>
+								<input id="codigo" type="hidden" value="MOOOO">
+							</div>
+							<div>
+								<label for="message-text" class="control-label">Observacion:</label>
+								<textarea class="form-control" id="observacion"> </textarea>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+				<button id="Enviar" type="button" class="btn btn-danger waves-effect waves-light">Guardar</button>
+			</div>
+		</div>
+	</div>
+
+<!-- ========================================================================================= -->
+{% endblock %}
+{% block js %}
+	{{ parent() }}
+	<script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+	<!-- ================================================== -->
+	<script src="{{ asset('assets/') }}plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<!-- ================================================== -->
+	<script>
+
+		$(document).ready(function() {
+			$('#myTable').DataTable();
+			$(document).ready(function() {
+				var table = $('#example').DataTable({
+					"columnDefs": [{
+						"visible": false,
+						"targets": 2
+					}],
+					"order": [
+					[2, 'asc']
+					],
+					"displayLength": 25,
+					"drawCallback": function(settings) {
+						var api = this.api();
+						var rows = api.rows({
+							page: 'current'
+						}).nodes();
+						var last = null;
+						api.column(2, {
+							page: 'current'
+						}).data().each(function(group, i) {
+							if (last !== group) {
+								$(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+								last = group;
+							}
+						});
+					}
+				});
+				// Order by the grouping
+				$('#example tbody').on('click', 'tr.group', function() {
+					var currentOrder = table.order()[0];
+					if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+						table.order([2, 'desc']).draw();
+					} else {
+						table.order([2, 'asc']).draw();
+					}
+				});
+			});
+		});
+		$('#example23').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+			]
+		});
+	</script>
+
+	<!-- ================================================== -->
+	<script>
+    jQuery('.mydatepicker, #datepicker').datepicker();
+    jQuery('#datepicker-autoclose').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+    jQuery('#date-range').datepicker({
+        toggleActive: true
+    });
+    jQuery('#datepicker-inline').datepicker({
+        todayHighlight: true
+    });
+    </script>
+
+
+
+    {# SCRIPT PARA EL MODAL #}
+    <script>
+    $(function(){
+
+    	$(document).ready(function() {
+			$("#Enviar").click(function() {
+				alert('se ha presionado el boton de enviar');
+				obtenerObservacion();
+				
+			});
+		});
+
+		function obtenerObservacion() {
+		 codigo = $("#codigo").val();
+		 observacion = $("#observacion").val();
+
+		 alert(codigo);
+		 alert(observacion);
+		 //var url = "";
+
+		 $.ajax({
+		 		url: "",
+		 		type: 'POST',
+		 		data: {
+		 			'codigo':codigo,
+		 			'observacion':observacion,
+		 		},
+		 	})
+		 	.done(function(data) {
+		 		alert(data);
+		 	})
+		 	.fail(function() {
+		 		console.log("error");
+		 	})
+		 	.always(function() {
+		 		console.log("complete");
+		 	});
+		 		
+		}
+
+    });
+
+    </script>
+     {# FIN SCRIPT PARA EL MODAL #}
+	<!--Style Switcher -->
+	<script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+	{% endblock %}

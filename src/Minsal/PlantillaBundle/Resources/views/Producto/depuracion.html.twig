@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Depuracion de Medicamentos{% endblock %}
 {% block head_css %}
 	{{ parent() }}
     <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -68,8 +69,6 @@
 		var listaMedicamentos = [];
 
 		var url = "{{ path('minsal_contrato_cambiar_estado_medicamento') }}";
-
-		alert(url);
 		var tabla = $('#meds tbody tr').each(function() {
 			if ($(this).find("td").eq(3).find("input").is(":checked")) {
 				medicamento = $(this).find("td").eq(3).find("input").val();

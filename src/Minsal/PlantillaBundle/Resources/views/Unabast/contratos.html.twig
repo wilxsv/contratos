@@ -65,9 +65,6 @@
 		var estado = 5;
 		var incrementoID = '{{ incremento.id }}';
 		var url = "{{ path('minsal_contrato_cambiar_estado') }}";
-		alert(incrementoID);
-		alert(estado);
-
 		$.ajax({
 			url: url,
 			type: 'POST',
