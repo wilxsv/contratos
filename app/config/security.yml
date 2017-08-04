@@ -6,8 +6,8 @@ security:
     providers:
        our_db_provider:
             entity:
-                class: MinsalModeloBundle:CtlUsuario
-                property: usuario
+                class: MinsalUsuarioBundle:SegUsuario
+                property: nombre
 
     firewalls:
         default:
@@ -16,12 +16,12 @@ security:
             form_login:
                 login_path: /
                 check_path: /login_check
-                username_parameter: _usuario
-                password_parameter: _clave
+                username_parameter: _nombre
+                password_parameter: _password
 
             logout:
                 path: /logout
-                target: /
+                target: /login
 
         main:
             anonymous: ~

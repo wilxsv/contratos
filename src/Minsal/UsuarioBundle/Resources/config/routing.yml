@@ -4,12 +4,12 @@ minsal_usuario_homepage:
 
 minsal_usuario_login:
     path:     /login
-    defaults: { _controller: MinsalContratoBundle:Security:login }
+    defaults: { _controller: MinsalUsuarioBundle:Security:login }
 
 
 minsal_usuario_login_check:
     path:     /login_check
-    defaults: { _controller: MinsalContratoBundle:Security:loginCheck }
+    defaults: { _controller: MinsalUsuarioBundle:Security:loginCheck }
 
 
 minsal_usuario_logout:
