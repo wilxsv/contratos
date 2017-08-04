@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlLote
  *
- * @ORM\Table(name="ctl_lote", indexes={@ORM\Index(name="id_almacen", columns={"lote_id_producto", "lote_id_unidad_medida"}), @ORM\Index(name="idx_a2e4f6b156795866", columns={"lote_id_producto"}), @ORM\Index(name="lote_id_unidad_medida", columns={"lote_id_unidad_medida"})})
+ * @ORM\Table(name="ctl_lote", indexes={@ORM\Index(name="id_almacen", columns={"lote_id_producto", "lote_id_unidad_medida"}), @ORM\Index(name="lote_id_unidad_medida", columns={"lote_id_unidad_medida"}), @ORM\Index(name="idx_a2e4f6b156795866", columns={"lote_id_producto"})})
  * @ORM\Entity
  */
 class CtlLote
