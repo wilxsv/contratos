@@ -179,21 +179,27 @@
 		$("#Enviar").click(function() {
 			var observacion = $('#observacion').val();
 			var url = "{{ path('minsal_contrato_agregar_observacion') }}";
+			if(observacion != " "){
+				$.ajax({
+					url: url,
+					type: 'POST',
+					data: {
+						'id':id,
+						'observacion':observacion,
+					},
+				})
+				.done(function(data) {
+					alertify.success(data);
+				})
+				.fail(function() {
+					alert('Algo salio mal');
+				});
+				
+			}
+			else{
+				alert("El campo esta vacio")
+			}
 			
-			$.ajax({
-				url: url,
-				type: 'POST',
-				data: {
-					'id':id,
-					'observacion':observacion,
-				},
-			})
-			.done(function(data) {
-				alertify.success(data);
-			})
-			.fail(function() {
-				alert('Algo salio mal');
-			});
 		});
 	});
 	});
@@ -205,14 +211,12 @@
      <script>
 	$(document).ready(function() {
 		$("#Guardar").click(function() {
-			alert('Se ha presionado el boton guardar');
 			obtenerValores();
 		});
 	});
 	function obtenerValores(){
 		var productosD;
 		var listadoProductosD = [];
-		
 
 		var url = "{{ path('minsal_contrato_estado_negociacion') }}";
 		var tabla = $('#myTable tbody tr').each(function() {
