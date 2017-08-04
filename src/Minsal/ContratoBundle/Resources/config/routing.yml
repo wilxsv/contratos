@@ -22,8 +22,23 @@ minsal_contrato_medicamento:
    resource: "@MinsalContratoBundle/Resources/config/Routing/Medicamento/routing.yml"
    prefix:   /medicamentos
 
+# Parte de autentificacion y plantilla login
 minsal_contrato_homepage:
     path:     /
     defaults: { _controller: MinsalContratoBundle:Default:index }
 
+
+minsal_contrato_login:
+    path:     /login
+    defaults: { _controller: MinsalContratoBundle:Security:login }
+
+
+minsal_contrato_login_check:
+    path:     /login_check
+    defaults: { _controller: MinsalContratoBundle:Security:loginCheck }
+
+
+minsal_contrato_logout:
+    path:     /logout
+   
 

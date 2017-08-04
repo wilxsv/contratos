@@ -4,14 +4,24 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+       our_db_provider:
+            entity:
+                class: MinsalModeloBundle:CtlUsuario
+                property: usuario
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+        default:
+            anonymous: ~
+            http_basic: ~
+            form_login:
+                login_path: /
+                check_path: /login_check
+                username_parameter: _usuario
+                password_parameter: _clave
+
+            logout:
+                path: /logout
+                target: /
 
         main:
             anonymous: ~
