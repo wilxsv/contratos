@@ -109,9 +109,9 @@ class CtlAnalisisIncremento
     /**
      * @var integer
      *
-     * @ORM\Column(name="estadoProducto", type="integer", nullable=true)
+     * @ORM\Column(name="estado_producto", type="integer", nullable=true)
      */
-    private $estadoproducto;
+    private $estadoProducto;
 
 
 
@@ -414,26 +414,26 @@ class CtlAnalisisIncremento
     }
 
     /**
-     * Set estadoproducto
+     * Set estadoProducto
      *
-     * @param integer $estadoproducto
+     * @param integer $estadoProducto
      *
      * @return CtlAnalisisIncremento
      */
-    public function setEstadoproducto($estadoproducto)
+    public function setEstadoProducto($estadoProducto)
     {
-        $this->estadoproducto = $estadoproducto;
+        $this->estadoProducto = $estadoProducto;
 
         return $this;
     }
 
     /**
-     * Get estadoproducto
+     * Get estadoProducto
      *
      * @return integer
      */
-    public function getEstadoproducto()
+    public function getEstadoProducto()
     {
-        return $this->estadoproducto;
+        return $this->estadoProducto;
     }
 }

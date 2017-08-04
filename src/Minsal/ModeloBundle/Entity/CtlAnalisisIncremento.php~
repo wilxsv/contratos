@@ -109,9 +109,9 @@ class CtlAnalisisIncremento
     /**
      * @var integer
      *
-     * @ORM\Column(name="estadoProducto", type="integer", nullable=true)
+     * @ORM\Column(name="estado_producto", type="integer", nullable=true)
      */
-    private $estadoproducto;
+    private $estadoProducto;
 
 
 }
