@@ -21,22 +21,13 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 function cargarProveedores($em){
   /* ingreso de proveedores */
-  //iterar las codigos de contrato
-   $service_url = 'http://192.168.1.13:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
-    $curl = curl_init($service_url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $curl_response = curl_exec($curl);
-    curl_close($curl);
-    $respuesta = json_decode($curl_response,true);
-    foreach ($respuesta['respuesta'] as $datoNuevo) {
-      $codigo = $datoNuevo["0"];
-      $service_url2 = 'http://192.168.1.13:8080/v1/sinab/proveedoresporcontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&contrato='.$codigo;
-      $curl2 = curl_init($service_url2);
-      curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
-      $curl_response2 = curl_exec($curl2);
-      curl_close($curl2);
-      $respuesta2 = json_decode($curl_response2,true);
-      foreach ($respuesta2['respuesta'] as $proveedor ) {
+      $service_url = 'http://192.168.1.13:8080/v1/sinab/proveedoresporcontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+      $curl = curl_init($service_url);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      $curl_response = curl_exec($curl);
+      curl_close($curl);
+      $respuesta = json_decode($curl_response,true);
+      foreach ($respuesta['respuesta'] as $proveedor ) {
         $nuevoProveedor = new CtlProveedor();
         $nuevoProveedor->setIdProveedorSibasi($proveedor["0"]);
         $nuevoProveedor->setCodigoProveedor($proveedor["3"]);
@@ -47,10 +38,7 @@ function cargarProveedores($em){
           $em->persist($nuevoProveedor);
         $em->flush($nuevoProveedor);
         }
-        
-      }
     }
-          
 }
 function cargarContratos($em)
   {
