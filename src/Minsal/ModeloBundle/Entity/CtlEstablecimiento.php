@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlEstablecimiento
  *
- * @ORM\Table(name="ctl_establecimiento", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_establecimiento_id_key", columns={"establecimiento_id"})}, indexes={@ORM\Index(name="IDX_332BD42C66617F31", columns={"establecimiento_id_almacen"})})
+ * @ORM\Table(name="ctl_establecimiento", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_establecimiento_id_key", columns={"establecimiento_id"})}, indexes={@ORM\Index(name="idx_332bd42c66617f31", columns={"establecimiento_id_almacen"})})
  * @ORM\Entity
  */
 class CtlEstablecimiento
@@ -54,5 +54,110 @@ class CtlEstablecimiento
     private $establecimientoAlmacen;
 
 
-}
 
+    /**
+     * Get establecimientoId
+     *
+     * @return integer
+     */
+    public function getEstablecimientoId()
+    {
+        return $this->establecimientoId;
+    }
+
+    /**
+     * Set codigoEstablecimiento
+     *
+     * @param string $codigoEstablecimiento
+     *
+     * @return CtlEstablecimiento
+     */
+    public function setCodigoEstablecimiento($codigoEstablecimiento)
+    {
+        $this->codigoEstablecimiento = $codigoEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoEstablecimiento
+     *
+     * @return string
+     */
+    public function getCodigoEstablecimiento()
+    {
+        return $this->codigoEstablecimiento;
+    }
+
+    /**
+     * Set nombreEstablecimiento
+     *
+     * @param string $nombreEstablecimiento
+     *
+     * @return CtlEstablecimiento
+     */
+    public function setNombreEstablecimiento($nombreEstablecimiento)
+    {
+        $this->nombreEstablecimiento = $nombreEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreEstablecimiento
+     *
+     * @return string
+     */
+    public function getNombreEstablecimiento()
+    {
+        return $this->nombreEstablecimiento;
+    }
+
+    /**
+     * Set idEstablecimientoSibasi
+     *
+     * @param integer $idEstablecimientoSibasi
+     *
+     * @return CtlEstablecimiento
+     */
+    public function setIdEstablecimientoSibasi($idEstablecimientoSibasi)
+    {
+        $this->idEstablecimientoSibasi = $idEstablecimientoSibasi;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoSibasi
+     *
+     * @return integer
+     */
+    public function getIdEstablecimientoSibasi()
+    {
+        return $this->idEstablecimientoSibasi;
+    }
+
+    /**
+     * Set establecimientoAlmacen
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen
+     *
+     * @return CtlEstablecimiento
+     */
+    public function setEstablecimientoAlmacen(\Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen = null)
+    {
+        $this->establecimientoAlmacen = $establecimientoAlmacen;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimientoAlmacen
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlAlmacen
+     */
+    public function getEstablecimientoAlmacen()
+    {
+        return $this->establecimientoAlmacen;
+    }
+}
