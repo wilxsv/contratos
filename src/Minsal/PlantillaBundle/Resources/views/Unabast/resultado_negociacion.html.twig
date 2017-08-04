@@ -42,7 +42,8 @@
 									<td><button class="btn btn-info btn-sm model_img img-responsive" alt="default" 
 											data-id="{{ detalle.id }}" 
 											data-nombre="{{ detalle.nombreProducto }}" 
-											data-codigo="{{ detalle.codigoProducto }}" 
+											data-codigo="{{ detalle.codigoProducto }}"
+											data-observacion="{{ detalle.observacion }}" 
 											data-toggle="modal" 
 											data-target="#responsive-modal">
 											<span class="glyphicon glyphicon-eye-open" ></span> Ver
@@ -76,10 +77,12 @@
 					<div class="col-md-9">
 						<form>
 							<div class="form-group">
-								<label class="codigo" for="recipient-name" class="control-label"></label>
+								<label for="recipient-name" class="control-label">Codigo del Medicamento:</label>
+								<p class="codigo"></p>
 							</div>
 							<div>
-								<label class="observacionUaci" for="message-text" class="control-label"></label>
+								<label  for="message-text" class="control-label">Observacion</label>
+								<p class="observacionUaci"></p>
 						</form>
 					</div>
 				</div>
@@ -175,8 +178,8 @@
 	  	var observacionUaci = button.data('observacion');
 	  	var modal = $(this) //se decalara una variable de modal
 	  	modal.find('.modal-title').text('Medicamento: ' + titulo) //se busca en elemento en donde agregar el contenido de la tabla
-	  	modal.find('.codigo').text('Codigo Medicamento: ' + medicamento) //se busca en elemento en donde agregar el contenido de la tabla\
-	  	modal.find('.observacionUaci').text('Observacion: ' + observacionUaci)//Se agrega la observacion al label
+	  	modal.find('.codigo').text(medicamento) //se busca en elemento en donde agregar el contenido de la tabla\
+	  	modal.find('.observacionUaci').text(observacionUaci)//Se agrega la observacion al label
 
 
 	});
