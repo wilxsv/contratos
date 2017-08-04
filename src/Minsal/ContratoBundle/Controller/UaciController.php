@@ -62,11 +62,14 @@ class UaciController extends Controller
 
 		//recorremos esos parametros
 		foreach ($parametros as $proveedor) {
+			$estado = $proveedor['estado'];
+			$idSibasi = $proveedor['proveedor']; 
+
 			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
-			$obj = $em->getRepository('MinsalModeloBundle:CtlProveedor')->find($proveedor['proveedor']);//Buscamos por ID
-			$obj->setEstadoProveedor($proveedor['estado']); //Se establece el estado alos proveedores
-			$em->persist($obj); //Se persisten los datos
-        	$em->flush($obj); //Se guardan los datos
+			
+		$dql = "UPDATE MinsalModeloBundle:CtlProveedor p SET p.estadoProveedor = $estado WHERE p.idProveedorSibasi = $idSibasi ";
+		$em->createQuery( $dql )->getResult();
+			
 		}
 		if ($proceso == 'incremento'){
 			$estadoIncremento = 2;
