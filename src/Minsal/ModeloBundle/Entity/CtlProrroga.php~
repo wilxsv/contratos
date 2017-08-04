@@ -30,16 +30,6 @@ class CtlProrroga
     private $fechaCreacion;
 
     /**
-     * @var \CtlEstados
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstados")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estado_prorroga", referencedColumnName="id")
-     * })
-     */
-    private $estadoProrroga;
-
-    /**
      * @var \CtlModalidadCompra
      *
      * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
@@ -48,6 +38,16 @@ class CtlProrroga
      * })
      */
     private $prorrogaModalidadCompra;
+
+    /**
+     * @var \CtlEstados
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstados")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estado_prorroga", referencedColumnName="id")
+     * })
+     */
+    private $estadoProrroga;
 
 
 }

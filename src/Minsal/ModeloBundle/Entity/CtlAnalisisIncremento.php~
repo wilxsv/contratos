@@ -106,6 +106,13 @@ class CtlAnalisisIncremento
      */
     private $observacion;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_producto", type="integer", nullable=true)
+     */
+    private $estadoProducto;
+
 
 }
 

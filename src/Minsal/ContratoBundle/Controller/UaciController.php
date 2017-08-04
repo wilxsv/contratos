@@ -33,7 +33,11 @@ class UaciController extends Controller
 		
 		$em = $this->getDoctrine()->getManager();
 
+<<<<<<< HEAD
 		$dql = "SELECT co.numeroContrato, p.nombreProveedor, p.idProveedorSibasi
+=======
+		$dql = "SELECT co.numeroContrato, p.nombreProveedor, p.id ,p.estadoProveedor
+>>>>>>> 1c696502b00f6620e3a0ee6c05dee92226c99f9d
 		    	FROM MinsalModeloBundle:CtlModalidadCompra c
 		        INNER JOIN MinsalModeloBundle:CtlContrato co WITH c.id = co.numeroModalidadCompra
 		        INNER JOIN MinsalModeloBundle:CtlProveedor p WITH co.contratoProveedor = p.idProveedorSibasi
@@ -144,6 +148,20 @@ class UaciController extends Controller
         	 $p = $q->execute();
 	  
 	  	return new Response('Observacion agregada exitosamente');
+	}
+
+	public function estadoNegociacionAction(Request $request)
+	{
+		$listaproductos = $request->get('listado');
+
+		foreach ($listaproductos as $productos) {
+			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
+			$obj = $em->getRepository('MinsalModeloBundle:CtlAnalisisIncremento')->find($productos['producto']);//Buscamos por ID
+			$obj->setEstadoProducto($productos['estado']); //Se establece el estado alos producto negociados
+			$em->persist($obj); //Se persisten los datos
+        	$em->flush($obj); //Se guardan los datos
+		}
+		return new Response('Accion realizada correctamente');
 	}
 
 }

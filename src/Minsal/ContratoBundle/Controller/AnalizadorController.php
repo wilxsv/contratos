@@ -47,9 +47,13 @@ class AnalizadorController extends Controller
 		public function listadoAction($incremento)
 		{
 			$em = $this->getDoctrine()->getManager();
-			$dql = "SELECT DISTINCT mc.id,mc.numeroModalidad,c.idContratoSibasi,c.numeroContrato,pr.codigoProveedor,pr.nombreProveedor,p.codigoProducto,p.nombreProducto,c.montoContrato,pc.cantidad,pc.precioUnitario FROM MinsalModeloBundle:CtlProducto p
+			$dql = "SELECT DISTINCT mc.id,mc.numeroModalidad,c.idContratoSibasi,c.numeroContrato,pr.codigoProveedor,pr.nombreProveedor,p.codigoProducto,p.nombreProducto,c.montoContrato,pc.cantidad,pc.precioUnitario 
+			    FROM MinsalModeloBundle:CtlProducto p
 				INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH p.idProductoSibasi=pc.mtnProducto 
-				INNER JOIN MinsalModeloBundle:CtlContrato c WITH pc.mtnContrato = c.idContratoSibasi INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH pr.idProveedorSibasi = pc.mtnProveedor INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH mc.id=c.numeroModalidadCompra WHERE mc.id = $incremento AND pr.estadoProveedor=4 ORDER BY c.numeroContrato";
+				INNER JOIN MinsalModeloBundle:CtlContrato c WITH pc.mtnContrato = c.idContratoSibasi 
+				INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH pr.idProveedorSibasi = pc.mtnProveedor 
+				INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH mc.id=c.numeroModalidadCompra WHERE mc.id = $incremento AND pr.estadoProveedor=4 
+				ORDER BY c.numeroContrato";
 				$listado = $em->createQuery($dql)->getResult();
 				return $this->render('MinsalPlantillaBundle:Analizador:contratos.html.twig',array(
 	     	'listado'=>$listado

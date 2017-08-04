@@ -29,7 +29,8 @@ class UnabasController extends Controller
 		$em = $this->getDoctrine()->getManager();
 
 		$dql = "SELECT a.id, a.idProveedor,a.nombreProveedor, a.numeroContrato, a.codigoProducto, a.nombreProducto, a.cantidadIncrementada, a.montoContratoIncrementado, a.observacion
-		FROM MinsalModeloBundle:CtlAnalisisIncremento a";
+		FROM MinsalModeloBundle:CtlAnalisisIncremento a
+		WHERE a.estadoProducto = 9 ";
 
 		$detalles = $em->createQuery( $dql )->getResult();
 
