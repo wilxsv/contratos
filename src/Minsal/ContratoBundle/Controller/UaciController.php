@@ -146,4 +146,18 @@ class UaciController extends Controller
 	  	return new Response('Observacion agregada exitosamente');
 	}
 
+	public function estadoNegociacionAction(Request $request)
+	{
+		$listaproductos = $request->get('listado');
+
+		foreach ($listaproductos as $productos) {
+			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
+			$obj = $em->getRepository('MinsalModeloBundle:CtlAnalisisIncremento')->find($productos['producto']);//Buscamos por ID
+			$obj->setEstadoProducto($productos['estado']); //Se establece el estado alos producto negociados
+			$em->persist($obj); //Se persisten los datos
+        	$em->flush($obj); //Se guardan los datos
+		}
+		return new Response('Accion realizada correctamente');
+	}
+
 }

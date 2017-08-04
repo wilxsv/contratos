@@ -23,4 +23,10 @@ minsal_contrato_agregar_observacion:
     defaults:   { _controller:MinsalContratoBundle:Uaci:agregarObservacion }
     methods:    POST
 
+minsal_contrato_estado_negociacion:
+    path:       /negociacionAjax
+    defaults:   { _controller:MinsalContratoBundle:Uaci:estadoNegociacion }
+    methods:    POST
+
+
     

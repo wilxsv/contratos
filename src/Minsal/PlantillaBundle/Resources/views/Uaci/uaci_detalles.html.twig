@@ -18,7 +18,7 @@
 					<table id="myTable" class="table table-condensed table-hover table-responsive">
 						<thead>
 							<tr>
-								<th> </th>
+								<th>Aceptar</th>
 								<th>Codigo Proveedor</th>
 								<th>Nombre Proveedor</th>
 								<th>Numero Contrato</th>
@@ -31,8 +31,8 @@
 						</thead>
 						<tbody>	
 								{% for detalle in detalles %}
-								<tr>
-									<td><input type="checkbox" checked></td>
+								<tr id="checkList">
+									<td><input type="checkbox" value="{{ detalle.id }}" checked></td>
 									<td>{{ detalle.idProveedor }}</td>
 									<td>{{ detalle.nombreProveedor }}</td>
 									<td>{{ detalle.numeroContrato }}</td>
@@ -47,10 +47,12 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="row">
-					<button alt="Guardar Negociacion" class="btn btn-success btn-lg">Guardar</button>
-				</div>
 			</div>
+
+			<div class="white-box">
+					<button id="Guardar" alt="Guardar Negociacion" class="btn btn-success btn-lg">Guardar</button>
+			</div>
+				
 		</div>
 	</div>
 
@@ -198,6 +200,53 @@
 
     </script>
      {# FIN SCRIPT PARA EL MODAL #}
+
+     {# SCRIPT PARA DEPURAR NEGOCIACION #}
+     <script>
+	$(document).ready(function() {
+		$("#Guardar").click(function() {
+			alert('Se ha presionado el boton guardar');
+			obtenerValores();
+		});
+	});
+	function obtenerValores(){
+		var productosD;
+		var listadoProductosD = [];
+		
+
+		var url = "{{ path('minsal_contrato_estado_negociacion') }}";
+		var tabla = $('#myTable tbody tr').each(function() {
+			
+			if ($(this).find("td").eq(0).find("input").is(":checked")) {
+				productosD = $(this).find("td").eq(0).find("input").val();
+				var nodo = {'producto':productosD,'estado':9};
+				listadoProductosD.push(nodo);
+			}
+			else{
+				productosD = $(this).find("td").eq(0).find("input").val();
+				var nodo = {'producto':productosD,'estado':8};
+				listadoProductosD.push(nodo);
+			}
+
+			
+		});
+		$.ajax({
+			url: url,
+			data: {
+				'listado':listadoProductosD,
+			},
+			type: 'post',
+		}).done(function(data) {
+			alert(data);
+		}).fail(function() {
+			alert('El proceso no ha concluido satisfactoriamente');
+		});
+		
+	}
+
+	</script>
+    {# FIN SCRIPT PARA DEPURAR NEGOCIACION #}
+    
 	<!--Style Switcher -->
 	<script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
 	{% endblock %}
