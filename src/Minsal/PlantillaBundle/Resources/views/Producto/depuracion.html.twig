@@ -25,6 +25,7 @@
 								<th>Codigo de medicamento</th>
 								<th>Nombre del medicamento</th>
 								<th>Concentracion</th>
+								<th>estado</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -35,6 +36,8 @@
 										<td>{{medicamento.id}}</td>
 										<td>{{medicamento.nombreProducto}}</td>
 										<td>{{medicamento.productoConcentracion}}</td>
+										<td>{{ medicamento.estadoProducto }}</td>
+										
 										<td><input type="checkbox" value="{{ medicamento.id }}" checked></td>
 									</tr>
 								{% else %}
