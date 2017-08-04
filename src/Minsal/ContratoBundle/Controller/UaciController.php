@@ -99,13 +99,8 @@ class UaciController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$dql = "SELECT pr.codigoProveedor, pr.nombreProveedor, c.numeroContrato, p.codigoProducto, p.nombreProducto, SUM(i.cantidadIncrementar) as cantidadIncrementar, SUM(i.montoIncrementar) as montoIncrementar
-		    	FROM MinsalModeloBundle:CtlContratosIncrementos i
-		        INNER JOIN MinsalModeloBundle:CtlContrato c WITH i.idContrato = c.idContrato
-		        INNER JOIN MinsalModeloBundle:CtlProducto p WITH i.idProducto = p.id
-		        INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.id
-		    	GROUP BY pr.codigoProveedor, pr.nombreProveedor, p.codigoProducto, p.nombreProducto, c.numeroContrato
-		    	ORDER BY pr.codigoProveedor DESC";
+		$dql = "SELECT a.id, a.idProveedor,a.nombreProveedor, a.numeroContrato, a.codigoProducto, a.nombreProducto, a.cantidadIncrementada, a.montoContratoIncrementado
+		FROM MinsalModeloBundle:CtlAnalisisIncremento a";
 
 		$detalles = $em->createQuery( $dql )->getResult();
 
@@ -129,6 +124,26 @@ class UaciController extends Controller
 			'detalles' => $detalles,
 
 			));
+	}
+
+	public function agregarObservacionAction(Request $request)
+	{
+		//Obtenemos los valores de interes
+		$id = $request->get('id');
+		$observacion = $request->get('observacion');
+		//Se invoca al manejador de entidades
+		$em = $this->getDoctrine()->getManager();
+		//definimos el QueryBuilder
+		$qb = $em->createQueryBuilder();
+		//Realizacion de la Query
+		$q = $qb->update('MinsalModeloBundle:CtlAnalisisIncremento', 'a')
+        	 ->set('a.observacion', $qb->expr()->literal($observacion))
+        	 ->where('a.id = ?1')
+        	 ->setParameter(1, $id)
+        	 ->getQuery();
+        	 $p = $q->execute();
+	  
+	  	return new Response('Observacion agregada exitosamente');
 	}
 
 }

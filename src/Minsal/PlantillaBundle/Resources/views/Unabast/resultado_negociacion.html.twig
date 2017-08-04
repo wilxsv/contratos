@@ -14,7 +14,8 @@
 			<div class="white-box">
 				<h3 class="box-title m-b-0">Fase Negociacion Proveedor Minsal</h3>
 				<p class="text-muted m-b-30">Observaciones</p>
-				<div class="table-responsive">
+				<div class="container" >
+					<div class="table-responsive">
 					<table id="myTable" class="table table-condensed table-hover table-responsive">
 						<thead>
 							<tr>
@@ -29,29 +30,34 @@
 							</tr>
 						</thead>
 						<tbody>	
-							<tr>
-								<td>S00000</td>
-								<td>Farmacias Luz</td>
-								<td>C000000</td>
-								<td>M0000</td>
-								<td>Nitroglicerina</td>
-								<td>12000</td>
-								<td>2700000</td>
-								<td><button class="btn btn-info btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-eye-open" ></span> Ver Observaciones</button></td>
-							</tr>
-							<tr>
-								<td>S00001</td>
-								<td>Farmacias Manuela</td>
-								<td>C000001</td>
-								<td>M0001</td>
-								<td>Acetaminofen</td>
-								<td>12500</td>
-								<td>300000</td>
-								<td><button class="btn btn-info btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-eye-open" ></span> Ver Observaciones</button></td>
-							</tr>
-						 	
+								{% for detalle in detalles %}
+								<tr>
+									<td>{{ detalle.idProveedor }}</td>
+									<td>{{ detalle.nombreProveedor }}</td>
+									<td>{{ detalle.numeroContrato }}</td>
+									<td>{{ detalle.codigoProducto }}</td>
+									<td>{{ detalle.nombreProducto }}</td>
+									<td>{{ detalle.cantidadIncrementada }}</td>
+									<td>{{ detalle.montoContratoIncrementado }}</td>
+									<td><button class="btn btn-info btn-sm model_img img-responsive" alt="default" 
+											data-id="{{ detalle.id }}" 
+											data-nombre="{{ detalle.nombreProducto }}" 
+											data-codigo="{{ detalle.codigoProducto }}"
+											data-observacion="{{ detalle.observacion }}" 
+											data-toggle="modal" 
+											data-target="#responsive-modal">
+											<span class="glyphicon glyphicon-eye-open" ></span> Ver
+										</button>
+									</td>
+									
+								</tr>
+								{% endfor %}
 						</tbody>
 					</table>
+				</div>
+				</div>
+				<div class="row">
+					<button alt="Guardar Negociacion" class="btn btn-success btn-lg">Guardar</button>
 				</div>
 			</div>
 		</div>
@@ -64,27 +70,26 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title">Nombre del Medicamento: Nitroglicerina </h4> 
+				<h4 class="modal-title">Nombre del Medicamento: </h4> 
 			</div>
 			<div class="modal-body">
 				<div class="container">
 					<div class="col-md-9">
 						<form>
 							<div class="form-group">
-								<label  for="recipient-name" class="control-label">Codigo Medicamento: M0000</label>
-								<input id="codigo" type="hidden" value="MOOOO">
+								<label for="recipient-name" class="control-label">Codigo del Medicamento:</label>
+								<p class="codigo"></p>
 							</div>
 							<div>
-								<label for="message-text" class="control-label">Observacion:</label>
-								<p>Aca va la observacion que se hizo en UACI</p>
-							</div>
+								<label  for="message-text" class="control-label">Observacion</label>
+								<p class="observacionUaci"></p>
 						</form>
 					</div>
 				</div>
 				
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">OK</button>
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
@@ -165,45 +170,19 @@
 
     {# SCRIPT PARA EL MODAL #}
     <script>
-    $(function(){
+	  $('#responsive-modal').on('show.bs.modal', function (event) {
+	  	var button = $(event.relatedTarget); //Se enlaza el boton
+	  	var id = button.data('id');
+	  	var titulo = button.data('nombre'); //Se obtienen los elementos agregados en el 
+	  	var medicamento = button.data('codigo'); // se obtienen los elementos agregados a el
+	  	var observacionUaci = button.data('observacion');
+	  	var modal = $(this) //se decalara una variable de modal
+	  	modal.find('.modal-title').text('Medicamento: ' + titulo) //se busca en elemento en donde agregar el contenido de la tabla
+	  	modal.find('.codigo').text(medicamento) //se busca en elemento en donde agregar el contenido de la tabla\
+	  	modal.find('.observacionUaci').text(observacionUaci)//Se agrega la observacion al label
 
-    	$(document).ready(function() {
-			$("#Enviar").click(function() {
-				alert('se ha presionado el boton de enviar');
-				obtenerObservacion();
-				
-			});
-		});
 
-		function obtenerObservacion() {
-		 codigo = $("#codigo").val();
-		 observacion = $("#observacion").val();
-
-		 alert(codigo);
-		 alert(observacion);
-		 //var url = "";
-
-		 $.ajax({
-		 		url: "",
-		 		type: 'POST',
-		 		data: {
-		 			'codigo':codigo,
-		 			'observacion':observacion,
-		 		},
-		 	})
-		 	.done(function(data) {
-		 		alert(data);
-		 	})
-		 	.fail(function() {
-		 		console.log("error");
-		 	})
-		 	.always(function() {
-		 		console.log("complete");
-		 	});
-		 		
-		}
-
-    });
+	});
 
     </script>
      {# FIN SCRIPT PARA EL MODAL #}

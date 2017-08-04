@@ -7,7 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlIncremento
  *
+<<<<<<< HEAD
  * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"}), @ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_estimacion", columns={"estimacion"})})
+=======
+ * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"}), @ORM\Index(name="fki_estimacion", columns={"estimacion"}), @ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"})})
+>>>>>>> 4f142a5b4de32315482a4c06f2b9be734594db07
  * @ORM\Entity
  */
 class CtlIncremento
