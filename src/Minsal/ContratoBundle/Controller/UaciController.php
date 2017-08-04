@@ -37,7 +37,7 @@ class UaciController extends Controller
 		$dql = "SELECT co.numeroContrato, p.nombreProveedor, p.idProveedorSibasi, p.estadoProveedor
 		    	FROM MinsalModeloBundle:CtlModalidadCompra c
 		        INNER JOIN MinsalModeloBundle:CtlContrato co WITH c.id = co.numeroModalidadCompra
-		        INNER JOIN MinsalModeloBundle:CtlProveedor p WITH co.contratoProveedor = p.idProveedorSibasi
+		        INNER JOIN MinsalModeloBundle:CtlProveedor p WITH co.contratoProveedor = p.id
 		    	WHERE c.id = $cod ";
 
 		$proveedores = $em->createQuery( $dql )->getResult();
@@ -64,7 +64,6 @@ class UaciController extends Controller
 		foreach ($parametros as $proveedor) {
 			$estado = $proveedor['estado'];
 			$idSibasi = $proveedor['proveedor']; 
-
 			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
 			
 		$dql = "UPDATE MinsalModeloBundle:CtlProveedor p SET p.estadoProveedor = $estado WHERE p.idProveedorSibasi = $idSibasi ";

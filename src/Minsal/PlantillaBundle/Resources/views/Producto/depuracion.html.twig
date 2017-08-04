@@ -36,9 +36,16 @@
 										<td>{{medicamento.id}}</td>
 										<td>{{medicamento.nombreProducto}}</td>
 										<td>{{medicamento.productoConcentracion}}</td>
-										<td>{{ medicamento.estadoProducto }}</td>
+
+										{% if medicamento.estadoProducto == null %}
+											<td><input type="checkbox" value="{{ medicamento.id }}" checked></td>
+										{% elseif medicamento.estadoProducto == 8 %}
+											<td><input type="checkbox" value="{{ medicamento.id }}" ></td>
+										{% else %}
+											<td><input type="checkbox" value="{{ medicamento.id }}" checked></td>
+										{% endif %}
 										
-										<td><input type="checkbox" value="{{ medicamento.id }}" checked></td>
+										
 									</tr>
 								{% else %}
 									
