@@ -4,13 +4,16 @@ namespace Minsal\UsuarioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
+
 /**
  * SegUsuario
  *
  * @ORM\Table(name="seg_usuario")
  * @ORM\Entity
  */
-class SegUsuario
+class SegUsuario implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -305,5 +308,28 @@ class SegUsuario
     public function getIdSegRol()
     {
         return $this->idSegRol;
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->nombre,
+            $this->password
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->nombre,
+            $this->password
+        ) = unserialize($serialized);
     }
 }
