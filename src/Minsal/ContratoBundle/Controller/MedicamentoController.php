@@ -23,11 +23,11 @@ class MedicamentoController extends Controller
 			$resumen = new MtnMedicamentoIncremento();
 	    	$resumen->setIncrementoId($incremento);
 	    	$resumen->setContratoId($contrato);
-
+/*
 			$increment = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(array(
 			'id'=>$incremento
-				));
-			$programacion= $increment->getEstimacion()->getId();
+				));*/
+			$programacion= $incremento;
 			
 			$service_url = "http://192.168.1.13:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}";
 		    $curl = curl_init($service_url);
@@ -53,7 +53,7 @@ class MedicamentoController extends Controller
 
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos, 'url' =>$service_url
+		    	'medicamentos' => $medicamentos, 'incremento' =>$service_url,
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
