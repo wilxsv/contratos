@@ -180,11 +180,11 @@
 			var observacion = $('#observacion').val();
 			var url = "{{ path('minsal_contrato_agregar_observacion') }}";
 			if(/^\s*$/.test(observacion)){
-				alert("El campo esta vacio")
-				
+				alertify.error("No es posible ingresar observaciones vacias");
+				$('#responsive-modal').modal('hide');
 			}
 			else{
-				
+
 				$.ajax({
 					url: url,
 					type: 'POST',
@@ -195,6 +195,11 @@
 				})
 				.done(function(data) {
 					alertify.success(data);
+					$('#responsive-modal').modal('hide');
+					$('#responsive-modal').on('hidden.bs.modal', function(){ 
+						$(this).find('form')[0].reset();
+					});
+					location.reload();
 				})
 				.fail(function() {
 					alert('Algo salio mal');
@@ -202,6 +207,7 @@
 			}
 			
 		});
+
 	});
 	});
 
