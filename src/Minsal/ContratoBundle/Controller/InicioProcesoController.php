@@ -164,7 +164,7 @@ function cargarContratos($em)
 function cargarProductos($em){
   /*-------SINCRONIZACION DE PRODUCTOS ---------------*/
   
-   $service_url = 'http://192.168.1.13:8080/v1/sinab/medicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+   $service_url = 'http://192.168.1.13:8080/v1/sinab/medicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&suministro=4';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -177,16 +177,13 @@ function cargarProductos($em){
           $nuevoProducto->setNombreProducto($p["2"]);
           $um=$em->getRepository('MinsalModeloBundle:CtlUnidadMedida')->find($p["3"]);
           $nuevoProducto->setUnidadMedidaProducto($um);
-          $nuevoProducto->setProductoConcentracion($p["4"]);
-          $nuevoProducto->setProductoPresentacion($p["5"]);
-
           $em->persist($nuevoProducto);
           $em->flush($nuevoProducto);
         }
 
 }
 function cargarproductoContrato($em){
-  $service_url = 'http://192.168.1.13:8080/v1/sinab/medicamentoscontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+  $service_url = 'http://192.168.1.13:8080/v1/sinab/medicamentoscontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&suministro=4';
   $curl = curl_init($service_url);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
   $curl_response = curl_exec($curl);

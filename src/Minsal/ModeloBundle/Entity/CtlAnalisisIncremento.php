@@ -106,13 +106,6 @@ class CtlAnalisisIncremento
      */
     private $observacion;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="estado_producto", type="integer", nullable=true)
-     */
-    private $estadoProducto;
-
 
 
     /**
@@ -411,29 +404,5 @@ class CtlAnalisisIncremento
     public function getObservacion()
     {
         return $this->observacion;
-    }
-
-    /**
-     * Set estadoProducto
-     *
-     * @param integer $estadoProducto
-     *
-     * @return CtlAnalisisIncremento
-     */
-    public function setEstadoProducto($estadoProducto)
-    {
-        $this->estadoProducto = $estadoProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get estadoProducto
-     *
-     * @return integer
-     */
-    public function getEstadoProducto()
-    {
-        return $this->estadoProducto;
     }
 }

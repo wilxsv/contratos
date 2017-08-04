@@ -32,7 +32,7 @@ class CtlProducto
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_producto", type="string", length=500, nullable=false)
+     * @ORM\Column(name="nombre_producto", type="string", length=1000, nullable=false)
      */
     private $nombreProducto;
 
@@ -42,20 +42,6 @@ class CtlProducto
      * @ORM\Column(name="estado_producto", type="string", length=50, nullable=true)
      */
     private $estadoProducto;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="producto_concentracion", type="string", length=500, nullable=true)
-     */
-    private $productoConcentracion;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="producto_presentacion", type="string", length=500, nullable=true)
-     */
-    private $productoPresentacion;
 
     /**
      * @var integer
@@ -156,54 +142,6 @@ class CtlProducto
     public function getEstadoProducto()
     {
         return $this->estadoProducto;
-    }
-
-    /**
-     * Set productoConcentracion
-     *
-     * @param string $productoConcentracion
-     *
-     * @return CtlProducto
-     */
-    public function setProductoConcentracion($productoConcentracion)
-    {
-        $this->productoConcentracion = $productoConcentracion;
-
-        return $this;
-    }
-
-    /**
-     * Get productoConcentracion
-     *
-     * @return string
-     */
-    public function getProductoConcentracion()
-    {
-        return $this->productoConcentracion;
-    }
-
-    /**
-     * Set productoPresentacion
-     *
-     * @param string $productoPresentacion
-     *
-     * @return CtlProducto
-     */
-    public function setProductoPresentacion($productoPresentacion)
-    {
-        $this->productoPresentacion = $productoPresentacion;
-
-        return $this;
-    }
-
-    /**
-     * Get productoPresentacion
-     *
-     * @return string
-     */
-    public function getProductoPresentacion()
-    {
-        return $this->productoPresentacion;
     }
 
     /**
