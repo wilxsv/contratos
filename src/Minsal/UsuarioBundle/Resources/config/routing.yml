@@ -1,0 +1,3 @@
+minsal_usuario_homepage:
+    path:     /
+    defaults: { _controller: MinsalUsuarioBundle:Default:index }
