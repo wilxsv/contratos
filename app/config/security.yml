@@ -14,7 +14,7 @@ security:
             anonymous: ~
             http_basic: ~
             form_login:
-                login_path: /
+                login_path: /login
                 check_path: /login_check
                 username_parameter: _nombre
                 password_parameter: _password
@@ -32,3 +32,8 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    encoders:
+        Minsal\UsuarioBundle\Entity\SegUsuario:
+            algorithm: bcrypt
+            cost: 12
