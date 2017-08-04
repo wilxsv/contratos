@@ -179,7 +179,12 @@
 		$("#Enviar").click(function() {
 			var observacion = $('#observacion').val();
 			var url = "{{ path('minsal_contrato_agregar_observacion') }}";
-			if(observacion != " "){
+			if(/^\s*$/.test(observacion)){
+				alert("El campo esta vacio")
+				
+			}
+			else{
+				
 				$.ajax({
 					url: url,
 					type: 'POST',
@@ -194,10 +199,6 @@
 				.fail(function() {
 					alert('Algo salio mal');
 				});
-				
-			}
-			else{
-				alert("El campo esta vacio")
 			}
 			
 		});
