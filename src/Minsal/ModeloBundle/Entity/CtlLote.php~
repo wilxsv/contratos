@@ -61,5 +61,134 @@ class CtlLote
     private $loteUnidadMedida;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set loteIdProducto
+     *
+     * @param integer $loteIdProducto
+     *
+     * @return CtlLote
+     */
+    public function setLoteIdProducto($loteIdProducto)
+    {
+        $this->loteIdProducto = $loteIdProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get loteIdProducto
+     *
+     * @return integer
+     */
+    public function getLoteIdProducto()
+    {
+        return $this->loteIdProducto;
+    }
+
+    /**
+     * Set codigoLote
+     *
+     * @param string $codigoLote
+     *
+     * @return CtlLote
+     */
+    public function setCodigoLote($codigoLote)
+    {
+        $this->codigoLote = $codigoLote;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoLote
+     *
+     * @return string
+     */
+    public function getCodigoLote()
+    {
+        return $this->codigoLote;
+    }
+
+    /**
+     * Set fechaVencimiento
+     *
+     * @param \DateTime $fechaVencimiento
+     *
+     * @return CtlLote
+     */
+    public function setFechaVencimiento($fechaVencimiento)
+    {
+        $this->fechaVencimiento = $fechaVencimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaVencimiento
+     *
+     * @return \DateTime
+     */
+    public function getFechaVencimiento()
+    {
+        return $this->fechaVencimiento;
+    }
+
+    /**
+     * Set precioLote
+     *
+     * @param string $precioLote
+     *
+     * @return CtlLote
+     */
+    public function setPrecioLote($precioLote)
+    {
+        $this->precioLote = $precioLote;
+
+        return $this;
+    }
+
+    /**
+     * Get precioLote
+     *
+     * @return string
+     */
+    public function getPrecioLote()
+    {
+        return $this->precioLote;
+    }
+
+    /**
+     * Set loteUnidadMedida
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $loteUnidadMedida
+     *
+     * @return CtlLote
+     */
+    public function setLoteUnidadMedida(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $loteUnidadMedida = null)
+    {
+        $this->loteUnidadMedida = $loteUnidadMedida;
+
+        return $this;
+    }
+
+    /**
+     * Get loteUnidadMedida
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
+     */
+    public function getLoteUnidadMedida()
+    {
+        return $this->loteUnidadMedida;
+    }
+}
