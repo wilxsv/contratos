@@ -32,7 +32,14 @@
 								<tr id="checkList">
 									 <td>{{ proveedor.numeroContrato }}</td>
 									 <td>{{ proveedor.nombreProveedor }}</td>
-									 <td><input type="checkbox" value="{{ proveedor.id }}" checked></td>
+									 {% if proveedor.estadoProveedor == null %}
+									 	<td><input type="checkbox" value="{{ proveedor.id }}" checked></td>
+									 {% elseif proveedor.estadoProveedor == 3 %}
+									 	<td><input type="checkbox" value="{{ proveedor.id }}" checked="False"></td>
+									 {% else %}
+									 	<td><input type="checkbox" value="{{ proveedor.id }}" checked></td>
+									 {% endif %}
+									 
 								</tr>
 							{% endfor %}
 									
