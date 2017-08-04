@@ -17,4 +17,10 @@ minsal_contrato_estado_proveedores:
 minsal_detalle_observacion:
     path: /detallesObservacion
     defaults:   { _controller:MinsalContratoBundle:Uaci:detallesObservacion }
+
+minsal_contrato_agregar_observacion:
+    path:       /observacionAjax
+    defaults:   { _controller:MinsalContratoBundle:Uaci:agregarObservacion }
+    methods:    POST
+
     

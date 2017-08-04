@@ -26,6 +26,15 @@ class UnabasController extends Controller
 
 	public function detalleNegociacionAction()
 	{
-		return $this->render('MinsalPlantillaBundle:Unabast:resultado_negociacion.html.twig');
+		$em = $this->getDoctrine()->getManager();
+
+		$dql = "SELECT a.id, a.idProveedor,a.nombreProveedor, a.numeroContrato, a.codigoProducto, a.nombreProducto, a.cantidadIncrementada, a.montoContratoIncrementado, a.observacion
+		FROM MinsalModeloBundle:CtlAnalisisIncremento a";
+
+		$detalles = $em->createQuery( $dql )->getResult();
+
+		return $this->render('MinsalPlantillaBundle:Unabast:resultado_negociacion.html.twig',array(
+			'detalles'=>$detalles,
+			));
 	}
 }

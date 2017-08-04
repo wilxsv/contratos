@@ -30,33 +30,20 @@
 							</tr>
 						</thead>
 						<tbody>	
-							
 								{% for detalle in detalles %}
 								<tr>
 									<td><input type="checkbox" checked></td>
-									<td>{{ detalle.codigoProveedor }}</td>
+									<td>{{ detalle.idProveedor }}</td>
 									<td>{{ detalle.nombreProveedor }}</td>
 									<td>{{ detalle.numeroContrato }}</td>
 									<td>{{ detalle.codigoProducto }}</td>
 									<td>{{ detalle.nombreProducto }}</td>
-									<td>{{ detalle.cantidadIncrementar }}</td>
-									<td>{{ detalle.montoIncrementar }}</td>
-									<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
+									<td>{{ detalle.cantidadIncrementada }}</td>
+									<td>{{ detalle.montoContratoIncrementado }}</td>
+									<td><button class="btn btn-warning btn-sm model_img img-responsive" alt="default" data-id="{{ detalle.id }}" data-nombre="{{ detalle.nombreProducto }}" data-codigo="{{ detalle.codigoProducto }}" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
+									
 								</tr>
 								{% endfor %}
-								<tr>
-									<td><input type="checkbox" checked></td>
-									<td>PR0001</td>
-									<td>Proveedor 1</td>
-									<td>CO12001</td>
-									<td>N0001</td>
-									<td>Nitroglicerina</td>
-									<td>12000</td>
-									<td>23455</td>
-									<td><button class="btn btn-warning btn-sm model_img img-responsive" id="Observacion"  alt="default" data-name="Nitroglicerina" data-id="N0001" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
-								</tr>
-								
-							
 						</tbody>
 					</table>
 				</div>
@@ -177,14 +164,36 @@
     {# SCRIPT PARA EL MODAL #}
     <script>
 	  $('#responsive-modal').on('show.bs.modal', function (event) {
-	  	var button = $(event.relatedTarget); 
-	  	var titulo = button.data('name');
-	  	var medicamento = button.data('id');
+	  	var button = $(event.relatedTarget); //Se enlaza el boton
+	  	var id = button.data('id');
+	  	var titulo = button.data('nombre'); //Se obtienen los elementos agregados en el 
+	  	var medicamento = button.data('codigo'); // se obtienen los elementos agregados a el
+	  	var modal = $(this) //se decalara una variable de modal
+	  	modal.find('.modal-title').text('Medicamento: ' + titulo) //se busca en elemento en donde agregar el contenido de la tabla
+	  	modal.find('.codigo').text('Codigo Medicamento: ' + medicamento) //se busca en elemento en donde agregar el contenido de la tabla
 
-	  	var modal = $(this)
-	  	modal.find('.modal-title').text('Medicamento: ' + titulo)
-	  	modal.find('.codigo').text('Codigo Medicamento: ' + medicamento)
-	  //modal.find('.modal-body input').val()
+
+	  	$(document).ready(function() {
+		$("#Enviar").click(function() {
+			var observacion = $('#observacion').val();
+			var url = "{{ path('minsal_contrato_agregar_observacion') }}";
+			
+			$.ajax({
+				url: url,
+				type: 'POST',
+				data: {
+					'id':id,
+					'observacion':observacion,
+				},
+			})
+			.done(function(data) {
+				alertify.success(data);
+			})
+			.fail(function() {
+				alert('Algo salio mal');
+			});
+		});
+	});
 	});
 
     </script>
