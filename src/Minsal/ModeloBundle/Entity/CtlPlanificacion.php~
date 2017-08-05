@@ -37,5 +37,62 @@ class CtlPlanificacion
     private $descripcionProgramacion;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idProgramacion
+     *
+     * @param integer $idProgramacion
+     *
+     * @return CtlPlanificacion
+     */
+    public function setIdProgramacion($idProgramacion)
+    {
+        $this->idProgramacion = $idProgramacion;
+
+        return $this;
+    }
+
+    /**
+     * Get idProgramacion
+     *
+     * @return integer
+     */
+    public function getIdProgramacion()
+    {
+        return $this->idProgramacion;
+    }
+
+    /**
+     * Set descripcionProgramacion
+     *
+     * @param string $descripcionProgramacion
+     *
+     * @return CtlPlanificacion
+     */
+    public function setDescripcionProgramacion($descripcionProgramacion)
+    {
+        $this->descripcionProgramacion = $descripcionProgramacion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcionProgramacion
+     *
+     * @return string
+     */
+    public function getDescripcionProgramacion()
+    {
+        return $this->descripcionProgramacion;
+    }
+}

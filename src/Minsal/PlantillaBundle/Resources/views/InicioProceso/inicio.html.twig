@@ -14,8 +14,12 @@
                             <div class="col-xs-12">
                                 <label class="control-label">Codigo de Compra</label>
                             </div>
-                            <div id="scrollable-dropdown-menu" class="col-xs-6">
-                                <input id="codigoCompra" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
+                           <div class="col-xs-6">
+                                 <select id="licitaciones" class="form-control">
+                                {% for compra in compras %}
+                                    <option value="{{ compra.id }}">{{ compra.numeroModalidad }}</option>
+                                {% endfor %}
+                                </select>
                             </div>
                     </div>
                     <div class="form-group row">
@@ -52,8 +56,12 @@
                             <div class="col-xs-12">
                                 <label for="exampleInputEmail1">Codigo de Compra</label>
                             </div>
-                            <div id="scrollable-dropdown-menu" class="col-xs-6">
-                                 <input id="codigoCompraP" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
+                            <div class="col-xs-6">
+                                 <select id="licitacionesP" class="form-control">
+                                {% for compr in compras %}
+                                    <option value="{{ compr.id }}">{{ compr.numeroModalidad }}</option>
+                                {% endfor %}
+                                </select>
                             </div>
                     </div>
                     <div class="form-group row">
@@ -358,7 +366,7 @@ $(document).ready(function() {
         });
     });
 function crearIncremento() {
-    var codigoLicitacion = $('#codigoCompra').val().trim();
+    var codigoLicitacion = $('#licitaciones').val().trim();
     var meses = $('#meses').val().trim();
     var estimacion = $('#estimacion').val().trim();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
@@ -373,16 +381,17 @@ function crearIncremento() {
             },
             type : 'post'
         }).done(function(data) {
+            alert('Incremento Creado, Por favor espere la depuracion de proveedores');
            location.reload();
         });
         }
         else{
-            alert('Los meses de estimacion son mayores a 0')
+            alert('Los meses de estimacion son mayores a 0');
         }
         
     }
     else{
-        alert('No se puede procesar debido a que no ha llenado todos los campos de este formulario')
+        alert('No se puede procesar debido a que no ha llenado todos los campos de este formulario');
     }
         
 }
@@ -396,7 +405,7 @@ $(document).ready(function() {
         });
     });
     function crearProrroga() {
-    var codigoLicitacion = $('#codigoCompraP').val().trim();
+    var codigoLicitacion = $('#licitacionesP').val().trim();
     var esProrroga = $('#esProrroga').val();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
     if(codigoLicitacion){
@@ -411,6 +420,8 @@ $(document).ready(function() {
        .done(function(data) {
            console.log("success");
             alert(data);
+            alert('Prorroga Creada, Por favor espere la depuracion de proveedores');
+
             location.reload();
        });
     }

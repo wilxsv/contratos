@@ -272,7 +272,7 @@ class InicioProcesoController extends Controller
         $cod = $request->get('cod');
         $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(6);
         $prorroga = new CtlProrroga();
-        $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
+        $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
 
         $prorroga->setEstadoProrroga($estado);
         $prorroga->setFechaCreacion(new \DateTime("now"));
@@ -296,7 +296,7 @@ class InicioProcesoController extends Controller
       $estimacion = $request->get('estimacion');
       $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
       $incremento = new CtlIncremento();
-      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($cod);
+      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
       $incremento->setestadoIncremento($estado);
       $incremento->setMesesDesestimar($meses);
       $incremento->setFechaCreacion(new \DateTime("now"));
