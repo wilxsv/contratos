@@ -182,7 +182,7 @@ class SegRol implements RoleInterface
 
     public function getRole()
     {
-       $result = $this->nombre;
+       $result = $this->getNombre();
        return $result;
     }
 }

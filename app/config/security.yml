@@ -37,3 +37,6 @@ security:
         Minsal\UsuarioBundle\Entity\SegUsuario:
             algorithm: bcrypt
             cost: 12
+
+    # role_hierarchy:
+    #     ROLE_ADMIN: Admin
