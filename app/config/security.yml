@@ -1,5 +1,6 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
+
 security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
@@ -16,6 +17,7 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login_check
+                success_handler: login_success_handler
                 username_parameter: _nombre
                 password_parameter: _password
 
@@ -30,6 +32,14 @@ security:
         Minsal\UsuarioBundle\Entity\SegUsuario:
             algorithm: bcrypt
             cost: 12
+
+services:
+    login_success_handler:
+        class: AppBundle\LoginSuccessHandler
+        arguments: ['@router', '@security.context',]
+        tags:
+        - { name: 'monolog.logger', channel: 'security' }
+    # ...
 
     # access_control:
     #     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
