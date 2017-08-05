@@ -69,7 +69,7 @@
                             <label class="control-label">Elija una planificacion</label>
                         </div>
                         <div class="col-xs-6">
-                            <select id="estimacion" class="form-control">
+                            <select id="planificacion" class="form-control">
                                 {% for planificacion in planificaciones %}
                                     <option value="{{ planificacion.id }}">{{ planificacion.descripcionProgramacion }}</option>
                                 {% endfor %}
@@ -406,6 +406,7 @@ $(document).ready(function() {
     });
     function crearProrroga() {
     var codigoLicitacion = $('#licitacionesP').val().trim();
+    var planificacion = $('#planificacion').val().trim();
     var esProrroga = $('#esProrroga').val();
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
     if(codigoLicitacion){
@@ -414,6 +415,7 @@ $(document).ready(function() {
            type: 'POST',
            data: {
             'cod':codigoLicitacion,
+            'planificacion':planificacion,
             'esProrroga': esProrroga
             },
        })
