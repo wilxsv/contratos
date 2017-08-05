@@ -115,10 +115,7 @@
                             {% for incremento in incrementos %}
                                 <tr class="info">
                                     <td>{{ incremento.id }}</td>
-                                   
                                         <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
-                                   
-                                    
                                     <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
                                     <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
                                     <td>{% if incremento.estadoIncremento.id == 1 %}
