@@ -4,13 +4,15 @@ namespace Minsal\UsuarioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Security\Core\Role\RoleInterface;
+
 /**
  * SegRol
  *
  * @ORM\Table(name="seg_rol")
  * @ORM\Entity
  */
-class SegRol
+class SegRol implements RoleInterface
 {
     /**
      * @var integer
@@ -173,5 +175,14 @@ class SegRol
     public function getSegUsuarioid()
     {
         return $this->segUsuarioid;
+    }
+
+
+    //Funciones adicionales
+
+    public function getRole()
+    {
+       $result = $this->nombre;
+       return $result;
     }
 }

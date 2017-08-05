@@ -127,7 +127,7 @@ class SegUsuario implements UserInterface, \Serializable
      *
      * @return string
      */
-    public function getUsername()
+    public function getNombre()
     {
         return $this->nombre;
     }
@@ -310,13 +310,25 @@ class SegUsuario implements UserInterface, \Serializable
         return $this->idSegRol;
     }
 
-    public function getRoles(){
-        return $this->getIdSegRol()->toArray();
-    }
+
 
     public function eraseCredentials()
     {
         
+    }
+
+
+    //Metodos adicionales
+
+    public function getUsername()
+    {
+        return $this->nombre;
+    }
+
+    public function getRoles(){
+
+       return $this->getIdSegRol()->toArray();
+
     }
 
     public function serialize()
