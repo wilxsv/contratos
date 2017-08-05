@@ -56,6 +56,18 @@
                                  <input id="codigoCompraP" class="typeahead form-control" type="text" placeholder="Ejemplo: LP 12/2017"> 
                             </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <label class="control-label">Elija una planificacion</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <select id="estimacion" class="form-control">
+                                {% for estima in estimaciones %}
+                                    <option value="{{estima.id}}">{{estima.descripcionProgramacion}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                     <button id="Prorroga" type="submit" class="btn btn-info waves-effect waves-light m-t-10">Inciar Prorroga</button>
                 </form>
             </div>

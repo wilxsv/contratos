@@ -222,10 +222,16 @@ class InicioProcesoController extends Controller
     $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findAll();
 
     $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
+    $planificaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
+
     return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
+      //Elementos del scrolleditable
       'compras' => $compras,
-      'incrementos' => $incrementos,
+      //elementos del select
       'estimaciones' => $estimaciones,
+      'planificaciones'=>$planificaciones,
+      //datos de tablas de incremento o prorroga
+      'incrementos' => $incrementos,
       'prorrogas' => $prorrogas
     ));
   
