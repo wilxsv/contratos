@@ -106,6 +106,7 @@
                                 <th>#</th>
                                 <th>Compra</th>
                                 <th>Fecha de creacion</th>
+                                <th>Estimacion/Planificacion</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -117,6 +118,7 @@
                                     <td>{{ incremento.id }}</td>
                                         <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
                                     <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
+                                    <td>{{ incremento.estimacion.descripcionProgramacion }}</td>
                                     <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
                                     <td>{% if incremento.estadoIncremento.id == 1 %}
                                         aun no puede continuar el proceso
@@ -139,6 +141,7 @@
                                         <td>{{ prorroga.id }}</td>
                                         <td>{{ prorroga.prorrogaModalidadCompra.numeroModalidad }}</td>
                                         <td>{{ prorroga.fechaCreacion|date("d/m/Y") }}</td>
+                                        <td>{{ prorroga.planificacion.descripcionProgramacion }}</td>
                                         <td>{{ prorroga.estadoProrroga.descripcionEstado }}</td>
                                         <td>{% if prorroga.estadoProrroga.id == 6 %}
                                             aun no puede continuar el proceso
