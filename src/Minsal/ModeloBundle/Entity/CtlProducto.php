@@ -37,18 +37,18 @@ class CtlProducto
     private $nombreProducto;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="estado_producto", type="string", length=50, nullable=true)
-     */
-    private $estadoProducto;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=false)
      */
     private $idProductoSibasi;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_producto", type="integer", nullable=true)
+     */
+    private $estadoProducto;
 
     /**
      * @var \CtlUnidadMedida
@@ -121,30 +121,6 @@ class CtlProducto
     }
 
     /**
-     * Set estadoProducto
-     *
-     * @param string $estadoProducto
-     *
-     * @return CtlProducto
-     */
-    public function setEstadoProducto($estadoProducto)
-    {
-        $this->estadoProducto = $estadoProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get estadoProducto
-     *
-     * @return string
-     */
-    public function getEstadoProducto()
-    {
-        return $this->estadoProducto;
-    }
-
-    /**
      * Set idProductoSibasi
      *
      * @param integer $idProductoSibasi
@@ -166,6 +142,30 @@ class CtlProducto
     public function getIdProductoSibasi()
     {
         return $this->idProductoSibasi;
+    }
+
+    /**
+     * Set estadoProducto
+     *
+     * @param integer $estadoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setEstadoProducto($estadoProducto)
+    {
+        $this->estadoProducto = $estadoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProducto
+     *
+     * @return integer
+     */
+    public function getEstadoProducto()
+    {
+        return $this->estadoProducto;
     }
 
     /**

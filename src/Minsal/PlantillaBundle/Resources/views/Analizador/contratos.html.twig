@@ -12,107 +12,178 @@
 
 <div class="container">
 	<div class="white-box">
-		<div class="panel panel-primary">
-	        <div class="panel-heading"> Presupuesto 
-	            <div class="pull-right"><a href="javascript:void(0)" data-perform="panel-collapse"><i class="ti-minus"></i></a> <a href="javascript:void(0)" data-perform="panel-dismiss"><i class="ti-close"></i></a> </div>
-	        </div>
-	        <div class="panel-wrapper collapse in" aria-expanded="true">
-	            <div class="panel-body">
-	                <p><b>digite el monto disponible que tiene para comprar</b> <input type="text" id="presupuesto"></p>
-	                <p><b>Monto Actual Total a Incrementar: $ </b><span class="text-info" id="totalIncremento"> 0</span></p>
-	                <p><b>Monto Disponible</b><span class="text-warning" id="montoDisponible"></span></p>
-	                <button class="btn btn-danger">terminar analisis?</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-    <div class="white-box">
-
-        <div class="table-responsive">
+		<h3 class="box-title m-b-20">Comision para analisis de incremento</h3>
+        <!-- Nav tabs -->
+        <ul class="nav customtab2 nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home6" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true"><span class="visible-xs"><i class="ti-home"></i></span><span class="hidden-xs">Presupuesto</span></a></li>
+            <li role="presentation" class=""><a href="#profile6" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="ti-user"></i></span> <span class="hidden-xs">Criticidad</span></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            {# aqui va el analisis presupuestario #}
+            <div role="tabpanel" class="tab-pane fade active in" id="home6">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"> Presupuesto 
+                            <div class="pull-right"><a href="javascript:void(0)" data-perform="panel-collapse"><i class="ti-minus"></i></a> <a href="javascript:void(0)" data-perform="panel-dismiss"><i class="ti-close"></i></a> </div>
+                        </div>
+                        <div class="panel-wrapper collapse in" aria-expanded="true">
+                            <div class="panel-body">
+                                <p><b>digite el monto disponible que tiene para comprar</b> <input type="text" id="presupuesto"></p>
+                                <p><b>Monto Actual Total a Incrementar: $ </b><span class="text-info" id="totalIncremento"> 0</span></p>
+                                <p><b>Monto Disponible</b><span class="text-warning" id="montoDisponible"></span></p>
+                                <button class="btn btn-danger">terminar analisis?</button>
+                            </div>
+                        </div>
+                    </div>
+                    {# fin del panel e inicio de la tabla #}
+                    <div class="table-responsive">
             <div>
-            	<table id="detalle" class="table table-hover color-table success-table">
+                <table id="detalle" class="table table-hover color-table info-table">
                 <thead>
                     <tr>
-                    	<th>Compra</th>
-                    	<th>Codigo Producto</th>
-                    	<th i>Nombre Proveedor</th>
-                    	<th>Nombre Producto</th>
-                    	<th>Precio Unitario</th>
-                    	<th>monto comprado</th>
-                    	
-                    	<th>Cantidad a Incrementar</th>
-                    	<th>SubTotal</th>
+                        <th>Compra</th>
+                        <th>Codigo Producto</th>
+                        <th>Nombre Proveedor</th>
+                        <th>Nombre Producto</th>
+                        <th>Precio Unitario</th>
+                        <th>monto comprado</th>
+                        
+                        <th>Cantidad a Incrementar</th>
+                        <th>SubTotal</th>
                     </tr>
                 </thead>
                 <tbody>
-                	{% for list in listado %}
+                    {% for list in listado %}
 
-                		{% if loop.first %}
-                			{% set contador = 0 %}
-                		<tr>
-                			<td><b>{{list.numeroContrato}}</b></td>
-                			<td>{{list.codigoProducto}}</td>
-                			<td>{{list.nombreProveedor}}</td>
-                			<td>{{list.nombreProducto}}</td>
-                			
-                			<td>{{list.precioUnitario|round(2,'floor')}}</td>
-                			<td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-                			<td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
-                			<td>0</td>
-                		</tr>
-                		{% else %}
-                			{% set contador = contador + 1 %}
-                			{% set anterior = cycle(listado,contador-1) %}
-                			{% if anterior.numeroContrato == list.numeroContrato %}
-                			<tr>
-                				<td></td>
-	                			<td>{{list.codigoProducto}}</td>
-	                			<td >{{list.nombreProveedor}}</td>
-	                			<td>{{list.nombreProducto}}</td>
-	                			
-                				<td>{{list.precioUnitario|round(2,'floor')}}</td>
-	                			<td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-	                			<td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
-	                			<td>0</td>
-                			</tr>
-                				{% if loop.last %}
-                				<tr class="warning" id="fila{{list.idContratoSibasi}}">
-                					<td colspan="2"><b>Monto total a incrementar del contrato(20%) {{list.numeroContrato}}:</b></td>
-                					<td>0</td>
-                					<td colspan="2"><b>Monto Total del Contrato:</b></td>
-                					<td>{{list.montoContrato}}</td>
-                					<td><b>Monto actual a incrementar por contrato</b></td>
-                					<td id="subtotalContrato">0</td>
-                				</tr>
-                				{% endif %}
-                			
-                			{% else %}
-                				<tr class="warning" id="fila{{anterior.idContratoSibasi}}">
-                					<td colspan="2"><b>Monto total a incrementar del contrato {{anterior.numeroContrato}}:</b></td>
-                					<td>0</td>
-                					<td colspan="2"><b>Monto total del Contrato:</b></td>
-                					<td>{{anterior.montoContrato}}</td>
-                					<td><b>Monto actual a incrementar por contrato</b></td>
-                					<td id="subtotalContrato">0</td>
-                				</tr>
-                				<tr>
-                				<td><b>{{list.numeroContrato}}</b></td>
-	                			<td>{{list.codigoProducto}}</td>
-	                			<td>{{list.nombreProveedor}}</td>
-	                			<td>{{list.nombreProducto}}</td>
-	                			
-                				<td>{{list.precioUnitario|round(2,'floor')}}</td>
-	                			<td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-	                			<td><input id="{{contador}}" onchange="calcular({{contador}},{{list.idContratoSibasi}});" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
-	                			<td>0</td>
-                			</tr>
-                			{% endif %}
-                		{% endif %}
+                        {% if loop.first %}
+                            {% set contador = 0 %}
+                        <tr>
+                            <td><b>{{list.numeroContrato}}</b></td>
+                            <td>{{list.codigoProducto}}</td>
+                            <td>{{list.nombreProveedor}}</td>
+                            <td>{{list.nombreProducto}}</td>
+                            
+                            <td>{{list.precioUnitario|round(2,'floor')}}</td>
+                            <td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
+                            <td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+                            <td>0</td>
+                        </tr>
+                        {% if loop.first and loop.last %}
+                            <tr class="warning" id="fila{{list.idContratoSibasi}}">
+                                    <td colspan="2"><b>Monto total a incrementar del contrato(20%) {{list.numeroContrato}}:</b></td>
+                                    <td>0</td>
+                                    <td colspan="2"><b>Monto Total del Contrato:</b></td>
+                                    <td>{{list.montoContrato}}</td>
+                                    <td><b>Monto actual a incrementar por contrato</b></td>
+                                    <td id="subtotalContrato">0</td>
+                                </tr>
+                            {% endif %}
+                        {% else %}
+                            {% set contador = contador + 1 %}
+                            {% set anterior = cycle(listado,contador-1) %}
+                            {% if anterior.numeroContrato == list.numeroContrato %}
+                            <tr>
+                                <td></td>
+                                <td>{{list.codigoProducto}}</td>
+                                <td >{{list.nombreProveedor}}</td>
+                                <td>{{list.nombreProducto}}</td>
+                                
+                                <td>{{list.precioUnitario|round(2,'floor')}}</td>
+                                <td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
+                                <td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+                                <td>0</td>
+                            </tr>
+                                {% if loop.last %}
+                                <tr class="warning" id="fila{{list.idContratoSibasi}}">
+                                    <td colspan="2"><b>Monto total a incrementar del contrato(20%) {{list.numeroContrato}}:</b></td>
+                                    <td>0</td>
+                                    <td colspan="2"><b>Monto Total del Contrato:</b></td>
+                                    <td>{{list.montoContrato}}</td>
+                                    <td><b>Monto actual a incrementar por contrato</b></td>
+                                    <td id="subtotalContrato">0</td>
+                                </tr>
+                                {% endif %}
+                            
+                            {% else %}
+                                <tr class="warning" id="fila{{anterior.idContratoSibasi}}">
+                                    <td colspan="2"><b>Monto total a incrementar del contrato {{anterior.numeroContrato}}:</b></td>
+                                    <td>0</td>
+                                    <td colspan="2"><b>Monto total del Contrato:</b></td>
+                                    <td>{{anterior.montoContrato}}</td>
+                                    <td><b>Monto actual a incrementar por contrato</b></td>
+                                    <td id="subtotalContrato">0</td>
+                                </tr>
+                                <tr>
+                                <td><b>{{list.numeroContrato}}</b></td>
+                                <td>{{list.codigoProducto}}</td>
+                                <td>{{list.nombreProveedor}}</td>
+                                <td>{{list.nombreProducto}}</td>
+                                
+                                <td>{{list.precioUnitario|round(2,'floor')}}</td>
+                                <td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
+                                <td><input id="{{contador}}" onchange="calcular({{contador}},{{list.idContratoSibasi}});" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+                                <td>0</td>
+                            </tr>
+                            {% endif %}
+                        {% endif %}
 
-                		
-                	{% endfor %}
+                        
+                    {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            {# aqui va el analisis de criticidad #}
+            <div role="tabpanel" class="tab-pane fade" id="profile6">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <div>
+                            <table id="criticidad" class="table table-hover color-table info-table">
+                                <thead>
+                                    <tr>
+                                        <th>Id Producto</th>
+                                        <th>Codigo Producto</th>
+                                        <th>Nombre Producto</th>
+                                        <th>VEN</th>
+                                        <th>Unidad de Medida</th>
+                                        <th>Compras en Transito</th>
+                                        <th>Comsumo Promedio</th>
+                                        <th>Existencias</th>
+                                        <th>Vencidos</th>
+                                        <th>Abastecimiento</th>
+                                        <th>Criticidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for data in dataCobertura %}
+                                        <tr>
+                                            <td>{{data["0"]}}</td>
+                                            <td>{{data["1"]}}</td>
+                                            <td>{{data["2"]}}</td>
+                                            <td>{{data["3"]}}</td>
+                                            <td>{{data["4"]}}</td>
+                                            <td>{{data["5"]}}</td>
+                                            <td>{{data["6"]}}</td>
+                                            <td>{{data["7"]}}</td>
+                                            <td>{{data["8"]}}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="clearfix"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -123,7 +194,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	calculosIniciales();
-
+    calcularCriticidad();
 		
 	});
 function calcular(id,contrato) {
@@ -200,6 +271,34 @@ function calculosIniciales() {
 
 		}
 	})
+}
+
+
+function calcularCriticidad() {
+    $('#criticidad tbody tr').each(function() {
+        var fila = $(this);
+        var ct = parseFloat(fila.find("td").eq(5).html());
+        var cpa = parseFloat(fila.find("td").eq(6).html());
+        var exis = parseFloat(fila.find("td").eq(7).html());
+        var venc = parseFloat(fila.find("td").eq(8).html());
+        fila.find("td").eq(9).html(((ct+exis-venc)/cpa).toFixed(2));
+        var abast = parseFloat(fila.find("td").eq(9).html());
+        if (abast <= 1) {
+            fila.find("td").eq(10).html('CRITICO');
+            fila.find("td").eq(10).attr('class','bg-danger');
+
+        }
+        if (abast <= 3) {
+            fila.find("td").eq(10).html('MEDIO CRITICO');
+            fila.find("td").eq(10).attr('class','bg-warning');
+
+            }
+        if (abast > 3) {
+            fila.find("td").eq(10).html('NO CRITICO');
+            fila.find("td").eq(10).attr('class','bg-success');
+
+            }
+    });
 }
 </script>
 

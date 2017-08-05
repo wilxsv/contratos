@@ -1,5 +1,5 @@
 minsal_contrato_depuracion_medicamentos:
-    path:     /depuracion/{incremento}/{contrato}
+    path:     /depuracion/{incremento}/{contrato}/{proveedor}
     defaults: { _controller: MinsalContratoBundle:Medicamento:depuracion }
 
 minsal_contrato_listado_medicamentos:

@@ -37,18 +37,18 @@ class CtlProducto
     private $nombreProducto;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="estado_producto", type="string", length=50, nullable=true)
-     */
-    private $estadoProducto;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=false)
      */
     private $idProductoSibasi;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="estado_producto", type="integer", nullable=true)
+     */
+    private $estadoProducto;
 
     /**
      * @var \CtlUnidadMedida

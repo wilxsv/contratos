@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MedicamentoController extends Controller
 {
-	public function depuracionAction($incremento,$contrato)
+	public function depuracionAction($incremento,$contrato,$proveedor)
 	{	
 		$em = $this->getDoctrine()->getManager();
 		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoIncremento')->findOneBy(array(
@@ -29,7 +29,7 @@ class MedicamentoController extends Controller
 				));*/
 			$programacion= $incremento;
 			
-			$service_url = "http://192.168.1.13:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}";
+			$service_url = "http://192.168.1.13:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);

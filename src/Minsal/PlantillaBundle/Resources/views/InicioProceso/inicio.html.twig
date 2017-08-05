@@ -95,7 +95,7 @@
                             {% for incremento in incrementos %}
                                 <tr class="info">
                                     <td>{{ incremento.id }}</td>
-                                    {% if incremento.incrementoModalidadCompra.numeroModalidad %}
+                                    {% if incremento.incrementoModalidadCompra.numeroModalidad is null %}
                                         <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
                                     {% else %}
                                         <td>la compra no contiene un identificador</td>
@@ -110,7 +110,7 @@
                                             <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
                                         {% else %}
                                             {% if incremento.estadoIncremento.id == 5 %}
-                                                <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
+                                                <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.id }) }}" class="btn btn-info">Iniciar Analisis</a>
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}
