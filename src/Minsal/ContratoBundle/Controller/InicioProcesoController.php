@@ -241,7 +241,7 @@ class InicioProcesoController extends Controller
     $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findAll();
 
     $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
-    $planificaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
+    $planificaciones = $em->getRepository('MinsalModeloBundle:CtlPlanificacion')->findAll();
 
     return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
       //Elementos del scrolleditable
