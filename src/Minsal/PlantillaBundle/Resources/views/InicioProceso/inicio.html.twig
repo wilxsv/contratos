@@ -407,7 +407,7 @@ $(document).ready(function() {
     function crearProrroga() {
     var codigoLicitacion = $('#licitacionesP').val().trim();
     var planificacion = $('#planificacion').val().trim();
-    var esProrroga = $('#esProrroga').val();
+    var esProrroga = 1;
     var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
     if(codigoLicitacion){
         $.ajax({
