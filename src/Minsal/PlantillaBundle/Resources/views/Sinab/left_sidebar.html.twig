@@ -16,20 +16,22 @@
                             <li><a href="javascript:void(0)"><i class="fa fa-power-off"></i> <span class="hide-menu">Logout</span></a></li>
                         </ul>
                     </li>
-                    <li> <a href="javascript:void(0)" class="waves-effect"><i class="mdi mdi-av-timer fa-fw" data-icon="v"></i> <span class="hide-menu"> Inicio <span class="fa arrow"></span> <span class="label label-rouded label-inverse pull-right">4</span></span></a>
-                        <ul class="nav nav-second-level">
-                            <li> <a href="index.html"><i class=" fa-fw">1</i><span class="hide-menu">Dashboard 1</span></a> </li>
-                            <li> <a href="index2.html"><i class=" fa-fw">2</i><span class="hide-menu">Dashboard 2</span></a> </li>
-                            <li> <a href="index3.html"><i class=" fa-fw">3</i><span class="hide-menu">Dashboard 3</span></a> </li>
-                        </ul>
-                    </li>
-                
-                    
                     </li>
                     <li class="devider"></li>
+                    {% if is_granted('ROLE_UNABAST') %}
+                        <li> <a href="/inicioProceso" class="waves-effect"><i  class="mdi mdi-settings fa-fw"></i> <span class="hide-menu">UNABAST</span></a> </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_UACI') %}
+                        <li> <a href="/uaci/listadoProcesos" class="waves-effect"><i  class="mdi mdi-settings fa-fw"></i> <span class="hide-menu">UACI </span></a> </li>
+                    {% endif %}
+
+                    <ul class="nav navbar-nav navbar-right">
+                      <li><a href="{{ path('minsal_usuario_logout') }}"><span class="glyphicon glyphicon-user"></span> LOGOUT</a></li>
+                    </ul>
+
                     
-                    <li> <a href="/inicioProceso" class="waves-effect"><i  class="mdi mdi-settings fa-fw"></i> <span class="hide-menu">UNABAST Procesos</span></a> </li>
-                    <li> <a href="/uaci/listadoProcesos" class="waves-effect"><i  class="mdi mdi-settings fa-fw"></i> <span class="hide-menu">UACI Seccion</span></a> </li>
+                    
+                    
                 </ul>
             </div>
         </div>

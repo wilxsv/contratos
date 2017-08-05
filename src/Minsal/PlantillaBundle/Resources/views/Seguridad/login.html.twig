@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	{{ parent() }}
+	
+	<div class="container">
+		<div class="col-md-6" >
+			<form action="{{ path('minsal_usuario_login_check') }}" method="post">
+			<h2 class="form-signin-heading">Porfavor Inicie Sesion</h2>
+
+			{% if error %}
+				<div class="text-danger" >
+					<p>
+						<strong>
+							{{ error.messageKey }}
+						</strong>
+					</p>
+				</div>
+			{% endif %}
+
+			<label for="nombre" class="sr-only">Usuario:</label>
+			<input type="text" id="nombre" class="form-control" name="_nombre" value="{{ last_username }}" placeholder="Ingrese su usuario " required />
+
+			<label for="password" class="sr-only">Clave:</label>
+			<input type="password" id="password" class="form-control" name="_password" placeholder="Ingrese su clave" required>
+
+			<input type="hidden" name="_target_path" value="minsal_usuario_homepage" >
+
+			<button type="submit" class="btn btn-lg btn-primary btn-block">Iniciar Sesion</button>
+		</form>
+		</div>
+		
+		
+	</div>
+
+{% endblock %}

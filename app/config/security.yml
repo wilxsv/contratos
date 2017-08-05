@@ -4,21 +4,32 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+       our_db_provider:
+            entity:
+                class: MinsalUsuarioBundle:SegUsuario
+                property: nombre
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+        default:
+            anonymous: ~
+            http_basic: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                username_parameter: _nombre
+                password_parameter: _password
+
+            logout:
+                path: /logout
+                target: /login
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+    encoders:
+        Minsal\UsuarioBundle\Entity\SegUsuario:
+            algorithm: bcrypt
+            cost: 12
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    # role_hierarchy:
+    #      Admin: Admin
