@@ -58,5 +58,134 @@ class MtnProductoContrato
     private $mtnProveedor;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set mtnProducto
+     *
+     * @param integer $mtnProducto
+     *
+     * @return MtnProductoContrato
+     */
+    public function setMtnProducto($mtnProducto)
+    {
+        $this->mtnProducto = $mtnProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get mtnProducto
+     *
+     * @return integer
+     */
+    public function getMtnProducto()
+    {
+        return $this->mtnProducto;
+    }
+
+    /**
+     * Set mtnContrato
+     *
+     * @param integer $mtnContrato
+     *
+     * @return MtnProductoContrato
+     */
+    public function setMtnContrato($mtnContrato)
+    {
+        $this->mtnContrato = $mtnContrato;
+
+        return $this;
+    }
+
+    /**
+     * Get mtnContrato
+     *
+     * @return integer
+     */
+    public function getMtnContrato()
+    {
+        return $this->mtnContrato;
+    }
+
+    /**
+     * Set cantidad
+     *
+     * @param string $cantidad
+     *
+     * @return MtnProductoContrato
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidad
+     *
+     * @return string
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * Set precioUnitario
+     *
+     * @param string $precioUnitario
+     *
+     * @return MtnProductoContrato
+     */
+    public function setPrecioUnitario($precioUnitario)
+    {
+        $this->precioUnitario = $precioUnitario;
+
+        return $this;
+    }
+
+    /**
+     * Get precioUnitario
+     *
+     * @return string
+     */
+    public function getPrecioUnitario()
+    {
+        return $this->precioUnitario;
+    }
+
+    /**
+     * Set mtnProveedor
+     *
+     * @param integer $mtnProveedor
+     *
+     * @return MtnProductoContrato
+     */
+    public function setMtnProveedor($mtnProveedor)
+    {
+        $this->mtnProveedor = $mtnProveedor;
+
+        return $this;
+    }
+
+    /**
+     * Get mtnProveedor
+     *
+     * @return integer
+     */
+    public function getMtnProveedor()
+    {
+        return $this->mtnProveedor;
+    }
+}
