@@ -62,8 +62,8 @@
                         </div>
                         <div class="col-xs-6">
                             <select id="estimacion" class="form-control">
-                                {% for estima in estimaciones %}
-                                    <option value="{{estima.id}}">{{estima.descripcionProgramacion}}</option>
+                                {% for planificacion in planificaciones %}
+                                    <option value="{{ planificacion.id }}">{{ planificacion.descripcionProgramacion }}</option>
                                 {% endfor %}
                             </select>
                         </div>
