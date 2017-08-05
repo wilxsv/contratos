@@ -260,9 +260,8 @@ class InicioProcesoController extends Controller
   /*Funcion para crear incrementos*/
   public function crearIncrementoAction(Request $request)
   {
-   
-    
-      $prorroga = $request->get('esProrroga');
+          
+        $prorroga = $request->get('esProrroga');
 
         //Confirmamos que sea un prorroga
         if($prorroga == 1){
@@ -270,17 +269,21 @@ class InicioProcesoController extends Controller
 
         //Obtenemos los valores que nos interesan
         $cod = $request->get('cod');
+        $planificacion = $request->get('planificacion');
         $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(6);
         $prorroga = new CtlProrroga();
         $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
-
         $prorroga->setEstadoProrroga($estado);
         $prorroga->setFechaCreacion(new \DateTime("now"));
 
         foreach($compra as $com)
         {
           $prorroga->setProrrogaModalidadCompra($com);
-         }
+        }
+
+        $programacion = $em->getRepository('MinsalModeloBundle:CtlPlanificacion')->find($planificacion);
+        //Se asigna la planificacion a la prorroga
+        $prorroga->setPlanificacion($programacion);
 
         $em->persist($prorroga);
         $em->flush($prorroga);
@@ -307,14 +310,13 @@ class InicioProcesoController extends Controller
        }
 
       $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->find($estimacion);
-      
+      //Se asignac la estimacion al incremento
       $incremento->setEstimacion($programacion);
-       
-       
+      //Se persisten los datos        
       $em->persist($incremento);
       $em->flush($incremento);
     
-      
+
 
     }
 
