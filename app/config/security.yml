@@ -33,6 +33,14 @@ security:
             algorithm: bcrypt
             cost: 12
 
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/inicioProceso, roles: ROLE_UNABAST }
+        - { path: ^/medicamentos/listado, roles: ROLE_UNABAST }
+        - { path: ^/uaci/listadoProcesos, roles: ROLE_UACI }
+        - { path: ^/uaci/proveedoresUaci/, roles: ROLE_UACI }
+
 services:
     login_success_handler:
         class: AppBundle\LoginSuccessHandler
@@ -41,8 +49,4 @@ services:
         - { name: 'monolog.logger', channel: 'security' }
     # ...
 
-    # access_control:
-    #     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    #     - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
-    #     - { path: ^/inicioProceso, roles: ROLE_UNABAST }
-    #     - { path: ^/medicamentos/listado, roles: ROLE_UNABAST }
+    

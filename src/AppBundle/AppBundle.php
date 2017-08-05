@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Router;
 
 class AppBundle extends Bundle
 {
-	
+
 }
 
 
@@ -37,7 +37,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
             $url = 'minsal_contrato_inicio_proceso_inicio';
         }
         elseif ($this->security->isGranted('ROLE_UACI')){
-        	
+        	$url = 'minsal_contrato_listado_proceso';
         }
         elseif ($this->security->isGranted('ROLE_UFI')) {
         	$url = 'minsal_contrato_listado_incrementos';
