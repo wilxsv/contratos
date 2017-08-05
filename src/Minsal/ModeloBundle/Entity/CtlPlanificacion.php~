@@ -5,12 +5,12 @@ namespace Minsal\ModeloBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CtlProgramacion
+ * CtlPlanificacion
  *
- * @ORM\Table(name="ctl_programacion")
+ * @ORM\Table(name="ctl_planificacion")
  * @ORM\Entity
  */
-class CtlProgramacion
+class CtlPlanificacion
 {
     /**
      * @var integer
@@ -18,7 +18,7 @@ class CtlProgramacion
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="ctl_programacion_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="ctl_planificacion_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
 
@@ -32,7 +32,7 @@ class CtlProgramacion
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion_programacion", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descripcion_programacion", type="string", length=500, nullable=true)
      */
     private $descripcionProgramacion;
 

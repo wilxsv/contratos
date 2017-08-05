@@ -16,6 +16,7 @@ use Minsal\ModeloBundle\Entity\CtlProgramacion;
 use Minsal\ModeloBundle\Entity\CtlUnidadMedida;
 use Minsal\ModeloBundle\Entity\CtlProducto;
 use Minsal\ModeloBundle\Entity\CtlProrroga;
+use Minsal\ModeloBundle\Entity\CtlPlanificacion;
 use Minsal\ModeloBundle\Entity\MtnProductoContrato;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -146,6 +147,7 @@ function cargarContratos($em)
         }
   }
 
+  function cargarPlanificaciones($em){
   /*--------SINCRONIZACION DE PLANIFICACIONES-------------*/
     $service_url = 'http://192.168.1.4:8080/v1/sinab/planificacionmedicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
@@ -154,17 +156,16 @@ function cargarContratos($em)
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
         foreach ($respuesta['respuesta'] as $pr ) {
-          $nuevaProgramacion = new CtlProgramacion();
+          $nuevaProgramacion = new CtlPlanificacion();
           $nuevaProgramacion->setIdProgramacion($pr["0"]);
           $nuevaProgramacion->setDescripcionProgramacion($pr["1"]);
-
           $em->persist($nuevaProgramacion);
           $em->flush($nuevaProgramacion);
         }
   }
   function cargarUnidades($em){
     /*--------SINCRONIZACION DE UNIDADES DE MEDIDA----------*/
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/unidadesmedidas?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = '';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -229,6 +230,7 @@ class InicioProcesoController extends Controller
     //cargarProveedores($em); 
     //cargarContratos($em);
     //cargarProgramaciones($em);
+    //cargarPlanificaciones($em);
     //cargarUnidades($em);
     //cargarProductos($em);
     //cargarproductoContrato($em);
