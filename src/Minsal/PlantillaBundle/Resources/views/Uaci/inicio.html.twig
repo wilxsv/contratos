@@ -42,8 +42,9 @@
 										
 										<td>
 											{% if incremento.estadoIncremento.id == 1 %}
-											 <a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.incrementoModalidadCompra.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
+											 <a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.incrementoModalidadCompra.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span>Revisar</a>
 											{% elseif incremento.estadoIncremento.id == 2 %}
+												<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.incrementoModalidadCompra.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 												<a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
 											{% endif %}
 										</td>

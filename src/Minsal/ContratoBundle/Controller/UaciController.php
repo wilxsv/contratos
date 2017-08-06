@@ -30,9 +30,17 @@ class UaciController extends Controller
 
 	public function proveedorUaciAction($cod, $tipo)
 	{
-		
-		$em = $this->getDoctrine()->getManager();
 
+		/*
+			CONSULTA EN BASE A UN SQL USADO EN LA BASE SINAB
+			SELECT DISTINCT PV.IDPROVEEDOR,PV.NOMBRE,PV.NIT
+			FROM SAB_UACI_CONTRATOS AS C JOIN SAB_UACI_PRODUCTOSCONTRATO AS PC ON PC.IDCONTRATO=C.IDCONTRATO
+			JOIN SAB_CAT_PROVEEDORES AS PV ON PV.IDPROVEEDOR = C.IDPROVEEDOR 
+			JOIN vv_CATALOGOPRODUCTOS PR ON PR.IDPRODUCTO = PC.IDPRODUCTO
+			WHERE C.NUMEROMODALIDADCOMPRA ='01/2016' and C.IDTIPODOCUMENTO=2 AND PC.IDPROVEEDOR=C.IDPROVEEDOR
+		*/
+		$em = $this->getDoctrine()->getManager();
+		/*
 
 		$dql = "SELECT co.numeroContrato, p.nombreProveedor, p.idProveedorSinab, p.estadoProveedor
 		    	FROM MinsalModeloBundle:CtlModalidadCompra c
@@ -40,7 +48,34 @@ class UaciController extends Controller
 		        INNER JOIN MinsalModeloBundle:CtlProveedor p WITH co.contratoProveedor = p.id
 		    	WHERE c.id = $cod ";
 
-		$proveedores = $em->createQuery( $dql )->getResult();
+		$proveedores = $em->createQuery( $dql )->getResult();*/
+
+
+
+		if ($tipo=="prorroga") {
+			
+		}
+		else{
+			$rsm = new ResultSetMapping();
+
+			$rsm->addEntityResult('MinsalModeloBundle:CtlContrato', 'C');
+			$rsm->addEntityResult('MinsalModeloBundle:CtlMtnProductoContrato', 'PC');
+			$rsm->addEntityResult('MinsalModeloBundle:CtlModalidadCompra', 'CM');
+			$rsm->addEntityResult('MinsalModeloBundle:CtlProveedor', 'PV');
+			$rsm->addEntityResult('MinsalModeloBundle:CtlProducto', 'PR');
+			$rsm->addFieldResult('id', 'id_proveedor_sinab', 'idProveedorSinab');
+			$rsm->addFieldResult('nit', 'nit', 'nit');
+			$rsm->addFieldResult('nombre', 'nombre_proveedor', 'nombreProveedor');
+			$rsm->addFieldResult('contrato', 'numero_contrato', 'nombreContrato');
+
+
+
+
+          $query = $em->createNativeQuery('SELECT DISTINCT PV.id_proveedor_sinab as id, PV.nit as nit, PV.nombre_proveedor as nombre, C.numero_contrato AS contrato FROM ctl_contrato AS C INNER JOIN mtn_producto_contrato AS PC ON PC.mtn_contrato = C.id_contrato_sinab INNER JOIN ctl_proveedor AS PV ON PV.id_proveedor_sinab = C.contrato_proveedor INNER JOIN ctl_modalidad_compra AS CM ON CM.id = C.numero_modalidad_compra  INNER JOIN ctl_producto AS PR ON PR.id_producto_sibasi = PC.mtn_producto WHERE CM.id=?', $rsm);
+          
+          $query->setParameter(1, $cod);
+          $proveedores = $query->getResult();
+		}
 
 		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
 			'proveedores'=>$proveedores,
@@ -63,10 +98,10 @@ class UaciController extends Controller
 		//recorremos esos parametros
 		foreach ($parametros as $proveedor) {
 			$estado = $proveedor['estado'];
-			$idSibasi = $proveedor['proveedor']; 
+			$idSinab = $proveedor['proveedor']; 
 			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
 			
-		$dql = "UPDATE MinsalModeloBundle:CtlProveedor p SET p.estadoProveedor = $estado WHERE p.idProveedorSibasi = $idSibasi ";
+		$dql = "UPDATE MinsalModeloBundle:CtlProveedor p SET p.estadoProveedor = $estado WHERE p.idProveedorSinab = $idSinab ";
 		$em->createQuery( $dql )->getResult();
 			
 		}
