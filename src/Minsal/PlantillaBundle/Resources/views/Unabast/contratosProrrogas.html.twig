@@ -64,14 +64,16 @@
 
 	function paramsEstado(){
 		var estado = 5;
-		var incrementoID = '{{ incremento.id }}';
+		var prorrogaID = '{{ prorrogas.id }}';
+		var esProrroga = 1;
 		var url = "{{ path('minsal_contrato_cambiar_estado') }}";
 		$.ajax({
 			url: url,
 			type: 'POST',
 			data: {
 				'estado':estado,
-				'incrementoID':incrementoID,
+				'incrementoID':prorrogaID,
+				'esProrroga':esProrroga,
 				 },
 		})
 		.done(function(data) {

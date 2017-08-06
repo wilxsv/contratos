@@ -110,7 +110,29 @@ class MedicamentoController extends Controller
 
 	public function cambioEstadoAction(Request $request)
 	{
-		//Obtenemos el listado de objetos
+		$esProrroga = $request->get('esProrroga');
+
+		if ($esProrroga == 1) {
+			$estado = $request->get('estado');
+			idCompra = $request->get('prorrogaID');
+
+			$em = $this->getDoctrine()->getManager();
+			$qb = $em->createQueryBuilder();
+
+
+			$q = $qb->update('MinsalModeloBundle:CtlProrroga', 'p')
+    			->set('p.estadoProrroga', $qb->expr()->literal($estado))
+    			->where('p.id = ?1')
+    			->setParameter(1, $idCompra)
+    			->getQuery();
+			$p = $q->execute();
+		return  new Response('Prorroga Verificada Existosamente'); 
+
+
+		}
+		else{
+
+			//Obtenemos el listado de objetos
 		$estado = $request->get('estado');
 		$idCompra = $request->get('incrementoID');
 
@@ -123,10 +145,9 @@ class MedicamentoController extends Controller
     	->setParameter(1, $idCompra)
     	->getQuery();
 		$p = $q->execute();
-		return  new Response('Tarea Realizada existosamente'); 
+		return  new Response('Incremento Verificado Existosamente'); 
+		}
 	}
-
-
 
 	public function estadoMedicamentosAction(Request $request){
 

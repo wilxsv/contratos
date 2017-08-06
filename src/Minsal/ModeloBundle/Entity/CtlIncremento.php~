@@ -37,6 +37,16 @@ class CtlIncremento
     private $fechaCreacion;
 
     /**
+     * @var \CtlProgramacion
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProgramacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estimacion", referencedColumnName="id")
+     * })
+     */
+    private $estimacion;
+
+    /**
      * @var \CtlEstados
      *
      * @ORM\ManyToOne(targetEntity="CtlEstados")
@@ -55,16 +65,6 @@ class CtlIncremento
      * })
      */
     private $incrementoModalidadCompra;
-
-    /**
-     * @var \CtlProgramacion
-     *
-     * @ORM\ManyToOne(targetEntity="CtlProgramacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estimacion", referencedColumnName="id")
-     * })
-     */
-    private $estimacion;
 
 
 }

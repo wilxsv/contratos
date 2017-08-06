@@ -30,16 +30,6 @@ class CtlProrroga
     private $fechaCreacion;
 
     /**
-     * @var \CtlEstados
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstados")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estado_prorroga", referencedColumnName="id")
-     * })
-     */
-    private $estadoProrroga;
-
-    /**
      * @var \CtlModalidadCompra
      *
      * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
@@ -48,6 +38,16 @@ class CtlProrroga
      * })
      */
     private $prorrogaModalidadCompra;
+
+    /**
+     * @var \CtlEstados
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstados")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estado_prorroga", referencedColumnName="id")
+     * })
+     */
+    private $estadoProrroga;
 
 
 
@@ -86,30 +86,6 @@ class CtlProrroga
     }
 
     /**
-     * Set estadoProrroga
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga
-     *
-     * @return CtlProrroga
-     */
-    public function setEstadoProrroga(\Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga = null)
-    {
-        $this->estadoProrroga = $estadoProrroga;
-
-        return $this;
-    }
-
-    /**
-     * Get estadoProrroga
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstados
-     */
-    public function getEstadoProrroga()
-    {
-        return $this->estadoProrroga;
-    }
-
-    /**
      * Set prorrogaModalidadCompra
      *
      * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra
@@ -131,5 +107,29 @@ class CtlProrroga
     public function getProrrogaModalidadCompra()
     {
         return $this->prorrogaModalidadCompra;
+    }
+
+    /**
+     * Set estadoProrroga
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga
+     *
+     * @return CtlProrroga
+     */
+    public function setEstadoProrroga(\Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga = null)
+    {
+        $this->estadoProrroga = $estadoProrroga;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProrroga
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstados
+     */
+    public function getEstadoProrroga()
+    {
+        return $this->estadoProrroga;
     }
 }
