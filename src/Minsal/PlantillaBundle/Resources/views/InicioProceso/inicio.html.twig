@@ -42,7 +42,7 @@
                             </select>
                         </div>
                     </div>
-                    <button id="Incremento" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</button>
+                    <button id="Incremento" class="btn btn-success">Iniciar Incremento</button>
                 </form>
             </div>
             {# FIN DEL FORMULARIO DE INCREMENRO #}
@@ -364,7 +364,7 @@ $(document).ready(function() {
         $("#Incremento").click(function() {
            crearIncremento();
         });
-    });
+});
 function crearIncremento() {
     var codigoLicitacion = $('#licitaciones').val().trim();
     var meses = $('#meses').val().trim();
@@ -381,8 +381,8 @@ function crearIncremento() {
             },
             type : 'post'
         }).done(function(data) {
-            alert('Incremento Creado, Por favor espere la depuracion de proveedores');
-          // location.reload();
+            alert(data);
+           //location.reload();
         });
         }
         else{
@@ -420,9 +420,9 @@ $(document).ready(function() {
             },
        })
        .done(function(data) {
-           console.log("success");
+           //console.log("success");
             alert(data);
-            alert('Prorroga Creada, Por favor espere la depuracion de proveedores');
+           // alert('Prorroga Creada, Por favor espere la depuracion de proveedores');
 
           //  location.reload();
        });
@@ -435,11 +435,11 @@ $(document).ready(function() {
 }
 </script>
 
-   
+   {#
     <script src="{{ asset('assets/') }}plugins/bower_components/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
     <!--<script src="{{ asset('assets/') }}plugins/bower_components/typeahead.js-master/dist/typeahead-init.js"></script>-->
     <script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript">  
     
 /*--------------------------    TYPE HEAD    --------------------*/
     // constructs the suggestion engine
@@ -535,5 +535,6 @@ $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
     </script>
     <!-- ================================================== -->
     <!--Style Switcher -->
+    #}
     <script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
     {% endblock %}
