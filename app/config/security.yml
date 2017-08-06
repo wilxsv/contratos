@@ -34,8 +34,8 @@ security:
             cost: 12
 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/inicioProceso, roles: ROLE_UNABAST }
         - { path: ^/analizador/listado, roles: ROLE_UNABAST}
         - { path: ^/uaci/listadoProcesos, roles: ROLE_UACI }

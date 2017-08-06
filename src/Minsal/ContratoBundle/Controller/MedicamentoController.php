@@ -79,7 +79,7 @@ class MedicamentoController extends Controller
 		$em = $this->getDoctrine()->getManager();
 	    $contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findByNumeroModalidadCompra($incremento);
 
-	    $incremento = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(
+	    $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(
 	    	array(
 	    		'incrementoModalidadCompra'=>$incremento
 	    		)
@@ -88,13 +88,24 @@ class MedicamentoController extends Controller
 	   
 	    return $this->render('MinsalPlantillaBundle:Unabast:contratos.html.twig',array(
 	    	'contratos' => $contratos,
-	    	'incremento' => $incremento
+	    	'incremento' => $incrementos
 	    	));
 	}
 
 	public function listadoParaProrrogaAction($prorroga)
 	{
-		return new Response('Vamos bien');
+		$em = $this->getDoctrine()->getManager();
+
+		$contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findByNumeroModalidadCompra($prorroga);
+		$prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(array(
+			'prorrogaModalidadCompra'=>$prorroga
+
+			));
+
+		return $this->render('MinsalPlantillaBundle:Unabast:contratosProrrogas.html.twig', array(
+			'contratos'=>$contratos,
+			'prorrogas'=>$prorrogas
+			));
 	}
 
 	public function cambioEstadoAction(Request $request)
