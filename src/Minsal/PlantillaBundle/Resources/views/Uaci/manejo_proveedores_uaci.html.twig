@@ -19,13 +19,14 @@
 				<h3 class="box-title m-b-0">Depuracion de provedores de la compra "{{ modalidad }}"</h3>
 				<p class="text-muted m-b-30">UACI</p>
 				<div class="table-responsive">
-					{{dump(proveedores)}}
+					{# {{dump(proveedores)}}
 					{{dump(modalidad)}}
-					{{dump(tipo)}}
+					{{dump(tipo)}} #}
 					<table class="table table-striped" id="datos">
 						<thead>
 							<tr>
 								<th>Codigo de contrato</th>
+								<th>Id Proveedor</th>
 								<th>Proveedor</th>
 								<th id="p">Habilitar/Deshabilitar</th>
 							</tr>
@@ -34,15 +35,17 @@
 							{% for proveedor in proveedores %}
 								<tr id="checkList">
 									 <td>{{ proveedor.numeroContrato }}</td>
+									 <td>{{ proveedor.idProveedorSinab }}</td>
 									 <td>{{ proveedor.nombreProveedor }}</td>
+									 <td>{{ proveedor.nit }}</td>
 									 
-									 {% if proveedor.estadoProveedor == null %}
+									 {# {% if proveedor.estadoProveedor == null %}
 									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" checked></td>
 									 {% elseif proveedor.estadoProveedor == 3 %}
 									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" ></td>
-									 {% else %}
+									 {% else %} #}
 									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" checked></td>
-									 {% endif %}
+									 {# {% endif %} #}
 			
 								</tr>
 							{% endfor %}
@@ -83,13 +86,13 @@
 		var url = "{{ path('minsal_contrato_estado_proveedores') }}";
 		var tabla = $('#datos tbody tr').each(function() {
 			
-			if ($(this).find("td").eq(2).find("input").is(":checked")) {
-				proveedor = $(this).find("td").eq(2).find("input").val();
+			if ($(this).find("td").eq(4).find("input").is(":checked")) {
+				proveedor = $(this).find("td").eq(4).find("input").val();
 				var nodo = {'proveedor':proveedor,'estado':4};
 				listadoProveedores.push(nodo);
 			}
 			else{
-				proveedor = $(this).find("td").eq(2).find("input").val();
+				proveedor = $(this).find("td").eq(4).find("input").val();
 				var nodo = {'proveedor':proveedor,'estado':3};
 				listadoProveedores.push(nodo);
 			}

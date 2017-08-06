@@ -23,13 +23,6 @@ class CtlUsuario
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_rol", type="integer", nullable=true)
-     */
-    private $idRol;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="usuario", type="string", length=15, nullable=true)
@@ -43,6 +36,16 @@ class CtlUsuario
      */
     private $clave;
 
+    /**
+     * @var \CtlRol
+     *
+     * @ORM\ManyToOne(targetEntity="CtlRol")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_rol", referencedColumnName="id")
+     * })
+     */
+    private $idRol;
+
 
 
     /**
@@ -53,30 +56,6 @@ class CtlUsuario
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set idRol
-     *
-     * @param integer $idRol
-     *
-     * @return CtlUsuario
-     */
-    public function setIdRol($idRol)
-    {
-        $this->idRol = $idRol;
-
-        return $this;
-    }
-
-    /**
-     * Get idRol
-     *
-     * @return integer
-     */
-    public function getIdRol()
-    {
-        return $this->idRol;
     }
 
     /**
@@ -125,5 +104,29 @@ class CtlUsuario
     public function getClave()
     {
         return $this->clave;
+    }
+
+    /**
+     * Set idRol
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlRol $idRol
+     *
+     * @return CtlUsuario
+     */
+    public function setIdRol(\Minsal\ModeloBundle\Entity\CtlRol $idRol = null)
+    {
+        $this->idRol = $idRol;
+
+        return $this;
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlRol
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlContrato
  *
- * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_modalidad_compra", columns={"numero_modalidad_compra"}), @ORM\Index(name="fki_establecimiento_sinab", columns={"id_establecimiento"}), @ORM\Index(name="fki_proveedor", columns={"contrato_proveedor"}), @ORM\Index(name="fki_proveedor_contrato", columns={"contrato_proveedor"}), @ORM\Index(name="fki_proveedor_sinab", columns={"contrato_proveedor"})})
+ * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_modalidad_compra", columns={"numero_modalidad_compra"}), @ORM\Index(name="fki_proveedor", columns={"contrato_proveedor"}), @ORM\Index(name="fki_establecimiento_sinab", columns={"id_establecimiento"}), @ORM\Index(name="fki_proveedor_sinab", columns={"contrato_proveedor"}), @ORM\Index(name="fki_proveedor_contrato", columns={"contrato_proveedor"})})
  * @ORM\Entity
  */
 class CtlContrato
@@ -54,16 +54,6 @@ class CtlContrato
     private $numeroModalidadCompra;
 
     /**
-     * @var \CtlEstablecimiento
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id_establecimiento_sinab")
-     * })
-     */
-    private $idEstablecimiento;
-
-    /**
      * @var \CtlProveedor
      *
      * @ORM\ManyToOne(targetEntity="CtlProveedor")
@@ -72,6 +62,16 @@ class CtlContrato
      * })
      */
     private $contratoProveedor;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id_establecimiento_sinab")
+     * })
+     */
+    private $idEstablecimiento;
 
 
 
@@ -182,30 +182,6 @@ class CtlContrato
     }
 
     /**
-     * Set idEstablecimiento
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimiento
-     *
-     * @return CtlContrato
-     */
-    public function setIdEstablecimiento(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
-        $this->idEstablecimiento = $idEstablecimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get idEstablecimiento
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
-     */
-    public function getIdEstablecimiento()
-    {
-        return $this->idEstablecimiento;
-    }
-
-    /**
      * Set contratoProveedor
      *
      * @param \Minsal\ModeloBundle\Entity\CtlProveedor $contratoProveedor
@@ -227,5 +203,29 @@ class CtlContrato
     public function getContratoProveedor()
     {
         return $this->contratoProveedor;
+    }
+
+    /**
+     * Set idEstablecimiento
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimiento
+     *
+     * @return CtlContrato
+     */
+    public function setIdEstablecimiento(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
+    {
+        $this->idEstablecimiento = $idEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimiento
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
+     */
+    public function getIdEstablecimiento()
+    {
+        return $this->idEstablecimiento;
     }
 }
