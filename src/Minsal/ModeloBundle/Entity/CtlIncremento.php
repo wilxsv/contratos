@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlIncremento
  *
- * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"}), @ORM\Index(name="fki_estimacion", columns={"estimacion"})})
+ * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_estimacion", columns={"estimacion"}), @ORM\Index(name="fki_compra", columns={"incremento_modalidad_compra"})})
  * @ORM\Entity
  */
 class CtlIncremento
@@ -37,16 +37,6 @@ class CtlIncremento
     private $fechaCreacion;
 
     /**
-     * @var \CtlProgramacion
-     *
-     * @ORM\ManyToOne(targetEntity="CtlProgramacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estimacion", referencedColumnName="id")
-     * })
-     */
-    private $estimacion;
-
-    /**
      * @var \CtlEstados
      *
      * @ORM\ManyToOne(targetEntity="CtlEstados")
@@ -66,9 +56,17 @@ class CtlIncremento
      */
     private $incrementoModalidadCompra;
 
+    /**
+     * @var \CtlProgramacion
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProgramacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estimacion", referencedColumnName="id")
+     * })
+     */
+    private $estimacion;
 
-<<<<<<< HEAD
-=======
+
 
     /**
      * Get id
@@ -129,30 +127,6 @@ class CtlIncremento
     }
 
     /**
-     * Set estimacion
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
-     *
-     * @return CtlIncremento
-     */
-    public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
-    {
-        $this->estimacion = $estimacion;
-
-        return $this;
-    }
-
-    /**
-     * Get estimacion
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion
-     */
-    public function getEstimacion()
-    {
-        return $this->estimacion;
-    }
-
-    /**
      * Set estadoIncremento
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoIncremento
@@ -199,6 +173,28 @@ class CtlIncremento
     {
         return $this->incrementoModalidadCompra;
     }
->>>>>>> 9c5f8474a389bd42cb40fba30f70c5c52ebedd42
-}
 
+    /**
+     * Set estimacion
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
+     *
+     * @return CtlIncremento
+     */
+    public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
+    {
+        $this->estimacion = $estimacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estimacion
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion
+     */
+    public function getEstimacion()
+    {
+        return $this->estimacion;
+    }
+}

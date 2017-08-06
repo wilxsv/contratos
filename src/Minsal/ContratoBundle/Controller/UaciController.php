@@ -38,13 +38,13 @@ class UaciController extends Controller
 		 INNER JOIN ctl_producto AS PR ON PR.id_producto_sibasi = PC.mtn_producto WHERE CM.id=?*/
 		$em = $this->getDoctrine()->getManager();
 
-		$dql = "SELECT DISTINCT pr.idProveedorSinab, pr.nit, pr.nombreProveedor, c.numeroContrato
+		$dql = "SELECT DISTINCT c.id,pr.idProveedorSinab, pr.nit, pr.nombreProveedor, c.numeroContrato
 		FROM MinsalModeloBundle:CtlContrato c
 		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.idContratoSinab = pc.mtnContrato
 		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.idProveedorSinab
 		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
 		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.idProductoSibasi
-		WHERE mc.id = $cod AND pc.mtnProveedor=c.contratoProveedor ";
+		WHERE mc.id = $cod AND pc.mtnProveedor=c.contratoProveedor ORDER BY c.numeroContrato ";
 
 		
 

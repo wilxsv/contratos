@@ -90,7 +90,7 @@ function cargarContratos($em)
 
           $rsm = new ResultSetMapping();
           $query = $em->createNativeQuery('INSERT INTO ctl_contrato(
-            id_contrato, numero_modalidad_compra, contrato_proveedor, id_establecimiento, 
+            id, numero_modalidad_compra, contrato_proveedor, id_establecimiento, 
             numero_contrato, monto_contrato, id_contrato_sinab)
     VALUES (?, ?, ?, ?, 
             ?, ?, ?);
