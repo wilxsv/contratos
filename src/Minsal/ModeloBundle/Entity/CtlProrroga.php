@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProrroga
  *
- * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="fki_estado_prorroga", columns={"estado_prorroga"}), @ORM\Index(name="fki_prorroga_modalidad_compra", columns={"prorroga_modalidad_compra"}), @ORM\Index(name="ctl_prorroga_planificacion_idx", columns={"planificacion"})})
+ * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="fki_estado_prorroga", columns={"estado_prorroga"}), @ORM\Index(name="fki_prorroga_modalidad_compra", columns={"prorroga_modalidad_compra"})})
  * @ORM\Entity
  */
 class CtlProrroga
@@ -48,16 +48,6 @@ class CtlProrroga
      * })
      */
     private $prorrogaModalidadCompra;
-
-    /**
-     * @var \CtlPlanificacion
-     *
-     * @ORM\ManyToOne(targetEntity="CtlPlanificacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="planificacion", referencedColumnName="id")
-     * })
-     */
-    private $planificacion;
 
 
 
@@ -141,29 +131,5 @@ class CtlProrroga
     public function getProrrogaModalidadCompra()
     {
         return $this->prorrogaModalidadCompra;
-    }
-
-    /**
-     * Set planificacion
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion
-     *
-     * @return CtlProrroga
-     */
-    public function setPlanificacion(\Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion = null)
-    {
-        $this->planificacion = $planificacion;
-
-        return $this;
-    }
-
-    /**
-     * Get planificacion
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlPlanificacion
-     */
-    public function getPlanificacion()
-    {
-        return $this->planificacion;
     }
 }

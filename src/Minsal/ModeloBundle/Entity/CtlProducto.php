@@ -51,6 +51,13 @@ class CtlProducto
     private $estadoProducto;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_establecimiento_sinab", type="integer", nullable=true)
+     */
+    private $idEstablecimientoSinab;
+
+    /**
      * @var \CtlUnidadMedida
      *
      * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
@@ -166,6 +173,30 @@ class CtlProducto
     public function getEstadoProducto()
     {
         return $this->estadoProducto;
+    }
+
+    /**
+     * Set idEstablecimientoSinab
+     *
+     * @param integer $idEstablecimientoSinab
+     *
+     * @return CtlProducto
+     */
+    public function setIdEstablecimientoSinab($idEstablecimientoSinab)
+    {
+        $this->idEstablecimientoSinab = $idEstablecimientoSinab;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoSinab
+     *
+     * @return integer
+     */
+    public function getIdEstablecimientoSinab()
+    {
+        return $this->idEstablecimientoSinab;
     }
 
     /**

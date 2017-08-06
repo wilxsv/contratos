@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnProductoContrato
  *
- * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="idx_116672617def239f", columns={"mtn_contrato"}), @ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_producto"})})
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="fki_prov", columns={"mtn_proveedor"}), @ORM\Index(name="fki_fk-estab", columns={"id_establecimiento_sinab"}), @ORM\Index(name="idx_116672617def239f", columns={"mtn_contrato"}), @ORM\Index(name="idx_11667261bc3d40a9", columns={"mtn_producto"})})
  * @ORM\Entity
  */
 class MtnProductoContrato
@@ -21,13 +21,6 @@ class MtnProductoContrato
      * @ORM\SequenceGenerator(sequenceName="mtn_producto_contrato_id_seq", allocationSize=1, initialValue=1)
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="mtn_producto", type="integer", nullable=true)
-     */
-    private $mtnProducto;
 
     /**
      * @var integer
@@ -51,11 +44,34 @@ class MtnProductoContrato
     private $precioUnitario;
 
     /**
-     * @var integer
+     * @var \CtlProducto
      *
-     * @ORM\Column(name="mtn_proveedor", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="CtlProducto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_producto", referencedColumnName="id_producto_sibasi")
+     * })
+     */
+    private $mtnProducto;
+
+    /**
+     * @var \CtlProveedor
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_proveedor", referencedColumnName="id_proveedor_sinab")
+     * })
      */
     private $mtnProveedor;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_establecimiento_sinab", referencedColumnName="establecimiento_id")
+     * })
+     */
+    private $idEstablecimientoSinab;
 
 
 
@@ -67,30 +83,6 @@ class MtnProductoContrato
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set mtnProducto
-     *
-     * @param integer $mtnProducto
-     *
-     * @return MtnProductoContrato
-     */
-    public function setMtnProducto($mtnProducto)
-    {
-        $this->mtnProducto = $mtnProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get mtnProducto
-     *
-     * @return integer
-     */
-    public function getMtnProducto()
-    {
-        return $this->mtnProducto;
     }
 
     /**
@@ -166,13 +158,37 @@ class MtnProductoContrato
     }
 
     /**
-     * Set mtnProveedor
+     * Set mtnProducto
      *
-     * @param integer $mtnProveedor
+     * @param \Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto
      *
      * @return MtnProductoContrato
      */
-    public function setMtnProveedor($mtnProveedor)
+    public function setMtnProducto(\Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto = null)
+    {
+        $this->mtnProducto = $mtnProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get mtnProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlProducto
+     */
+    public function getMtnProducto()
+    {
+        return $this->mtnProducto;
+    }
+
+    /**
+     * Set mtnProveedor
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlProveedor $mtnProveedor
+     *
+     * @return MtnProductoContrato
+     */
+    public function setMtnProveedor(\Minsal\ModeloBundle\Entity\CtlProveedor $mtnProveedor = null)
     {
         $this->mtnProveedor = $mtnProveedor;
 
@@ -182,10 +198,34 @@ class MtnProductoContrato
     /**
      * Get mtnProveedor
      *
-     * @return integer
+     * @return \Minsal\ModeloBundle\Entity\CtlProveedor
      */
     public function getMtnProveedor()
     {
         return $this->mtnProveedor;
+    }
+
+    /**
+     * Set idEstablecimientoSinab
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimientoSinab
+     *
+     * @return MtnProductoContrato
+     */
+    public function setIdEstablecimientoSinab(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimientoSinab = null)
+    {
+        $this->idEstablecimientoSinab = $idEstablecimientoSinab;
+
+        return $this;
+    }
+
+    /**
+     * Get idEstablecimientoSinab
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
+     */
+    public function getIdEstablecimientoSinab()
+    {
+        return $this->idEstablecimientoSinab;
     }
 }

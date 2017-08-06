@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProveedor
  *
- * @ORM\Table(name="ctl_proveedor")
+ * @ORM\Table(name="ctl_proveedor", uniqueConstraints={@ORM\UniqueConstraint(name="uniq_sinab", columns={"id_proveedor_sinab"})})
  * @ORM\Entity
  */
 class CtlProveedor
@@ -53,9 +53,9 @@ class CtlProveedor
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_proveedor_sibasi", type="integer", nullable=false)
+     * @ORM\Column(name="id_proveedor_sinab", type="integer", nullable=false)
      */
-    private $idProveedorSibasi;
+    private $idProveedorSinab;
 
 
 
@@ -166,26 +166,26 @@ class CtlProveedor
     }
 
     /**
-     * Set idProveedorSibasi
+     * Set idProveedorSinab
      *
-     * @param integer $idProveedorSibasi
+     * @param integer $idProveedorSinab
      *
      * @return CtlProveedor
      */
-    public function setIdProveedorSibasi($idProveedorSibasi)
+    public function setIdProveedorSinab($idProveedorSinab)
     {
-        $this->idProveedorSibasi = $idProveedorSibasi;
+        $this->idProveedorSinab = $idProveedorSinab;
 
         return $this;
     }
 
     /**
-     * Get idProveedorSibasi
+     * Get idProveedorSinab
      *
      * @return integer
      */
-    public function getIdProveedorSibasi()
+    public function getIdProveedorSinab()
     {
-        return $this->idProveedorSibasi;
+        return $this->idProveedorSinab;
     }
 }

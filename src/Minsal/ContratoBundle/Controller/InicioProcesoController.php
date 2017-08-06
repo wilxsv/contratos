@@ -19,6 +19,8 @@ use Minsal\ModeloBundle\Entity\CtlProrroga;
 use Minsal\ModeloBundle\Entity\CtlPlanificacion;
 use Minsal\ModeloBundle\Entity\MtnProductoContrato;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\Query\ResultSetMapping;
+
 
 function cargarProveedores($em){
   /* ingreso de proveedores */
@@ -30,7 +32,7 @@ function cargarProveedores($em){
       $respuesta = json_decode($curl_response,true);
       foreach ($respuesta['respuesta'] as $proveedor ) {
         $nuevoProveedor = new CtlProveedor();
-        $nuevoProveedor->setIdProveedorSibasi($proveedor["0"]);
+        $nuevoProveedor->setIdProveedorSinab($proveedor["0"]);
         $nuevoProveedor->setCodigoProveedor($proveedor["3"]);
         $nuevoProveedor->setNombreProveedor($proveedor["1"]);
         $nuevoProveedor->setNit($proveedor["2"]);
@@ -51,35 +53,60 @@ function cargarContratos($em)
     $curl_response = curl_exec($curl);
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
+    $contador =0;
     foreach ($respuesta['respuesta'] as $datoNuevo) {
+          $contador = $contador+1;
+          // $nuevoContrato = new CtlContrato();
 
-          $nuevoContrato = new CtlContrato();
+          // //ingreso de numero de contrato
+          // $nuevoContrato->setNumeroContrato($datoNuevo["0"]);
 
-          //ingreso de numero de contrato
-          $nuevoContrato->setNumeroContrato($datoNuevo["0"]);
+          // //Ingreso de proveedor
+          // $proveedorGuardar = $em->getRepository('MinsalModeloBundle:CtlProveedor')->findOneByIdProveedorSinab($datoNuevo["1"]);
+          // $nuevoContrato->setContratoProveedor($proveedorGuardar);
 
-          //Ingreso de proveedor
-          $proveedorGuardar = $em->getRepository('MinsalModeloBundle:CtlProveedor')->findByIdProveedorSibasi($datoNuevo["1"]);
-          $nuevoContrato->setContratoProveedor($proveedorGuardar[0]);
-
-          //ingreso de establecimiento
-          $establecimiento =  $em->getRepository('MinsalModeloBundle:CtlEstablecimiento')->findByIdEstablecimientoSibasi($datoNuevo["2"]);
+          // //ingreso de establecimiento
+          // $establecimiento =  $em->getRepository('MinsalModeloBundle:CtlEstablecimiento')->findOneByIdEstablecimientoSinab($datoNuevo["2"]);
           
-          $nuevoContrato->setContratoEstablecimiento($establecimiento[0]);
+          // $nuevoContrato->setContratoEstablecimiento($establecimiento);
           
 
-          //ingreso de id
-          $nuevoContrato->setidContratoSibasi($datoNuevo["3"]);
+          // //ingreso de id
+          // $nuevoContrato->setIdContratoSinab($datoNuevo["3"]);
           
+          // //ingreso de compra
+          // $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
+          // $nuevoContrato->setNumeroModalidadCompra($compra[0]);
+
+          // //ingreso del monto de contrato
+          // $nuevoContrato->setMontoContrato($datoNuevo["5"]);
+
+          //   $em->persist($nuevoContrato);
+          //   if($nuevoContrato->getContratoProveedor()!= null){
+          //     $em->flush($nuevoContrato);
+          //   }
+
+
+
+          $rsm = new ResultSetMapping();
+          $query = $em->createNativeQuery('INSERT INTO ctl_contrato(
+            id_contrato, numero_modalidad_compra, contrato_proveedor, id_establecimiento, 
+            numero_contrato, monto_contrato, id_contrato_sinab)
+    VALUES (?, ?, ?, ?, 
+            ?, ?, ?);
+', $rsm);
           //ingreso de compra
           $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
-          $nuevoContrato->setNumeroModalidadCompra($compra[0]);
-
-          //ingreso del monto de contrato
-          $nuevoContrato->setMontoContrato($datoNuevo["5"]);
-
-            $em->persist($nuevoContrato);
-            $em->flush($nuevoContrato);
+          $query->setParameter(1, $contador);
+          
+          $query->setParameter(2, $compra[0]->getId());
+          $query->setParameter(3, $datoNuevo["1"]);
+          $query->setParameter(4, $datoNuevo["2"]);
+          $query->setParameter(5, $datoNuevo["0"]);
+          $query->setParameter(6, $datoNuevo["5"]);
+          $query->setParameter(7, $datoNuevo["3"]);
+          $query->getResult();
+            
           
     }
 
@@ -98,7 +125,6 @@ function cargarContratos($em)
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
     foreach ($respuesta['respuesta'] as $datoNuevo) {
-      $nuevoContrato = new CtlContrato();
       $nuevaModalidadCompra = new CtlModalidadCompra();
       $nuevaModalidadCompra->setNumeroModalidad($datoNuevo["4"]);
       $obj = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
@@ -121,7 +147,7 @@ function cargarContratos($em)
         $respuesta = json_decode($curl_response,true);
         foreach ($respuesta['respuesta'] as $establecimiento ) {
           $nuevoEstablecimiento = new CtlEstablecimiento();
-          $nuevoEstablecimiento->setidEstablecimientoSibasi($establecimiento["0"]);
+          $nuevoEstablecimiento->setidEstablecimientoSinab($establecimiento["0"]);
           $nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
           $nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
           $em->persist($nuevoEstablecimiento);
@@ -165,7 +191,7 @@ function cargarContratos($em)
   }
   function cargarUnidades($em){
     /*--------SINCRONIZACION DE UNIDADES DE MEDIDA----------*/
-    $service_url = '';
+    $service_url = 'http://192.168.1.4:8080/v1/sinab/unidadesmedidas?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -182,7 +208,7 @@ function cargarContratos($em)
 function cargarProductos($em){
   /*-------SINCRONIZACION DE PRODUCTOS ---------------*/
   
-   $service_url = 'http://192.168.1.4:8080/v1/sinab/medicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&suministro=4';
+   $service_url = 'http://192.168.1.4:8080/v1/sinab/medicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -195,27 +221,57 @@ function cargarProductos($em){
           $nuevoProducto->setNombreProducto($p["2"]);
           $um=$em->getRepository('MinsalModeloBundle:CtlUnidadMedida')->find($p["3"]);
           $nuevoProducto->setUnidadMedidaProducto($um);
+          $nuevoProducto->setIdEstablecimientoSinab($p["4"]);
           $em->persist($nuevoProducto);
           $em->flush($nuevoProducto);
         }
 
 }
 function cargarproductoContrato($em){
-  $service_url = 'http://192.168.1.4:8080/v1/sinab/medicamentoscontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&suministro=4';
+  $service_url = 'http://192.168.1.4:8080/v1/sinab/medicamentoscontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
   $curl = curl_init($service_url);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
   $curl_response = curl_exec($curl);
   curl_close($curl);
   $respuesta = json_decode($curl_response,true);
+  $contador = 0;
   foreach ($respuesta['respuesta'] as $p) {
-    $nuevoProductoContrato = new MtnProductoContrato();
+    $contador = $contador +1;
+    /*$nuevoProductoContrato = new MtnProductoContrato();
     $nuevoProductoContrato->setMtnProducto($p["0"]);
     $nuevoProductoContrato->setMtnContrato($p["2"]);
     $nuevoProductoContrato->setMtnProveedor($p["1"]);
     $nuevoProductoContrato->setCantidad($p["3"]);
     $nuevoProductoContrato->setPrecioUnitario($p["4"]);
+    $nuevoProductoContrato->set($p["5"]);
+
     $em->persist($nuevoProductoContrato);
-    $em->flush($nuevoProductoContrato);
+    $em->flush($nuevoProductoContrato);*/
+
+    $rsm = new ResultSetMapping();
+          $query = $em->createNativeQuery('INSERT INTO mtn_producto_contrato(
+            id, mtn_producto, mtn_contrato, cantidad, precio_unitario, mtn_proveedor, 
+            id_establecimiento_sinab)
+    VALUES (?, ?, ?, ?, ?, ?, 
+            ?);', $rsm);
+          //id pc.IDPRODUCTO, pc.IDPROVEEDOR, pc.IDCONTRATO, pc.CANTIDAD, pc.PRECIOUNITARIO,pc.IDESTABLECIMIENTO
+          $query->setParameter(1, $contador);
+          //mtn_producto
+          $query->setParameter(2, $p["0"]);
+          //mtn_contrato
+          $query->setParameter(3, $p["2"]);
+          //cantidad
+          $query->setParameter(4, $p["3"]);
+          //precio_unitario
+          $query->setParameter(5, $p["4"]);
+          //mtn_proveedor
+          $query->setParameter(6, $p["1"]);
+          //id_establecimiento_sinab
+          $query->setParameter(7, $p["5"]);
+
+          $query->getResult();
+
+
   }
 }
 class InicioProcesoController extends Controller

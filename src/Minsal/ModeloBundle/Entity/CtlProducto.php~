@@ -51,6 +51,13 @@ class CtlProducto
     private $estadoProducto;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_establecimiento_sinab", type="integer", nullable=true)
+     */
+    private $idEstablecimientoSinab;
+
+    /**
      * @var \CtlUnidadMedida
      *
      * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
