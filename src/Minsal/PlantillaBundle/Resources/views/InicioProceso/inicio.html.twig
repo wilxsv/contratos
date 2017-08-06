@@ -174,7 +174,7 @@
         <button alt="default" data-toggle="modal" data-target="#responsive-modal" class="model_img img-responsive"> Modal Hacer Caso Omiso a este botn por el momento</button>
     </div> -->
 <!-- ========================================================================================= -->
-<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<!-- <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -236,7 +236,7 @@
             </div>
         </div>
     </div>
-
+ -->
 {% endblock %}
 
 
@@ -382,7 +382,7 @@ function crearIncremento() {
             type : 'post'
         }).done(function(data) {
             alert('Incremento Creado, Por favor espere la depuracion de proveedores');
-           location.reload();
+          // location.reload();
         });
         }
         else{
@@ -424,7 +424,7 @@ $(document).ready(function() {
             alert(data);
             alert('Prorroga Creada, Por favor espere la depuracion de proveedores');
 
-            location.reload();
+          //  location.reload();
        });
     }
     else{
@@ -443,7 +443,7 @@ $(document).ready(function() {
     
 /*--------------------------    TYPE HEAD    --------------------*/
     // constructs the suggestion engine
-    function creaTypeHead() {
+    /*function creaTypeHead() {
         var substringMatcher = function(strs) {
   return function findMatches(q, cb) {
     var matches, substringRegex;
@@ -488,7 +488,7 @@ $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
   limit: 10,
   source: codigosLicitacion
 });
-    }
+    }*/
     /*----------Funcion para sincronizar la base de datos ---------------*/
     /*function sync() {
         $.ajax({
@@ -502,7 +502,7 @@ $('#scrollable-dropdown-menu .typeahead').typeahead(null, {
         });
     }*/
 /*-------------------Funcion para verificar el uso de estimaciones -------------------*/
-function verificaEstimacion() {
+/*function verificaEstimacion() {
     $('#estimaciones').hide();
     $("#estimacionSi").on( 'change', function() {
     if( $(this).is(':checked') ) {
@@ -530,7 +530,7 @@ function verificaEstimacion() {
     $(document).ready(function() {
         creaTypeHead();
         verificaEstimacion();
-    });
+    });*/
     </script>
     </script>
     <!-- ================================================== -->

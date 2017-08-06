@@ -114,7 +114,7 @@ class MedicamentoController extends Controller
 
 		if ($esProrroga == 1) {
 			$estado = $request->get('estado');
-			idCompra = $request->get('prorrogaID');
+			$idCompra = $request->get('prorrogaID');
 
 			$em = $this->getDoctrine()->getManager();
 			$qb = $em->createQueryBuilder();
