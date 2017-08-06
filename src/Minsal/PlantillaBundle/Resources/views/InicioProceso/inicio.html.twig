@@ -124,7 +124,8 @@
                                         aun no puede continuar el proceso
                                     {% else %}
                                         {% if incremento.estadoIncremento.id == 2 %}
-                                            <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+                                            {# <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a> #}
+                                            Proceso en depuracion de medicamentos
                                         {% else %}
                                             {% if incremento.estadoIncremento.id == 5 %}
                                                 <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.id }) }}" class="btn btn-info">Iniciar Analisis</a>
@@ -147,7 +148,8 @@
                                             aun no puede continuar el proceso
                                         {% else %}
                                             {% if prorroga.estadoProrroga.id == 7 %}
-                                                <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+                                               {# <a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a> #}
+                                               Proceso en depuracion de medicamentos
                                             {% else %}
                                                 {% if prorroga.estadoProrroga.id == 5 %}
                                                     <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>

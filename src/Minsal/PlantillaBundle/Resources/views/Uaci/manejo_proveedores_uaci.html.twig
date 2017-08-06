@@ -103,6 +103,7 @@
 			type: 'post',
 		}).done(function(data) {
 			alert(data);
+			location.href ="{{ path('minsal_contrato_listado_proceso') }}";
 		}).fail(function() {
 			alert('upps algo ha pasado en el ajax');
 		});

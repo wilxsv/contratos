@@ -39,7 +39,16 @@
 										<td>{{ incremento.id }}</td>
 										<td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
 										<td>{{ incremento.fechaCreacion|date('d/m/Y') }}</td>
-										<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.incrementoModalidadCompra.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
+										
+										<td>
+											{% if incremento.estadoIncremento.id == 1 %}
+											 <a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.incrementoModalidadCompra.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
+											{% elseif incremento.estadoIncremento.id == 2 %}
+												<a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.incrementoModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+											{% endif %}
+										</td>
+										
+										
 									</tr>
 								{% endfor %}
 
@@ -50,7 +59,13 @@
 									<td>{{ prorroga.id }}</td>
 									<td>{{ prorroga.prorrogaModalidadCompra.numeroModalidad }}</td>
 									<td>{{ prorroga.fechaCreacion|date('d/m/Y') }}</td>
-									<td><a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a></td>
+									<td>
+										{% if prorroga.estadoProrroga.id == 6 %}
+										<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
+									    {% elseif prorroga.estadoProrroga.id == 7  %}
+									    	<a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+										{% endif %}
+									</td>
 								</tr>
 							{% endfor %}
 
