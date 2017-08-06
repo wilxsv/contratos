@@ -30,6 +30,24 @@ class UaciController extends Controller
 
 	public function proveedorUaciAction($cod, $tipo)
 	{
+		/*SELECT DISTINCT PV.id_proveedor_sinab as id, PV.nit as nit, PV.nombre_proveedor as nombre, C.numero_contrato AS contrato 
+		 FROM ctl_contrato AS C 
+		 INNER JOIN mtn_producto_contrato AS PC ON PC.mtn_contrato = C.id_contrato_sinab 
+		 INNER JOIN ctl_proveedor AS PV ON PV.id_proveedor_sinab = C.contrato_proveedor 
+		 INNER JOIN ctl_modalidad_compra AS CM ON CM.id = C.numero_modalidad_compra  
+		 INNER JOIN ctl_producto AS PR ON PR.id_producto_sibasi = PC.mtn_producto WHERE CM.id=?*/
+
+		$dql = "SELECT DISTINCT pr.idProveedor, pr.nit, pr.nombreProveedor, c.numeroContrato
+		FROM MinsalModeloBundle:CtlContrato c
+		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.IdContratoSinab = pc.mtnContrato
+		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.idProveedorSinab
+		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
+		INNER JOIN MinsalModeloBundle:CtlProducto a p WITH pc.mtnProducto = p.idProveedorSibasi
+		WHERE mc.id = $cod ";
+
+		$em = $this->getDoctrine()->getManager();
+
+		$proveedores = $em->createQuery( $dql )->getResult();
 
 		/*
 			CONSULTA EN BASE A UN SQL USADO EN LA BASE SINAB
@@ -39,7 +57,7 @@ class UaciController extends Controller
 			JOIN vv_CATALOGOPRODUCTOS PR ON PR.IDPRODUCTO = PC.IDPRODUCTO
 			WHERE C.NUMEROMODALIDADCOMPRA ='01/2016' and C.IDTIPODOCUMENTO=2 AND PC.IDPROVEEDOR=C.IDPROVEEDOR
 		*/
-		$em = $this->getDoctrine()->getManager();
+		/*$em = $this->getDoctrine()->getManager();*/
 		/*
 
 		$dql = "SELECT co.numeroContrato, p.nombreProveedor, p.idProveedorSinab, p.estadoProveedor
@@ -52,7 +70,7 @@ class UaciController extends Controller
 
 
 
-		if ($tipo=="prorroga") {
+		/*if ($tipo=="prorroga") {
 			
 		}
 		else{
@@ -82,7 +100,7 @@ class UaciController extends Controller
 			'modalidad'=>$cod,
 			'tipo'=>$tipo
 		));
-
+*/
 			
 	}
 
