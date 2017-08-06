@@ -18,7 +18,7 @@
 			<div class="white-box">
 				<h3 class="box-title m-b-0">Depuracion de Medicamentos Por Contrato</h3>
 				<p class="text-muted m-b-30">UACI</p>
-				{{dump(contratos)}}
+				
 				<div class="table-responsive">
 					<table id="meds" class="table table-striped">
 						<thead>
@@ -30,27 +30,7 @@
 							</tr>
 						</thead>
 						<tbody>
-								{# {% for medicamento in medicamentos %}
-								{% if medicamento != null %}
-									<tr id="checklist">
-										<td>{{medicamento.id}}</td>
-										<td>{{medicamento.nombreProducto}}</td>
-
-										{% if medicamento.estadoProducto == null %}
-											<td><input type="checkbox" value="{{ medicamento.id }}" checked></td>
-										{% elseif medicamento.estadoProducto == 8 %}
-											<td><input type="checkbox" value="{{ medicamento.id }}" ></td>
-										{% else %}
-											<td><input type="checkbox" value="{{ medicamento.id }}" checked></td>
-										{% endif %}
-										
-										
-									</tr>
-								{% else %}
-									
-								{% endif %}
-									
-							{% endfor %} #}
+							
 								
 							
 						</tbody>
@@ -70,7 +50,6 @@
 			obtenerMedicamentos();
 		});	
 	});
-
 	function obtenerMedicamentos(){
 		
 		var medicamento;
@@ -89,7 +68,6 @@
 				listaMedicamentos.push(nodo);
 			}
 		});
-
 		$.ajax({
 			url: url,
 			type: 'POST',
