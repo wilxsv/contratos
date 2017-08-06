@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlContrato
  *
- * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_modalidad_compra", columns={"numero_modalidad_compra"}), @ORM\Index(name="fki_proveedor", columns={"contrato_proveedor"}), @ORM\Index(name="fki_establecimiento_sinab", columns={"id_establecimiento"}), @ORM\Index(name="fki_proveedor_sinab", columns={"contrato_proveedor"}), @ORM\Index(name="fki_proveedor_contrato", columns={"contrato_proveedor"})})
+ * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_establecimiento_sinab", columns={"id_establecimiento"}), @ORM\Index(name="fki_proveedor_sinab", columns={"contrato_proveedor"}), @ORM\Index(name="fki_modalidad_compra", columns={"numero_modalidad_compra"}), @ORM\Index(name="fki_proveedor", columns={"contrato_proveedor"}), @ORM\Index(name="fki_proveedor_contrato", columns={"contrato_proveedor"})})
  * @ORM\Entity
  */
 class CtlContrato
@@ -34,16 +34,16 @@ class CtlContrato
      *
      * @ORM\Column(name="contrato_proveedor", type="integer", nullable=true)
      */
-    private $contratoProveedor;
+    private $idEstablecimiento;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="id_establecimiento", type="integer", nullable=true)
      */
-    private $idEstablecimiento;
+    private $contratoProveedor;
 
-    /**
+    /***
      * @var string
      *
      * @ORM\Column(name="numero_contrato", type="string", length=50, nullable=false)
@@ -63,7 +63,6 @@ class CtlContrato
      * @ORM\Column(name="id_contrato_sinab", type="integer", nullable=true)
      */
     private $idContratoSinab;
-
 
 }
 

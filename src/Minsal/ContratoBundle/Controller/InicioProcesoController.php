@@ -344,6 +344,8 @@ class InicioProcesoController extends Controller
         $em->persist($prorroga);
         $em->flush($prorroga);
 
+        return new Response('Prorroga Creada, Por favor espere la depuracion de proveedores');
+
         
 
 
@@ -371,26 +373,12 @@ class InicioProcesoController extends Controller
       //Se persisten los datos        
       $em->persist($incremento);
       $em->flush($incremento);
+
+      return new Response('Incremento Creado, Por favor espere la depuracion de proveedores');
     
 
 
     }
-
-      $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
-      $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findAll();
-      $estimaciones = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findAll();
-      $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findAll();
-    
-    return $this->render('MinsalPlantillaBundle:InicioProceso:inicio.html.twig', array(
-      'prorrogas' => $prorrogas,
-      'compras' => $compras,
-      'incrementos' => $incrementos,
-      'estimaciones' => $estimaciones,
-      
-
-    ));
-
-
   }
 
 

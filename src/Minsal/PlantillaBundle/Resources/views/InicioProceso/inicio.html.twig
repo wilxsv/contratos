@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title %}Modulo de prorroga o incremento{% endblock %}
+{% block head_css %}
+{{ parent() }}
+<link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<!-- ================================================== -->
+<link href="{{ asset('assets/') }}plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<!-- ================================================== -->
+<link href="{{ asset('assets/') }}sinab/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+{% endblock %}
 {% block body %}
 <div class="container">
     {# INICIO DEL AREA DE FORMULARIOS #}
@@ -42,7 +50,7 @@
                             </select>
                         </div>
                     </div>
-                    <button id="Incremento" class="btn btn-success waves-effect waves-light m-r-10">Iniciar Incremento</button>
+                    <button id="Incremento" class="btn btn-success">Iniciar Incremento</button>
                 </form>
             </div>
             {# FIN DEL FORMULARIO DE INCREMENRO #}
@@ -128,7 +136,8 @@
                                             Proceso en depuracion de medicamentos
                                         {% else %}
                                             {% if incremento.estadoIncremento.id == 5 %}
-                                                <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.id }) }}" class="btn btn-info">Iniciar Analisis</a>
+                                                <button alt="default" data-toggle="modal" data-target="#responsive-modal" class="btn btn-info">Invitar a comision</button>
+                                                <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.id }) }}" class="btn btn-success">Iniciar Analisis</a>
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}
@@ -170,11 +179,9 @@
 </div>
 
 {# INICIO DE MODAL PARA EMAILS #}
-<!-- <div class="row">
-        <button alt="default" data-toggle="modal" data-target="#responsive-modal" class="model_img img-responsive"> Modal Hacer Caso Omiso a este botn por el momento</button>
-    </div> -->
+
 <!-- ========================================================================================= -->
-<!-- <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -236,16 +243,18 @@
             </div>
         </div>
     </div>
- -->
+
+<!-- ========================================================================================= -->
+{# FIN MODAL PARA EMAILS #}
 {% endblock %}
 
 
 {% block js %}
     {{ parent() }}
-    {# <script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <!-- ================================================== -->
     <script src="{{ asset('assets/') }}plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <!-- ================================================== -->
+    <!-- ================================================== --> 
     <script>
 
         $(document).ready(function() {
@@ -308,9 +317,9 @@
     jQuery('#datepicker-inline').datepicker({
         todayHighlight: true
     });
-    </script> #}
+    </script> 
 
-    {# <script>
+    <script>
     $(function(){
 
         $(document).ready(function() {
@@ -356,184 +365,84 @@
         }
 
     });
-   </script>#}
+   </script>
         
 <script type="text/javascript">
-/*----------------funcion para crear incrementos ---------------------*/
-$(document).ready(function() {
-        $("#Incremento").click(function() {
-           crearIncremento();
-        });
+    /*----------------funcion para crear incrementos ---------------------*/
+    $(document).ready(function() {
+            $("#Incremento").click(function() {
+               crearIncremento();
+            });
     });
-function crearIncremento() {
-    var codigoLicitacion = $('#licitaciones').val().trim();
-    var meses = $('#meses').val().trim();
-    var estimacion = $('#estimacion').val().trim();
-    var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
-    if(codigoLicitacion){
-        if(meses >= 0 && meses != ''){
-            $.ajax({
-            url : url,
-            data : {
-                'cod':codigoLicitacion,
-                'meses':meses,
-                'estimacion':estimacion
-            },
-            type : 'post'
-        }).done(function(data) {
-            alert('Incremento Creado, Por favor espere la depuracion de proveedores');
-          // location.reload();
-        });
+    function crearIncremento() {
+        var codigoLicitacion = $('#licitaciones').val().trim();
+        var meses = $('#meses').val().trim();
+        var estimacion = $('#estimacion').val().trim();
+        var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
+        if(codigoLicitacion){
+            if(meses >= 0 && meses != ''){
+                $.ajax({
+                url : url,
+                data : {
+                    'cod':codigoLicitacion,
+                    'meses':meses,
+                    'estimacion':estimacion
+                },
+                type : 'post'
+            }).done(function(data) {
+                alert(data);
+               //location.reload();
+            });
+            }
+            else{
+                alert('Los meses de estimacion son mayores a 0');
+            }
+            
         }
         else{
-            alert('Los meses de estimacion son mayores a 0');
+            alert('No se puede procesar debido a que no ha llenado todos los campos de este formulario');
         }
-        
+            
     }
-    else{
-        alert('No se puede procesar debido a que no ha llenado todos los campos de este formulario');
-    }
-        
-}
 </script>
 
 <script type="text/javascript">
-/*=================funcion para crear prorrogas =====================*/
-$(document).ready(function() {
-        $("#Prorroga").click(function() {
-           crearProrroga();
+    /*=================funcion para crear prorrogas =====================*/
+    $(document).ready(function() {
+            $("#Prorroga").click(function() {
+               crearProrroga();
+            });
         });
-    });
-    function crearProrroga() {
-    var codigoLicitacion = $('#licitacionesP').val().trim();
-    var planificacion = $('#planificacion').val().trim();
-    var esProrroga = 1;
-    var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
-    if(codigoLicitacion){
-        $.ajax({
-           url: url,
-           type: 'POST',
-           data: {
-            'cod':codigoLicitacion,
-            'planificacion':planificacion,
-            'esProrroga': esProrroga
-            },
-       })
-       .done(function(data) {
-           console.log("success");
-            alert(data);
-            alert('Prorroga Creada, Por favor espere la depuracion de proveedores');
+        function crearProrroga() {
+        var codigoLicitacion = $('#licitacionesP').val().trim();
+        var planificacion = $('#planificacion').val().trim();
+        var esProrroga = 1;
+        var url = "{{ path('minsal_contrato_inicio_proceso_crear') }}";
+        if(codigoLicitacion){
+            $.ajax({
+               url: url,
+               type: 'POST',
+               data: {
+                'cod':codigoLicitacion,
+                'planificacion':planificacion,
+                'esProrroga': esProrroga
+                },
+           })
+           .done(function(data) {
+               //console.log("success");
+                alert(data);
+               // alert('Prorroga Creada, Por favor espere la depuracion de proveedores');
 
-          //  location.reload();
-       });
+              //  location.reload();
+           });
+        }
+        else{
+            alert("Porfavor elija el codigo de la licitacion");
+        }
+        
+          
     }
-    else{
-        alert("Porfavor elija el codigo de la licitacion");
-    }
-    
-      
-}
 </script>
 
    
-    <script src="{{ asset('assets/') }}plugins/bower_components/typeahead.js-master/dist/typeahead.bundle.min.js"></script>
-    <!--<script src="{{ asset('assets/') }}plugins/bower_components/typeahead.js-master/dist/typeahead-init.js"></script>-->
-    <script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
-    <script type="text/javascript">
-    
-/*--------------------------    TYPE HEAD    --------------------*/
-    // constructs the suggestion engine
-    /*function creaTypeHead() {
-        var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substringRegex;
-    // an array that will be populated with substring matches
-    matches = [];
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        matches.push(str);
-      }
-    });
-    cb(matches);
-  };
-};
-// var codigosLicitacion = array de la consulta
-var codigosLicitacion=[] ;
-{% for codigos in compras %}
-    codigosLicitacion.push('{{codigos.numeroModalidad}}')
-{% endfor %}
-// ---------- Bloodhound ----------
-// constructs the suggestion engine
-var codigosLicitacion = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.whitespace,
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  local: codigosLicitacion
-});
-$('#bloodhound .typeahead').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: 'codigosLicitacion',
-  source: codigosLicitacion
-});
-// -------- Scrollable --------
-$('#scrollable-dropdown-menu .typeahead').typeahead(null, {
-  name: 'codigosLicitacion',
-  limit: 10,
-  source: codigosLicitacion
-});
-    }*/
-    /*----------Funcion para sincronizar la base de datos ---------------*/
-    /*function sync() {
-        $.ajax({
-            url: '',
-            data: '',
-            method: 'POST'
-        }).success(function(data) {
-                alert('la base de de datos ha sido actualizada');
-                creaTypeHead();
-        }).fail(function(data) {
-        });
-    }*/
-/*-------------------Funcion para verificar el uso de estimaciones -------------------*/
-/*function verificaEstimacion() {
-    $('#estimaciones').hide();
-    $("#estimacionSi").on( 'change', function() {
-    if( $(this).is(':checked') ) {
-        // Hacer algo si el checkbox ha sido seleccionado
-        if ($('#estimacionNo').is(':checked')) {
-            $('#estimacionNo').removeAttr('checked');
-            $('#estimaciones').show();
-        }
-        } else {
-            // Hacer algo si el checkbox ha sido deseleccionado
-        }
-    });
-    $("#estimacionNo").on( 'change', function() {
-    if( $(this).is(':checked') ) {
-        // Hacer algo si el checkbox ha sido seleccionado
-        if ($('#estimacionSi').is(':checked')) {
-            $('#estimaciones').hide();
-            $('#estimacionSi').removeAttr('checked');
-        }
-        } else {
-            // Hacer algo si el checkbox ha sido deseleccionado
-        }
-    });
-}
-    $(document).ready(function() {
-        creaTypeHead();
-        verificaEstimacion();
-    });*/
-    </script>
-    </script>
-    <!-- ================================================== -->
-    <!--Style Switcher -->
-    <script src="{{ asset('assets/') }}plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
-    {% endblock %}
+{% endblock %}
