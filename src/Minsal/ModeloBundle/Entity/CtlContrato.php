@@ -15,12 +15,33 @@ class CtlContrato
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_contrato", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="ctl_contrato_id_contrato_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="ctl_contrato_id_seq", allocationSize=1, initialValue=1)
      */
-    private $idContrato;
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero_modalidad_compra", type="integer", nullable=true)
+     */
+    private $numeroModalidadCompra;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="contrato_proveedor", type="integer", nullable=true)
+     */
+    private $contratoProveedor;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_establecimiento", type="integer", nullable=true)
+     */
+    private $idEstablecimiento;
 
     /**
      * @var string
@@ -43,189 +64,6 @@ class CtlContrato
      */
     private $idContratoSinab;
 
-    /**
-     * @var \CtlModalidadCompra
-     *
-     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="numero_modalidad_compra", referencedColumnName="id")
-     * })
-     */
-    private $numeroModalidadCompra;
 
-    /**
-     * @var \CtlProveedor
-     *
-     * @ORM\ManyToOne(targetEntity="CtlProveedor")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="contrato_proveedor", referencedColumnName="id_proveedor_sinab")
-     * })
-     */
-    private $contratoProveedor;
-
-    /**
-     * @var \CtlEstablecimiento
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_establecimiento", referencedColumnName="id_establecimiento_sinab")
-     * })
-     */
-    private $idEstablecimiento;
-
-
-
-    /**
-     * Get idContrato
-     *
-     * @return integer
-     */
-    public function getIdContrato()
-    {
-        return $this->idContrato;
-    }
-
-    /**
-     * Set numeroContrato
-     *
-     * @param string $numeroContrato
-     *
-     * @return CtlContrato
-     */
-    public function setNumeroContrato($numeroContrato)
-    {
-        $this->numeroContrato = $numeroContrato;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroContrato
-     *
-     * @return string
-     */
-    public function getNumeroContrato()
-    {
-        return $this->numeroContrato;
-    }
-
-    /**
-     * Set montoContrato
-     *
-     * @param string $montoContrato
-     *
-     * @return CtlContrato
-     */
-    public function setMontoContrato($montoContrato)
-    {
-        $this->montoContrato = $montoContrato;
-
-        return $this;
-    }
-
-    /**
-     * Get montoContrato
-     *
-     * @return string
-     */
-    public function getMontoContrato()
-    {
-        return $this->montoContrato;
-    }
-
-    /**
-     * Set idContratoSinab
-     *
-     * @param integer $idContratoSinab
-     *
-     * @return CtlContrato
-     */
-    public function setIdContratoSinab($idContratoSinab)
-    {
-        $this->idContratoSinab = $idContratoSinab;
-
-        return $this;
-    }
-
-    /**
-     * Get idContratoSinab
-     *
-     * @return integer
-     */
-    public function getIdContratoSinab()
-    {
-        return $this->idContratoSinab;
-    }
-
-    /**
-     * Set numeroModalidadCompra
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidadCompra
-     *
-     * @return CtlContrato
-     */
-    public function setNumeroModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidadCompra = null)
-    {
-        $this->numeroModalidadCompra = $numeroModalidadCompra;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroModalidadCompra
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
-     */
-    public function getNumeroModalidadCompra()
-    {
-        return $this->numeroModalidadCompra;
-    }
-
-    /**
-     * Set contratoProveedor
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlProveedor $contratoProveedor
-     *
-     * @return CtlContrato
-     */
-    public function setContratoProveedor(\Minsal\ModeloBundle\Entity\CtlProveedor $contratoProveedor = null)
-    {
-        $this->contratoProveedor = $contratoProveedor;
-
-        return $this;
-    }
-
-    /**
-     * Get contratoProveedor
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlProveedor
-     */
-    public function getContratoProveedor()
-    {
-        return $this->contratoProveedor;
-    }
-
-    /**
-     * Set idEstablecimiento
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimiento
-     *
-     * @return CtlContrato
-     */
-    public function setIdEstablecimiento(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $idEstablecimiento = null)
-    {
-        $this->idEstablecimiento = $idEstablecimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get idEstablecimiento
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
-     */
-    public function getIdEstablecimiento()
-    {
-        return $this->idEstablecimiento;
-    }
 }
+

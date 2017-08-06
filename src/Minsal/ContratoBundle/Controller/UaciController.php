@@ -44,7 +44,7 @@ class UaciController extends Controller
 		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.idProveedorSinab
 		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
 		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.idProductoSibasi
-		WHERE mc.id = $cod ";
+		WHERE mc.id = $cod AND pc.mtnProveedor=c.contratoProveedor ";
 
 		
 

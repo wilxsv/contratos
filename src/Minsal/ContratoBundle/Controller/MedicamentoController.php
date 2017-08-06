@@ -77,8 +77,16 @@ class MedicamentoController extends Controller
 	public function listadoAction($incremento)
 	{	
 		$em = $this->getDoctrine()->getManager();
-	    $contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findByNumeroModalidadCompra($incremento);
-
+	    //$contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
+        /*$query= $em->createQuery("SELECT c.numeroModalidadCompra,c.id,c.numeroContrato,c.idContratoSinab,c.contratoProveedor,c.idEstablecimiento FROM MinsalModeloBundle:CtlContrato c WHERE c.numeroModalidadCompra = $incremento");*/
+        $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor,c.idContratoSinab
+		FROM MinsalModeloBundle:CtlContrato c
+		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.idContratoSinab = pc.mtnContrato
+		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.idProveedorSinab
+		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
+		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.idProductoSibasi
+		WHERE mc.id = $incremento AND pc.mtnProveedor=c.contratoProveedor ";
+        $contratos = $em->createQuery($dql)->getResult();
 	    $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(
 	    	array(
 	    		'incrementoModalidadCompra'=>$incremento
