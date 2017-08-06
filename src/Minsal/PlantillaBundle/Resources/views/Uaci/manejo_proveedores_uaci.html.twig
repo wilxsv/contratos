@@ -40,13 +40,13 @@
 									 <td>{{ proveedor.nombreProveedor }}</td>
 									 <td>{{ proveedor.nit }}</td>
 									 
-									 {# {% if proveedor.estadoProveedor == null %}
+									  {% if proveedor.estadoProveedor == null %}
 									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" checked></td>
 									 {% elseif proveedor.estadoProveedor == 3 %}
 									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" ></td>
-									 {% else %} #}
+									 {% else %} 
 									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" checked></td>
-									 {# {% endif %} #}
+									 {% endif %} 
 			
 								</tr>
 							{% endfor %}
