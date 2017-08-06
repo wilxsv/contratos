@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+{% block title %}Contratos{% endblock %}
+{% block head_css %}
+	{{ parent() }}
+    <link href="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+	<!-- Menu CSS -->
+    <link href="{{ asset('assets/') }}plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="{{ asset('assets/') }}sinab/css/colors/megna-dark.css" id="theme" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="row" >
+	<div class="col-sm-12">
+	    <div class="white-box">
+	        <h3 class="box-title m-b-0">Compra: {{prorrogas.prorrogaModalidadCompra.numeroModalidad}}</h3>
+	        <p class="text-muted m-b-30">Lista de Contratos</p>
+	        <div class="table-responsive">
+	            <table id="myTable" class="table table-striped">
+	                <thead>
+	                    <tr>
+	                        <th>Id</th>
+	                        <th>Contrato</th>
+	                        <th>Proveedor</th>
+	                        <th>NIT</th>
+	                        <th>Accion</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    {% for contrato in contratos %}
+	                    	{% if contrato.contratoProveedor.estadoProveedor == 4 %}
+	                    		<tr>
+		                    		<td>{{contrato.idContrato}}</td>
+		                    		<td>{{contrato.numeroContrato}}</td>
+		                    		<td>{{contrato.contratoProveedor.nombreProveedor}}</td>
+		                    		<td>{{contrato.contratoProveedor.nit}}</td>
+		                    		
+		                    		<td><a href="{{ path('minsal_contrato_depuracion_medicamentos',{ 'incremento': prorrogas.prorrogaModalidadCompra.id,'contrato':contrato.idContratoSibasi, 'proveedor':contrato.contratoProveedor.id }) }}" class="btn btn-info">Depurar</a></td>
+	                    		</tr>
+	                    	{% else %}
+	                    	{% endif %}
+	                    {% endfor %}
+	                </tbody>
+	            </table>
+	        </div>
+	        {# aqui hay que cambiar el estado del incremento a 5 para enviar a comision #}
+	        <button id="Finalizar" class="btn btn-danger">Terminar Depuracion</button>
+	    </div>		
+</div>
+{% endblock %}
+{% block js %}
+{{ parent() }}
+
+<script>
+	$(document).ready(function() {
+		$("#Finalizar").click(function() {
+			confirm('Esta seguro de finalizar la depuracion');
+			paramsEstado();
+		});
+	});
+
+	function paramsEstado(){
+		var estado = 5;
+		var incrementoID = '{{ incremento.id }}';
+		var url = "{{ path('minsal_contrato_cambiar_estado') }}";
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: {
+				'estado':estado,
+				'incrementoID':incrementoID,
+				 },
+		})
+		.done(function(data) {
+			alert(data);
+			location.href = "{{ path('minsal_contrato_listado_proceso') }}";
+		});
+ }
+</script>
+
+	<script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#myTable').DataTable();
+			$(document).ready(function() {
+				var table = $('#example').DataTable({
+					"columnDefs": [{
+						"visible": false,
+						"targets": 2
+					}],
+					"order": [
+					[2, 'asc']
+					],
+					"displayLength": 25,
+					"drawCallback": function(settings) {
+						var api = this.api();
+						var rows = api.rows({
+							page: 'current'
+						}).nodes();
+						var last = null;
+						api.column(2, {
+							page: 'current'
+						}).data().each(function(group, i) {
+							if (last !== group) {
+								$(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+								last = group;
+							}
+						});
+					}
+				});
+				// Order by the grouping
+				$('#example tbody').on('click', 'tr.group', function() {
+					var currentOrder = table.order()[0];
+					if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+						table.order([2, 'desc']).draw();
+					} else {
+						table.order([2, 'asc']).draw();
+					}
+				});
+			});
+		});
+		$('#example23').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+			'copy', 'csv', 'excel', 'pdf', 'print'
+			]
+		});
+	</script>
+{% endblock %}
