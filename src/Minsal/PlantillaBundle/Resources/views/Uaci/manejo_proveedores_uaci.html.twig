@@ -34,11 +34,11 @@
 									 <td>{{ proveedor.nombreProveedor }}</td>
 									 
 									 {% if proveedor.estadoProveedor == null %}
-									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSibasi }}" checked></td>
+									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" checked></td>
 									 {% elseif proveedor.estadoProveedor == 3 %}
-									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSibasi }}" ></td>
+									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" ></td>
 									 {% else %}
-									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSibasi }}" checked></td>
+									 	<td><input type="checkbox" value="{{ proveedor.idProveedorSinab }}" checked></td>
 									 {% endif %}
 			
 								</tr>

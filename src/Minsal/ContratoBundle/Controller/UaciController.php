@@ -34,7 +34,7 @@ class UaciController extends Controller
 		$em = $this->getDoctrine()->getManager();
 
 
-		$dql = "SELECT co.numeroContrato, p.nombreProveedor, p.idProveedorSibasi, p.estadoProveedor
+		$dql = "SELECT co.numeroContrato, p.nombreProveedor, p.idProveedorSinab, p.estadoProveedor
 		    	FROM MinsalModeloBundle:CtlModalidadCompra c
 		        INNER JOIN MinsalModeloBundle:CtlContrato co WITH c.id = co.numeroModalidadCompra
 		        INNER JOIN MinsalModeloBundle:CtlProveedor p WITH co.contratoProveedor = p.id
