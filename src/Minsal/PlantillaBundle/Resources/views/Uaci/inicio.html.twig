@@ -13,7 +13,7 @@
 		<div class="col-sm-12">
 			<div class="white-box">
 				<h3 class="box-title m-b-0">Listado de procesos de Incremento o Prorroga</h3>
-				<p class="text-muted m-b-30">Seleccione el proceso o prorroga que quiere verificar</p>
+				<p class="text-muted m-b-30">Seleccione el proceso de incremento o prorroga que quiere verificar</p>
 				<div class="table-responsive">
 					<table id="myTable" class="table table-condensed table-hover table-responsive">
 						<thead>
@@ -63,7 +63,7 @@
 										{% if prorroga.estadoProrroga.id == 6 %}
 										<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 									    {% elseif prorroga.estadoProrroga.id == 7  %}
-									    	<a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+									    	<a href="{{ path('minsal_contrato_listado_medicamentos_prorroga',{'prorroga': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
 										{% endif %}
 									</td>
 								</tr>

@@ -13,3 +13,7 @@ minsal_contrato_cambiar_estado:
 minsal_contrato_cambiar_estado_medicamento:
     path:     /estadoMedicamentoAjax
     defaults: { _controller: MinsalContratoBundle:Medicamento:estadoMedicamentos }
+
+minsal_contrato_listado_medicamentos_prorroga:
+  path:     /listadoProrroga/{prorroga}
+  defaults: { _controller: MinsalContratoBundle:Medicamento:listadoParaProrroga }
