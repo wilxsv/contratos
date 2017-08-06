@@ -19,7 +19,9 @@
                     </li>
                     <li class="devider"></li>
                     <ul class="nav navbar-nav navbar-right">
-                      <li><a href="{{ path('minsal_usuario_logout') }}"><span class="glyphicon glyphicon-user"></span> LOGOUT</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li><a href="{{ path('minsal_usuario_logout') }}"><span class="glyphicon glyphicon-user"></span> LOGOUT</a></li>
+                    {% endif %}
                     </ul>
 
                     
