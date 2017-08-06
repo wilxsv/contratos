@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProrroga
  *
- * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="ctl_prorroga_planificacion_idx", columns={"planificacion"}), @ORM\Index(name="fki_estado_prorroga", columns={"estado_prorroga"}), @ORM\Index(name="fki_prorroga_modalidad_compra", columns={"prorroga_modalidad_compra"})})
+ * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="fki_estado_prorroga", columns={"estado_prorroga"}), @ORM\Index(name="fki_prorroga_modalidad_compra", columns={"prorroga_modalidad_compra"}), @ORM\Index(name="ctl_prorroga_planificacion_idx", columns={"planificacion"})})
  * @ORM\Entity
  */
 class CtlProrroga
@@ -30,16 +30,6 @@ class CtlProrroga
     private $fechaCreacion;
 
     /**
-     * @var \CtlEstados
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstados")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estado_prorroga", referencedColumnName="id")
-     * })
-     */
-    private $estadoProrroga;
-
-    /**
      * @var \CtlModalidadCompra
      *
      * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
@@ -58,6 +48,16 @@ class CtlProrroga
      * })
      */
     private $planificacion;
+
+    /**
+     * @var \CtlEstados
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstados")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estado_prorroga", referencedColumnName="id")
+     * })
+     */
+    private $estadoProrroga;
 
 
 
@@ -93,30 +93,6 @@ class CtlProrroga
     public function getFechaCreacion()
     {
         return $this->fechaCreacion;
-    }
-
-    /**
-     * Set estadoProrroga
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga
-     *
-     * @return CtlProrroga
-     */
-    public function setEstadoProrroga(\Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga = null)
-    {
-        $this->estadoProrroga = $estadoProrroga;
-
-        return $this;
-    }
-
-    /**
-     * Get estadoProrroga
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstados
-     */
-    public function getEstadoProrroga()
-    {
-        return $this->estadoProrroga;
     }
 
     /**
@@ -165,5 +141,29 @@ class CtlProrroga
     public function getPlanificacion()
     {
         return $this->planificacion;
+    }
+
+    /**
+     * Set estadoProrroga
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga
+     *
+     * @return CtlProrroga
+     */
+    public function setEstadoProrroga(\Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga = null)
+    {
+        $this->estadoProrroga = $estadoProrroga;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProrroga
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstados
+     */
+    public function getEstadoProrroga()
+    {
+        return $this->estadoProrroga;
     }
 }
