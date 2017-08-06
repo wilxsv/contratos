@@ -18,13 +18,6 @@
                     </li>
                     </li>
                     <li class="devider"></li>
-                    {% if is_granted('ROLE_UNABAST') %}
-                        <li> <a href="/inicioProceso" class="waves-effect"><i  class="mdi mdi-settings fa-fw"></i> <span class="hide-menu">UNABAST</span></a> </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_UACI') %}
-                        <li> <a href="/uaci/listadoProcesos" class="waves-effect"><i  class="mdi mdi-settings fa-fw"></i> <span class="hide-menu">UACI </span></a> </li>
-                    {% endif %}
-
                     <ul class="nav navbar-nav navbar-right">
                       <li><a href="{{ path('minsal_usuario_logout') }}"><span class="glyphicon glyphicon-user"></span> LOGOUT</a></li>
                     </ul>
