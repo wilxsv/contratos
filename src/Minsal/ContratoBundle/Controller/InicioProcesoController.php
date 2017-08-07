@@ -196,7 +196,7 @@ function cargarProductos($em){
             
             $query->setParameter(3, $p["1"]);
             $query->setParameter(4, $p["2"]);
-            $query->setParameter(5, 6);
+            $query->setParameter(5, 9);
             $query->setParameter(6, $p["4"]);
             $query->getResult();
         }
@@ -253,7 +253,7 @@ class InicioProcesoController extends Controller
     //cargarPlanificaciones($em);
     //cargarUnidades($em);
     //cargarProductos($em);
-    cargarproductoContrato($em);
+    //cargarproductoContrato($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
@@ -328,7 +328,7 @@ class InicioProcesoController extends Controller
 
       foreach($compra as $com)
       {
-        $incremento->setIncrementoModalidadCompra($com);
+        $incremento->setNumeroModalidadCompra($com);
        }
 
       $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->find($estimacion);
