@@ -185,15 +185,20 @@ function cargarProductos($em){
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
         foreach ($respuesta['respuesta'] as $p) {
-          $nuevoProducto = new CtlProducto();
-          $nuevoProducto->setIdProductoSibasi($p["0"]);
-          $nuevoProducto->setCodigoProducto($p["1"]);
-          $nuevoProducto->setNombreProducto($p["2"]);
-          $um=$em->getRepository('MinsalModeloBundle:CtlUnidadMedida')->find($p["3"]);
-          $nuevoProducto->setUnidadMedidaProducto($um);
-          $nuevoProducto->setIdEstablecimientoSinab($p["4"]);
-          $em->persist($nuevoProducto);
-          $em->flush($nuevoProducto);
+          $rsm = new ResultSetMapping();
+          $query = $em->createNativeQuery('INSERT INTO ctl_producto(
+            id, unidad_medida_producto, codigo_producto, nombre_producto, 
+            estado_producto, establecimiento_producto)
+    VALUES (?, ?, ?, ?, 
+            ?, ?);', $rsm);
+            $query->setParameter(1, $p["0"]);
+            $query->setParameter(2, $p["3"]);
+            
+            $query->setParameter(3, $p["1"]);
+            $query->setParameter(4, $p["2"]);
+            $query->setParameter(5, 6);
+            $query->setParameter(6, $p["4"]);
+            $query->getResult();
         }
 
 }
@@ -206,25 +211,14 @@ function cargarproductoContrato($em){
   $respuesta = json_decode($curl_response,true);
   $contador = 0;
   foreach ($respuesta['respuesta'] as $p) {
-    $contador = $contador +1;
-    /*$nuevoProductoContrato = new MtnProductoContrato();
-    $nuevoProductoContrato->setMtnProducto($p["0"]);
-    $nuevoProductoContrato->setMtnContrato($p["2"]);
-    $nuevoProductoContrato->setMtnProveedor($p["1"]);
-    $nuevoProductoContrato->setCantidad($p["3"]);
-    $nuevoProductoContrato->setPrecioUnitario($p["4"]);
-    $nuevoProductoContrato->set($p["5"]);
-
-    $em->persist($nuevoProductoContrato);
-    $em->flush($nuevoProductoContrato);*/
-
-    $rsm = new ResultSetMapping();
+    $contador++;
+          $rsm = new ResultSetMapping();
           $query = $em->createNativeQuery('INSERT INTO mtn_producto_contrato(
             id, mtn_producto, mtn_contrato, cantidad, precio_unitario, mtn_proveedor, 
-            id_establecimiento_sinab)
+            mtn_establecimiento)
     VALUES (?, ?, ?, ?, ?, ?, 
             ?);', $rsm);
-          //id pc.IDPRODUCTO, pc.IDPROVEEDOR, pc.IDCONTRATO, pc.CANTIDAD, pc.PRECIOUNITARIO,pc.IDESTABLECIMIENTO
+          //C.IDPRODUCTO, PC.IDPROVEEDOR, PC.IDCONTRATO, PC.CANTIDAD, PC.PRECIOUNITARIO,PC.IDESTABLECIMIENTO
           $query->setParameter(1, $contador);
           //mtn_producto
           $query->setParameter(2, $p["0"]);
@@ -236,7 +230,7 @@ function cargarproductoContrato($em){
           $query->setParameter(5, $p["4"]);
           //mtn_proveedor
           $query->setParameter(6, $p["1"]);
-          //id_establecimiento_sinab
+          //mtn_establecimiento
           $query->setParameter(7, $p["5"]);
 
           $query->getResult();
@@ -257,10 +251,9 @@ class InicioProcesoController extends Controller
     //cargarContratos($em);
     //cargarProgramaciones($em);
     //cargarPlanificaciones($em);
-    //=============hasta aqui esta listo
     //cargarUnidades($em);
     //cargarProductos($em);
-    //cargarproductoContrato($em);
+    cargarproductoContrato($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 

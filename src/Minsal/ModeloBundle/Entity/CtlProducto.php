@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_producto_id_producto_sinab_key", columns={"id_producto_sinab"})}, indexes={@ORM\Index(name="fki_producto_unidad_medida", columns={"unidad_medida_producto"}), @ORM\Index(name="fki_esta_prod", columns={"estado_producto"}), @ORM\Index(name="fki_producto_establecimiento", columns={"establecimiento_producto"})})
+ * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="fki_producto_unidad_medida", columns={"unidad_medida_producto"}), @ORM\Index(name="fki_esta_prod", columns={"estado_producto"}), @ORM\Index(name="fki_producto_establecimiento", columns={"establecimiento_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
@@ -35,13 +35,6 @@ class CtlProducto
      * @ORM\Column(name="nombre_producto", type="string", length=1000, nullable=true)
      */
     private $nombreProducto;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_producto_sinab", type="integer", nullable=true)
-     */
-    private $idProductoSinab;
 
     /**
      * @var \CtlUnidadMedida
@@ -131,30 +124,6 @@ class CtlProducto
     public function getNombreProducto()
     {
         return $this->nombreProducto;
-    }
-
-    /**
-     * Set idProductoSinab
-     *
-     * @param integer $idProductoSinab
-     *
-     * @return CtlProducto
-     */
-    public function setIdProductoSinab($idProductoSinab)
-    {
-        $this->idProductoSinab = $idProductoSinab;
-
-        return $this;
-    }
-
-    /**
-     * Get idProductoSinab
-     *
-     * @return integer
-     */
-    public function getIdProductoSinab()
-    {
-        return $this->idProductoSinab;
     }
 
     /**

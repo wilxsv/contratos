@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnProductoContrato
  *
- * @ORM\Table(name="mtn_producto_contrato", uniqueConstraints={@ORM\UniqueConstraint(name="mtn_producto_contrato_id_establecimiento_sinab_key", columns={"mtn_establecimiento"})}, indexes={@ORM\Index(name="fki_mtn_producto", columns={"mtn_producto"}), @ORM\Index(name="fki_mtn_proveedor", columns={"mtn_proveedor"}), @ORM\Index(name="fki_mtn_contrato", columns={"mtn_contrato"})})
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="fki_mtn_producto", columns={"mtn_producto"}), @ORM\Index(name="fki_mtn_proveedor", columns={"mtn_proveedor"}), @ORM\Index(name="fki_mtn_contrato", columns={"mtn_contrato"}), @ORM\Index(name="IDX_11667261736A527D", columns={"mtn_establecimiento"})})
  * @ORM\Entity
  */
 class MtnProductoContrato
@@ -30,9 +30,9 @@ class MtnProductoContrato
     private $mtnContrato;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="cantidad", type="integer", nullable=true)
+     * @ORM\Column(name="cantidad", type="decimal", precision=8, scale=2, nullable=true)
      */
     private $cantidad;
 
@@ -112,7 +112,7 @@ class MtnProductoContrato
     /**
      * Set cantidad
      *
-     * @param integer $cantidad
+     * @param string $cantidad
      *
      * @return MtnProductoContrato
      */
@@ -126,7 +126,7 @@ class MtnProductoContrato
     /**
      * Get cantidad
      *
-     * @return integer
+     * @return string
      */
     public function getCantidad()
     {
