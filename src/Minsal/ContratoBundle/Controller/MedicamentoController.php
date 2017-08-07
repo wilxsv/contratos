@@ -78,13 +78,12 @@ class MedicamentoController extends Controller
 
 		    $respuesta = json_decode($resumen->getMedicamentos(),true);
 		    $medicamentos = array();
-		    if ($respuesta != '') {
 		    	foreach ($respuesta['respuesta'] as $obj) {
 		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
 		    			'id' => $obj["0"]
 		    		));
 		    	array_push($medicamentos, $medica);
-		    	}
+		    	$error;
 		    }
 		    
 
@@ -92,13 +91,13 @@ class MedicamentoController extends Controller
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
 		    	'medicamentos' => $medicamentos,
-		    	'error'=>'vacio'
+		    	'error'=>$error
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
 		    $medicamentos = array();
 		    if ($respuesta == '') {
-		    	
+		    	$error = 'vacio';
 		    	}
 		    else{
 		    	foreach ($respuesta['respuesta'] as $obj) {
@@ -106,13 +105,14 @@ class MedicamentoController extends Controller
 		    			'id' => $obj["0"]
 		    		));
 		    	array_push($medicamentos, $medica);
+		    	$error;
 		    }
 		    }
 		    
 		    
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
 		    	'medicamentos' => $medicamentos,
-		    	'error'=>'vacio'
+		    	'error'=>$error
 		    	));
 		}
 		 
