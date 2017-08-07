@@ -89,10 +89,16 @@ class MedicamentoController extends Controller
 
         //obtener el objeto incremento  apartir del id
 
-        $dqlincremento = "SELECT i FROM MinsalModeloBundle:CtlIncremento i WHERE i.id=$incremento";
+        $dqlincremento = "SELECT  mc.numeroModalidad
+        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
+        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.incrementoModalidadCompra
+        				  WHERE inc.id = $incremento ";
         $objIncremento = $em->createQuery($dqlincremento)->getResult();
         //compra a partir del id guardado en incremento tienen que ser con sqlnative
-        //sql = "SELECT numero_modalidad FROM ctl_modalidad_compra as mc INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id WHERE i.id = $incremento"
+        /*sql = "SELECT numero_modalidad 
+        		FROM ctl_modalidad_compra as mc 
+        		INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id 
+        		WHERE i.id = $incremento" */
 
 
 

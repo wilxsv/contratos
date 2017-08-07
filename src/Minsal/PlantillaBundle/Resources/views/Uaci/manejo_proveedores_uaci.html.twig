@@ -25,6 +25,7 @@
 					<table class="table table-striped" id="datos">
 						<thead>
 							<tr>
+								<th>ID</th>
 								<th>Codigo de contrato</th>
 								<th>Id Proveedor</th>
 								<th>Proveedor</th>
@@ -35,6 +36,7 @@
 						<tbody>
 							{% for proveedor in proveedores %}
 								<tr id="checkList">
+									<td>{{ proveedor.id }}</td>
 									 <td>{{ proveedor.numeroContrato }}</td>
 									 <td>{{ proveedor.idProveedorSinab }}</td>
 									 <td>{{ proveedor.nombreProveedor }}</td>
@@ -72,6 +74,8 @@
 {{ parent() }}
 
 <script>
+	
+
 	$(document).ready(function() {
 		$("#Guardar").click(function() {
 			obtenerValores();
