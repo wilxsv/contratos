@@ -25,9 +25,9 @@ class CtlProgramacion
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_programacion", type="integer", nullable=true)
+     * @ORM\Column(name="id_programacion_sinab", type="integer", nullable=true)
      */
-    private $idProgramacion;
+    private $idProgramacionSinab;
 
     /**
      * @var string

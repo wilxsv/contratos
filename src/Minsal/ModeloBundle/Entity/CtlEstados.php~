@@ -25,7 +25,7 @@ class CtlEstados
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion_estado", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descripcion_estado", type="string", length=50, nullable=true)
      */
     private $descripcionEstado;
 

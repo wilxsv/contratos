@@ -21,7 +21,47 @@ use Minsal\ModeloBundle\Entity\MtnProductoContrato;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Doctrine\ORM\Query\ResultSetMapping;
 
+ function cargarEstablecimientos($em)
+  {
+    /*---------------Sincronizacion de Establecimientos-------------*/
+        $service_url = 'http://192.168.1.4:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+        $curl = curl_init($service_url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $curl_response = curl_exec($curl);
+        curl_close($curl);
+        $respuesta = json_decode($curl_response,true);
+        foreach ($respuesta['respuesta'] as $establecimiento ) {
+          $rsm = new ResultSetMapping();
+          $query = $em->createNativeQuery('INSERT INTO ctl_establecimiento(codigo_establecimiento, nombre_establecimiento,id)VALUES (?, ?, ?);', $rsm);
+          //ingreso de compra
+          $query->setParameter(1, $establecimiento["1"]);
+          $query->setParameter(2, $establecimiento["3"]);
+          $query->setParameter(3, $establecimiento["0"]);
+          $query->getResult();
+        }
+  }
+function cargarCompras($em)
+  {
+    /*--------------------Sincronizacion de compras -----------------------------------*/
 
+    $service_url = 'http://192.168.1.4:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+
+    $curl = curl_init($service_url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $curl_response = curl_exec($curl);
+    curl_close($curl);
+    $respuesta = json_decode($curl_response,true);
+    foreach ($respuesta['respuesta'] as $datoNuevo) {
+      $nuevaModalidadCompra = new CtlModalidadCompra();
+      $nuevaModalidadCompra->setNumeroModalidad($datoNuevo["4"]);
+      $obj = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
+      if ($obj == null) {
+        $em->persist($nuevaModalidadCompra);
+        $em->flush($nuevaModalidadCompra);
+      }
+      
+    }
+  }
 function cargarProveedores($em){
   /* ingreso de proveedores */
       $service_url = 'http://192.168.1.4:8080/v1/sinab/proveedoresporcontratos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
@@ -113,47 +153,9 @@ function cargarContratos($em)
     
   }
 
-  function cargarCompras($em)
-  {
-    /*--------------------Sincronizacion de compras -----------------------------------*/
+  
 
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
 
-    $curl = curl_init($service_url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $curl_response = curl_exec($curl);
-    curl_close($curl);
-    $respuesta = json_decode($curl_response,true);
-    foreach ($respuesta['respuesta'] as $datoNuevo) {
-      $nuevaModalidadCompra = new CtlModalidadCompra();
-      $nuevaModalidadCompra->setNumeroModalidad($datoNuevo["4"]);
-      $obj = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
-      if ($obj == null) {
-        $em->persist($nuevaModalidadCompra);
-        $em->flush($nuevaModalidadCompra);
-      }
-      
-    }
-  }
-
-  function cargarEstablecimientos($em)
-  {
-    /*---------------Sincronizacion de Establecimientos-------------*/
-        $service_url = 'http://192.168.1.4:8080/v1/sinab/establecimientos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
-        $curl = curl_init($service_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $curl_response = curl_exec($curl);
-        curl_close($curl);
-        $respuesta = json_decode($curl_response,true);
-        foreach ($respuesta['respuesta'] as $establecimiento ) {
-          $nuevoEstablecimiento = new CtlEstablecimiento();
-          $nuevoEstablecimiento->setidEstablecimientoSinab($establecimiento["0"]);
-          $nuevoEstablecimiento->setCodigoEstablecimiento($establecimiento["1"]);
-          $nuevoEstablecimiento->setNombreEstablecimiento($establecimiento["3"]);
-          $em->persist($nuevoEstablecimiento);
-          $em->flush($nuevoEstablecimiento);
-        }
-  }
 
   function cargarProgramaciones($em){
     /*--------SINCRONIZACION DE PROGRAMACIONES-------------*/
@@ -282,7 +284,7 @@ class InicioProcesoController extends Controller
     $em = $this->getDoctrine()->getManager();
     /* funciones para la carga de datos*/
     //cargarEstablecimientos($em);
-    //cargarCompras($em);
+    cargarCompras($em);
     //cargarProveedores($em); 
     //cargarContratos($em);
     //cargarProgramaciones($em);

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnMedicamentoIncremento
  *
- * @ORM\Table(name="mtn_medicamento_incremento", indexes={@ORM\Index(name="idx_dfdcc5577d6e63ae", columns={"incrementoid"}), @ORM\Index(name="idx_dfdcc5573c48e38f", columns={"contratoid"})})
+ * @ORM\Table(name="mtn_medicamento_incremento", indexes={@ORM\Index(name="fki_med_incre", columns={"incrementoid"}), @ORM\Index(name="fki_med_incr_contr", columns={"contratoid"})})
  * @ORM\Entity
  */
 class MtnMedicamentoIncremento
@@ -23,25 +23,31 @@ class MtnMedicamentoIncremento
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="incrementoid", type="integer", nullable=true)
-     */
-    private $incrementoid;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="contratoid", type="integer", nullable=true)
-     */
-    private $contratoid;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="medicamentos", type="text", nullable=true)
      */
     private $medicamentos;
+
+    /**
+     * @var \CtlIncremento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlIncremento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="incrementoid", referencedColumnName="id")
+     * })
+     */
+    private $incrementoid;
+
+    /**
+     * @var \CtlContrato
+     *
+     * @ORM\ManyToOne(targetEntity="CtlContrato")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="contratoid", referencedColumnName="id")
+     * })
+     */
+    private $contratoid;
 
 
 
@@ -53,54 +59,6 @@ class MtnMedicamentoIncremento
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set incrementoid
-     *
-     * @param integer $incrementoid
-     *
-     * @return MtnMedicamentoIncremento
-     */
-    public function setIncrementoid($incrementoid)
-    {
-        $this->incrementoid = $incrementoid;
-
-        return $this;
-    }
-
-    /**
-     * Get incrementoid
-     *
-     * @return integer
-     */
-    public function getIncrementoid()
-    {
-        return $this->incrementoid;
-    }
-
-    /**
-     * Set contratoid
-     *
-     * @param integer $contratoid
-     *
-     * @return MtnMedicamentoIncremento
-     */
-    public function setContratoid($contratoid)
-    {
-        $this->contratoid = $contratoid;
-
-        return $this;
-    }
-
-    /**
-     * Get contratoid
-     *
-     * @return integer
-     */
-    public function getContratoid()
-    {
-        return $this->contratoid;
     }
 
     /**
@@ -125,5 +83,53 @@ class MtnMedicamentoIncremento
     public function getMedicamentos()
     {
         return $this->medicamentos;
+    }
+
+    /**
+     * Set incrementoid
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlIncremento $incrementoid
+     *
+     * @return MtnMedicamentoIncremento
+     */
+    public function setIncrementoid(\Minsal\ModeloBundle\Entity\CtlIncremento $incrementoid = null)
+    {
+        $this->incrementoid = $incrementoid;
+
+        return $this;
+    }
+
+    /**
+     * Get incrementoid
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlIncremento
+     */
+    public function getIncrementoid()
+    {
+        return $this->incrementoid;
+    }
+
+    /**
+     * Set contratoid
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlContrato $contratoid
+     *
+     * @return MtnMedicamentoIncremento
+     */
+    public function setContratoid(\Minsal\ModeloBundle\Entity\CtlContrato $contratoid = null)
+    {
+        $this->contratoid = $contratoid;
+
+        return $this;
+    }
+
+    /**
+     * Get contratoid
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlContrato
+     */
+    public function getContratoid()
+    {
+        return $this->contratoid;
     }
 }

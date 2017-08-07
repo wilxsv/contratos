@@ -60,13 +60,10 @@ class AnalizadorController extends Controller
 			$incrementoObj = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(array(
 				'id'=>$incremento
 				));
-		 	$dql = "SELECT DISTINCT mc.id, mc.numeroModalidad, c.idContratoSinab, c.numeroContrato, pr.codigoProveedor, pr.nombreProveedor, p.codigoProveedor, p.nombreProducto, c.montoContrato, pc.cantidad, pc.precioUnitario, p.estadoProducto, p.idProductoSibasi
+		 	$dql = "SELECT DISTINCT  c.idContratoSinab, c.numeroContrato, p.codigoProducto, p.nombreProducto, c.montoContrato, pc.cantidad, pc.precioUnitario, p.estadoProducto, p.idProductoSibasi
 			    	FROM MinsalModeloBundle:CtlProducto p 
 					INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH  p.idProductoSibasi = pc.mtnProducto
 					INNER JOIN MinsalModeloBundle:CtlContrato c WITH  c.idContratoSinab = pc.mtnContrato
-					INNER JOIN MinsalModeloBundle:CtlProducto pr WITH  pr.idProveedorSinab = pc.mtnProveedor
-					INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH mc.id=c.numeroModalidadCompra
-					WHERE mc.id = $incremento AND pr.estadoProveedor = 4 AND p.estadoProducto = 9 
 					ORDER BY c.numeroContrato ";
 					
 			$listado = $em->createQuery($dql)->getResult();

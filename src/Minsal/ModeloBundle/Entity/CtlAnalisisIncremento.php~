@@ -30,9 +30,9 @@ class CtlAnalisisIncremento
     private $idIncremento;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="numero_compra", type="string", length=255, nullable=true)
+     * @ORM\Column(name="numero_compra", type="integer", nullable=true)
      */
     private $numeroCompra;
 
@@ -44,13 +44,6 @@ class CtlAnalisisIncremento
     private $idContrato;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="numero_contrato", type="string", length=100, nullable=true)
-     */
-    private $numeroContrato;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id_proveedor", type="integer", nullable=true)
@@ -58,25 +51,11 @@ class CtlAnalisisIncremento
     private $idProveedor;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="nombre_proveedor", type="string", length=255, nullable=true)
+     * @ORM\Column(name="id_producto", type="integer", nullable=true)
      */
-    private $nombreProveedor;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="codigo_producto", type="string", length=100, nullable=true)
-     */
-    private $codigoProducto;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_producto", type="string", length=255, nullable=true)
-     */
-    private $nombreProducto;
+    private $idProducto;
 
     /**
      * @var integer
@@ -95,9 +74,9 @@ class CtlAnalisisIncremento
     /**
      * @var string
      *
-     * @ORM\Column(name="monto_contrato_incrementado", type="decimal", precision=8, scale=2, nullable=true)
+     * @ORM\Column(name="monto_incrementado", type="decimal", precision=8, scale=2, nullable=true)
      */
-    private $montoContratoIncrementado;
+    private $montoIncrementado;
 
     /**
      * @var string

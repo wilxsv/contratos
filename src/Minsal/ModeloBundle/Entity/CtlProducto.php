@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="id_sinab", columns={"id_producto_sibasi"})}, indexes={@ORM\Index(name="fki_um", columns={"unidad_medida_producto"})})
+ * @ORM\Table(name="ctl_producto", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_producto_id_producto_sinab_key", columns={"id_producto_sinab"})}, indexes={@ORM\Index(name="fki_producto_unidad_medida", columns={"unidad_medida_producto"}), @ORM\Index(name="fki_esta_prod", columns={"estado_producto"}), @ORM\Index(name="fki_producto_establecimiento", columns={"establecimiento_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
@@ -25,37 +25,23 @@ class CtlProducto
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_producto", type="string", length=50, nullable=false)
+     * @ORM\Column(name="codigo_producto", type="string", length=50, nullable=true)
      */
     private $codigoProducto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_producto", type="string", length=1000, nullable=false)
+     * @ORM\Column(name="nombre_producto", type="string", length=1000, nullable=true)
      */
     private $nombreProducto;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_producto_sibasi", type="integer", nullable=false)
+     * @ORM\Column(name="id_producto_sinab", type="integer", nullable=true)
      */
-    private $idProductoSibasi;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="estado_producto", type="integer", nullable=true)
-     */
-    private $estadoProducto;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_establecimiento_sinab", type="integer", nullable=true)
-     */
-    private $idEstablecimientoSinab;
+    private $idProductoSinab;
 
     /**
      * @var \CtlUnidadMedida
@@ -66,6 +52,26 @@ class CtlProducto
      * })
      */
     private $unidadMedidaProducto;
+
+    /**
+     * @var \CtlEstados
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstados")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estado_producto", referencedColumnName="id")
+     * })
+     */
+    private $estadoProducto;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento_producto", referencedColumnName="id")
+     * })
+     */
+    private $establecimientoProducto;
 
 
 
@@ -128,75 +134,27 @@ class CtlProducto
     }
 
     /**
-     * Set idProductoSibasi
+     * Set idProductoSinab
      *
-     * @param integer $idProductoSibasi
+     * @param integer $idProductoSinab
      *
      * @return CtlProducto
      */
-    public function setIdProductoSibasi($idProductoSibasi)
+    public function setIdProductoSinab($idProductoSinab)
     {
-        $this->idProductoSibasi = $idProductoSibasi;
+        $this->idProductoSinab = $idProductoSinab;
 
         return $this;
     }
 
     /**
-     * Get idProductoSibasi
+     * Get idProductoSinab
      *
      * @return integer
      */
-    public function getIdProductoSibasi()
+    public function getIdProductoSinab()
     {
-        return $this->idProductoSibasi;
-    }
-
-    /**
-     * Set estadoProducto
-     *
-     * @param integer $estadoProducto
-     *
-     * @return CtlProducto
-     */
-    public function setEstadoProducto($estadoProducto)
-    {
-        $this->estadoProducto = $estadoProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get estadoProducto
-     *
-     * @return integer
-     */
-    public function getEstadoProducto()
-    {
-        return $this->estadoProducto;
-    }
-
-    /**
-     * Set idEstablecimientoSinab
-     *
-     * @param integer $idEstablecimientoSinab
-     *
-     * @return CtlProducto
-     */
-    public function setIdEstablecimientoSinab($idEstablecimientoSinab)
-    {
-        $this->idEstablecimientoSinab = $idEstablecimientoSinab;
-
-        return $this;
-    }
-
-    /**
-     * Get idEstablecimientoSinab
-     *
-     * @return integer
-     */
-    public function getIdEstablecimientoSinab()
-    {
-        return $this->idEstablecimientoSinab;
+        return $this->idProductoSinab;
     }
 
     /**
@@ -221,5 +179,53 @@ class CtlProducto
     public function getUnidadMedidaProducto()
     {
         return $this->unidadMedidaProducto;
+    }
+
+    /**
+     * Set estadoProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setEstadoProducto(\Minsal\ModeloBundle\Entity\CtlEstados $estadoProducto = null)
+    {
+        $this->estadoProducto = $estadoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstados
+     */
+    public function getEstadoProducto()
+    {
+        return $this->estadoProducto;
+    }
+
+    /**
+     * Set establecimientoProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setEstablecimientoProducto(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto = null)
+    {
+        $this->establecimientoProducto = $establecimientoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimientoProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
+     */
+    public function getEstablecimientoProducto()
+    {
+        return $this->establecimientoProducto;
     }
 }

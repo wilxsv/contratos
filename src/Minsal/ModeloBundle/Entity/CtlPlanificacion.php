@@ -25,14 +25,14 @@ class CtlPlanificacion
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_programacion", type="integer", nullable=true)
+     * @ORM\Column(name="id_programacion_sinab", type="integer", nullable=true)
      */
-    private $idProgramacion;
+    private $idProgramacionSinab;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion_programacion", type="string", length=500, nullable=true)
+     * @ORM\Column(name="descripcion_programacion", type="string", length=255, nullable=true)
      */
     private $descripcionProgramacion;
 
@@ -49,27 +49,27 @@ class CtlPlanificacion
     }
 
     /**
-     * Set idProgramacion
+     * Set idProgramacionSinab
      *
-     * @param integer $idProgramacion
+     * @param integer $idProgramacionSinab
      *
      * @return CtlPlanificacion
      */
-    public function setIdProgramacion($idProgramacion)
+    public function setIdProgramacionSinab($idProgramacionSinab)
     {
-        $this->idProgramacion = $idProgramacion;
+        $this->idProgramacionSinab = $idProgramacionSinab;
 
         return $this;
     }
 
     /**
-     * Get idProgramacion
+     * Get idProgramacionSinab
      *
      * @return integer
      */
-    public function getIdProgramacion()
+    public function getIdProgramacionSinab()
     {
-        return $this->idProgramacion;
+        return $this->idProgramacionSinab;
     }
 
     /**

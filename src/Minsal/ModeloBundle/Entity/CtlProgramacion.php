@@ -25,9 +25,9 @@ class CtlProgramacion
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_programacion", type="integer", nullable=true)
+     * @ORM\Column(name="id_programacion_sinab", type="integer", nullable=true)
      */
-    private $idProgramacion;
+    private $idProgramacionSinab;
 
     /**
      * @var string
@@ -49,27 +49,27 @@ class CtlProgramacion
     }
 
     /**
-     * Set idProgramacion
+     * Set idProgramacionSinab
      *
-     * @param integer $idProgramacion
+     * @param integer $idProgramacionSinab
      *
      * @return CtlProgramacion
      */
-    public function setIdProgramacion($idProgramacion)
+    public function setIdProgramacionSinab($idProgramacionSinab)
     {
-        $this->idProgramacion = $idProgramacion;
+        $this->idProgramacionSinab = $idProgramacionSinab;
 
         return $this;
     }
 
     /**
-     * Get idProgramacion
+     * Get idProgramacionSinab
      *
      * @return integer
      */
-    public function getIdProgramacion()
+    public function getIdProgramacionSinab()
     {
-        return $this->idProgramacion;
+        return $this->idProgramacionSinab;
     }
 
     /**

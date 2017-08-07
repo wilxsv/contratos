@@ -30,9 +30,9 @@ class CtlAnalisisIncremento
     private $idIncremento;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="numero_compra", type="string", length=255, nullable=true)
+     * @ORM\Column(name="numero_compra", type="integer", nullable=true)
      */
     private $numeroCompra;
 
@@ -44,13 +44,6 @@ class CtlAnalisisIncremento
     private $idContrato;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="numero_contrato", type="string", length=100, nullable=true)
-     */
-    private $numeroContrato;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id_proveedor", type="integer", nullable=true)
@@ -58,25 +51,11 @@ class CtlAnalisisIncremento
     private $idProveedor;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="nombre_proveedor", type="string", length=255, nullable=true)
+     * @ORM\Column(name="id_producto", type="integer", nullable=true)
      */
-    private $nombreProveedor;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="codigo_producto", type="string", length=100, nullable=true)
-     */
-    private $codigoProducto;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre_producto", type="string", length=255, nullable=true)
-     */
-    private $nombreProducto;
+    private $idProducto;
 
     /**
      * @var integer
@@ -95,9 +74,9 @@ class CtlAnalisisIncremento
     /**
      * @var string
      *
-     * @ORM\Column(name="monto_contrato_incrementado", type="decimal", precision=8, scale=2, nullable=true)
+     * @ORM\Column(name="monto_incrementado", type="decimal", precision=8, scale=2, nullable=true)
      */
-    private $montoContratoIncrementado;
+    private $montoIncrementado;
 
     /**
      * @var string
@@ -145,7 +124,7 @@ class CtlAnalisisIncremento
     /**
      * Set numeroCompra
      *
-     * @param string $numeroCompra
+     * @param integer $numeroCompra
      *
      * @return CtlAnalisisIncremento
      */
@@ -159,7 +138,7 @@ class CtlAnalisisIncremento
     /**
      * Get numeroCompra
      *
-     * @return string
+     * @return integer
      */
     public function getNumeroCompra()
     {
@@ -191,30 +170,6 @@ class CtlAnalisisIncremento
     }
 
     /**
-     * Set numeroContrato
-     *
-     * @param string $numeroContrato
-     *
-     * @return CtlAnalisisIncremento
-     */
-    public function setNumeroContrato($numeroContrato)
-    {
-        $this->numeroContrato = $numeroContrato;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroContrato
-     *
-     * @return string
-     */
-    public function getNumeroContrato()
-    {
-        return $this->numeroContrato;
-    }
-
-    /**
      * Set idProveedor
      *
      * @param integer $idProveedor
@@ -239,75 +194,27 @@ class CtlAnalisisIncremento
     }
 
     /**
-     * Set nombreProveedor
+     * Set idProducto
      *
-     * @param string $nombreProveedor
+     * @param integer $idProducto
      *
      * @return CtlAnalisisIncremento
      */
-    public function setNombreProveedor($nombreProveedor)
+    public function setIdProducto($idProducto)
     {
-        $this->nombreProveedor = $nombreProveedor;
+        $this->idProducto = $idProducto;
 
         return $this;
     }
 
     /**
-     * Get nombreProveedor
+     * Get idProducto
      *
-     * @return string
+     * @return integer
      */
-    public function getNombreProveedor()
+    public function getIdProducto()
     {
-        return $this->nombreProveedor;
-    }
-
-    /**
-     * Set codigoProducto
-     *
-     * @param string $codigoProducto
-     *
-     * @return CtlAnalisisIncremento
-     */
-    public function setCodigoProducto($codigoProducto)
-    {
-        $this->codigoProducto = $codigoProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get codigoProducto
-     *
-     * @return string
-     */
-    public function getCodigoProducto()
-    {
-        return $this->codigoProducto;
-    }
-
-    /**
-     * Set nombreProducto
-     *
-     * @param string $nombreProducto
-     *
-     * @return CtlAnalisisIncremento
-     */
-    public function setNombreProducto($nombreProducto)
-    {
-        $this->nombreProducto = $nombreProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get nombreProducto
-     *
-     * @return string
-     */
-    public function getNombreProducto()
-    {
-        return $this->nombreProducto;
+        return $this->idProducto;
     }
 
     /**
@@ -359,27 +266,27 @@ class CtlAnalisisIncremento
     }
 
     /**
-     * Set montoContratoIncrementado
+     * Set montoIncrementado
      *
-     * @param string $montoContratoIncrementado
+     * @param string $montoIncrementado
      *
      * @return CtlAnalisisIncremento
      */
-    public function setMontoContratoIncrementado($montoContratoIncrementado)
+    public function setMontoIncrementado($montoIncrementado)
     {
-        $this->montoContratoIncrementado = $montoContratoIncrementado;
+        $this->montoIncrementado = $montoIncrementado;
 
         return $this;
     }
 
     /**
-     * Get montoContratoIncrementado
+     * Get montoIncrementado
      *
      * @return string
      */
-    public function getMontoContratoIncrementado()
+    public function getMontoIncrementado()
     {
-        return $this->montoContratoIncrementado;
+        return $this->montoIncrementado;
     }
 
     /**

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProveedor
  *
- * @ORM\Table(name="ctl_proveedor", uniqueConstraints={@ORM\UniqueConstraint(name="uniq_sinab", columns={"id_proveedor_sinab"})})
+ * @ORM\Table(name="ctl_proveedor", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_proveedor_id_proveedor_sinab_key", columns={"id_proveedor_sinab"})})
  * @ORM\Entity
  */
 class CtlProveedor
@@ -25,14 +25,14 @@ class CtlProveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_proveedor", type="string", length=50, nullable=false)
+     * @ORM\Column(name="codigo_proveedor", type="string", length=50, nullable=true)
      */
     private $codigoProveedor;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_proveedor", type="string", length=255, nullable=false)
+     * @ORM\Column(name="nombre_proveedor", type="string", length=255, nullable=true)
      */
     private $nombreProveedor;
 
@@ -46,14 +46,14 @@ class CtlProveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="nit", type="string", length=255, nullable=true)
+     * @ORM\Column(name="nit", type="string", length=100, nullable=true)
      */
     private $nit;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_proveedor_sinab", type="integer", nullable=false)
+     * @ORM\Column(name="id_proveedor_sinab", type="integer", nullable=true)
      */
     private $idProveedorSinab;
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlEstablecimiento
  *
- * @ORM\Table(name="ctl_establecimiento", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_establecimiento_id_key", columns={"establecimiento_id"}), @ORM\UniqueConstraint(name="idsinab", columns={"id_establecimiento_sinab"})}, indexes={@ORM\Index(name="idx_332bd42c66617f31", columns={"establecimiento_id_almacen"})})
+ * @ORM\Table(name="ctl_establecimiento")
  * @ORM\Entity
  */
 class CtlEstablecimiento
@@ -15,54 +15,37 @@ class CtlEstablecimiento
     /**
      * @var integer
      *
-     * @ORM\Column(name="establecimiento_id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="ctl_establecimiento_establecimiento_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="ctl_establecimiento_id_seq", allocationSize=1, initialValue=1)
      */
-    private $establecimientoId;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_establecimiento", type="string", length=50, nullable=false)
+     * @ORM\Column(name="codigo_establecimiento", type="string", length=100, nullable=true)
      */
     private $codigoEstablecimiento;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_establecimiento", type="string", length=100, nullable=false)
+     * @ORM\Column(name="nombre_establecimiento", type="string", length=255, nullable=true)
      */
     private $nombreEstablecimiento;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_establecimiento_sinab", type="integer", nullable=true)
-     */
-    private $idEstablecimientoSinab;
-
-    /**
-     * @var \CtlAlmacen
-     *
-     * @ORM\ManyToOne(targetEntity="CtlAlmacen")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="establecimiento_id_almacen", referencedColumnName="id")
-     * })
-     */
-    private $establecimientoAlmacen;
-
 
 
     /**
-     * Get establecimientoId
+     * Get id
      *
      * @return integer
      */
-    public function getEstablecimientoId()
+    public function getId()
     {
-        return $this->establecimientoId;
+        return $this->id;
     }
 
     /**
@@ -111,53 +94,5 @@ class CtlEstablecimiento
     public function getNombreEstablecimiento()
     {
         return $this->nombreEstablecimiento;
-    }
-
-    /**
-     * Set idEstablecimientoSinab
-     *
-     * @param integer $idEstablecimientoSinab
-     *
-     * @return CtlEstablecimiento
-     */
-    public function setIdEstablecimientoSinab($idEstablecimientoSinab)
-    {
-        $this->idEstablecimientoSinab = $idEstablecimientoSinab;
-
-        return $this;
-    }
-
-    /**
-     * Get idEstablecimientoSinab
-     *
-     * @return integer
-     */
-    public function getIdEstablecimientoSinab()
-    {
-        return $this->idEstablecimientoSinab;
-    }
-
-    /**
-     * Set establecimientoAlmacen
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen
-     *
-     * @return CtlEstablecimiento
-     */
-    public function setEstablecimientoAlmacen(\Minsal\ModeloBundle\Entity\CtlAlmacen $establecimientoAlmacen = null)
-    {
-        $this->establecimientoAlmacen = $establecimientoAlmacen;
-
-        return $this;
-    }
-
-    /**
-     * Get establecimientoAlmacen
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlAlmacen
-     */
-    public function getEstablecimientoAlmacen()
-    {
-        return $this->establecimientoAlmacen;
     }
 }

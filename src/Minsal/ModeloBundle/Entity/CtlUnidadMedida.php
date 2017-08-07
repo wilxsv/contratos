@@ -25,7 +25,7 @@ class CtlUnidadMedida
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=50, nullable=false)
+     * @ORM\Column(name="descripcion", type="string", length=50, nullable=true)
      */
     private $descripcion;
 

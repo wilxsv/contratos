@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlContrato
  *
- * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_establecimiento_sinab", columns={"id_establecimiento"}), @ORM\Index(name="fki_proveedor_sinab", columns={"contrato_proveedor"}), @ORM\Index(name="fki_proveedor_contrato", columns={"contrato_proveedor"}), @ORM\Index(name="fki_proveedor", columns={"contrato_proveedor"}), @ORM\Index(name="fki_modalidad_compra", columns={"numero_modalidad_compra"})})
+ * @ORM\Table(name="ctl_contrato", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_contrato_id_contrato_sinab_key", columns={"id_contrato_sinab"})}, indexes={@ORM\Index(name="fki_contrato_modalidad", columns={"numero_modalidad"}), @ORM\Index(name="fki_contrato_establecimiento", columns={"establecimiento"})})
  * @ORM\Entity
  */
 class CtlContrato
@@ -23,30 +23,9 @@ class CtlContrato
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="numero_modalidad_compra", type="integer", nullable=true)
-     */
-    private $numeroModalidadCompra;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="contrato_proveedor", type="integer", nullable=true)
-     */
-    private $contratoProveedor;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_establecimiento", type="integer", nullable=true)
-     */
-    private $idEstablecimiento;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="monto_contrato", type="decimal", precision=16, scale=2, nullable=true)
+     * @ORM\Column(name="monto_contrato", type="decimal", precision=8, scale=2, nullable=true)
      */
     private $montoContrato;
 
@@ -60,9 +39,29 @@ class CtlContrato
     /**
      * @var string
      *
-     * @ORM\Column(name="numero_contrato", type="string", nullable=true)
+     * @ORM\Column(name="numero_contrato", type="string", length=50, nullable=true)
      */
     private $numeroContrato;
+
+    /**
+     * @var \CtlModalidadCompra
+     *
+     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="numero_modalidad", referencedColumnName="id")
+     * })
+     */
+    private $numeroModalidad;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="establecimiento", referencedColumnName="id")
+     * })
+     */
+    private $establecimiento;
 
 
 
@@ -74,78 +73,6 @@ class CtlContrato
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set numeroModalidadCompra
-     *
-     * @param integer $numeroModalidadCompra
-     *
-     * @return CtlContrato
-     */
-    public function setNumeroModalidadCompra($numeroModalidadCompra)
-    {
-        $this->numeroModalidadCompra = $numeroModalidadCompra;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroModalidadCompra
-     *
-     * @return integer
-     */
-    public function getNumeroModalidadCompra()
-    {
-        return $this->numeroModalidadCompra;
-    }
-
-    /**
-     * Set contratoProveedor
-     *
-     * @param integer $contratoProveedor
-     *
-     * @return CtlContrato
-     */
-    public function setContratoProveedor($contratoProveedor)
-    {
-        $this->contratoProveedor = $contratoProveedor;
-
-        return $this;
-    }
-
-    /**
-     * Get contratoProveedor
-     *
-     * @return integer
-     */
-    public function getContratoProveedor()
-    {
-        return $this->contratoProveedor;
-    }
-
-    /**
-     * Set idEstablecimiento
-     *
-     * @param integer $idEstablecimiento
-     *
-     * @return CtlContrato
-     */
-    public function setIdEstablecimiento($idEstablecimiento)
-    {
-        $this->idEstablecimiento = $idEstablecimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get idEstablecimiento
-     *
-     * @return integer
-     */
-    public function getIdEstablecimiento()
-    {
-        return $this->idEstablecimiento;
     }
 
     /**
@@ -218,5 +145,53 @@ class CtlContrato
     public function getNumeroContrato()
     {
         return $this->numeroContrato;
+    }
+
+    /**
+     * Set numeroModalidad
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidad
+     *
+     * @return CtlContrato
+     */
+    public function setNumeroModalidad(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidad = null)
+    {
+        $this->numeroModalidad = $numeroModalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroModalidad
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
+     */
+    public function getNumeroModalidad()
+    {
+        return $this->numeroModalidad;
+    }
+
+    /**
+     * Set establecimiento
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimiento
+     *
+     * @return CtlContrato
+     */
+    public function setEstablecimiento(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimiento = null)
+    {
+        $this->establecimiento = $establecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimiento
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
     }
 }
