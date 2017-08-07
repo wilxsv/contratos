@@ -40,20 +40,20 @@ class UaciController extends Controller
 
 		$compra = "SELECT  mc.numeroModalidad,mc.id
         				  FROM MinsalModeloBundle:CtlModalidadCompra mc
-        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.incrementoModalidadCompra
+        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.numeroModalidadCompra
         				  WHERE inc.id = $cod ";
         $objcompra = $em->createQuery($compra)->getResult();
         foreach ($objcompra as $ob) {
         	$numerocompra = $ob["id"];
         }
 
-		$dql = "SELECT DISTINCT c.id,pr.idProveedorSinab, pr.nit, pr.nombreProveedor, c.numeroContrato, pr.estadoProveedor
+		$dql = "SELECT DISTINCT c.id as contrato ,pr.id as proveedor, pr.nit, pr.nombreProveedor, c.numeroContrato, pr.estadoProveedor
 		FROM MinsalModeloBundle:CtlContrato c
-		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.idContratoSinab = pc.mtnContrato
-		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.idProveedorSinab
-		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
-		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.idProductoSibasi
-		WHERE mc.id = $numerocompra AND pc.mtnProveedor=c.contratoProveedor ORDER BY c.numeroContrato ";
+		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
+		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.idProveedor = pr.id
+		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
+		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
+		WHERE mc.id = $numerocompra AND pc.mtnProveedor=c.idProveedor ORDER BY c.numeroContrato ";
 
 		
 
@@ -84,7 +84,7 @@ class UaciController extends Controller
 			$idSinab = $proveedor['proveedor']; 
 			$em = $this->getDoctrine()->getManager(); //Invocamos el manejador de entidades
 			
-		$dql = "UPDATE MinsalModeloBundle:CtlProveedor p SET p.estadoProveedor = $estado WHERE p.idProveedorSinab = $idSinab ";
+		$dql = "UPDATE MinsalModeloBundle:CtlProveedor p SET p.estadoProveedor = $estado WHERE p.id = $idSinab ";
 		$em->createQuery( $dql )->getResult();
 			
 		}
@@ -94,7 +94,7 @@ class UaciController extends Controller
 			$qb = $em->createQueryBuilder();
 			$q = $qb->update('MinsalModeloBundle:CtlIncremento', 'i')
         	->set('i.estadoIncremento', $qb->expr()->literal($estadoIncremento))
-        	->where('i.incrementoModalidadCompra = ?1')
+        	->where('i.numeroModalidadCompra = ?1')
         	->setParameter(1, $licitacion)
         	->getQuery();
 			$p = $q->execute();
