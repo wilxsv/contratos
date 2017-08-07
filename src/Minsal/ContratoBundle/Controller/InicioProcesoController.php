@@ -151,7 +151,7 @@ function cargarContratos($em)
     $respuesta = json_decode($curl_response,true);
         foreach ($respuesta['respuesta'] as $pr ) {
           $rsm = new ResultSetMapping();
-          $query = $em->createNativeQuery('INSERT INTO ctl_programacion(
+          $query = $em->createNativeQuery('INSERT INTO ctl_planificacion(
             id, descripcion_programacion)
     VALUES (?, ?);', $rsm);
             $query->setParameter(1, $pr["0"]);
@@ -250,7 +250,12 @@ class InicioProcesoController extends Controller
     //cargarProveedores($em); 
     //cargarContratos($em);
     //cargarProgramaciones($em);
+<<<<<<< HEAD
     //cargarPlanificaciones($em);
+=======
+    cargarPlanificaciones($em);
+    //=============hasta aqui esta listo
+>>>>>>> 20425159f729887dce59b1e045aef06bde051259
     //cargarUnidades($em);
     //cargarProductos($em);
     cargarproductoContrato($em);
