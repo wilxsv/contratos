@@ -111,6 +111,11 @@ class AnalizadorController extends Controller
      	));
 		}
 
+		public function analizadorProrrogaAction()
+		{
+			return $this->render('MinsalPlantillaBundle:Analizador:prorroga.html.twig');
+		}
+
 }
 
 
