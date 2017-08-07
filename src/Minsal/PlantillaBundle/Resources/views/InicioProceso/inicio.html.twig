@@ -50,7 +50,7 @@
                             </select>
                         </div>
                     </div>
-                    <button id="Incremento" class="btn btn-success">Iniciar Incremento</button>
+                    <a id="Incremento" class="btn btn-success">Iniciar Incremento</a>
                 </form>
             </div>
             {# FIN DEL FORMULARIO DE INCREMENRO #}
@@ -124,9 +124,9 @@
                             {% for incremento in incrementos %}
                                 <tr class="info">
                                     <td>{{ incremento.id }}</td>
-                                        <td>{{ incremento.incrementoModalidadCompra.numeroModalidad }}</td>
+                                        <td>{{ incremento.numeroModalidadCompra.numeroModalidad }}</td>
                                     <td>{{ incremento.fechaCreacion|date("d/m/Y") }}</td>
-                                    <td>{{ incremento.estimacion.descripcionProgramacion }}</td>
+                                    <td>{{ incremento.estimacion.id }}</td>
                                     <td>{{ incremento.estadoIncremento.descripcionEstado }}</td>
                                     <td>{% if incremento.estadoIncremento.id == 1 %}
                                         aun no puede continuar el proceso

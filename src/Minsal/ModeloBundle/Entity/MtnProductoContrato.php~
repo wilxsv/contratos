@@ -32,7 +32,7 @@ class MtnProductoContrato
     /**
      * @var string
      *
-     * @ORM\Column(name="cantidad", type="decimal", precision=8, scale=2, nullable=true)
+     * @ORM\Column(name="cantidad", type="decimal", precision=16, scale=4, nullable=true)
      */
     private $cantidad;
 

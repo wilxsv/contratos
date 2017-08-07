@@ -253,7 +253,7 @@ class InicioProcesoController extends Controller
     //cargarPlanificaciones($em);
     //cargarUnidades($em);
     //cargarProductos($em);
-    cargarproductoContrato($em);
+    //cargarproductoContrato($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
@@ -319,7 +319,7 @@ class InicioProcesoController extends Controller
       $cod = $request->get('cod');
       $meses = $request->get('meses');
       $estimacion = $request->get('estimacion');
-      $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(1);
+      $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneById(1);
       $incremento = new CtlIncremento();
       $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
       $incremento->setestadoIncremento($estado);
@@ -328,17 +328,24 @@ class InicioProcesoController extends Controller
 
       foreach($compra as $com)
       {
-        $incremento->setIncrementoModalidadCompra($com);
+        $incremento->setNumeroModalidadCompra($com);
        }
+       $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findOneById($estimacion);
+      
+         $incremento->setEstimacion($programacion);
+       
 
-      $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->find($estimacion);
+      
       //Se asignac la estimacion al incremento
-      $incremento->setEstimacion($programacion);
+      
       //Se persisten los datos        
-      $em->persist($incremento);
-      $em->flush($incremento);
-
-      return new Response('Incremento Creado, Por favor espere la depuracion de proveedores');
+      
+      if ($incremento != null) {
+        $em->persist($incremento);
+        $em->flush($incremento);
+        return new Response('Incremento Creado, Por favor espere la depuracion de proveedores');
+      }
+      
     
 
 
