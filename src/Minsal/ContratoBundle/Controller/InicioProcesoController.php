@@ -290,7 +290,7 @@ class InicioProcesoController extends Controller
         //Obtenemos los valores que nos interesan
         $cod = $request->get('cod');
         $planificacion = $request->get('planificacion');
-        $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->find(6);
+        $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneById(6);
         $prorroga = new CtlProrroga();
         $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
         $prorroga->setEstadoProrroga($estado);
@@ -301,7 +301,7 @@ class InicioProcesoController extends Controller
           $prorroga->setProrrogaModalidadCompra($com);
         }
 
-        $programacion = $em->getRepository('MinsalModeloBundle:CtlPlanificacion')->find($planificacion);
+        $programacion = $em->getRepository('MinsalModeloBundle:CtlPlanificacion')->findOneById($planificacion);
         //Se asigna la planificacion a la prorroga
         $prorroga->setPlanificacion($programacion);
 
