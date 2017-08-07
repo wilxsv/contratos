@@ -196,7 +196,7 @@ function cargarProductos($em){
             
             $query->setParameter(3, $p["1"]);
             $query->setParameter(4, $p["2"]);
-            $query->setParameter(5, 6);
+            $query->setParameter(5, 9);
             $query->setParameter(6, $p["4"]);
             $query->getResult();
         }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProrroga
  *
- * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="fki_estad_pro", columns={"estado_prorroga"}), @ORM\Index(name="IDX_337125A911B7B911", columns={"prorroga_modalidad_compra"})})
+ * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="fki_estad_pro", columns={"estado_prorroga"}), @ORM\Index(name="idx_337125a911b7b911", columns={"prorroga_modalidad_compra"})})
  * @ORM\Entity
  */
 class CtlProrroga

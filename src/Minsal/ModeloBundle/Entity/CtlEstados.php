@@ -30,38 +30,5 @@ class CtlEstados
     private $descripcionEstado;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set descripcionEstado
-     *
-     * @param string $descripcionEstado
-     *
-     * @return CtlEstados
-     */
-    public function setDescripcionEstado($descripcionEstado)
-    {
-        $this->descripcionEstado = $descripcionEstado;
-
-        return $this;
-    }
-
-    /**
-     * Get descripcionEstado
-     *
-     * @return string
-     */
-    public function getDescripcionEstado()
-    {
-        return $this->descripcionEstado;
-    }
 }
+
