@@ -31,6 +31,7 @@
 	                </thead>
 	                <tbody>
 	                    {% for contrato in contratos %}
+	                    		{% if contrato.estadoProveedor == 5 %}
 	                    		<tr>
 		                    		<td>{{contrato.id}}</td>
 		                    		<td>{{contrato.numeroContrato}}</td>
@@ -38,6 +39,7 @@
 		                    		<td>{{contrato.nit}}</td>
 		                    		<td><a href="{{ path('minsal_contrato_depuracion_medicamentos',{ 'incremento': incremento,'contrato':contrato.id, 'proveedor':contrato.idProveedor }) }}" class="btn btn-info">Depurar</a></td>
 	                    		</tr>
+	                    		{% endif %}
 	                    {% endfor %}
 	                </tbody>
 	            </table>

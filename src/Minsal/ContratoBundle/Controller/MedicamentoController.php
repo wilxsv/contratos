@@ -39,8 +39,10 @@ class MedicamentoController extends Controller
 	        				  WHERE inc.id = $incremento ";
 	        $objcompra = $em->createQuery($compra)->getResult();
 	        foreach ($objcompra as $ob) {
-        		$numerocompra = $ob["id"];
+        		$licitacion = $ob["numeroModalidad"];
         	}
+
+        	
 
         	//Programacion a partir del id del incremento
         	/*sql =  "SELECT p.idProgramacion FROM ctl_programacion AS p INNER JOIN ctl_incremento  AS i ON
@@ -74,7 +76,7 @@ class MedicamentoController extends Controller
 
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $objincremento
+		    	'medicamentos' => $numerocompra
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
