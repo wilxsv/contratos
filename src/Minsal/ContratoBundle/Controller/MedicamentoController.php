@@ -63,59 +63,44 @@ class MedicamentoController extends Controller
         	foreach ($objProg as $ob) {
         		$programacion = $ob["id"];
         	}
-
-			$service_url = "http://192.168.7.196:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
+        	$url = urlencode($licitacion);
+			$service_url = "http://192.168.7.196:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
 		    curl_close($curl);
-		   
-		    $resumen->setMedicamentos($curl_response);
+		    $respuesta = json_decode($curl_response,true);
+		    $resumenm = $respuesta["respuesta"];
+
+		    $listadoId = array();
+
+		    foreach ($resumenm as $p) {
+		    	array_push($listadoId, $p["0"]);
+		    }
+
+		    $qb = $em->createQueryBuilder();
+		    $qb->add('select','p')
+		    ->add('from','MinsalModeloBundle:CtlProducto p')
+		    ->add('where',$qb->expr()->in('p.id',$listadoId));
+		    $medicamentos = $qb->getQuery()->getResult();
+		    $resumen->setMedicamentos(json_encode($listadoId));
+
 		    $em->persist($resumen);
 		    $em->flush($resumen);
-
-		    //ahora renderizare los medicamentos que estan en el json guardado desde la bd
-
-		    $respuesta = json_decode($resumen->getMedicamentos(),true);
-		    $medicamentos = array();
-		    	foreach ($respuesta['respuesta'] as $obj) {
-		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
-		    			'id' => $obj["0"]
-		    		));
-		    	array_push($medicamentos, $medica);
-		    	$error;
-		    }
 		    
-
-
-
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos,
-		    	'error'=>$error
+		    	'medicamentos' => $medicamentos
 		    	));
 		}else{
-			$respuesta = json_decode($re->getMedicamentos(),true);
-		    $medicamentos = array();
-		    if ($respuesta == '') {
-		    	$error = 'vacio';
-		    	}
-		    else{
-		    	foreach ($respuesta['respuesta'] as $obj) {
-		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
-		    			'id' => $obj["0"]
-		    		));
-		    	array_push($medicamentos, $medica);
-		    	$error;
-		    }
-		    }
-		    
-		    
+			$listadoId = json_decode($re->getMedicamentos());
+			$qb = $em->createQueryBuilder();
+		    $qb->add('select','p')
+		    ->add('from','MinsalModeloBundle:CtlProducto p')
+		    ->add('where',$qb->expr()->in('p.id',$listadoId));
+		    $medicamentos = $qb->getQuery()->getResult();
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos,
-		    	'error'=>$error
-		    	));
+		    	'medicamentos' => $medicamentos));
 		}
-		 
 	   
 
 		
@@ -160,19 +145,20 @@ class MedicamentoController extends Controller
 		$em = $this->getDoctrine()->getManager();
 	    //$contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
         /*$query= $em->createQuery("SELECT c.numeroModalidadCompra,c.id,c.numeroContrato,c.idContratoSinab,c.contratoProveedor,c.idEstablecimiento FROM MinsalModeloBundle:CtlContrato c WHERE c.numeroModalidadCompra = $incremento");*/
-        $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor,c.id
-		FROM MinsalModeloBundle:CtlContrato c
-		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
-		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.id
-		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
-		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
-		WHERE mc.id = $prorroga AND pc.mtnProveedor=c.contratoProveedor ";
-        $contratos = $em->createQuery($dql)->getResult();
-	    $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(
+        $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(
 	    	array(
 	    		'prorrogaModalidadCompra'=>$prorroga
 	    		)
 	    	);
+        $numerocompra = $prorrogas->getProrrogaModalidadCompra()->getId();
+        $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor
+		FROM MinsalModeloBundle:CtlContrato c
+		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
+		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.idProveedor = pr.id
+		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
+		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
+		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.idProveedor";
+        $contratos = $em->createQuery($dql)->getResult();
 
 	   
 	    return $this->render('MinsalPlantillaBundle:Unabast:contratosProrrogas.html.twig',array(

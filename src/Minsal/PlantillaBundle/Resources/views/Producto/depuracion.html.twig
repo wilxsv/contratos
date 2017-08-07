@@ -24,16 +24,21 @@
 						<thead>
 							<tr>
 								<th>Id de medicamento</th>
+								<th>Codigo Producto</th>
 								<th>Nombre del medicamento</th>
-								<th>estado</th>
-								<th></th>
+								<th>Habilitar/Deshabilitar</th>
 							</tr>
 						</thead>
 						<tbody>
 							
-								{% if error == 'vacio' %}
-									<h2>Este Proveedor no posee medicamentos asignados a este contrato con esta estimacion</h2>
-								{% endif %}
+						{% for med in medicamentos %}
+							<tr>
+								<td>{{med.id}}</td>
+								<td>{{med.codigoProducto}}</td>
+								<td>{{med.nombreProducto}}</td>
+								<td>{{med.estadoProducto.id}}</td>
+							</tr>
+						{% endfor %}
 							
 						</tbody>
 					</table>

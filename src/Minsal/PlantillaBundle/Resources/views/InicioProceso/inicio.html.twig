@@ -151,7 +151,7 @@
                                         <td>{{ prorroga.id }}</td>
                                         <td>{{ prorroga.prorrogaModalidadCompra.numeroModalidad }}</td>
                                         <td>{{ prorroga.fechaCreacion|date("d/m/Y") }}</td>
-                                        <td>{{ prorroga.planificacion.descripcionProgramacion }}</td>
+                                        <td>{{ prorroga.planificacion }}</td>
                                         <td>{{ prorroga.estadoProrroga.descripcionEstado }}</td>
                                         <td>{% if prorroga.estadoProrroga.id == 6 %}
                                             aun no puede continuar el proceso

@@ -44,7 +44,7 @@ function cargarCompras($em)
   {
     /*--------------------Sincronizacion de compras -----------------------------------*/
 
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = 'http://192.168.7.196:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
 
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -86,7 +86,7 @@ function cargarContratos($em)
   {
     /*--------------Sincronizacion de contratos y verificacion de actualizacion------------------*/
 
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = 'http://192.168.7.196:8080/v1/sinab/procesoscompras?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -143,7 +143,7 @@ function cargarContratos($em)
 
   function cargarPlanificaciones($em){
   /*--------SINCRONIZACION DE PLANIFICACIONES-------------*/
-    $service_url = 'http://192.168.1.4:8080/v1/sinab/planificacionmedicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
+    $service_url = 'http://192.168.7.196:8080/v1/sinab/planificacionmedicamentos?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3';
     $curl = curl_init($service_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $curl_response = curl_exec($curl);
@@ -303,7 +303,7 @@ class InicioProcesoController extends Controller
 
         $programacion = $em->getRepository('MinsalModeloBundle:CtlPlanificacion')->findOneById($planificacion);
         //Se asigna la planificacion a la prorroga
-        $prorroga->setPlanificacion($programacion);
+        $prorroga->setPlanificacion($programacion->getId());
 
         $em->persist($prorroga);
         $em->flush($prorroga);
