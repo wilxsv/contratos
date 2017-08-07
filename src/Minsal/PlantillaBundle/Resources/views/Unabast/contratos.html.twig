@@ -16,7 +16,7 @@
 <div class="row" >
 	<div class="col-sm-12">
 	    <div class="white-box">
-	        <h3 class="box-title m-b-0">Compra: {{incremento.incrementoModalidadCompra.numeroModalidad}}</h3>
+	        <h3 class="box-title m-b-0">Compra: {{dump(incremento)}}</h3>
 	        <p class="text-muted m-b-30">Lista de Contratos</p>
 	        <div class="table-responsive">
 	            <table id="myTable" class="table table-striped">
@@ -36,8 +36,8 @@
 		                    		<td>{{contrato.numeroContrato}}</td>
 		                    		<td>{{contrato.nombreProveedor}}</td>
 		                    		<td>{{contrato.nit}}</td>
-		                    		
-		                    		<td><a href="{{ path('minsal_contrato_depuracion_medicamentos',{ 'incremento': incremento.incrementoModalidadCompra.id,'contrato':contrato.id, 'proveedor':contrato.idProveedor }) }}" class="btn btn-info">Depurar</a></td>
+		                    		<td></td>
+		                    		{# <td><a href="{{ path('minsal_contrato_depuracion_medicamentos',{ 'incremento': incremento.incrementoModalidadCompra.id,'contrato':contrato.id, 'proveedor':contrato.idProveedor }) }}" class="btn btn-info">Depurar</a></td> #}
 	                    		</tr>
 	                    {% endfor %}
 	                </tbody>
@@ -61,7 +61,7 @@
 
 	function paramsEstado(){
 		var estado = 5;
-		var incrementoID = '{{ incremento.id }}';
+		var incrementoID = 1;
 		var url = "{{ path('minsal_contrato_cambiar_estado') }}";
 		$.ajax({
 			url: url,
