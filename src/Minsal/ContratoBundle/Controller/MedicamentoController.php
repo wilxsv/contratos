@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Minsal\ModeloBundle\Entity\MtnMedicamentoIncremento;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 
 
@@ -15,6 +16,9 @@ class MedicamentoController extends Controller
 {
 	public function depuracionAction($incremento,$contrato,$proveedor)
 	{	
+		//del contrato se obtiene el numero de modalidad compra
+		//del incremento se obtiene la programacion
+		//del proveedor pues se obtiene el proveedor :)
 		$em = $this->getDoctrine()->getManager();
 		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoIncremento')->findOneBy(array(
 			'incrementoid'=>$incremento,'contratoid'=>$contrato
@@ -23,14 +27,15 @@ class MedicamentoController extends Controller
 			$resumen = new MtnMedicamentoIncremento();
 	    	$resumen->setIncrementoId($incremento);
 	    	$resumen->setContratoId($contrato);
-/*
-			$increment = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(array(
-			'id'=>$incremento
-				));*/
-			$programacion= $incremento;
-			
-			$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&contrato={$contrato}&proveedor={$proveedor}";
-		    $curl = curl_init($service_url);
+
+
+	    	$programacion = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneById($incremento);
+	    	$proveedor='1';
+	    	$licitacion='1';
+
+
+			//$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
+		    /*$curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
 		    curl_close($curl);
@@ -48,16 +53,17 @@ class MedicamentoController extends Controller
 		    			'idProductoSibasi' => $obj["1"]
 		    		));
 		    	array_push($medicamentos, $medica);
-		    }
+		    }*/
 
 
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos, 'incremento' =>$service_url,
+		    	'medicamentos' => $programacion
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
 		    $medicamentos = array();
+		    //para pruebas
 		    foreach ($respuesta['respuesta'] as $obj) {
 		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
 		    			'idProductoSibasi' => $obj["1"]
