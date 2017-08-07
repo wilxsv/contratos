@@ -89,20 +89,21 @@ class MedicamentoController extends Controller
 
         //obtener el objeto incremento  apartir del id
 
-        ;
+        
+
         //compra a partir del id guardado en incremento tienen que ser con sqlnative
         /*sql = "SELECT numero_modalidad 
         		FROM ctl_modalidad_compra as mc 
         		INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id 
         		WHERE i.id = $incremento" */
 
-        $compra = "SELECT mc.id
+        $compra = "SELECT  mc.numeroModalidad,mc.id
         				  FROM MinsalModeloBundle:CtlModalidadCompra mc
         				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.incrementoModalidadCompra
         				  WHERE inc.id = $incremento ";
         $objcompra = $em->createQuery($compra)->getResult();
-        foreach ($objcompra[0] as $ob) {
-        	$numerocompra = $ob;
+        foreach ($objcompra as $ob) {
+        	$numerocompra = $ob["id"];
         }
 
         $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor,c.idContratoSinab
@@ -113,16 +114,12 @@ class MedicamentoController extends Controller
 		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.idProductoSibasi
 		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.contratoProveedor ";
         $contratos = $em->createQuery($dql)->getResult();
-	    $incrementos = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(
-	    	array(
-	    		'incrementoModalidadCompra'=>$incremento
-	    		)
-	    	);
 
 	   
 	    return $this->render('MinsalPlantillaBundle:Unabast:contratos.html.twig',array(
 	    	'contratos' => $contratos,
-	    	'incremento' => $dql
+	    	'compra' => $objcompra,
+	    	'incremento'=>$incremento
 	    	));
 	}
 
