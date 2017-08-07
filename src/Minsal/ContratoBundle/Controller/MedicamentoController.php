@@ -57,12 +57,12 @@ class MedicamentoController extends Controller
         			 WHERE inc.id = $incremento ";
 
         	$objProg = $em->createQuery($pdql)->getResult();
-        	foreach ($objcompra as $ob) {
+        	foreach ($objProg as $ob) {
         		$programacion = $ob["idProgramacion"];
         	}
 
-			//$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
-		    /*$curl = curl_init($service_url);
+			$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
+		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
 		    curl_close($curl);
@@ -77,23 +77,22 @@ class MedicamentoController extends Controller
 		    $medicamentos = array();
 		    foreach ($respuesta['respuesta'] as $obj) {
 		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
-		    			'idProductoSibasi' => $obj["1"]
+		    			'idProductoSibasi' => $obj["0"]
 		    		));
 		    	array_push($medicamentos, $medica);
-		    }*/
+		    }
 
 
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $programacion
+		    	'medicamentos' => $medicamentos
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
 		    $medicamentos = array();
-		    //para pruebas
 		    foreach ($respuesta['respuesta'] as $obj) {
 		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
-		    			'idProductoSibasi' => $obj["1"]
+		    			'idProductoSibasi' => $obj["0"]
 		    		));
 		    	array_push($medicamentos, $medica);
 		    }
