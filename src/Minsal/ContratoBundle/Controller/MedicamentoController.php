@@ -43,11 +43,18 @@ class MedicamentoController extends Controller
         	}
 
         	//Programacion a partir del id del incremento
-        	/*sql =  "SELECT p.idProgramacion FROM ctl_programacion AS p INNER JOIN ctl_incremento  AS i ON
-				p.id=i.estimacion WHERE i.id = $incremento
+        	/*sql =  "SELECT p.idProgramacion 
+        			  FROM ctl_programacion AS p 
+        			  INNER JOIN ctl_incremento  AS i ON p.id=i.estimacion WHERE i.id = $incremento
         	"*/
 
         	//AQUI HACELA
+
+        	$pdql = "SELECT  p.idProgramacion
+        			 FROM MinsalModeloBundle:CtlProgramacion p
+        			 INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH inc.estimacion = p.id
+        			 WHERE inc.id = $incremento ";
+
 
 
 			//$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
