@@ -27,11 +27,27 @@ class MedicamentoController extends Controller
 			$resumen = new MtnMedicamentoIncremento();
 	    	$resumen->setIncrementoId($incremento);
 	    	$resumen->setContratoId($contrato);
+	    	//compra a partir del id guardado en incremento tienen que ser con sqlnative
+	        /*sql = "SELECT numero_modalidad 
+	        		FROM ctl_modalidad_compra as mc 
+	        		INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id 
+	        		WHERE i.id = $incremento" */
 
+	        $compra = "SELECT  mc.numeroModalidad,mc.id
+	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
+	        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.incrementoModalidadCompra
+	        				  WHERE inc.id = $incremento ";
+	        $objcompra = $em->createQuery($compra)->getResult();
+	        foreach ($objcompra as $ob) {
+        		$numerocompra = $ob["id"];
+        	}
 
-	    	$programacion = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneById($incremento);
-	    	$proveedor='1';
-	    	$licitacion='1';
+        	//Programacion a partir del id del incremento
+        	/*sql =  "SELECT p.idProgramacion FROM ctl_programacion AS p INNER JOIN ctl_incremento  AS i ON
+				p.id=i.estimacion WHERE i.id = $incremento
+        	"*/
+
+        	//AQUI HACELA
 
 
 			//$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
@@ -58,7 +74,7 @@ class MedicamentoController extends Controller
 
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $programacion
+		    	'medicamentos' => $objincremento
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
@@ -83,14 +99,6 @@ class MedicamentoController extends Controller
 	public function listadoAction($incremento)
 	{	
 		$em = $this->getDoctrine()->getManager();
-	    //$contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
-        /*$query= $em->createQuery("SELECT c.numeroModalidadCompra,c.id,c.numeroContrato,c.idContratoSinab,c.contratoProveedor,c.idEstablecimiento FROM MinsalModeloBundle:CtlContrato c WHERE c.numeroModalidadCompra = $incremento");*/
-        //$incremento es el id del incremento no numeroModalidad
-
-        //obtener el objeto incremento  apartir del id
-
-        
-
         //compra a partir del id guardado en incremento tienen que ser con sqlnative
         /*sql = "SELECT numero_modalidad 
         		FROM ctl_modalidad_compra as mc 
