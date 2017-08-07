@@ -31,7 +31,9 @@
 						</thead>
 						<tbody>
 							
-								{{dump(medicamentos)}}
+								{% if error == 'vacio' %}
+									<h2>Este Proveedor no posee medicamentos asignados a este contrato con esta estimacion</h2>
+								{% endif %}
 							
 						</tbody>
 					</table>

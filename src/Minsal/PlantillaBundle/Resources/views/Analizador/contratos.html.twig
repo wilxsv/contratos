@@ -66,11 +66,11 @@
                             
                             <td>{{list.precioUnitario|round(2,'floor')}}</td>
                             <td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-                            <td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+                            <td><input onchange="calcular({{contador}},{{list.contrato}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
                             <td>0</td>
                         </tr>
                         {% if loop.first and loop.last %}
-                            <tr class="warning" id="fila{{list.idContratoSibasi}}">
+                            <tr class="warning" id="fila{{list.contrato}}">
                                     <td colspan="2"><b>Monto total a incrementar del contrato(20%) {{list.numeroContrato}}:</b></td>
                                     <td>0</td>
                                     <td colspan="2"><b>Monto Total del Contrato:</b></td>
@@ -91,11 +91,11 @@
                                 
                                 <td>{{list.precioUnitario|round(2,'floor')}}</td>
                                 <td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-                                <td><input onchange="calcular({{contador}},{{list.idContratoSibasi}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+                                <td><input onchange="calcular({{contador}},{{list.contrato}});" id="{{contador}}" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
                                 <td>0</td>
                             </tr>
                                 {% if loop.last %}
-                                <tr class="warning" id="fila{{list.idContratoSibasi}}">
+                                <tr class="warning" id="fila{{list.contrato}}">
                                     <td colspan="2"><b>Monto total a incrementar del contrato(20%) {{list.numeroContrato}}:</b></td>
                                     <td>0</td>
                                     <td colspan="2"><b>Monto Total del Contrato:</b></td>
@@ -106,7 +106,7 @@
                                 {% endif %}
                             
                             {% else %}
-                                <tr class="warning" id="fila{{anterior.idContratoSibasi}}">
+                                <tr class="warning" id="fila{{anterior.contrato}}">
                                     <td colspan="2"><b>Monto total a incrementar del contrato {{anterior.numeroContrato}}:</b></td>
                                     <td>0</td>
                                     <td colspan="2"><b>Monto total del Contrato:</b></td>
@@ -122,7 +122,7 @@
                                 
                                 <td>{{list.precioUnitario|round(2,'floor')}}</td>
                                 <td>{{list.cantidad * list.precioUnitario|round(2,'floor')}}</td>
-                                <td><input id="{{contador}}" onchange="calcular({{contador}},{{list.idContratoSibasi}});" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
+                                <td><input id="{{contador}}" onchange="calcular({{contador}},{{list.contrato}});" type="number" min="0" name="cantidad" style="max-width:60px;"></td>
                                 <td>0</td>
                             </tr>
                             {% endif %}
@@ -161,7 +161,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for data in dataCobertura %}
+                                    {# {% for data in dataCobertura %}
                                         <tr>
                                             <td>{{data["0"]}}</td>
                                             <td>{{data["1"]}}</td>
@@ -175,13 +175,15 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                    {% endfor %}
+                                    {% endfor %} #}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                
+                <div>
+                    <button>Guardar Incremento</button>
+                </div>
                 <div class="clearfix"></div>
             </div>
         </div>

@@ -25,7 +25,10 @@ class MedicamentoController extends Controller
 			));
 		if (is_null($re)) {
 			$resumen = new MtnMedicamentoIncremento();
-	    	$resumen->setIncrementoId($incremento);
+			$INCRE = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(array(
+				'id' => $incremento
+				));
+	    	$resumen->setIncrementoId($INCRE);
 	    	$resumen->setContratoId($contrato);
 	    	//compra a partir del id guardado en incremento tienen que ser con sqlnative
 	        /*sql = "SELECT numero_modalidad 
@@ -35,7 +38,7 @@ class MedicamentoController extends Controller
 
 	        $compra = "SELECT  mc.numeroModalidad,mc.id
 	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
-	        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.incrementoModalidadCompra
+	        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.numeroModalidadCompra
 	        				  WHERE inc.id = $incremento ";
 	        $objcompra = $em->createQuery($compra)->getResult();
 	        foreach ($objcompra as $ob) {
@@ -51,17 +54,17 @@ class MedicamentoController extends Controller
         	"*/
 
 
-        	$pdql = "SELECT  p.idProgramacion
+        	$pdql = "SELECT  p.id
         			 FROM MinsalModeloBundle:CtlProgramacion p
         			 INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH inc.estimacion = p.id
         			 WHERE inc.id = $incremento ";
 
         	$objProg = $em->createQuery($pdql)->getResult();
         	foreach ($objProg as $ob) {
-        		$programacion = $ob["idProgramacion"];
+        		$programacion = $ob["id"];
         	}
 
-			$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
+			$service_url = "http://192.168.7.196:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
@@ -75,30 +78,41 @@ class MedicamentoController extends Controller
 
 		    $respuesta = json_decode($resumen->getMedicamentos(),true);
 		    $medicamentos = array();
-		    foreach ($respuesta['respuesta'] as $obj) {
+		    if ($respuesta != '') {
+		    	foreach ($respuesta['respuesta'] as $obj) {
 		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
-		    			'idProductoSibasi' => $obj["0"]
+		    			'id' => $obj["0"]
 		    		));
 		    	array_push($medicamentos, $medica);
+		    	}
 		    }
+		    
 
 
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos
+		    	'medicamentos' => $medicamentos,
+		    	'error'=>'vacio'
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
 		    $medicamentos = array();
-		    foreach ($respuesta['respuesta'] as $obj) {
+		    if ($respuesta == '') {
+		    	
+		    	}
+		    else{
+		    	foreach ($respuesta['respuesta'] as $obj) {
 		    	$medica = $em->getRepository('MinsalModeloBundle:CtlProducto')->findOneBy(array(
-		    			'idProductoSibasi' => $obj["0"]
+		    			'id' => $obj["0"]
 		    		));
 		    	array_push($medicamentos, $medica);
 		    }
+		    }
+		    
 		    
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos
+		    	'medicamentos' => $medicamentos,
+		    	'error'=>'vacio'
 		    	));
 		}
 		 
@@ -117,20 +131,20 @@ class MedicamentoController extends Controller
 
         $compra = "SELECT  mc.numeroModalidad,mc.id
         				  FROM MinsalModeloBundle:CtlModalidadCompra mc
-        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.incrementoModalidadCompra
+        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.numeroModalidadCompra
         				  WHERE inc.id = $incremento ";
         $objcompra = $em->createQuery($compra)->getResult();
         foreach ($objcompra as $ob) {
         	$numerocompra = $ob["id"];
         }
 
-        $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor,c.idContratoSinab
+        $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor
 		FROM MinsalModeloBundle:CtlContrato c
-		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.idContratoSinab = pc.mtnContrato
-		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.idProveedorSinab
-		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
-		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.idProductoSibasi
-		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.contratoProveedor ";
+		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
+		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.idProveedor = pr.id
+		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
+		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
+		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.idProveedor ";
         $contratos = $em->createQuery($dql)->getResult();
 
 	   
@@ -146,12 +160,12 @@ class MedicamentoController extends Controller
 		$em = $this->getDoctrine()->getManager();
 	    //$contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
         /*$query= $em->createQuery("SELECT c.numeroModalidadCompra,c.id,c.numeroContrato,c.idContratoSinab,c.contratoProveedor,c.idEstablecimiento FROM MinsalModeloBundle:CtlContrato c WHERE c.numeroModalidadCompra = $incremento");*/
-        $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor,c.idContratoSinab
+        $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor,c.id
 		FROM MinsalModeloBundle:CtlContrato c
-		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.idContratoSinab = pc.mtnContrato
-		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.idProveedorSinab
+		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
+		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.contratoProveedor = pr.id
 		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidadCompra = mc.id
-		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.idProductoSibasi
+		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
 		WHERE mc.id = $prorroga AND pc.mtnProveedor=c.contratoProveedor ";
         $contratos = $em->createQuery($dql)->getResult();
 	    $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(
