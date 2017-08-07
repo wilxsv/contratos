@@ -42,9 +42,9 @@
 										
 										<td>
 											{% if incremento.estadoIncremento.id == 1 %}
-											 <a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span>Revisar</a>
+											 <a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.id, tipo:'incremento', licitacion:incremento.incrementoModalidadCompra.id }) }}"><span class="glyphicon glyphicon-eye-open"></span>Revisar</a>
 											{% elseif incremento.estadoIncremento.id == 2 %}
-												<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.id, tipo:'incremento'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
+												<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.id, tipo:'incremento', licitacion:incremento.incrementoModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 												<a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
 											{% endif %}
 										</td>
@@ -62,9 +62,9 @@
 									<td>{{ prorroga.fechaCreacion|date('d/m/Y') }}</td>
 									<td>
 										{% if prorroga.estadoProrroga.id == 6 %}
-										<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
+										<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga', licitacion:prorroga.prorrogaModalidadCompra.numeroModalidad }) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 									    {% elseif prorroga.estadoProrroga.id == 7  %}
-									    	<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga'}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
+									    	<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.prorrogaModalidadCompra.id, tipo:'prorroga', licitacion:prorroga.prorrogaModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 									    	<a href="{{ path('minsal_contrato_listado_medicamentos_prorroga',{'prorroga': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
 										{% endif %}
 									</td>

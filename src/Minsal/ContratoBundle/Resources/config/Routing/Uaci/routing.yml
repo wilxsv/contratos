@@ -3,11 +3,11 @@ minsal_contrato_listado_proceso:
     defaults: { _controller: MinsalContratoBundle:Uaci:uaciInicio }
 
 minsal_contrato_proveedores_uaci:
-    path:     /proveedoresUaci/{cod}/{tipo}
+    path:     /proveedoresUaci/{cod}/{tipo}/{licitacion}
     defaults: { _controller: MinsalContratoBundle:Uaci:proveedorUaci }
     methods: GET
-    # requirements:
-    #     "cod": ".+"
+    requirements:
+          "licitacion": ".+"
 
 minsal_contrato_estado_proveedores:
     path:       /cambiarEstado

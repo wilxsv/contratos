@@ -28,7 +28,7 @@ class UaciController extends Controller
 	}
 
 
-	public function proveedorUaciAction($cod, $tipo)
+	public function proveedorUaciAction($cod, $tipo, $licitacion)
 	{
 		/*SELECT DISTINCT PV.id_proveedor_sinab as id, PV.nit as nit, PV.nombre_proveedor as nombre, C.numero_contrato AS contrato 
 		 FROM ctl_contrato AS C 
@@ -62,7 +62,8 @@ class UaciController extends Controller
 		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
 			'proveedores'=>$proveedores,
 			'modalidad'=>$cod,
-			'tipo'=>$tipo
+			'tipo'=>$tipo,
+			'licitacion'=>$licitacion
 		));
 			
 	}
@@ -72,6 +73,7 @@ class UaciController extends Controller
 		//Obtenemos el listado de objetos
 		$parametros = $request->get('listado');
 		$idCompra = $request->get('compra');
+		$licitacion = $request->get('licitacion');
 
 		//Capturamos el tipo de proceso a guardar
 		$proceso = $request->get('proceso');
@@ -93,7 +95,7 @@ class UaciController extends Controller
 			$q = $qb->update('MinsalModeloBundle:CtlIncremento', 'i')
         	->set('i.estadoIncremento', $qb->expr()->literal($estadoIncremento))
         	->where('i.incrementoModalidadCompra = ?1')
-        	->setParameter(1, $idCompra)
+        	->setParameter(1, $licitacion)
         	->getQuery();
 			$p = $q->execute();
 		}
@@ -104,7 +106,7 @@ class UaciController extends Controller
 			$q = $qb->update('MinsalModeloBundle:CtlProrroga', 'i')
         	->set('i.estadoProrroga', $qb->expr()->literal($estadoProrroga))
         	->where('i.prorrogaModalidadCompra = ?1')
-        	->setParameter(1, $idCompra)
+        	->setParameter(1, $licitacion)
         	->getQuery();
 			$p = $q->execute();
 		}

@@ -83,7 +83,7 @@
 		var listadoProveedores = [];
 		var compra = '{{ modalidad }}';
 		var proceso = '{{ tipo }}';
-		
+		var licitacion = '{{ licitacion }}';
 
 		var url = "{{ path('minsal_contrato_estado_proveedores') }}";
 		var tabla = $('#datos tbody tr').each(function() {
@@ -107,6 +107,7 @@
 				'listado':listadoProveedores,
 				'compra':compra,
 				'proceso': proceso,
+				'licitacion': licitacion,
 			},
 			type: 'post',
 		}).done(function(data) {
