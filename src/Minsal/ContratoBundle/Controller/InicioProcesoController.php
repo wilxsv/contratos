@@ -250,12 +250,7 @@ class InicioProcesoController extends Controller
     //cargarProveedores($em); 
     //cargarContratos($em);
     //cargarProgramaciones($em);
-<<<<<<< HEAD
     //cargarPlanificaciones($em);
-=======
-    cargarPlanificaciones($em);
-    //=============hasta aqui esta listo
->>>>>>> 20425159f729887dce59b1e045aef06bde051259
     //cargarUnidades($em);
     //cargarProductos($em);
     cargarproductoContrato($em);
