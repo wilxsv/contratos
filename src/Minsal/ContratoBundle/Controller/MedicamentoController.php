@@ -50,14 +50,16 @@ class MedicamentoController extends Controller
         			  INNER JOIN ctl_incremento  AS i ON p.id=i.estimacion WHERE i.id = $incremento
         	"*/
 
-        	//AQUI HACELA
 
         	$pdql = "SELECT  p.idProgramacion
         			 FROM MinsalModeloBundle:CtlProgramacion p
         			 INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH inc.estimacion = p.id
         			 WHERE inc.id = $incremento ";
 
-
+        	$objProg = $em->createQuery($pdql)->getResult();
+        	foreach ($objcompra as $ob) {
+        		$programacion = $ob["idProgramacion"];
+        	}
 
 			//$service_url = "http://192.168.1.4:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$licitacion}&proveedor={$proveedor}";
 		    /*$curl = curl_init($service_url);
@@ -83,7 +85,7 @@ class MedicamentoController extends Controller
 
 
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $numerocompra
+		    	'medicamentos' => $programacion
 		    	));
 		}else{
 			$respuesta = json_decode($re->getMedicamentos(),true);
