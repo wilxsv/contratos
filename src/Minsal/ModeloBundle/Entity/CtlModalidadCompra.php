@@ -25,7 +25,7 @@ class CtlModalidadCompra
     /**
      * @var string
      *
-     * @ORM\Column(name="numero_modalidad", type="string", length=144, nullable=true)
+     * @ORM\Column(name="numero_modalidad", type="string", length=255, nullable=true)
      */
     private $numeroModalidad;
 

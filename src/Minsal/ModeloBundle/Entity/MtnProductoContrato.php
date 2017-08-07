@@ -25,6 +25,13 @@ class MtnProductoContrato
     /**
      * @var integer
      *
+     * @ORM\Column(name="mtn_contrato", type="integer", nullable=true)
+     */
+    private $mtnContrato;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="cantidad", type="integer", nullable=true)
      */
     private $cantidad;
@@ -45,16 +52,6 @@ class MtnProductoContrato
      * })
      */
     private $mtnProducto;
-
-    /**
-     * @var \CtlContrato
-     *
-     * @ORM\ManyToOne(targetEntity="CtlContrato")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="mtn_contrato", referencedColumnName="id")
-     * })
-     */
-    private $mtnContrato;
 
     /**
      * @var \CtlProveedor
@@ -86,6 +83,30 @@ class MtnProductoContrato
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set mtnContrato
+     *
+     * @param integer $mtnContrato
+     *
+     * @return MtnProductoContrato
+     */
+    public function setMtnContrato($mtnContrato)
+    {
+        $this->mtnContrato = $mtnContrato;
+
+        return $this;
+    }
+
+    /**
+     * Get mtnContrato
+     *
+     * @return integer
+     */
+    public function getMtnContrato()
+    {
+        return $this->mtnContrato;
     }
 
     /**
@@ -158,30 +179,6 @@ class MtnProductoContrato
     public function getMtnProducto()
     {
         return $this->mtnProducto;
-    }
-
-    /**
-     * Set mtnContrato
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlContrato $mtnContrato
-     *
-     * @return MtnProductoContrato
-     */
-    public function setMtnContrato(\Minsal\ModeloBundle\Entity\CtlContrato $mtnContrato = null)
-    {
-        $this->mtnContrato = $mtnContrato;
-
-        return $this;
-    }
-
-    /**
-     * Get mtnContrato
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlContrato
-     */
-    public function getMtnContrato()
-    {
-        return $this->mtnContrato;
     }
 
     /**

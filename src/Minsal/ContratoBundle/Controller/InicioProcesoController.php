@@ -71,17 +71,16 @@ function cargarProveedores($em){
       curl_close($curl);
       $respuesta = json_decode($curl_response,true);
       foreach ($respuesta['respuesta'] as $proveedor ) {
-        $nuevoProveedor = new CtlProveedor();
-        $nuevoProveedor->setIdProveedorSinab($proveedor["0"]);
-        $nuevoProveedor->setCodigoProveedor($proveedor["3"]);
-        $nuevoProveedor->setNombreProveedor($proveedor["1"]);
-        $nuevoProveedor->setNit($proveedor["2"]);
-        $obj = $em->getRepository('MinsalModeloBundle:CtlProveedor')->findByCodigoProveedor($proveedor["3"]);
-        if ($obj == null) {
-          $em->persist($nuevoProveedor);
-        $em->flush($nuevoProveedor);
-        }
-    }
+        $rsm = new ResultSetMapping();
+          $query = $em->createNativeQuery('INSERT INTO ctl_proveedor(id, codigo_proveedor, nombre_proveedor, estado_proveedor, nit) VALUES (?, ?, ?, ?, ?);', $rsm);
+          //ingreso de compra
+          $query->setParameter(1, $proveedor["0"]);
+          $query->setParameter(2, $proveedor["3"]);
+          $query->setParameter(3, $proveedor["1"]);
+          $query->setParameter(4, 4);
+          $query->setParameter(5, $proveedor["2"]);
+          $query->getResult();
+      }
 }
 function cargarContratos($em)
   {
@@ -93,59 +92,25 @@ function cargarContratos($em)
     $curl_response = curl_exec($curl);
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
-    $contador =0;
     foreach ($respuesta['respuesta'] as $datoNuevo) {
-          $contador = $contador+1;
-          // $nuevoContrato = new CtlContrato();
-
-          // //ingreso de numero de contrato
-          // $nuevoContrato->setNumeroContrato($datoNuevo["0"]);
-
-          // //Ingreso de proveedor
-          // $proveedorGuardar = $em->getRepository('MinsalModeloBundle:CtlProveedor')->findOneByIdProveedorSinab($datoNuevo["1"]);
-          // $nuevoContrato->setContratoProveedor($proveedorGuardar);
-
-          // //ingreso de establecimiento
-          // $establecimiento =  $em->getRepository('MinsalModeloBundle:CtlEstablecimiento')->findOneByIdEstablecimientoSinab($datoNuevo["2"]);
-          
-          // $nuevoContrato->setContratoEstablecimiento($establecimiento);
-          
-
-          // //ingreso de id
-          // $nuevoContrato->setIdContratoSinab($datoNuevo["3"]);
-          
-          // //ingreso de compra
-          // $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
-          // $nuevoContrato->setNumeroModalidadCompra($compra[0]);
-
-          // //ingreso del monto de contrato
-          // $nuevoContrato->setMontoContrato($datoNuevo["5"]);
-
-          //   $em->persist($nuevoContrato);
-          //   if($nuevoContrato->getContratoProveedor()!= null){
-          //     $em->flush($nuevoContrato);
-          //   }
-
-
-
           $rsm = new ResultSetMapping();
-          $query = $em->createNativeQuery('INSERT INTO ctl_contrato(
-            id, numero_modalidad_compra, contrato_proveedor, id_establecimiento, 
-            numero_contrato, monto_contrato, id_contrato_sinab)
-    VALUES (?, ?, ?, ?, 
-            ?, ?, ?);
-', $rsm);
+          $query = $em->createNativeQuery('INSERT INTO ctl_contrato(id, numero_modalidad, establecimiento, monto_contrato,numero_contrato,id_proveedor) VALUES (
+            ?, ?, ?, ?, ?,?);', $rsm);
           //ingreso de compra
-          $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findByNumeroModalidad($datoNuevo["4"]);
-          $query->setParameter(1, $contador);
+          $obj = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findBy(array(
+              'numeroModalidad'=>$datoNuevo["4"]
+            ));
+          if ($obj != null) {
+            $query->setParameter(1, $datoNuevo["3"]);
+          $query->setParameter(2, $obj["0"]->getId());
           
-          $query->setParameter(2, $compra[0]->getId());
-          $query->setParameter(3, $datoNuevo["1"]);
-          $query->setParameter(4, $datoNuevo["2"]);
+          $query->setParameter(3, $datoNuevo["2"]);
+          $query->setParameter(4, $datoNuevo["5"]);
           $query->setParameter(5, $datoNuevo["0"]);
-          $query->setParameter(6, $datoNuevo["5"]);
-          $query->setParameter(7, $datoNuevo["3"]);
+          $query->setParameter(6, $datoNuevo["1"]);
           $query->getResult();
+          }
+          
             
           
     }
@@ -166,14 +131,15 @@ function cargarContratos($em)
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
         foreach ($respuesta['respuesta'] as $pr ) {
-          $nuevaProgramacion = new CtlProgramacion();
-          $nuevaProgramacion->setIdProgramacion($pr["0"]);
-          $nuevaProgramacion->setDescripcionProgramacion($pr["1"]);
-
-          $em->persist($nuevaProgramacion);
-          $em->flush($nuevaProgramacion);
-        }
+          $rsm = new ResultSetMapping();
+          $query = $em->createNativeQuery('INSERT INTO ctl_programacion(
+            id, descripcion_programacion)
+    VALUES (?, ?);', $rsm);
+            $query->setParameter(1, $pr["0"]);
+          $query->setParameter(2, $pr["1"]);
+          $query->getResult();
   }
+}
 
   function cargarPlanificaciones($em){
   /*--------SINCRONIZACION DE PLANIFICACIONES-------------*/
@@ -184,11 +150,13 @@ function cargarContratos($em)
     curl_close($curl);
     $respuesta = json_decode($curl_response,true);
         foreach ($respuesta['respuesta'] as $pr ) {
-          $nuevaProgramacion = new CtlPlanificacion();
-          $nuevaProgramacion->setIdProgramacion($pr["0"]);
-          $nuevaProgramacion->setDescripcionProgramacion($pr["1"]);
-          $em->persist($nuevaProgramacion);
-          $em->flush($nuevaProgramacion);
+          $rsm = new ResultSetMapping();
+          $query = $em->createNativeQuery('INSERT INTO ctl_programacion(
+            id, descripcion_programacion)
+    VALUES (?, ?);', $rsm);
+            $query->setParameter(1, $pr["0"]);
+          $query->setParameter(2, $pr["1"]);
+          $query->getResult();
         }
   }
   function cargarUnidades($em){
@@ -284,11 +252,12 @@ class InicioProcesoController extends Controller
     $em = $this->getDoctrine()->getManager();
     /* funciones para la carga de datos*/
     //cargarEstablecimientos($em);
-    cargarCompras($em);
+    //cargarCompras($em);
     //cargarProveedores($em); 
     //cargarContratos($em);
     //cargarProgramaciones($em);
     //cargarPlanificaciones($em);
+    //=============hasta aqui esta listo
     //cargarUnidades($em);
     //cargarProductos($em);
     //cargarproductoContrato($em);

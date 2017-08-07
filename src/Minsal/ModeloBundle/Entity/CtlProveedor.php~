@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProveedor
  *
- * @ORM\Table(name="ctl_proveedor", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_proveedor_id_proveedor_sinab_key", columns={"id_proveedor_sinab"})})
+ * @ORM\Table(name="ctl_proveedor")
  * @ORM\Entity
  */
 class CtlProveedor
@@ -49,13 +49,6 @@ class CtlProveedor
      * @ORM\Column(name="nit", type="string", length=100, nullable=true)
      */
     private $nit;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_proveedor_sinab", type="integer", nullable=true)
-     */
-    private $idProveedorSinab;
 
 
 }

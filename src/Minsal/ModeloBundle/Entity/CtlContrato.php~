@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlContrato
  *
- * @ORM\Table(name="ctl_contrato", uniqueConstraints={@ORM\UniqueConstraint(name="ctl_contrato_id_contrato_sinab_key", columns={"id_contrato_sinab"})}, indexes={@ORM\Index(name="fki_contrato_modalidad", columns={"numero_modalidad"}), @ORM\Index(name="fki_contrato_establecimiento", columns={"establecimiento"})})
+ * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_contrato_modalidad", columns={"numero_modalidad"}), @ORM\Index(name="fki_prove_contrat", columns={"id_proveedor"}), @ORM\Index(name="fki_contrato_establecimiento", columns={"establecimiento"})})
  * @ORM\Entity
  */
 class CtlContrato
@@ -17,24 +17,16 @@ class CtlContrato
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="ctl_contrato_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="monto_contrato", type="decimal", precision=8, scale=2, nullable=true)
+     * @ORM\Column(name="monto_contrato", type="decimal", precision=16, scale=4, nullable=false)
      */
     private $montoContrato;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_contrato_sinab", type="integer", nullable=true)
-     */
-    private $idContratoSinab;
 
     /**
      * @var string
@@ -42,6 +34,18 @@ class CtlContrato
      * @ORM\Column(name="numero_contrato", type="string", length=50, nullable=true)
      */
     private $numeroContrato;
+
+    /**
+     * @var \CtlProveedor
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="CtlProveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_proveedor", referencedColumnName="id")
+     * })
+     */
+    private $idProveedor;
 
     /**
      * @var \CtlModalidadCompra
@@ -56,7 +60,9 @@ class CtlContrato
     /**
      * @var \CtlEstablecimiento
      *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="CtlEstablecimiento")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="establecimiento", referencedColumnName="id")
      * })
