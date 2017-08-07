@@ -57,9 +57,7 @@ class UaciController extends Controller
 
 		
 
-		$proveedores = $em->createQuery($dql)->getResult();
-
-		
+		$proveedores = $em->createQuery($dql)->getResult();		
 
 		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
 			'proveedores'=>$proveedores,
