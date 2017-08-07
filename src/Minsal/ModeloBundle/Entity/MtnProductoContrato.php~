@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnProductoContrato
  *
- * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="fki_mtn_producto", columns={"mtn_producto"}), @ORM\Index(name="idx_11667261736a527d", columns={"mtn_establecimiento"}), @ORM\Index(name="fki_mtn_proveedor", columns={"mtn_proveedor"}), @ORM\Index(name="fki_mtn_contrato", columns={"mtn_contrato"})})
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="fki_mtn_producto", columns={"mtn_producto"}), @ORM\Index(name="fki_mtn_proveedor", columns={"mtn_proveedor"}), @ORM\Index(name="fki_mtn_contrato", columns={"mtn_contrato"}), @ORM\Index(name="IDX_11667261736A527D", columns={"mtn_establecimiento"})})
  * @ORM\Entity
  */
 class MtnProductoContrato
@@ -32,18 +32,14 @@ class MtnProductoContrato
     /**
      * @var string
      *
-<<<<<<< HEAD
      * @ORM\Column(name="cantidad", type="decimal", precision=16, scale=4, nullable=true)
-=======
-     * @ORM\Column(name="cantidad", type="decimal", precision=12, scale=2, nullable=true)
->>>>>>> 3e86ea944733c7115c4d351e4fb44713b322d62c
      */
     private $cantidad;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="precio_unitario", type="decimal", precision=15, scale=5, nullable=true)
+     * @ORM\Column(name="precio_unitario", type="decimal", precision=8, scale=2, nullable=true)
      */
     private $precioUnitario;
 

@@ -86,5 +86,230 @@ class CtlAnalisisIncremento
     private $observacion;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idIncremento
+     *
+     * @param integer $idIncremento
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setIdIncremento($idIncremento)
+    {
+        $this->idIncremento = $idIncremento;
+
+        return $this;
+    }
+
+    /**
+     * Get idIncremento
+     *
+     * @return integer
+     */
+    public function getIdIncremento()
+    {
+        return $this->idIncremento;
+    }
+
+    /**
+     * Set numeroCompra
+     *
+     * @param integer $numeroCompra
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setNumeroCompra($numeroCompra)
+    {
+        $this->numeroCompra = $numeroCompra;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroCompra
+     *
+     * @return integer
+     */
+    public function getNumeroCompra()
+    {
+        return $this->numeroCompra;
+    }
+
+    /**
+     * Set idContrato
+     *
+     * @param integer $idContrato
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setIdContrato($idContrato)
+    {
+        $this->idContrato = $idContrato;
+
+        return $this;
+    }
+
+    /**
+     * Get idContrato
+     *
+     * @return integer
+     */
+    public function getIdContrato()
+    {
+        return $this->idContrato;
+    }
+
+    /**
+     * Set idProveedor
+     *
+     * @param integer $idProveedor
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setIdProveedor($idProveedor)
+    {
+        $this->idProveedor = $idProveedor;
+
+        return $this;
+    }
+
+    /**
+     * Get idProveedor
+     *
+     * @return integer
+     */
+    public function getIdProveedor()
+    {
+        return $this->idProveedor;
+    }
+
+    /**
+     * Set idProducto
+     *
+     * @param integer $idProducto
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setIdProducto($idProducto)
+    {
+        $this->idProducto = $idProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get idProducto
+     *
+     * @return integer
+     */
+    public function getIdProducto()
+    {
+        return $this->idProducto;
+    }
+
+    /**
+     * Set cantidadIncrementada
+     *
+     * @param integer $cantidadIncrementada
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setCantidadIncrementada($cantidadIncrementada)
+    {
+        $this->cantidadIncrementada = $cantidadIncrementada;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidadIncrementada
+     *
+     * @return integer
+     */
+    public function getCantidadIncrementada()
+    {
+        return $this->cantidadIncrementada;
+    }
+
+    /**
+     * Set precioUnitario
+     *
+     * @param string $precioUnitario
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setPrecioUnitario($precioUnitario)
+    {
+        $this->precioUnitario = $precioUnitario;
+
+        return $this;
+    }
+
+    /**
+     * Get precioUnitario
+     *
+     * @return string
+     */
+    public function getPrecioUnitario()
+    {
+        return $this->precioUnitario;
+    }
+
+    /**
+     * Set montoIncrementado
+     *
+     * @param string $montoIncrementado
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setMontoIncrementado($montoIncrementado)
+    {
+        $this->montoIncrementado = $montoIncrementado;
+
+        return $this;
+    }
+
+    /**
+     * Get montoIncrementado
+     *
+     * @return string
+     */
+    public function getMontoIncrementado()
+    {
+        return $this->montoIncrementado;
+    }
+
+    /**
+     * Set observacion
+     *
+     * @param string $observacion
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setObservacion($observacion)
+    {
+        $this->observacion = $observacion;
+
+        return $this;
+    }
+
+    /**
+     * Get observacion
+     *
+     * @return string
+     */
+    public function getObservacion()
+    {
+        return $this->observacion;
+    }
+}
