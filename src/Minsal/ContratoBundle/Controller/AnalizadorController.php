@@ -72,48 +72,69 @@ class AnalizadorController extends Controller
 					//AND pr.estadoProveedor = 4 AND p.estadoProducto = 9
 			$listado = $em->createQuery($dql)->getResult();
 			// /* ahora es el analisis de cobertura */
-			// $dataCobertura = array();
-			// $estimacion = $incrementoObj->getEstimacion()->getId();
-			// $mesesdesestimar = $incrementoObj->getMesesDesestimar();
-			// $mesesdesestimar = $mesesdesestimar+3;
-			// $fecha = date('Y-m-d');
-			// $nuevafecha = strtotime ( "+$mesesdesestimar month" , strtotime ( $fecha ) ) ;
-			// $nuevafecha = date ( 'Y-m-d' , $nuevafecha );
-			// foreach ($listado as $medicamento){
-			// 	// $service_url = "http://192.168.1.13:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&idproducto={$medicamento["id"]}&programacion={$estimacion}";
-			// 	// esta solo es para pruebas
-			// 	$service_url = "http://192.168.1.13:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&idproducto={$medicamento["id"]}&programacion=1";
-			//       $curl = curl_init($service_url);
-			//       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			//       $curl_response = curl_exec($curl);
-			//       curl_close($curl);
-			//       $respuesta = json_decode($curl_response,true);
+			$dataCobertura = array();
+			$estimacion = $incrementoObj->getEstimacion()->getId();
+			$mesesdesestimar = $incrementoObj->getMesesDesestimar();
+			$mesesdesestimar = $mesesdesestimar+3;
+			$fecha = date('Y-m-d');
+			$nuevafecha = strtotime ( "+$mesesdesestimar month" , strtotime ( $fecha ) ) ;
+			$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+			foreach ($listado as $medicamento){
+				$service_url = "http://192.168.7.196:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&idproducto={$medicamento["id"]}&programacion={$estimacion}";
+				// esta solo es para pruebas
+				// $service_url = "http://192.168.1.13:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&idproducto={$medicamento["id"]}&programacion=1";
+			      $curl = curl_init($service_url);
+			      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			      $curl_response = curl_exec($curl);
+			      curl_close($curl);
+			      $respuesta = json_decode($curl_response,true);
 
-			//       $service_url2 = "http://192.168.1.13:8080/v1/sinab/existencianacional?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&producto={$medicamento["id"]}&fecha={$nuevafecha}";
-			//       $curl2 = curl_init($service_url2);
-			//       curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
-			//       $curl_response2 = curl_exec($curl2);
-			//       curl_close($curl2);
-			//       $respuesta2 = json_decode($curl_response2,true);
+			      $service_url2 = "http://192.168.7.196:8080/v1/sinab/existencianacional?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&producto={$medicamento["id"]}&fecha={$nuevafecha}";
+			      $curl2 = curl_init($service_url2);
+			      curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
+			      $curl_response2 = curl_exec($curl2);
+			      curl_close($curl2);
+			      $respuesta2 = json_decode($curl_response2,true);
 
-			//       foreach ($respuesta['respuesta'] as $med ) {
-			//       	foreach ($respuesta2['respuesta'] as $exis) {
-			//       		array_push($med, $exis["0"]);
-			//       		array_push($dataCobertura, $med);
-			//       	}
+			      foreach ($respuesta['respuesta'] as $med ) {
+			      	foreach ($respuesta2['respuesta'] as $exis) {
+			      		array_push($med, $exis["0"]);
+			      		array_push($dataCobertura, $med);
+			      	}
 			      	
-			//       }
-			// }
+			      }
+			}
 			
-			// unset($dataCobertura["0"]);
+			unset($dataCobertura["0"]);
 			return $this->render('MinsalPlantillaBundle:Analizador:contratos.html.twig',array(
-     		'listado'=>$listado
+     		'listado'=>$listado,
+     		'dataCobertura'=>$dataCobertura,
+     		'incrementoID'=>$incremento
      	));
 		}
 
 		public function analizadorProrrogaAction()
 		{
 			return $this->render('MinsalPlantillaBundle:Analizador:prorroga.html.twig');
+		}
+
+		public function estadoIncrementoAAction(Request $request){
+
+			$estado = $request->get('estado');
+			$idIncremento = $request->get('id');
+
+			$em = $this->getDoctrine()->getManager();
+			$qb = $em->createQueryBuilder();
+
+			$q = $qb->update('MinsalModeloBundle:CtlIncremento', 'i')
+	    	->set('i.estadoIncremento', $qb->expr()->literal($estado))
+	    	->where('i.id = ?1')
+	    	->setParameter(1, $idIncremento)
+	    	->getQuery();
+			$p = $q->execute();
+			return  new Response('Incremento actualizado Existosamente'); 
+
+
 		}
 
 }

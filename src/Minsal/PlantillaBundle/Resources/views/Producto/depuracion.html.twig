@@ -36,7 +36,13 @@
 								<td>{{med.id}}</td>
 								<td>{{med.codigoProducto}}</td>
 								<td>{{med.nombreProducto}}</td>
-								<td>{{med.estadoProducto.id}}</td>
+								{% if med.estadoProducto.id == null %}
+									 	<td><input type="checkbox" value="{{ med.id }}" checked></td>
+									 {% elseif med.estadoProducto.id == 8 %}
+									 	<td><input type="checkbox" value="{{ med.id }}" ></td>
+									 {% else %} 
+									 	<td><input type="checkbox" value="{{ med.id }}" checked></td>
+									 {% endif %}
 							</tr>
 						{% endfor %}
 							
@@ -64,13 +70,13 @@
 
 		var url = "{{ path('minsal_contrato_cambiar_estado_medicamento') }}";
 		var tabla = $('#meds tbody tr').each(function() {
-			if ($(this).find("td").eq(2).find("input").is(":checked")) {
-				medicamento = $(this).find("td").eq(2).find("input").val();
+			if ($(this).find("td").eq(3).find("input").is(":checked")) {
+				medicamento = $(this).find("td").eq(3).find("input").val();
 				var nodo = {'medicamento':medicamento,'estado':9};
 				listaMedicamentos.push(nodo);
 			}
 			else{
-				medicamento = $(this).find("td").eq(2).find("input").val();
+				medicamento = $(this).find("td").eq(3).find("input").val();
 				var nodo = {'medicamento':medicamento,'estado':8};
 				listaMedicamentos.push(nodo);
 			}

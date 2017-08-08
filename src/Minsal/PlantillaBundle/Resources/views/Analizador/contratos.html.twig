@@ -161,7 +161,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {# {% for data in dataCobertura %}
+                                    {% for data in dataCobertura %}
                                         <tr>
                                             <td>{{data["0"]}}</td>
                                             <td>{{data["1"]}}</td>
@@ -175,14 +175,14 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                    {% endfor %} #}
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <button>Guardar Incremento</button>
+                    <button id="GuardaIncremento">Guardar Incremento</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -193,6 +193,37 @@
 
 {% block js %}
 {{ parent() }}
+
+<script>
+    $(document).ready(function($) {
+        $('#GuardaIncremento').click(function() {
+            cambiarEstado();
+        }); 
+    });
+
+    function cambiarEstado(){
+
+        var estado = 10;
+        var url = "{{ path('minsal_incremento_cambiar_estado') }}";
+        var id = "{{incrementoID}}";
+        $.ajax({
+            url: url,
+            data: {
+                'estado':estado,
+                'id': id,
+            },
+            type: 'post',
+        }).done(function(data) {
+            alert(data);
+            location.href ="{{ path('minsal_contrato_listado_proceso') }}";
+        }).fail(function() {
+            alert('upps algo ha pasado en el ajax');
+        });
+    }
+</script>
+
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 	calculosIniciales();

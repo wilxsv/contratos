@@ -138,6 +138,8 @@
                                             {% if incremento.estadoIncremento.id == 5 %}
                                                 <button alt="default" data-toggle="modal" data-target="#responsive-modal" class="btn btn-info">Invitar a comision</button>
                                                 <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': incremento.id }) }}" class="btn btn-success">Iniciar Analisis</a>
+                                            {# {% elseif incremento.estadoIncremento.id == 10 %} 
+                                                <a href="{{ path('minsal_contrato_listado_incrementos',{'incremento': incremento.id }) }}" class="btn btn-success">Cifrar</a> #}
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}

@@ -15,10 +15,12 @@
 <div class="row" >
 	<div class="col-sm-12">
 	    <div class="white-box">
-	        <h3 class="box-title m-b-0">Compra: {{incremento.incrementoModalidadCompra.numeroModalidad}}</h3>
+	        <h3 class="box-title m-b-0">Compra: {{incremento.numeroModalidadCompra.numeroModalidad}}</h3>
 	        <p class="text-muted m-b-30">Lista de Contratos</p>
+	        <p class="text-muted m-b-30">Ingresar Cifrado para todo los contratos <input type="text" id="cifradogeneral"> <a class="btn btn-info" id="btncifradogeneral">Cifrar</a></p>
+
 	        <div class="table-responsive">
-	            <table id="myTable" class="table table-striped">
+	            <table id="cifradotable" class="table table-striped">
 	                <thead>
 	                    <tr>
 	                        <th>Id</th>
@@ -30,14 +32,14 @@
 	                </thead>
 	                <tbody>
 	                    {% for contrato in contratos %}
-	                    	{% if contrato.contratoProveedor.estadoProveedor == 4 %}
+	                    	{% if contrato.idProveedor.estadoProveedor == 4 %}
 	                    		<tr>
-		                    		<td>{{contrato.idContrato}}</td>
+		                    		<td>{{contrato.id}}</td>
 		                    		<td>{{contrato.numeroContrato}}</td>
-		                    		<td>{{contrato.contratoProveedor.nombreProveedor}}</td>
-		                    		<td>{{contrato.contratoProveedor.nit}}</td>
+		                    		<td>{{contrato.idProveedor.nombreProveedor}}</td>
+		                    		<td>{{contrato.idProveedor.nit}}</td>
 		                    		
-		                    		<td><a href="{{ path('minsal_contrato_analizador_dashboard',{ 'incremento': incremento.id,'contrato':contrato.idContrato }) }}" class="btn btn-info">Iniciar Analisis</a></td>
+		                    		<td><input type="text" name=""></td>
 	                    		</tr>
 	                    	{% else %}
 	                    	{% endif %}
@@ -46,7 +48,7 @@
 	            </table>
 	        </div>
 	        {# Al presionar este boton se finaliza el proceso de analisis de contrato #}
-	        <button id="Finalizar" class="btn btn-danger">Terminar Analisis</button>
+	        <button id="Finalizar" class="btn btn-danger">Finalizar Cifrado</button>
 	    </div>		
 </div>
 {% endblock %}
@@ -55,6 +57,21 @@
 	<script src="{{ asset('assets/') }}plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
 	<script>
 		$(document).ready(function() {
+
+			$('#btncifradogeneral').click(function() {
+				var cifradogeneral = $('#cifradogeneral').val();
+				$('#cifradotable tbody tr').each(function() {
+					$(this).find("td").eq(4).find("input").eq(0).val(cifradogeneral);
+
+				});
+
+			});
+
+			$('#Finalizar').click(function() {
+				alert('cifrado Guardado');
+			});
+
+
 			$('#myTable').DataTable();
 			$(document).ready(function() {
 				var table = $('#example').DataTable({
@@ -99,5 +116,10 @@
 			'copy', 'csv', 'excel', 'pdf', 'print'
 			]
 		});
+
+
+
+
+
 	</script>
 {% endblock %}

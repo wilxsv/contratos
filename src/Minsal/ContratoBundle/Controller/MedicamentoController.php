@@ -216,8 +216,10 @@ class MedicamentoController extends Controller
 			$em = $this->getDoctrine()->getManager(); 
 			$obj = $em->getRepository('MinsalModeloBundle:CtlProducto')->find($medicamento['medicamento']);
 			//Buscamos por ID
-
-			$obj->setEstadoProducto($medicamento['estado']); //con esto establecemos el estado a los productos (medicamentos de nuesta base local)
+			$objestado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneBy(array(
+				'id'=>$medicamento['estado']
+				));
+			$obj->setEstadoProducto($objestado); //con esto establecemos el estado a los productos (medicamentos de nuesta base local)
 
 			$em->persist($obj);
 			$em->flush($obj);
