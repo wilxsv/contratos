@@ -105,6 +105,101 @@ class MedicamentoController extends Controller
 
 		
 	}
+
+
+	public function depuracionProrrogaAction($prorroga,$contrato,$proveedor)
+	{	
+		//del contrato se obtiene el numero de modalidad compra
+		//del incremento se obtiene la programacion
+		//del proveedor pues se obtiene el proveedor :)
+		$em = $this->getDoctrine()->getManager();
+		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoIncremento')->findOneBy(array(
+			'incrementoid'=>$incremento,'contratoid'=>$contrato
+			));
+		if (is_null($re)) {
+			$resumen = new MtnMedicamentoIncremento();
+			$INCRE = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(array(
+				'id' => $incremento
+				));
+	    	$resumen->setIncrementoId($INCRE);
+	    	$resumen->setContratoId($contrato);
+	    	//compra a partir del id guardado en incremento tienen que ser con sqlnative
+	        /*sql = "SELECT numero_modalidad 
+	        		FROM ctl_modalidad_compra as mc 
+	        		INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id 
+	        		WHERE i.id = $incremento" */
+
+	        $compra = "SELECT  mc.numeroModalidad,mc.id
+	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
+	        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.numeroModalidadCompra
+	        				  WHERE inc.id = $incremento ";
+	        $objcompra = $em->createQuery($compra)->getResult();
+	        foreach ($objcompra as $ob) {
+        		$licitacion = $ob["numeroModalidad"];
+        	}
+
+        	
+
+        	//Programacion a partir del id del incremento
+        	/*sql =  "SELECT p.idProgramacion 
+        			  FROM ctl_programacion AS p 
+        			  INNER JOIN ctl_incremento  AS i ON p.id=i.estimacion WHERE i.id = $incremento
+        	"*/
+
+
+        	$pdql = "SELECT  p.id
+        			 FROM MinsalModeloBundle:CtlProgramacion p
+        			 INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH inc.estimacion = p.id
+        			 WHERE inc.id = $incremento ";
+
+        	$objProg = $em->createQuery($pdql)->getResult();
+        	foreach ($objProg as $ob) {
+        		$programacion = $ob["id"];
+        	}
+        	$url = urlencode($licitacion);
+			$service_url = "http://192.168.7.196:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+		    $curl = curl_init($service_url);
+		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		    $curl_response = curl_exec($curl);
+		    curl_close($curl);
+		    $respuesta = json_decode($curl_response,true);
+		    $resumenm = $respuesta["respuesta"];
+
+		    $listadoId = array();
+
+		    foreach ($resumenm as $p) {
+		    	array_push($listadoId, $p["0"]);
+		    }
+
+		    $qb = $em->createQueryBuilder();
+		    $qb->add('select','p')
+		    ->add('from','MinsalModeloBundle:CtlProducto p')
+		    ->add('where',$qb->expr()->in('p.id',$listadoId));
+		    $medicamentos = $qb->getQuery()->getResult();
+		    $resumen->setMedicamentos(json_encode($listadoId));
+
+		    $em->persist($resumen);
+		    $em->flush($resumen);
+		    
+		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
+		    	'medicamentos' => $medicamentos
+		    	));
+		}else{
+			$listadoId = json_decode($re->getMedicamentos());
+			$qb = $em->createQueryBuilder();
+		    $qb->add('select','p')
+		    ->add('from','MinsalModeloBundle:CtlProducto p')
+		    ->add('where',$qb->expr()->in('p.id',$listadoId));
+		    $medicamentos = $qb->getQuery()->getResult();
+		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
+		    	'medicamentos' => $medicamentos));
+		}
+	   
+
+		
+	}
+
+
 	public function listadoAction($incremento)
 	{	
 		$em = $this->getDoctrine()->getManager();

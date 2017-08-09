@@ -37,7 +37,7 @@
 		                    		<td>{{contrato.numeroContrato}}</td>
 		                    		<td>{{contrato.nombreProveedor}}</td>
 		                    		<td>{{contrato.nit}}</td>
-		                    		<td><a href="{{ path('minsal_contrato_depuracion_medicamentos',{ 'incremento': prorroga, 'contrato':contrato.id, 'proveedor':contrato.idProveedor }) }}" class="btn btn-info">Depurar</a></td>
+		                    		<td><a href="{{ path('minsal_contrato_depuracion_medicamentos_prorroga',{ 'prorroga': prorroga, 'contrato':contrato.id, 'proveedor':contrato.idProveedor }) }}" class="btn btn-info">Depurar</a></td>
 	                    		</tr>
 	                    		{% endif %}
 	                    {% endfor %}

@@ -21,3 +21,7 @@ minsal_contrato_listado_medicamentos_prorroga:
 minsal_incremento_cambiar_estado:
   path:     /estadoIncrementoAjax
   defaults: { _controller: MinsalContratoBundle:Analizador:estadoIncrementoA }
+
+minsal_contrato_depuracion_medicamentos_prorroga:
+  path:     /depuracion/{prorroga}/{contrato}/{proveedor}
+  defaults: { _controller: MinsalContratoBundle:Medicamento:depuracionProrroga }
