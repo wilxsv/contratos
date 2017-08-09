@@ -16,7 +16,7 @@
 <div class="row" >
 	<div class="col-sm-12">
 	    <div class="white-box">
-	        <h3 class="box-title m-b-0">Compra: {{prorrogas.prorrogaModalidadCompra.numeroModalidad}}</h3>
+	        <h3 class="box-title m-b-0">Compra:</h3>
 	        <p class="text-muted m-b-30">Lista de Contratos</p>
 	        <div class="table-responsive">
 	            <table id="myTable" class="table table-striped">
@@ -31,16 +31,15 @@
 	                </thead>
 	                <tbody>
 	                    {% for contrato in contratos %}
-	                    	
+	                    		{% if contrato.estadoProveedor == 5 %}
 	                    		<tr>
 		                    		<td>{{contrato.id}}</td>
 		                    		<td>{{contrato.numeroContrato}}</td>
 		                    		<td>{{contrato.nombreProveedor}}</td>
 		                    		<td>{{contrato.nit}}</td>
-		                    		
-		                    		<td><a href="{{ path('minsal_contrato_depuracion_medicamentos',{ 'incremento': prorrogas.prorrogaModalidadCompra.id,'contrato':contrato.idContratoSinab, 'proveedor':contrato.idProveedor }) }}" class="btn btn-info">Depurar</a></td>
+		                    		<td><a href="{{ path('minsal_contrato_depuracion_medicamentos',{ 'incremento': prorroga, 'contrato':contrato.id, 'proveedor':contrato.idProveedor }) }}" class="btn btn-info">Depurar</a></td>
 	                    		</tr>
-	                    	
+	                    		{% endif %}
 	                    {% endfor %}
 	                </tbody>
 	            </table>
@@ -63,7 +62,7 @@
 
 	function paramsEstado(){
 		var estado = 5;
-		var prorrogaID = '{{ prorrogas.id }}';
+		var prorrogaID = '{{ prorroga }}';
 		var esProrroga = 1;
 		var url = "{{ path('minsal_contrato_cambiar_estado') }}";
 		$.ajax({

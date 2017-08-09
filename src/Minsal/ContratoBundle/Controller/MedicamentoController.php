@@ -143,27 +143,30 @@ class MedicamentoController extends Controller
 	public function listadoParaProrrogaAction($prorroga)
 	{
 		$em = $this->getDoctrine()->getManager();
-	    //$contratos = $em->getRepository('MinsalModeloBundle:CtlContrato')->findAll();
-        /*$query= $em->createQuery("SELECT c.numeroModalidadCompra,c.id,c.numeroContrato,c.idContratoSinab,c.contratoProveedor,c.idEstablecimiento FROM MinsalModeloBundle:CtlContrato c WHERE c.numeroModalidadCompra = $incremento");*/
-        $prorrogas = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(
-	    	array(
-	    		'prorrogaModalidadCompra'=>$prorroga
-	    		)
-	    	);
-        $numerocompra = $prorrogas->getProrrogaModalidadCompra()->getId();
+
+        $compra = "SELECT  mc.numeroModalidad,mc.id
+        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
+        				  INNER JOIN MinsalModeloBundle:CtlProrroga prg WITH mc.id = prg.prorrogaModalidadCompra
+        				  WHERE prg.id = $prorroga ";
+        $objcompra = $em->createQuery($compra)->getResult();
+        foreach ($objcompra as $ob) {
+        	$numerocompra = $ob["id"];
+        }
+
         $dql = "SELECT DISTINCT c.id,c.numeroContrato,pr.nombreProveedor,pr.nit,pr.estadoProveedor,pr.id as idProveedor
 		FROM MinsalModeloBundle:CtlContrato c
 		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
 		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.idProveedor = pr.id
 		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
 		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
-		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.idProveedor";
+		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.idProveedor ";
         $contratos = $em->createQuery($dql)->getResult();
 
 	   
 	    return $this->render('MinsalPlantillaBundle:Unabast:contratosProrrogas.html.twig',array(
 	    	'contratos' => $contratos,
-	    	'prorrogas' => $prorrogas
+	    	'compra' => $objcompra,
+	    	'prorroga'=>$prorroga
 	    	));
 	}
 
