@@ -36,35 +36,75 @@ class UaciController extends Controller
 		 INNER JOIN ctl_proveedor AS PV ON PV.id_proveedor_sinab = C.contrato_proveedor 
 		 INNER JOIN ctl_modalidad_compra AS CM ON CM.id = C.numero_modalidad_compra  
 		 INNER JOIN ctl_producto AS PR ON PR.id_producto_sibasi = PC.mtn_producto WHERE CM.id=?*/
-		$em = $this->getDoctrine()->getManager();
 
-		$compra = "SELECT  mc.numeroModalidad,mc.id
-        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
-        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.numeroModalidadCompra
-        				  WHERE inc.id = $cod ";
-        $objcompra = $em->createQuery($compra)->getResult();
-        foreach ($objcompra as $ob) {
-        	$numerocompra = $ob["id"];
-        }
+		 if($tipo == 'incremento'){
+		 	$em = $this->getDoctrine()->getManager();
 
-		$dql = "SELECT DISTINCT c.id as contrato ,pr.id as proveedor, pr.nit, pr.nombreProveedor, c.numeroContrato, pr.estadoProveedor
-		FROM MinsalModeloBundle:CtlContrato c
-		INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
-		INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.idProveedor = pr.id
-		INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
-		INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
-		WHERE mc.id = $numerocompra AND pc.mtnProveedor=c.idProveedor ORDER BY c.numeroContrato ";
+			$compra = "SELECT  mc.numeroModalidad,mc.id
+	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
+	        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.numeroModalidadCompra
+	        				  WHERE inc.id = $cod ";
+	        $objcompra = $em->createQuery($compra)->getResult();
+	        foreach ($objcompra as $ob) {
+	        	$numerocompra = $ob["id"];
+	        }
+
+			$dql = "SELECT DISTINCT c.id as contrato ,pr.id as proveedor, pr.nit, pr.nombreProveedor, c.numeroContrato, pr.estadoProveedor
+			FROM MinsalModeloBundle:CtlContrato c
+			INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
+			INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.idProveedor = pr.id
+			INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
+			INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
+			WHERE mc.id = $numerocompra AND pc.mtnProveedor=c.idProveedor ORDER BY c.numeroContrato ";
+
+			
+
+			$proveedores = $em->createQuery($dql)->getResult();		
+
+			return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
+				'proveedores'=>$proveedores,
+				'modalidad'=>$cod,
+				'tipo'=>$tipo,
+				'licitacion'=>$licitacion
+			));
+		 }
+		 elseif ($tipo == 'prorroga') {
+
+		 	$em = $this->getDoctrine()->getManager();
+
+			$compra = "SELECT  mc.numeroModalidad,mc.id
+	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
+	        				  INNER JOIN MinsalModeloBundle:CtlProrroga prg WITH mc.id = prg.prorrogaModalidadCompra
+	        				  WHERE prg.id = $cod ";
+	        $objcompra = $em->createQuery($compra)->getResult();
+	        foreach ($objcompra as $ob) {
+	        	$numerocompra = $ob["id"];
+	        }
+
+			$dql = "SELECT DISTINCT c.id as contrato ,pr.id as proveedor, pr.nit, pr.nombreProveedor, c.numeroContrato, pr.estadoProveedor
+			FROM MinsalModeloBundle:CtlContrato c
+			INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH c.id = pc.mtnContrato
+			INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH c.idProveedor = pr.id
+			INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
+			INNER JOIN MinsalModeloBundle:CtlProducto p WITH pc.mtnProducto = p.id
+			WHERE mc.id = $numerocompra AND pc.mtnProveedor=c.idProveedor ORDER BY c.numeroContrato ";
+
+			
+
+			$proveedores = $em->createQuery($dql)->getResult();		
+
+			return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
+				'proveedores'=>$proveedores,
+				'modalidad'=>$cod,
+				'tipo'=>$tipo,
+				'licitacion'=>$licitacion
+		 	));
+		 }
+		 else{
+		 	return new Response('Ha ocurrido un error');
+		 }
 
 		
-
-		$proveedores = $em->createQuery($dql)->getResult();		
-
-		return $this->render('MinsalPlantillaBundle:Uaci:manejo_proveedores_uaci.html.twig', array(
-			'proveedores'=>$proveedores,
-			'modalidad'=>$cod,
-			'tipo'=>$tipo,
-			'licitacion'=>$licitacion
-		));
 			
 	}
 
