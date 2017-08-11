@@ -273,7 +273,11 @@ class MedicamentoController extends Controller
 		$estado = $request->get('estado');
 		$idCompra = $request->get('prorrogaID');
 
-		$em = $this->getDoctrine()->getManager();
+		$em = $this->getDoctrine()->getManager(); 
+		$dql = "UPDATE MinsalModeloBundle:CtlProrroga p SET p.estadoProrroga = $estado WHERE p.id = '$idCompra' ";
+		$em->createQuery( $dql )->getResult();
+
+		/*$em = $this->getDoctrine()->getManager();
 		$qb = $em->createQueryBuilder();
 
 
@@ -282,7 +286,7 @@ class MedicamentoController extends Controller
 		->where('p.id = ?1')
 		->setParameter(1, $idCompra)
 		->getQuery();
-		$p = $q->execute();
+		$p = $q->execute();*/
 		return  new Response('Prorroga Verificada Existosamente'); 
 	}
 
