@@ -65,7 +65,7 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://192.168.7.196:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+			$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
@@ -110,9 +110,6 @@ class MedicamentoController extends Controller
 
 	public function depuracionProrrogaAction($prorroga,$contrato,$proveedor)
 	{	
-		//del contrato se obtiene el numero de modalidad compra
-		//del incremento se obtiene la programacion
-		//del proveedor pues se obtiene el proveedor :)
 		$em = $this->getDoctrine()->getManager();
 		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoProrroga')->findOneBy(array(
 			'prorrogaid'=>$prorroga,'contratopid'=>$contrato
@@ -135,7 +132,7 @@ class MedicamentoController extends Controller
         	}
 
         	$pdql = "SELECT  p.id
-        			 FROM MinsalModeloBundle:CtlProgramacion p
+        			 FROM MinsalModeloBundle:CtlPlanificacion p
         			 INNER JOIN MinsalModeloBundle:CtlProrroga prr WITH prr.planificacion = p.id
         			 WHERE prr.id = $prorroga ";
 
@@ -144,7 +141,7 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://192.168.7.196:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+			$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
