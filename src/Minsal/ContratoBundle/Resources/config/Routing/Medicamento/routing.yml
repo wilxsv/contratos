@@ -23,5 +23,5 @@ minsal_incremento_cambiar_estado:
   defaults: { _controller: MinsalContratoBundle:Analizador:estadoIncrementoA }
 
 minsal_contrato_depuracion_medicamentos_prorroga:
-  path:     /depuracion/{prorroga}/{contrato}/{proveedor}
+  path:     /depuracionProrroga/{prorroga}/{contrato}/{proveedor}
   defaults: { _controller: MinsalContratoBundle:Medicamento:depuracionProrroga }

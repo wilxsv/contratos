@@ -5,6 +5,7 @@ namespace Minsal\ContratoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Minsal\ModeloBundle\Entity\MtnMedicamentoIncremento;
+use Minsal\ModeloBundle\Entity\MtnMedicamentoProrroga;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -113,44 +114,30 @@ class MedicamentoController extends Controller
 		//del incremento se obtiene la programacion
 		//del proveedor pues se obtiene el proveedor :)
 		$em = $this->getDoctrine()->getManager();
-		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoIncremento')->findOneBy(array(
-			'incrementoid'=>$incremento,'contratoid'=>$contrato
+		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoProrroga')->findOneBy(array(
+			'prorrogaid'=>$prorroga,'contratopid'=>$contrato
 			));
 		if (is_null($re)) {
-			$resumen = new MtnMedicamentoIncremento();
-			$INCRE = $em->getRepository('MinsalModeloBundle:CtlIncremento')->findOneBy(array(
-				'id' => $incremento
+			$resumen = new MtnMedicamentoProrroga();
+			$PRORR = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(array(
+				'id' => $prorroga
 				));
-	    	$resumen->setIncrementoId($INCRE);
-	    	$resumen->setContratoId($contrato);
-	    	//compra a partir del id guardado en incremento tienen que ser con sqlnative
-	        /*sql = "SELECT numero_modalidad 
-	        		FROM ctl_modalidad_compra as mc 
-	        		INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id 
-	        		WHERE i.id = $incremento" */
-
+	    	$resumen->setProrrogaId($PRORR);
+	    	$resumen->setContratopId($contrato);
+	    
 	        $compra = "SELECT  mc.numeroModalidad,mc.id
 	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
-	        				  INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH mc.id = inc.numeroModalidadCompra
-	        				  WHERE inc.id = $incremento ";
+	        				  INNER JOIN MinsalModeloBundle:CtlProrroga prr WITH mc.id = prr.prorrogaModalidadCompra
+	        				  WHERE prr.id = $prorroga ";
 	        $objcompra = $em->createQuery($compra)->getResult();
 	        foreach ($objcompra as $ob) {
         		$licitacion = $ob["numeroModalidad"];
         	}
 
-        	
-
-        	//Programacion a partir del id del incremento
-        	/*sql =  "SELECT p.idProgramacion 
-        			  FROM ctl_programacion AS p 
-        			  INNER JOIN ctl_incremento  AS i ON p.id=i.estimacion WHERE i.id = $incremento
-        	"*/
-
-
         	$pdql = "SELECT  p.id
         			 FROM MinsalModeloBundle:CtlProgramacion p
-        			 INNER JOIN MinsalModeloBundle:CtlIncremento inc WITH inc.estimacion = p.id
-        			 WHERE inc.id = $incremento ";
+        			 INNER JOIN MinsalModeloBundle:CtlProrroga prr WITH prr.planificacion = p.id
+        			 WHERE prr.id = $prorroga ";
 
         	$objProg = $em->createQuery($pdql)->getResult();
         	foreach ($objProg as $ob) {
