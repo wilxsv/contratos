@@ -153,7 +153,7 @@
                                         <td>{{ prorroga.id }}</td>
                                         <td>{{ prorroga.prorrogaModalidadCompra.numeroModalidad }}</td>
                                         <td>{{ prorroga.fechaCreacion|date("d/m/Y") }}</td>
-                                        <td>{{ prorroga.planificacion }}</td>
+                                        <td>{{ prorroga.planificacion.id }}</td>
                                         <td>{{ prorroga.estadoProrroga.descripcionEstado }}</td>
                                         <td>{% if prorroga.estadoProrroga.id == 6 %}
                                             aun no puede continuar el proceso
@@ -163,7 +163,7 @@
                                                Proceso en depuracion de medicamentos
                                             {% else %}
                                                 {% if prorroga.estadoProrroga.id == 5 %}
-                                                    <a href="{{ path('minsal_contrato_analizador_contratos',{'incremento': prorroga.prorrogaModalidadCompra.id }) }}" class="btn btn-info">Iniciar Analisis</a>
+                                                    <a href="{{ path('minsal_contrato_analizador_prorroga',{'prorroga': prorroga.id }) }}" class="btn btn-info">Iniciar Analisis</a>
                                                 {% endif %}
                                             {% endif %}
                                         {% endif %}
