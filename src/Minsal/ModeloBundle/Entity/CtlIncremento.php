@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlIncremento
  *
- * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_programacion_incremento", columns={"estimacion"}), @ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_incremento_modalidad", columns={"numero_modalidad_compra"})})
+ * @ORM\Table(name="ctl_incremento", indexes={@ORM\Index(name="fki_estado_incremento", columns={"estado_incremento"}), @ORM\Index(name="fki_incremento_modalidad", columns={"numero_modalidad_compra"}), @ORM\Index(name="fki_programacion_incremento", columns={"estimacion"})})
  * @ORM\Entity
  */
 class CtlIncremento
@@ -47,16 +47,6 @@ class CtlIncremento
     private $estadoIncremento;
 
     /**
-     * @var \CtlProgramacion
-     *
-     * @ORM\ManyToOne(targetEntity="CtlProgramacion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estimacion", referencedColumnName="id")
-     * })
-     */
-    private $estimacion;
-
-    /**
      * @var \CtlModalidadCompra
      *
      * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
@@ -65,6 +55,16 @@ class CtlIncremento
      * })
      */
     private $numeroModalidadCompra;
+
+    /**
+     * @var \CtlProgramacion
+     *
+     * @ORM\ManyToOne(targetEntity="CtlProgramacion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estimacion", referencedColumnName="id")
+     * })
+     */
+    private $estimacion;
 
 
 
@@ -151,30 +151,6 @@ class CtlIncremento
     }
 
     /**
-     * Set estimacion
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
-     *
-     * @return CtlIncremento
-     */
-    public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
-    {
-        $this->estimacion = $estimacion;
-
-        return $this;
-    }
-
-    /**
-     * Get estimacion
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion
-     */
-    public function getEstimacion()
-    {
-        return $this->estimacion;
-    }
-
-    /**
      * Set numeroModalidadCompra
      *
      * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidadCompra
@@ -196,5 +172,29 @@ class CtlIncremento
     public function getNumeroModalidadCompra()
     {
         return $this->numeroModalidadCompra;
+    }
+
+    /**
+     * Set estimacion
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
+     *
+     * @return CtlIncremento
+     */
+    public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
+    {
+        $this->estimacion = $estimacion;
+
+        return $this;
+    }
+
+    /**
+     * Get estimacion
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion
+     */
+    public function getEstimacion()
+    {
+        return $this->estimacion;
     }
 }

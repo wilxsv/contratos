@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnProductoContrato
  *
- * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="fki_mtn_proveedor", columns={"mtn_proveedor"}), @ORM\Index(name="fki_mtn_producto", columns={"mtn_producto"}), @ORM\Index(name="fki_mtn_contrato", columns={"mtn_contrato"}), @ORM\Index(name="idx_11667261736a527d", columns={"mtn_establecimiento"})})
+ * @ORM\Table(name="mtn_producto_contrato", indexes={@ORM\Index(name="fki_mtn_proveedor", columns={"mtn_proveedor"}), @ORM\Index(name="fki_mtn_producto", columns={"mtn_producto"}), @ORM\Index(name="fki_mtn_contrato", columns={"mtn_contrato"}), @ORM\Index(name="IDX_11667261736A527D", columns={"mtn_establecimiento"})})
  * @ORM\Entity
  */
 class MtnProductoContrato
@@ -44,6 +44,23 @@ class MtnProductoContrato
     private $precioUnitario;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="renglon", type="integer", nullable=true)
+     */
+    private $renglon;
+
+    /**
+     * @var \CtlEstablecimiento
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mtn_establecimiento", referencedColumnName="id")
+     * })
+     */
+    private $mtnEstablecimiento;
+
+    /**
      * @var \CtlProducto
      *
      * @ORM\ManyToOne(targetEntity="CtlProducto")
@@ -62,16 +79,6 @@ class MtnProductoContrato
      * })
      */
     private $mtnProveedor;
-
-    /**
-     * @var \CtlEstablecimiento
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="mtn_establecimiento", referencedColumnName="id")
-     * })
-     */
-    private $mtnEstablecimiento;
 
 
 
@@ -158,6 +165,54 @@ class MtnProductoContrato
     }
 
     /**
+     * Set renglon
+     *
+     * @param integer $renglon
+     *
+     * @return MtnProductoContrato
+     */
+    public function setRenglon($renglon)
+    {
+        $this->renglon = $renglon;
+
+        return $this;
+    }
+
+    /**
+     * Get renglon
+     *
+     * @return integer
+     */
+    public function getRenglon()
+    {
+        return $this->renglon;
+    }
+
+    /**
+     * Set mtnEstablecimiento
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $mtnEstablecimiento
+     *
+     * @return MtnProductoContrato
+     */
+    public function setMtnEstablecimiento(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $mtnEstablecimiento = null)
+    {
+        $this->mtnEstablecimiento = $mtnEstablecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get mtnEstablecimiento
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
+     */
+    public function getMtnEstablecimiento()
+    {
+        return $this->mtnEstablecimiento;
+    }
+
+    /**
      * Set mtnProducto
      *
      * @param \Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto
@@ -203,29 +258,5 @@ class MtnProductoContrato
     public function getMtnProveedor()
     {
         return $this->mtnProveedor;
-    }
-
-    /**
-     * Set mtnEstablecimiento
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $mtnEstablecimiento
-     *
-     * @return MtnProductoContrato
-     */
-    public function setMtnEstablecimiento(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $mtnEstablecimiento = null)
-    {
-        $this->mtnEstablecimiento = $mtnEstablecimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get mtnEstablecimiento
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
-     */
-    public function getMtnEstablecimiento()
-    {
-        return $this->mtnEstablecimiento;
     }
 }

@@ -54,7 +54,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for list in listado %}
+                    {# {% for list in listado %}
 
                         {% if loop.first %}
                             {% set contador = 0 %}
@@ -129,12 +129,12 @@
                         {% endif %}
 
                         
-                    {% endfor %}
+                    {% endfor %} #}
                 </tbody>
             </table>
         </div>
     </div>
-
+            {{dump(listado)}}
 
                 </div>
                 <div class="clearfix"></div>
@@ -161,7 +161,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for data in dataCobertura %}
+                                    {# {% for data in dataCobertura %}
                                         <tr>
                                             <td>{{data["0"]}}</td>
                                             <td>{{data["1"]}}</td>
@@ -175,7 +175,7 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                    {% endfor %}
+                                    {% endfor %} #}
                                 </tbody>
                             </table>
                         </div>

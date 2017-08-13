@@ -37,14 +37,11 @@ class CtlProducto
     private $nombreProducto;
 
     /**
-     * @var \CtlUnidadMedida
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="unidad_medida_producto", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="declargo", type="string", length=1000, nullable=true)
      */
-    private $unidadMedidaProducto;
+    private $declargo;
 
     /**
      * @var \CtlEstados
@@ -65,6 +62,16 @@ class CtlProducto
      * })
      */
     private $establecimientoProducto;
+
+    /**
+     * @var \CtlUnidadMedida
+     *
+     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unidad_medida_producto", referencedColumnName="id")
+     * })
+     */
+    private $unidadMedidaProducto;
 
 
 }

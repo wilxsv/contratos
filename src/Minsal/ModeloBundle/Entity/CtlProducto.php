@@ -37,14 +37,11 @@ class CtlProducto
     private $nombreProducto;
 
     /**
-     * @var \CtlUnidadMedida
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="unidad_medida_producto", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="declargo", type="string", length=1000, nullable=true)
      */
-    private $unidadMedidaProducto;
+    private $declargo;
 
     /**
      * @var \CtlEstados
@@ -65,6 +62,16 @@ class CtlProducto
      * })
      */
     private $establecimientoProducto;
+
+    /**
+     * @var \CtlUnidadMedida
+     *
+     * @ORM\ManyToOne(targetEntity="CtlUnidadMedida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="unidad_medida_producto", referencedColumnName="id")
+     * })
+     */
+    private $unidadMedidaProducto;
 
 
 
@@ -127,27 +134,27 @@ class CtlProducto
     }
 
     /**
-     * Set unidadMedidaProducto
+     * Set declargo
      *
-     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
+     * @param string $declargo
      *
      * @return CtlProducto
      */
-    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
+    public function setDeclargo($declargo)
     {
-        $this->unidadMedidaProducto = $unidadMedidaProducto;
+        $this->declargo = $declargo;
 
         return $this;
     }
 
     /**
-     * Get unidadMedidaProducto
+     * Get declargo
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
+     * @return string
      */
-    public function getUnidadMedidaProducto()
+    public function getDeclargo()
     {
-        return $this->unidadMedidaProducto;
+        return $this->declargo;
     }
 
     /**
@@ -196,5 +203,29 @@ class CtlProducto
     public function getEstablecimientoProducto()
     {
         return $this->establecimientoProducto;
+    }
+
+    /**
+     * Set unidadMedidaProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
+     *
+     * @return CtlProducto
+     */
+    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
+    {
+        $this->unidadMedidaProducto = $unidadMedidaProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get unidadMedidaProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
+     */
+    public function getUnidadMedidaProducto()
+    {
+        return $this->unidadMedidaProducto;
     }
 }
