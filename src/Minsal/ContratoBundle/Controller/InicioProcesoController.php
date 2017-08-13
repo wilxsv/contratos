@@ -216,9 +216,9 @@ function cargarproductoContrato($em){
           $rsm = new ResultSetMapping();
           $query = $em->createNativeQuery('INSERT INTO mtn_producto_contrato(
             id, mtn_producto, mtn_contrato, cantidad, precio_unitario, mtn_proveedor, 
-            mtn_establecimiento)
+            mtn_establecimiento,renglon)
     VALUES (?, ?, ?, ?, ?, ?, 
-            ?);', $rsm);
+            ?,?);', $rsm);
           //C.IDPRODUCTO, PC.IDPROVEEDOR, PC.IDCONTRATO, PC.CANTIDAD, PC.PRECIOUNITARIO,PC.IDESTABLECIMIENTO
           $query->setParameter(1, $contador);
           //mtn_producto
@@ -233,6 +233,7 @@ function cargarproductoContrato($em){
           $query->setParameter(6, $p["1"]);
           //mtn_establecimiento
           $query->setParameter(7, $p["5"]);
+          $query->setParameter(8, $p["6"]);
 
           $query->getResult();
 

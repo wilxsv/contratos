@@ -23,6 +23,13 @@ class CtlPlanificacion
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_programacion_sinab", type="integer", nullable=true)
+     */
+    private $idProgramacionSinab;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="descripcion_programacion", type="string", length=255, nullable=true)
@@ -39,6 +46,30 @@ class CtlPlanificacion
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set idProgramacionSinab
+     *
+     * @param integer $idProgramacionSinab
+     *
+     * @return CtlPlanificacion
+     */
+    public function setIdProgramacionSinab($idProgramacionSinab)
+    {
+        $this->idProgramacionSinab = $idProgramacionSinab;
+
+        return $this;
+    }
+
+    /**
+     * Get idProgramacionSinab
+     *
+     * @return integer
+     */
+    public function getIdProgramacionSinab()
+    {
+        return $this->idProgramacionSinab;
     }
 
     /**
