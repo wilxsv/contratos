@@ -21,14 +21,13 @@ class AnalizadorIncrementoController extends Controller
 
 		$listado = $em->createQuery($dql)->getResult();
 		
-		$listadounido = array();
+		$listadounido = '';
 		foreach ($listado as $lista) {
-			$listadounido = array_merge($listadounido,$lista);
+			$listadounido .=$lista["medicamentos"];
 		}
 		$listadounido = str_replace('[','', $listadounido);
 		$listadounido = str_replace(']','', $listadounido);
 		$listadounido = str_replace('"','', $listadounido);
-		$ids = $listadounido["medicamentos"];
 
 		$dql2 = "SELECT mc.id, mc.numeroModalidad, c.id as contrato, c.numeroContrato, p.codigoProducto, p.nombreProducto, c.montoContrato, pc.cantidad, pc.precioUnitario, p.id,pr.nombreProveedor
 			    	FROM MinsalModeloBundle:CtlProducto p 
@@ -36,7 +35,7 @@ class AnalizadorIncrementoController extends Controller
 					INNER JOIN MinsalModeloBundle:CtlContrato c WITH  pc.mtnContrato = c.id 
 					INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH pc.mtnProveedor = pr.id
 					INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id 
-					WHERE p.estadoProducto=8 AND p.id IN ($ids) AND mc.id = $compra
+					WHERE p.estadoProducto=9 AND p.id IN ($listadounido) AND mc.id = $compra
 					ORDER BY c.id ";
 		$medicamentoslista = $em->createQuery($dql2)->getResult();
 		$listadep = array();
@@ -62,33 +61,33 @@ class AnalizadorIncrementoController extends Controller
       	$curl_response = curl_exec($curl);
       	curl_close($curl);
       	$respuesta = json_decode($curl_response,true);
-  //     	$service_url2 = "http://192.168.1.14:8080/v1/sinab/existencianacional?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&productos={$listadep}&fecha={$nuevafecha}";
-	 //    $curl2 = curl_init($service_url2);
-	 //    curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
-	 //    $curl_response2 = curl_exec($curl2);
-	 //    curl_close($curl2);
-	 //    $respuesta2 = json_decode($curl_response2,true);
+      	$service_url2 = "http://192.168.1.14:8080/v1/sinab/existencianacional?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&productos={$listadepunido}&fecha={$nuevafecha}";
+	    $curl2 = curl_init($service_url2);
+	    curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
+	    $curl_response2 = curl_exec($curl2);
+	    curl_close($curl2);
+	    $respuesta2 = json_decode($curl_response2,true);
 
-	 //    if (! is_null($respuesta['respuesta'])) {
-	 //    	foreach ($respuesta['respuesta'] as $med ) {
-	 //    		if (! is_null($respuesta2['respuesta'])) {
-	 //    			foreach ($respuesta2['respuesta'] as $exis) {
-		// 	      		array_push($med, $exis["0"]);
-		// 	      		array_push($dataCobertura, $med);
-		// 	      		}
-	 //    		}
-	 //    		else{
-	 //    			array_push($med, 0);
-		// 	      		array_push($dataCobertura, $med);
-	 //    		}
+	    if (! is_null($respuesta['respuesta'])) {
+	    	foreach ($respuesta['respuesta'] as $med ) {
+	    		if (! is_null($respuesta2['respuesta'])) {
+	    			foreach ($respuesta2['respuesta'] as $exis) {
+			      		array_push($med, $exis["0"]);
+			      		array_push($dataCobertura, $med);
+			      		}
+	    		}
+	    		else{
+	    			array_push($med, 0);
+			      		array_push($dataCobertura, $med);
+	    		}
 			      	
 			      	
-		// 	}
-	 //    }
+			}
+	    }
 	    
 
 		return $this->render('MinsalPlantillaBundle:Analizador:contratos.html.twig',array(
-     		'listado'=>$service_url,
+     		'listado'=>$medicamentoslista,
      		'dataCobertura'=>$dataCobertura,
      		'incrementoID'=>$incremento
      	));
