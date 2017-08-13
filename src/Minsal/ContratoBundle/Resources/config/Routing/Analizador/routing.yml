@@ -12,5 +12,5 @@ minsal_contrato_analizador_ajax_guardar:
     methods:  POST
 
 minsal_contrato_analizador_prorroga:
-  path: /listadoProrroga
+  path: /listadoProrroga/{prorroga}
   defaults: { _controller: MinsalContratoBundle:Analizador:analizadorProrroga }
