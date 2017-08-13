@@ -210,7 +210,7 @@ function cargarproductoContrato($em){
   $curl_response = curl_exec($curl);
   curl_close($curl);
   $respuesta = json_decode($curl_response,true);
-  $contador = 0;
+  $contador = 16682;
   foreach ($respuesta['respuesta'] as $p) {
     $contador++;
           $rsm = new ResultSetMapping();
@@ -233,6 +233,7 @@ function cargarproductoContrato($em){
           $query->setParameter(6, $p["1"]);
           //mtn_establecimiento
           $query->setParameter(7, $p["5"]);
+
           $query->setParameter(8, $p["6"]);
 
           $query->getResult();
@@ -255,7 +256,7 @@ class InicioProcesoController extends Controller
     //cargarPlanificaciones($em);
     //cargarUnidades($em);
     //cargarProductos($em);
-    cargarproductoContrato($em);
+    //cargarproductoContrato($em);
     /*se renderizan los contratos e incrementos */
     $compras= $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findAll();
 
