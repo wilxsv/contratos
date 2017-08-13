@@ -28,7 +28,7 @@ class AnalizadorController extends Controller
 				'id'=>$prorroga
 				)); //Obtenemos el ID de la prorroga al que se analizara
 			$compra = $prorrogaObj->getProrrogaModalidadCompra()->getId(); //Obtenemos el ID De la modalidad de la compra
-			$dql = "SELECT mi.medicamentos FROM MinsalModeloBundle:CtlIncremento i INNER JOIN MinsalModeloBundle:MtnMedicamentoIncremento mi WITH i.id=mi.incrementoid WHERE i.id=$prorroga";
+			$dql = "SELECT mp.medicamentos FROM MinsalModeloBundle:CtlProrroga p INNER JOIN MinsalModeloBundle:MtnMedicamentoProrroga mp WITH p.id=mp.prorrogaid WHERE p.id=$prorroga";
 
 			$listado = $em->createQuery($dql)->getResult();
 
@@ -56,11 +56,9 @@ class AnalizadorController extends Controller
 			$estable = array();
 			$prove = array();
 			foreach ($medicamentoslista as $m) {
- 				array_push($listadep, $m["id"]);
  				array_push($establecimiento, $m["establecimientoProductoP"]);
  				array_push($proveedor, $m["idProveedor"]);
 			}
-			$listadepunido = implode(",", $listadep);
 			$establecimiento = implode(",", $estable);
 			$proveedor = implode(",", prove);
 
