@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Minsal\ModeloBundle\Entity\CtlProrroga" table="ctl_prorroga">
+    <indexes>
+      <index name="ctl_prorroga_planificacion_idx" columns="planificacion"/>
+      <index name="fki_estad_pro" columns="estado_prorroga"/>
+      <index name="idx_337125a911b7b911" columns="prorroga_modalidad_compra"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+      <sequence-generator sequence-name="ctl_prorroga_id_seq" allocation-size="1" initial-value="1"/>
+    </id>
+    <field name="fechaCreacion" type="date" column="fecha_creacion" nullable="false"/>
+    <many-to-one field="planificacion" target-entity="CtlPlanificacion" fetch="LAZY">
+      <join-columns>
+        <join-column name="planificacion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="estadoProrroga" target-entity="CtlEstados" fetch="LAZY">
+      <join-columns>
+        <join-column name="estado_prorroga" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="prorrogaModalidadCompra" target-entity="CtlModalidadCompra" fetch="LAZY">
+      <join-columns>
+        <join-column name="prorroga_modalidad_compra" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

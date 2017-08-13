@@ -88,16 +88,6 @@ class CtlAnalisisIncremento
 
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set idIncremento
      *
      * @param integer $idIncremento
@@ -311,5 +301,15 @@ class CtlAnalisisIncremento
     public function getObservacion()
     {
         return $this->observacion;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

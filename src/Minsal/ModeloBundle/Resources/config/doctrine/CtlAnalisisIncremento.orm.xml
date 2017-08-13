@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Minsal\ModeloBundle\Entity\CtlAnalisisIncremento" table="ctl_analisis_incremento">
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+      <sequence-generator sequence-name="ctl_analisis_incremento_id_seq" allocation-size="1" initial-value="1"/>
+    </id>
+    <field name="idIncremento" type="integer" column="id_incremento" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="numeroCompra" type="integer" column="numero_compra" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idContrato" type="integer" column="id_contrato" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idProveedor" type="integer" column="id_proveedor" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idProducto" type="integer" column="id_producto" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="cantidadIncrementada" type="integer" column="cantidad_incrementada" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="precioUnitario" type="decimal" column="precio_unitario" precision="8" scale="2" nullable="true"/>
+    <field name="montoIncrementado" type="decimal" column="monto_incrementado" precision="8" scale="2" nullable="true"/>
+    <field name="observacion" type="text" column="observacion" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

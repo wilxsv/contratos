@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlContrato
  *
- * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_contrato_modalidad", columns={"numero_modalidad"}), @ORM\Index(name="fki_contrato_establecimiento", columns={"establecimiento"}), @ORM\Index(name="fki_prove_contrat", columns={"id_proveedor"})})
+ * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_contrato_modalidad", columns={"numero_modalidad"}), @ORM\Index(name="fki_prove_contrat", columns={"id_proveedor"}), @ORM\Index(name="fki_contrato_establecimiento", columns={"establecimiento"})})
  * @ORM\Entity
  */
 class CtlContrato
@@ -48,16 +48,6 @@ class CtlContrato
     private $establecimiento;
 
     /**
-     * @var \CtlModalidadCompra
-     *
-     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="numero_modalidad", referencedColumnName="id")
-     * })
-     */
-    private $numeroModalidad;
-
-    /**
      * @var \CtlProveedor
      *
      * @ORM\Id
@@ -69,31 +59,17 @@ class CtlContrato
      */
     private $idProveedor;
 
-
-
     /**
-     * Set id
+     * @var \CtlModalidadCompra
      *
-     * @param integer $id
-     *
-     * @return CtlContrato
+     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="numero_modalidad", referencedColumnName="id")
+     * })
      */
-    public function setId($id)
-    {
-        $this->id = $id;
+    private $numeroModalidad;
 
-        return $this;
-    }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set montoContrato
@@ -144,6 +120,30 @@ class CtlContrato
     }
 
     /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return CtlContrato
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set establecimiento
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimiento
@@ -168,30 +168,6 @@ class CtlContrato
     }
 
     /**
-     * Set numeroModalidad
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidad
-     *
-     * @return CtlContrato
-     */
-    public function setNumeroModalidad(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidad = null)
-    {
-        $this->numeroModalidad = $numeroModalidad;
-
-        return $this;
-    }
-
-    /**
-     * Get numeroModalidad
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
-     */
-    public function getNumeroModalidad()
-    {
-        return $this->numeroModalidad;
-    }
-
-    /**
      * Set idProveedor
      *
      * @param \Minsal\ModeloBundle\Entity\CtlProveedor $idProveedor
@@ -213,5 +189,29 @@ class CtlContrato
     public function getIdProveedor()
     {
         return $this->idProveedor;
+    }
+
+    /**
+     * Set numeroModalidad
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidad
+     *
+     * @return CtlContrato
+     */
+    public function setNumeroModalidad(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidad = null)
+    {
+        $this->numeroModalidad = $numeroModalidad;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroModalidad
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
+     */
+    public function getNumeroModalidad()
+    {
+        return $this->numeroModalidad;
     }
 }

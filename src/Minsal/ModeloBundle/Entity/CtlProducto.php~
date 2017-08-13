@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="fki_producto_unidad_medida", columns={"unidad_medida_producto"}), @ORM\Index(name="fki_producto_establecimiento", columns={"establecimiento_producto"}), @ORM\Index(name="fki_esta_prod", columns={"estado_producto"})})
+ * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="fki_esta_prod", columns={"estado_producto"}), @ORM\Index(name="fki_producto_establecimiento", columns={"establecimiento_producto"}), @ORM\Index(name="fki_producto_unidad_medida", columns={"unidad_medida_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
@@ -44,16 +44,6 @@ class CtlProducto
     private $declargo;
 
     /**
-     * @var \CtlEstados
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstados")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estado_producto", referencedColumnName="id")
-     * })
-     */
-    private $estadoProducto;
-
-    /**
      * @var \CtlEstablecimiento
      *
      * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
@@ -62,6 +52,16 @@ class CtlProducto
      * })
      */
     private $establecimientoProducto;
+
+    /**
+     * @var \CtlEstados
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstados")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estado_producto", referencedColumnName="id")
+     * })
+     */
+    private $estadoProducto;
 
     /**
      * @var \CtlUnidadMedida
@@ -74,5 +74,158 @@ class CtlProducto
     private $unidadMedidaProducto;
 
 
-}
 
+    /**
+     * Set codigoProducto
+     *
+     * @param string $codigoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setCodigoProducto($codigoProducto)
+    {
+        $this->codigoProducto = $codigoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get codigoProducto
+     *
+     * @return string
+     */
+    public function getCodigoProducto()
+    {
+        return $this->codigoProducto;
+    }
+
+    /**
+     * Set nombreProducto
+     *
+     * @param string $nombreProducto
+     *
+     * @return CtlProducto
+     */
+    public function setNombreProducto($nombreProducto)
+    {
+        $this->nombreProducto = $nombreProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreProducto
+     *
+     * @return string
+     */
+    public function getNombreProducto()
+    {
+        return $this->nombreProducto;
+    }
+
+    /**
+     * Set declargo
+     *
+     * @param string $declargo
+     *
+     * @return CtlProducto
+     */
+    public function setDeclargo($declargo)
+    {
+        $this->declargo = $declargo;
+
+        return $this;
+    }
+
+    /**
+     * Get declargo
+     *
+     * @return string
+     */
+    public function getDeclargo()
+    {
+        return $this->declargo;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set unidadMedidaProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
+     *
+     * @return CtlProducto
+     */
+    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
+    {
+        $this->unidadMedidaProducto = $unidadMedidaProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get unidadMedidaProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
+     */
+    public function getUnidadMedidaProducto()
+    {
+        return $this->unidadMedidaProducto;
+    }
+
+    /**
+     * Set estadoProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setEstadoProducto(\Minsal\ModeloBundle\Entity\CtlEstados $estadoProducto = null)
+    {
+        $this->estadoProducto = $estadoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get estadoProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstados
+     */
+    public function getEstadoProducto()
+    {
+        return $this->estadoProducto;
+    }
+
+    /**
+     * Set establecimientoProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto
+     *
+     * @return CtlProducto
+     */
+    public function setEstablecimientoProducto(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto = null)
+    {
+        $this->establecimientoProducto = $establecimientoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimientoProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
+     */
+    public function getEstablecimientoProducto()
+    {
+        return $this->establecimientoProducto;
+    }
+}

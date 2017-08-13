@@ -30,5 +30,38 @@ class CtlProgramacion
     private $descripcionProgramacion;
 
 
-}
 
+    /**
+     * Set descripcionProgramacion
+     *
+     * @param string $descripcionProgramacion
+     *
+     * @return CtlProgramacion
+     */
+    public function setDescripcionProgramacion($descripcionProgramacion)
+    {
+        $this->descripcionProgramacion = $descripcionProgramacion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcionProgramacion
+     *
+     * @return string
+     */
+    public function getDescripcionProgramacion()
+    {
+        return $this->descripcionProgramacion;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

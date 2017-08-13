@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnMedicamentoProrroga
  *
- * @ORM\Table(name="mtn_medicamento_prorroga", indexes={@ORM\Index(name="mtn_medicamento_prorroga_contratopid_idx", columns={"contratopid"}), @ORM\Index(name="mtn_medicamento_prorroga_prorrogaid_idx", columns={"prorrogaid"})})
+ * @ORM\Table(name="mtn_medicamento_prorroga", indexes={@ORM\Index(name="mtn_medicamento_prorroga_prorrogaid_idx", columns={"prorrogaid"}), @ORM\Index(name="mtn_medicamento_prorroga_contratopid_idx", columns={"contratopid"})})
  * @ORM\Entity
  */
 class MtnMedicamentoProrroga
@@ -47,16 +47,6 @@ class MtnMedicamentoProrroga
     private $prorrogaid;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set contratopid
@@ -104,6 +94,16 @@ class MtnMedicamentoProrroga
     public function getMedicamentos()
     {
         return $this->medicamentos;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProducto
  *
- * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="fki_producto_unidad_medida", columns={"unidad_medida_producto"}), @ORM\Index(name="fki_producto_establecimiento", columns={"establecimiento_producto"}), @ORM\Index(name="fki_esta_prod", columns={"estado_producto"})})
+ * @ORM\Table(name="ctl_producto", indexes={@ORM\Index(name="fki_esta_prod", columns={"estado_producto"}), @ORM\Index(name="fki_producto_establecimiento", columns={"establecimiento_producto"}), @ORM\Index(name="fki_producto_unidad_medida", columns={"unidad_medida_producto"})})
  * @ORM\Entity
  */
 class CtlProducto
@@ -44,16 +44,6 @@ class CtlProducto
     private $declargo;
 
     /**
-     * @var \CtlEstados
-     *
-     * @ORM\ManyToOne(targetEntity="CtlEstados")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="estado_producto", referencedColumnName="id")
-     * })
-     */
-    private $estadoProducto;
-
-    /**
      * @var \CtlEstablecimiento
      *
      * @ORM\ManyToOne(targetEntity="CtlEstablecimiento")
@@ -62,6 +52,16 @@ class CtlProducto
      * })
      */
     private $establecimientoProducto;
+
+    /**
+     * @var \CtlEstados
+     *
+     * @ORM\ManyToOne(targetEntity="CtlEstados")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="estado_producto", referencedColumnName="id")
+     * })
+     */
+    private $estadoProducto;
 
     /**
      * @var \CtlUnidadMedida
@@ -74,16 +74,6 @@ class CtlProducto
     private $unidadMedidaProducto;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set codigoProducto
@@ -158,6 +148,40 @@ class CtlProducto
     }
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set unidadMedidaProducto
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
+     *
+     * @return CtlProducto
+     */
+    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
+    {
+        $this->unidadMedidaProducto = $unidadMedidaProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get unidadMedidaProducto
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
+     */
+    public function getUnidadMedidaProducto()
+    {
+        return $this->unidadMedidaProducto;
+    }
+
+    /**
      * Set estadoProducto
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProducto
@@ -203,29 +227,5 @@ class CtlProducto
     public function getEstablecimientoProducto()
     {
         return $this->establecimientoProducto;
-    }
-
-    /**
-     * Set unidadMedidaProducto
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
-     *
-     * @return CtlProducto
-     */
-    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
-    {
-        $this->unidadMedidaProducto = $unidadMedidaProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get unidadMedidaProducto
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
-     */
-    public function getUnidadMedidaProducto()
-    {
-        return $this->unidadMedidaProducto;
     }
 }

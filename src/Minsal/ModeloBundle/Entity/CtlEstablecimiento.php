@@ -39,16 +39,6 @@ class CtlEstablecimiento
 
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set codigoEstablecimiento
      *
      * @param string $codigoEstablecimiento
@@ -94,5 +84,15 @@ class CtlEstablecimiento
     public function getNombreEstablecimiento()
     {
         return $this->nombreEstablecimiento;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

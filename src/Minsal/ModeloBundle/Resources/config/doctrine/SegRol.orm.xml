@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Minsal\ModeloBundle\Entity\SegRol" table="seg_rol">
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+      <sequence-generator sequence-name="seg_rol_id_seq" allocation-size="1" initial-value="1"/>
+    </id>
+    <field name="nombre" type="text" column="nombre" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fechaCreacion" type="date" column="fecha_creacion" nullable="false"/>
+    <field name="fechaModificacion" type="date" column="fecha_modificacion" nullable="true"/>
+    <many-to-many field="segUsuarioid" target-entity="SegUsuario" mapped-by="idSegRol" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>

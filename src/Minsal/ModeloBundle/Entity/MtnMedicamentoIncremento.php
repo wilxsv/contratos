@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MtnMedicamentoIncremento
  *
- * @ORM\Table(name="mtn_medicamento_incremento", indexes={@ORM\Index(name="fki_med_incre", columns={"incrementoid"}), @ORM\Index(name="fki_med_incr_contr", columns={"contratoid"})})
+ * @ORM\Table(name="mtn_medicamento_incremento", indexes={@ORM\Index(name="fki_med_incr_contr", columns={"contratoid"}), @ORM\Index(name="fki_med_incre", columns={"incrementoid"})})
  * @ORM\Entity
  */
 class MtnMedicamentoIncremento
@@ -47,16 +47,6 @@ class MtnMedicamentoIncremento
     private $incrementoid;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set contratoid
@@ -104,6 +94,16 @@ class MtnMedicamentoIncremento
     public function getMedicamentos()
     {
         return $this->medicamentos;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

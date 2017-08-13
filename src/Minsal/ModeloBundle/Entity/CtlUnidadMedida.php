@@ -32,16 +32,6 @@ class CtlUnidadMedida
 
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set descripcion
      *
      * @param string $descripcion
@@ -63,5 +53,15 @@ class CtlUnidadMedida
     public function getDescripcion()
     {
         return $this->descripcion;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

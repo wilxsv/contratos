@@ -32,16 +32,6 @@ class CtlEstados
 
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set descripcionEstado
      *
      * @param string $descripcionEstado
@@ -63,5 +53,15 @@ class CtlEstados
     public function getDescripcionEstado()
     {
         return $this->descripcionEstado;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

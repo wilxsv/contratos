@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProrroga
  *
- * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="fki_estad_pro", columns={"estado_prorroga"}), @ORM\Index(name="idx_337125a911b7b911", columns={"prorroga_modalidad_compra"})})
+ * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="ctl_prorroga_planificacion_idx", columns={"planificacion"}), @ORM\Index(name="fki_estad_pro", columns={"estado_prorroga"}), @ORM\Index(name="idx_337125a911b7b911", columns={"prorroga_modalidad_compra"})})
  * @ORM\Entity
  */
 class CtlProrroga
@@ -30,11 +30,14 @@ class CtlProrroga
     private $fechaCreacion;
 
     /**
-     * @var integer
+     * @var \CtlModalidadCompra
      *
-     * @ORM\Column(name="planificacion", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="prorroga_modalidad_compra", referencedColumnName="id")
+     * })
      */
-    private $planificacion;
+    private $prorrogaModalidadCompra;
 
     /**
      * @var \CtlEstados
@@ -47,26 +50,16 @@ class CtlProrroga
     private $estadoProrroga;
 
     /**
-     * @var \CtlModalidadCompra
+     * @var \CtlPlanificacion
      *
-     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
+     * @ORM\ManyToOne(targetEntity="CtlPlanificacion")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="prorroga_modalidad_compra", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="planificacion", referencedColumnName="id")
      * })
      */
-    private $prorrogaModalidadCompra;
+    private $planificacion;
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set fechaCreacion
@@ -93,13 +86,23 @@ class CtlProrroga
     }
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set planificacion
      *
-     * @param integer $planificacion
+     * @param \Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion
      *
      * @return CtlProrroga
      */
-    public function setPlanificacion($planificacion)
+    public function setPlanificacion(\Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion = null)
     {
         $this->planificacion = $planificacion;
 
@@ -109,7 +112,7 @@ class CtlProrroga
     /**
      * Get planificacion
      *
-     * @return integer
+     * @return \Minsal\ModeloBundle\Entity\CtlPlanificacion
      */
     public function getPlanificacion()
     {

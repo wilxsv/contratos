@@ -32,16 +32,6 @@ class CtlProgramacion
 
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set descripcionProgramacion
      *
      * @param string $descripcionProgramacion
@@ -63,5 +53,15 @@ class CtlProgramacion
     public function getDescripcionProgramacion()
     {
         return $this->descripcionProgramacion;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

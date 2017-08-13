@@ -39,16 +39,6 @@ class CtlPlanificacion
 
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set idProgramacionSinab
      *
      * @param integer $idProgramacionSinab
@@ -94,5 +84,15 @@ class CtlPlanificacion
     public function getDescripcionProgramacion()
     {
         return $this->descripcionProgramacion;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
