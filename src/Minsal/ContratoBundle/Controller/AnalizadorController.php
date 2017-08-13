@@ -22,12 +22,7 @@ class AnalizadorController extends Controller
 		//Funcion para el llamado de datos de las prorrogas
 		public function analizadorProrrogaAction($prorroga)
 		{
-			/*
-				$programacion = $_GET["programacion"];
-	 			$licitacion = $_GET["licitacion"];
-	 			$establecimiento = $_GET["establecimiento"];
-	 			$proveedor = $_GET["proveedor"];
-	 		*/
+			
 			$em = $this->getDoctrine()->getManager(); //Invocamos al manejador de Entidades
 			$prorrogaObj = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(array(
 				'id'=>$prorroga
@@ -58,14 +53,19 @@ class AnalizadorController extends Controller
 
 			$medicamentoslista = $em->createQuery($dql2)->getResult();
 			$listadep = array();
+			$estable = array();
+			$prove = array();
 			foreach ($medicamentoslista as $m) {
  				array_push($listadep, $m["id"]);
+ 				array_push($establecimiento, $m["establecimientoProductoP"]);
+ 				array_push($proveedor, $m["idProveedor"]);
 			}
 			$listadepunido = implode(",", $listadep);
+			$establecimiento = implode(",", $estable);
+			$proveedor = implode(",", prove);
 
 			$planificacion = $prorrogaObj->getPlanificacion()->getId(); //Obtenermos el ID de la programacion que se utilizara
 
-			/*http://192.168.1.14:8080/v1/sinab/medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion=1&licitacion=06/2016&establecimiento=621&proveedor=5*/
 			$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$planificacion}&licitacion={$licitacion}&establecimiento={$establecimiento}&proveedor={$proveedor}";
 
 			$curl = curl_init($service_url);
