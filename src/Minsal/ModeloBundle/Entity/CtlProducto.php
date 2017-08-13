@@ -76,6 +76,16 @@ class CtlProducto
 
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set codigoProducto
      *
      * @param string $codigoProducto
@@ -148,37 +158,27 @@ class CtlProducto
     }
 
     /**
-     * Get id
+     * Set establecimientoProducto
      *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set unidadMedidaProducto
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
+     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto
      *
      * @return CtlProducto
      */
-    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
+    public function setEstablecimientoProducto(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto = null)
     {
-        $this->unidadMedidaProducto = $unidadMedidaProducto;
+        $this->establecimientoProducto = $establecimientoProducto;
 
         return $this;
     }
 
     /**
-     * Get unidadMedidaProducto
+     * Get establecimientoProducto
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
+     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
      */
-    public function getUnidadMedidaProducto()
+    public function getEstablecimientoProducto()
     {
-        return $this->unidadMedidaProducto;
+        return $this->establecimientoProducto;
     }
 
     /**
@@ -206,26 +206,26 @@ class CtlProducto
     }
 
     /**
-     * Set establecimientoProducto
+     * Set unidadMedidaProducto
      *
-     * @param \Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto
+     * @param \Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto
      *
      * @return CtlProducto
      */
-    public function setEstablecimientoProducto(\Minsal\ModeloBundle\Entity\CtlEstablecimiento $establecimientoProducto = null)
+    public function setUnidadMedidaProducto(\Minsal\ModeloBundle\Entity\CtlUnidadMedida $unidadMedidaProducto = null)
     {
-        $this->establecimientoProducto = $establecimientoProducto;
+        $this->unidadMedidaProducto = $unidadMedidaProducto;
 
         return $this;
     }
 
     /**
-     * Get establecimientoProducto
+     * Get unidadMedidaProducto
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlEstablecimiento
+     * @return \Minsal\ModeloBundle\Entity\CtlUnidadMedida
      */
-    public function getEstablecimientoProducto()
+    public function getUnidadMedidaProducto()
     {
-        return $this->establecimientoProducto;
+        return $this->unidadMedidaProducto;
     }
 }

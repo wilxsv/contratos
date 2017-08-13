@@ -62,6 +62,16 @@ class CtlProrroga
 
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set fechaCreacion
      *
      * @param \DateTime $fechaCreacion
@@ -86,37 +96,27 @@ class CtlProrroga
     }
 
     /**
-     * Get id
+     * Set prorrogaModalidadCompra
      *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set planificacion
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion
+     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra
      *
      * @return CtlProrroga
      */
-    public function setPlanificacion(\Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion = null)
+    public function setProrrogaModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra = null)
     {
-        $this->planificacion = $planificacion;
+        $this->prorrogaModalidadCompra = $prorrogaModalidadCompra;
 
         return $this;
     }
 
     /**
-     * Get planificacion
+     * Get prorrogaModalidadCompra
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlPlanificacion
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
      */
-    public function getPlanificacion()
+    public function getProrrogaModalidadCompra()
     {
-        return $this->planificacion;
+        return $this->prorrogaModalidadCompra;
     }
 
     /**
@@ -144,26 +144,26 @@ class CtlProrroga
     }
 
     /**
-     * Set prorrogaModalidadCompra
+     * Set planificacion
      *
-     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra
+     * @param \Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion
      *
      * @return CtlProrroga
      */
-    public function setProrrogaModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra = null)
+    public function setPlanificacion(\Minsal\ModeloBundle\Entity\CtlPlanificacion $planificacion = null)
     {
-        $this->prorrogaModalidadCompra = $prorrogaModalidadCompra;
+        $this->planificacion = $planificacion;
 
         return $this;
     }
 
     /**
-     * Get prorrogaModalidadCompra
+     * Get planificacion
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
+     * @return \Minsal\ModeloBundle\Entity\CtlPlanificacion
      */
-    public function getProrrogaModalidadCompra()
+    public function getPlanificacion()
     {
-        return $this->prorrogaModalidadCompra;
+        return $this->planificacion;
     }
 }

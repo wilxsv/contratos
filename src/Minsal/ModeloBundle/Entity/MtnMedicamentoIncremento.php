@@ -49,6 +49,16 @@ class MtnMedicamentoIncremento
 
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set contratoid
      *
      * @param integer $contratoid
@@ -94,16 +104,6 @@ class MtnMedicamentoIncremento
     public function getMedicamentos()
     {
         return $this->medicamentos;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

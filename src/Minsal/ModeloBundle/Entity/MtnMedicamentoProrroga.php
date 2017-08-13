@@ -49,6 +49,16 @@ class MtnMedicamentoProrroga
 
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set contratopid
      *
      * @param integer $contratopid
@@ -94,16 +104,6 @@ class MtnMedicamentoProrroga
     public function getMedicamentos()
     {
         return $this->medicamentos;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

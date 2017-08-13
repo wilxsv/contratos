@@ -83,6 +83,16 @@ class MtnProductoContrato
 
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set mtnContrato
      *
      * @param integer $mtnContrato
@@ -179,37 +189,27 @@ class MtnProductoContrato
     }
 
     /**
-     * Get id
+     * Set mtnProducto
      *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set mtnProveedor
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlProveedor $mtnProveedor
+     * @param \Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto
      *
      * @return MtnProductoContrato
      */
-    public function setMtnProveedor(\Minsal\ModeloBundle\Entity\CtlProveedor $mtnProveedor = null)
+    public function setMtnProducto(\Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto = null)
     {
-        $this->mtnProveedor = $mtnProveedor;
+        $this->mtnProducto = $mtnProducto;
 
         return $this;
     }
 
     /**
-     * Get mtnProveedor
+     * Get mtnProducto
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlProveedor
+     * @return \Minsal\ModeloBundle\Entity\CtlProducto
      */
-    public function getMtnProveedor()
+    public function getMtnProducto()
     {
-        return $this->mtnProveedor;
+        return $this->mtnProducto;
     }
 
     /**
@@ -237,26 +237,26 @@ class MtnProductoContrato
     }
 
     /**
-     * Set mtnProducto
+     * Set mtnProveedor
      *
-     * @param \Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto
+     * @param \Minsal\ModeloBundle\Entity\CtlProveedor $mtnProveedor
      *
      * @return MtnProductoContrato
      */
-    public function setMtnProducto(\Minsal\ModeloBundle\Entity\CtlProducto $mtnProducto = null)
+    public function setMtnProveedor(\Minsal\ModeloBundle\Entity\CtlProveedor $mtnProveedor = null)
     {
-        $this->mtnProducto = $mtnProducto;
+        $this->mtnProveedor = $mtnProveedor;
 
         return $this;
     }
 
     /**
-     * Get mtnProducto
+     * Get mtnProveedor
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlProducto
+     * @return \Minsal\ModeloBundle\Entity\CtlProveedor
      */
-    public function getMtnProducto()
+    public function getMtnProveedor()
     {
-        return $this->mtnProducto;
+        return $this->mtnProveedor;
     }
 }

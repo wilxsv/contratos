@@ -69,6 +69,16 @@ class CtlIncremento
 
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set mesesDesestimar
      *
      * @param integer $mesesDesestimar
@@ -117,37 +127,27 @@ class CtlIncremento
     }
 
     /**
-     * Get id
+     * Set estimacion
      *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set numeroModalidadCompra
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidadCompra
+     * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
      *
      * @return CtlIncremento
      */
-    public function setNumeroModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidadCompra = null)
+    public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
     {
-        $this->numeroModalidadCompra = $numeroModalidadCompra;
+        $this->estimacion = $estimacion;
 
         return $this;
     }
 
     /**
-     * Get numeroModalidadCompra
+     * Get estimacion
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
+     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion
      */
-    public function getNumeroModalidadCompra()
+    public function getEstimacion()
     {
-        return $this->numeroModalidadCompra;
+        return $this->estimacion;
     }
 
     /**
@@ -175,26 +175,26 @@ class CtlIncremento
     }
 
     /**
-     * Set estimacion
+     * Set numeroModalidadCompra
      *
-     * @param \Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion
+     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidadCompra
      *
      * @return CtlIncremento
      */
-    public function setEstimacion(\Minsal\ModeloBundle\Entity\CtlProgramacion $estimacion = null)
+    public function setNumeroModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $numeroModalidadCompra = null)
     {
-        $this->estimacion = $estimacion;
+        $this->numeroModalidadCompra = $numeroModalidadCompra;
 
         return $this;
     }
 
     /**
-     * Get estimacion
+     * Get numeroModalidadCompra
      *
-     * @return \Minsal\ModeloBundle\Entity\CtlProgramacion
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
      */
-    public function getEstimacion()
+    public function getNumeroModalidadCompra()
     {
-        return $this->estimacion;
+        return $this->numeroModalidadCompra;
     }
 }

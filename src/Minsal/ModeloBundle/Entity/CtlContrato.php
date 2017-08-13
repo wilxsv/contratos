@@ -72,6 +72,30 @@ class CtlContrato
 
 
     /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return CtlContrato
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set montoContrato
      *
      * @param string $montoContrato
@@ -117,30 +141,6 @@ class CtlContrato
     public function getNumeroContrato()
     {
         return $this->numeroContrato;
-    }
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return CtlContrato
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
