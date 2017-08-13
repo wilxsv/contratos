@@ -66,7 +66,7 @@ class AnalizadorController extends Controller
 			$planificacion = $prorrogaObj->getPlanificacion()->getId(); //Obtenermos el ID de la programacion que se utilizara
 
 			/*http://192.168.1.14:8080/v1/sinab/medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion=1&licitacion=06/2016&establecimiento=621&proveedor=5*/
-			$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion=1&licitacion=06/2016&establecimiento=621&proveedor=5";
+			$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$planificacion}&licitacion={$licitacion}&establecimiento={$establecimiento}&proveedor={$proveedor}";
 
 			$curl = curl_init($service_url);
       		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
