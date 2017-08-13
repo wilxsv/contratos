@@ -284,66 +284,63 @@ class InicioProcesoController extends Controller
         $prorroga = $request->get('esProrroga');
 
         //Confirmamos que sea un prorroga
-        if($prorroga == 1){
-        $em = $this->getDoctrine()->getManager();
-
-        //Obtenemos los valores que nos interesan
-        $cod = $request->get('cod');
-        $planificacion = $request->get('planificacion');
-        $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneById(6);
-        $prorroga = new CtlProrroga();
-        $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
-        $prorroga->setEstadoProrroga($estado);
-        $prorroga->setFechaCreacion(new \DateTime("now"));
-
-        foreach($compra as $com)
+        if($prorroga == 1)
         {
-          $prorroga->setProrrogaModalidadCompra($com);
-        }
+            $em = $this->getDoctrine()->getManager();
 
-        $programacion = $em->getRepository('MinsalModeloBundle:CtlPlanificacion')->findOneById($planificacion);
-        //Se asigna la planificacion a la prorroga
-        $prorroga->setPlanificacion($programacion->getId());
+            //Obtenemos los valores que nos interesan
+            $cod = $request->get('cod');
+            $planificacion = $request->get('planificacion');
+            $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneById(6);
+            $prorroga = new CtlProrroga();
+            $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
+            $prorroga->setEstadoProrroga($estado);
+            $prorroga->setFechaCreacion(new \DateTime("now"));
 
-        $em->persist($prorroga);
-        $em->flush($prorroga);
+            foreach($compra as $com)
+            {
+              $prorroga->setProrrogaModalidadCompra($com);
+            }
 
-        return new Response('Prorroga Creada, Por favor espere la depuracion de proveedores');
+            $programacion = $em->getRepository('MinsalModeloBundle:CtlPlanificacion')->findOneById($planificacion);
+            //Se asigna la planificacion a la prorroga
+            $prorroga->setPlanificacion($programacion);
 
-        
+            $em->persist($prorroga);
+            $em->flush($prorroga);
 
-
+            return new Response('Prorroga Creada, Por favor espere la depuracion de proveedores');
     }
     {
-      $em = $this->getDoctrine()->getManager();
-      $cod = $request->get('cod');
-      $meses = $request->get('meses');
-      $estimacion = $request->get('estimacion');
-      $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneById(1);
-      $incremento = new CtlIncremento();
-      $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
-      $incremento->setestadoIncremento($estado);
-      $incremento->setMesesDesestimar($meses);
-      $incremento->setFechaCreacion(new \DateTime("now"));
+            $em = $this->getDoctrine()->getManager();
+            $cod = $request->get('cod');
+            $meses = $request->get('meses');
+            $estimacion = $request->get('estimacion');
+            $estado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneById(1);
+            $incremento = new CtlIncremento();
+            $compra = $em->getRepository('MinsalModeloBundle:CtlModalidadCompra')->findById($cod);
+            $incremento->setestadoIncremento($estado);
+            $incremento->setMesesDesestimar($meses);
+            $incremento->setFechaCreacion(new \DateTime("now"));
 
-      foreach($compra as $com)
-      {
-        $incremento->setNumeroModalidadCompra($com);
-       }
-       $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findOneById($estimacion);
-      
-         $incremento->setEstimacion($programacion);
-       
+            foreach($compra as $com)
+            {
+              $incremento->setNumeroModalidadCompra($com);
+            }
+             $programacion = $em->getRepository('MinsalModeloBundle:CtlProgramacion')->findOneById($estimacion);
+            
+            $incremento->setEstimacion($programacion);
+             
 
-      
-      //Se asignac la estimacion al incremento
-      
-      //Se persisten los datos        
-      
-      if ($incremento != null) {
-        $em->persist($incremento);
-        $em->flush($incremento);
-        return new Response('Incremento Creado, Por favor espere la depuracion de proveedores');
+            
+            //Se asignac la estimacion al incremento
+            
+            //Se persisten los datos        
+            
+            if ($incremento != null) {
+              $em->persist($incremento);
+              $em->flush($incremento);
+              return new Response('Incremento Creado, Por favor espere la depuracion de proveedores');
       }
       
     

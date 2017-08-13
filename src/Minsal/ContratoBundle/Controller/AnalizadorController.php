@@ -131,7 +131,9 @@ class AnalizadorController extends Controller
 				)); //Obtenemos el ID de la prorroga al que se analizara
 			$compra = $prorrogaObj->getProrrogaModalidadCompra()->getId(); //Obtenemos el ID De la modalidad de la compra
 
-			$dql = "SELECT DISTINCT mc.id, mc.numeroModalidad, c.id as contrato, c.numeroContrato, p.codigoProducto, p.nombreProducto, c.montoContrato, pc.cantidad, pc.precioUnitario, p.id,pr.nombreProveedor
+			$licitacion = $prorrogaObj->getProrrogaModalidadCompra()->getNumeroModalidad(); //Obtenemos el codigo de licitacion a utilizar
+
+			$dql = "SELECT mc.id, mc.numeroModalidad, c.id as contrato, c.numeroContrato, p.codigoProducto, p.nombreProducto, c.montoContrato, pc.cantidad, pc.precioUnitario, p.id, pr.nombreProveedor, IDENTITY (p.establecimientoProducto) AS establecimientoProductoP, pr.id AS idProveedor
 			    	FROM MinsalModeloBundle:CtlProducto p 
 					INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH pc.mtnProducto = p.id  
 					INNER JOIN MinsalModeloBundle:CtlContrato c WITH  pc.mtnContrato = c.id 
@@ -141,12 +143,15 @@ class AnalizadorController extends Controller
 					ORDER BY c.numeroContrato ";
 			$listado = $em->createQuery($dql)->getResult();
 
+
 			$planificacion = $prorrogaObj->getPlanificacion()->getId(); //Obtenermos el ID de la programacion que se utilizara
 
 			foreach ($listado as $medicamento) {
-				/*$service_url = "http://192.168.1.14:8080/v1/sinab//medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$planificacion}&licitacion={$licitacion}&establecimiento={$establecimiento}&proveedor={$proveedor}";
+				$establecimiento = $medicamento['establecimientoProductoP'];
+				$proveedor = $medicamento['idProveedor'];
+				$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$planificacion}&licitacion={$licitacion}&establecimiento={$medicamento['establecimientoProductoP']}&proveedor={$medicamento['idProveedor']}";
 
-				$curl = curl_init($service_url);
+				/*$curl = curl_init($service_url);
 			    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			    $curl_response = curl_exec($curl);
 			    curl_close($curl);
@@ -154,10 +159,8 @@ class AnalizadorController extends Controller
 			}
 
 			return $this->render('MinsalPlantillaBundle:Analizador:prorroga.html.twig', array(
-				'idprorroga'=>$prorrogaObj,
-				'compra'=>$compra,
-				'listado'=>$listado,
-				'planificacion'=>$planificacion,
+				'servicio'=>$service_url,
+				
 				));
 		}
 
