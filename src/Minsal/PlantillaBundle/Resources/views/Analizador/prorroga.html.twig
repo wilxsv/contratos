@@ -4,7 +4,7 @@
 
 <div class="row">
 <div class="white-box">
-<h3 class="box-title">Analizador de prorroga de contratos  {{ dump(servicio) }}</h3>
+<h3 class="box-title">Analizador de prorroga de contratos  {{ dump(servicio) }} {{ dump(respuesta) }}</h3>
 <div class="table-responsive">
 	<table class="table color-table success-table">
 		<thead>
@@ -26,6 +26,26 @@
 			</tr>
 		</thead>
 		<tbody>
+			
+			{% for dato in respuesta['respuesta'] %}
+				<tr>
+					<td>{{ dato["2"] }}</td>
+					<td>{{ dato["4"] }}</td>
+					<td></td>
+					<td></td>
+					<td>{{ dato["5"] }}</td>
+					<td>{{ dato["8"] }}</td>
+					<td>{{ dato["9"] }}</td>
+					<td>{{ dato["10"] }}</td>
+					<td>{{ dato["11"] }}</td>
+					<td>{{ dato["12"] }}</td>
+					<td>{{ dato["13"] }}</td>
+					<td>{{ dato["14"] }}</td>
+					<td>{{ dato["15"] }}</td>
+					<td>{{ dato["16"] }}</td>
+				</tr>
+			{% endfor %}
+			
 			
 		</tbody>
 	</table>
