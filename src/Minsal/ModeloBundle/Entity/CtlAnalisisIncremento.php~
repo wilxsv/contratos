@@ -85,6 +85,20 @@ class CtlAnalisisIncremento
      */
     private $observacion;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="renglon", type="integer", nullable=true)
+     */
+    private $renglon;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="establecimiento", type="integer", nullable=true)
+     */
+    private $establecimiento;
+
 
 }
 

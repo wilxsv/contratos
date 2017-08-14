@@ -18,31 +18,34 @@
 					<table id="myTable" class="table table-condensed table-hover table-responsive">
 						<thead>
 							<tr>
-								<th>Aceptar</th>
-								<th>Codigo Proveedor</th>
-								<th>Nombre Proveedor</th>
-								<th>Numero Contrato</th>
-								<th>Codigo Medicamento</th>
-								<th>Nombre Medicamento</th>
-								<th>Cantidad Incremento</th>
-								<th>Monto Incremento</th>
+								<th style="display:none">idIncremento</th>
+								<th style="display:none">Numero Compra</th>
+								<th>Codigo Contrato</th>
+								<th>Id Proveedor</th>
+								<th>Id Producto</th>
+								<th>Cantidad Incrementada</th>
+								<th>Precio Unitario</th>
+								<th>Monto Incrementado</th>
+								<th>Renglon</th>
+								<th>Establecimiento</th>
 								<th>Observacion</th>
 							</tr>
 						</thead>
 						<tbody>	
 								{% for detalle in detalles %}
-								<tr id="checkList">
-									<td><input type="checkbox" value="{{ detalle.id }}" checked></td>
-									<td>{{ detalle.idProveedor }}</td>
-									<td>{{ detalle.nombreProveedor }}</td>
-									<td>{{ detalle.numeroContrato }}</td>
-									<td>{{ detalle.codigoProducto }}</td>
-									<td>{{ detalle.nombreProducto }}</td>
-									<td>{{ detalle.cantidadIncrementada }}</td>
-									<td>{{ detalle.montoContratoIncrementado }}</td>
-									<td><button class="btn btn-warning btn-sm model_img img-responsive" alt="default" data-id="{{ detalle.id }}" data-nombre="{{ detalle.nombreProducto }}" data-codigo="{{ detalle.codigoProducto }}" data-toggle="modal" data-target="#responsive-modal"><span class="glyphicon glyphicon-comment" ></span> Observacion</button></td>
-									
-								</tr>
+									<tr>
+										<td style="display:none">{{detalle.idIncremento}}</td>
+										<td style="display:none">{{detalle.numeroCompra}}</td>
+										<td>{{detalle.idContrato}}</td>
+										<td>{{detalle.idProveedor}}</td>
+										<td>{{detalle.idProducto}}</td>
+										<td>{{detalle.cantidadIncrementada}}</td>
+										<td>{{detalle.precioUnitario}}</td>
+										<td>{{detalle.montoIncrementado}}</td>
+										<td>{{detalle.renglon}}</td>
+										<td>{{detalle.establecimiento}}</td>
+										<td><input type="text" name=""></td>
+									</tr>
 								{% endfor %}
 						</tbody>
 					</table>

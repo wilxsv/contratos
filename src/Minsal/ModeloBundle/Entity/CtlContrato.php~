@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlContrato
  *
- * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_contrato_modalidad", columns={"numero_modalidad"}), @ORM\Index(name="fki_prove_contrat", columns={"id_proveedor"}), @ORM\Index(name="fki_contrato_establecimiento", columns={"establecimiento"})})
+ * @ORM\Table(name="ctl_contrato", indexes={@ORM\Index(name="fki_contrato_modalidad", columns={"numero_modalidad"}), @ORM\Index(name="fki_contrato_establecimiento", columns={"establecimiento"}), @ORM\Index(name="fki_prove_contrat", columns={"id_proveedor"})})
  * @ORM\Entity
  */
 class CtlContrato
@@ -48,6 +48,16 @@ class CtlContrato
     private $establecimiento;
 
     /**
+     * @var \CtlModalidadCompra
+     *
+     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="numero_modalidad", referencedColumnName="id")
+     * })
+     */
+    private $numeroModalidad;
+
+    /**
      * @var \CtlProveedor
      *
      * @ORM\Id
@@ -58,16 +68,6 @@ class CtlContrato
      * })
      */
     private $idProveedor;
-
-    /**
-     * @var \CtlModalidadCompra
-     *
-     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="numero_modalidad", referencedColumnName="id")
-     * })
-     */
-    private $numeroModalidad;
 
 
 }

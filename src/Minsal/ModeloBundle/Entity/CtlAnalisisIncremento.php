@@ -65,13 +65,6 @@ class CtlAnalisisIncremento
     private $cantidadIncrementada;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="renglon", type="integer", nullable=true)
-     */
-    private $renglon;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="precio_unitario", type="decimal", precision=8, scale=2, nullable=true)
@@ -91,6 +84,20 @@ class CtlAnalisisIncremento
      * @ORM\Column(name="observacion", type="text", nullable=true)
      */
     private $observacion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="renglon", type="integer", nullable=true)
+     */
+    private $renglon;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="establecimiento", type="integer", nullable=true)
+     */
+    private $establecimiento;
 
 
 
@@ -318,5 +325,53 @@ class CtlAnalisisIncremento
     public function getObservacion()
     {
         return $this->observacion;
+    }
+
+    /**
+     * Set renglon
+     *
+     * @param integer $renglon
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setRenglon($renglon)
+    {
+        $this->renglon = $renglon;
+
+        return $this;
+    }
+
+    /**
+     * Get renglon
+     *
+     * @return integer
+     */
+    public function getRenglon()
+    {
+        return $this->renglon;
+    }
+
+    /**
+     * Set establecimiento
+     *
+     * @param integer $establecimiento
+     *
+     * @return CtlAnalisisIncremento
+     */
+    public function setEstablecimiento($establecimiento)
+    {
+        $this->establecimiento = $establecimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get establecimiento
+     *
+     * @return integer
+     */
+    public function getEstablecimiento()
+    {
+        return $this->establecimiento;
     }
 }

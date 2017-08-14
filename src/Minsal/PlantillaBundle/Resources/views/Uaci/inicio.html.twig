@@ -32,8 +32,9 @@
 								<th>Revisar</th>
 							</tr>
 						</thead>
-						<tbody>	
-							{% if incrementos %}
+						<tbody>
+						{{dump(detalles)}}	
+							{# {% if incrementos %}
 								{% for incremento in incrementos %}
 									<tr class="info">
 										<td>{{ incremento.id }}</td>
@@ -77,7 +78,7 @@
 
 
 							{% endif %}
-							
+							 #}
 						</tbody>
 					</table>
 				</div>

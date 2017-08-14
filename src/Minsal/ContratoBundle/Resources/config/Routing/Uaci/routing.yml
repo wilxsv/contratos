@@ -15,7 +15,7 @@ minsal_contrato_estado_proveedores:
     methods:    POST
 
 minsal_detalle_observacion:
-    path: /detallesObservacion
+    path: /detallesObservacion/{incremento}
     defaults:   { _controller:MinsalContratoBundle:Uaci:detallesObservacion }
 
 minsal_contrato_agregar_observacion:

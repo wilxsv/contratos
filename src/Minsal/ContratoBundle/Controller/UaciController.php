@@ -156,14 +156,15 @@ class UaciController extends Controller
 	}
 
 	//Pantalla adicional del Lic Martin
-	public function detallesObservacionAction()
+	public function detallesObservacionAction($incremento)
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$dql = "SELECT a.id, a.idProveedor,a.nombreProveedor, a.numeroContrato, a.codigoProducto, a.nombreProducto, a.cantidadIncrementada, a.montoContratoIncrementado
-		FROM MinsalModeloBundle:CtlAnalisisIncremento a";
+		
 
-		$detalles = $em->createQuery( $dql )->getResult();
+		$detalles = $em->getRepository('MinsalModeloBundle:CtlAnalisisIncremento')->findBy(
+			array('idIncremento'=>$incremento)
+			);
 
 		/*select contrato.numero_contrato, productos.codigo_producto, nombre_producto, incremento.cantidad_incrementar, incremento.monto_incrementar 
 		from ctl_contratos_incrementos as incremento

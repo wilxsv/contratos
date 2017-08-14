@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CtlProrroga
  *
- * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="ctl_prorroga_planificacion_idx", columns={"planificacion"}), @ORM\Index(name="fki_estad_pro", columns={"estado_prorroga"}), @ORM\Index(name="idx_337125a911b7b911", columns={"prorroga_modalidad_compra"})})
+ * @ORM\Table(name="ctl_prorroga", indexes={@ORM\Index(name="fki_estad_pro", columns={"estado_prorroga"}), @ORM\Index(name="ctl_prorroga_planificacion_idx", columns={"planificacion"}), @ORM\Index(name="idx_337125a911b7b911", columns={"prorroga_modalidad_compra"})})
  * @ORM\Entity
  */
 class CtlProrroga
@@ -30,16 +30,6 @@ class CtlProrroga
     private $fechaCreacion;
 
     /**
-     * @var \CtlModalidadCompra
-     *
-     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="prorroga_modalidad_compra", referencedColumnName="id")
-     * })
-     */
-    private $prorrogaModalidadCompra;
-
-    /**
      * @var \CtlEstados
      *
      * @ORM\ManyToOne(targetEntity="CtlEstados")
@@ -48,6 +38,16 @@ class CtlProrroga
      * })
      */
     private $estadoProrroga;
+
+    /**
+     * @var \CtlModalidadCompra
+     *
+     * @ORM\ManyToOne(targetEntity="CtlModalidadCompra")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="prorroga_modalidad_compra", referencedColumnName="id")
+     * })
+     */
+    private $prorrogaModalidadCompra;
 
     /**
      * @var \CtlPlanificacion
@@ -96,30 +96,6 @@ class CtlProrroga
     }
 
     /**
-     * Set prorrogaModalidadCompra
-     *
-     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra
-     *
-     * @return CtlProrroga
-     */
-    public function setProrrogaModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra = null)
-    {
-        $this->prorrogaModalidadCompra = $prorrogaModalidadCompra;
-
-        return $this;
-    }
-
-    /**
-     * Get prorrogaModalidadCompra
-     *
-     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
-     */
-    public function getProrrogaModalidadCompra()
-    {
-        return $this->prorrogaModalidadCompra;
-    }
-
-    /**
      * Set estadoProrroga
      *
      * @param \Minsal\ModeloBundle\Entity\CtlEstados $estadoProrroga
@@ -141,6 +117,30 @@ class CtlProrroga
     public function getEstadoProrroga()
     {
         return $this->estadoProrroga;
+    }
+
+    /**
+     * Set prorrogaModalidadCompra
+     *
+     * @param \Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra
+     *
+     * @return CtlProrroga
+     */
+    public function setProrrogaModalidadCompra(\Minsal\ModeloBundle\Entity\CtlModalidadCompra $prorrogaModalidadCompra = null)
+    {
+        $this->prorrogaModalidadCompra = $prorrogaModalidadCompra;
+
+        return $this;
+    }
+
+    /**
+     * Get prorrogaModalidadCompra
+     *
+     * @return \Minsal\ModeloBundle\Entity\CtlModalidadCompra
+     */
+    public function getProrrogaModalidadCompra()
+    {
+        return $this->prorrogaModalidadCompra;
     }
 
     /**
