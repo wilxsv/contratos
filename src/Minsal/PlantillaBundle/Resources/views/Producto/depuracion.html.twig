@@ -31,8 +31,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							
-						{% for med in medicamentos %}
+						{% if error != 'vacio' %}
+							{% for med in medicamentos %}
 							<tr>
 								<td>{{med.id}}</td>
 								<td>{{med.codigoProducto}}</td>
@@ -47,10 +47,15 @@
 									 {% endif %}
 							</tr>
 						{% endfor %}
+					{% else %}
+						<div><h2>El siguiente contrato junto a la estimacion no poseen medicamentos del actual proveedor</h2></div>
+						{% endif %}
 							
 						</tbody>
 					</table>
 					<button id="Guardar" class="btn btn-danger">Guardar</button>
+                                    <p>Generar Reporte</p>
+                                    <a class="btn btn-success" href="">PDF</a>
 				</div>
 			</div>
 		</div>

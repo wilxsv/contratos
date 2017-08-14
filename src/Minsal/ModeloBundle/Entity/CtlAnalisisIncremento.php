@@ -65,6 +65,13 @@ class CtlAnalisisIncremento
     private $cantidadIncrementada;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="renglon", type="integer", nullable=true)
+     */
+    private $renglon;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="precio_unitario", type="decimal", precision=8, scale=2, nullable=true)

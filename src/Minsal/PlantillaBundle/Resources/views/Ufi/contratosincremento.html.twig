@@ -18,6 +18,7 @@
 	        <h3 class="box-title m-b-0">Compra: {{incremento.numeroModalidadCompra.numeroModalidad}}</h3>
 	        <p class="text-muted m-b-30">Lista de Contratos</p>
 	        <p class="text-muted m-b-30">Ingresar Cifrado para todo los contratos <input type="text" id="cifradogeneral"> <a class="btn btn-info" id="btncifradogeneral">Cifrar</a></p>
+	        <p class="text-muted m-b-30">Generar Reporte <a class="btn btn-success">PDF</a></p>
 
 	        <div class="table-responsive">
 	            <table id="cifradotable" class="table table-striped">
@@ -32,7 +33,6 @@
 	                </thead>
 	                <tbody>
 	                    {% for contrato in contratos %}
-	                    	{% if contrato.idProveedor.estadoProveedor == 4 %}
 	                    		<tr>
 		                    		<td>{{contrato.id}}</td>
 		                    		<td>{{contrato.numeroContrato}}</td>
@@ -41,9 +41,8 @@
 		                    		
 		                    		<td><input type="text" name=""></td>
 	                    		</tr>
-	                    	{% else %}
-	                    	{% endif %}
 	                    {% endfor %}
+
 	                </tbody>
 	            </table>
 	        </div>
@@ -68,8 +67,24 @@
 			});
 
 			$('#Finalizar').click(function() {
-				alert('cifrado Guardado');
-			});
+				var estado = 11;
+			        var url = "{{ path('minsal_incremento_cambiar_estado') }}";
+			        var id = "{{incremento.id}}";
+			        $.ajax({
+			            url: url,
+			            data: {
+			                'estado':estado,
+			                'id': id,
+			                'ufi':id
+			            },
+		            type: 'post',
+		        }).done(function(data) {
+		            alert(data);
+		            location.href ="{{ path('minsal_contrato_listado_incrementos') }}";
+		        }).fail(function() {
+		            alert('upps algo ha pasado en el ajax');
+		        });
+		    });
 
 
 			$('#myTable').DataTable();

@@ -65,7 +65,7 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+			$service_url = "http://192.168.1.5:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
@@ -73,7 +73,8 @@ class MedicamentoController extends Controller
 		    $respuesta = json_decode($curl_response,true);
 		    $resumenm = $respuesta["respuesta"];
 
-		    $listadoId = array();
+		    if (! $resumenm=='') {
+		    	$listadoId = array();
 
 		    foreach ($resumenm as $p) {
 		    	array_push($listadoId, $p["0"]);
@@ -88,9 +89,15 @@ class MedicamentoController extends Controller
 
 		    $em->persist($resumen);
 		    $em->flush($resumen);
-		    
+		    }
+		    else{
+		    	$medicamentos = array();
+		    	$error = 'vacio';
+		    }
+		    $error = 'full';
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos
+		    	'medicamentos' => $medicamentos,
+		    	'error' =>$error
 		    	));
 		}else{
 			$listadoId = json_decode($re->getMedicamentos());
@@ -99,8 +106,10 @@ class MedicamentoController extends Controller
 		    ->add('from','MinsalModeloBundle:CtlProducto p')
 		    ->add('where',$qb->expr()->in('p.id',$listadoId));
 		    $medicamentos = $qb->getQuery()->getResult();
+		    $error = 'full';
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos));
+		    	'medicamentos' => $medicamentos,
+		    	'error'=>$error));
 		}
 	   
 
@@ -141,7 +150,7 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://192.168.1.14:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+			$service_url = "http://192.168.1.5:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);

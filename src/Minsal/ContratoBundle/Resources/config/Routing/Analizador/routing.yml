@@ -11,6 +11,11 @@ minsal_contrato_analizador_ajax_guardar:
     defaults: { _controller: MinsalContratoBundle:Analizador:guardarIncremento}
     methods:  POST
 
+minsal_contrato_analizador_guardar_analisis:
+    path:     /guardarAnalisis
+    defaults: { _controller: MinsalContratoBundle:AnalizadorIncremento:grabarIncremento}
+    methods:  POST
+
 minsal_contrato_analizador_prorroga:
   path: /listadoProrroga/{prorroga}
   defaults: { _controller: MinsalContratoBundle:Analizador:analizadorProrroga }

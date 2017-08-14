@@ -46,7 +46,10 @@
 											{% elseif incremento.estadoIncremento.id == 2 %}
 												<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.id, tipo:'incremento', licitacion:incremento.numeroModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 												<a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+											{% elseif incremento.estadoIncremento.id == 11%}
+												<a href="{{ path('minsal_detalle_observacion') }}" class="btn btn-info">Generar Oficios</a>
 											{% endif %}
+
 										</td>
 										
 										
@@ -66,6 +69,7 @@
 									    {% elseif prorroga.estadoProrroga.id == 7  %}
 									    	<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:prorroga.id, tipo:'prorroga', licitacion:prorroga.prorrogaModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 									    	<a href="{{ path('minsal_contrato_listado_medicamentos_prorroga',{'prorroga': prorroga.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
+
 										{% endif %}
 									</td>
 								</tr>
