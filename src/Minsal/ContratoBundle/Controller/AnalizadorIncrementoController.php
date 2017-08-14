@@ -60,14 +60,14 @@ class AnalizadorIncrementoController extends Controller
 		$nuevafecha = strtotime ( "+$mesesdesestimar month" , strtotime ( $fecha ) ) ;
 		$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
 
-		$service_url = "http://192.168.1.5:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&idproductos={$listadepunido}&programacion={$estimacion}";
+		$service_url = "http://25.13.163.240:8080/v1/sinab/datoscobertura?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&idproductos={$listadepunido}&programacion={$estimacion}";
 
 		$curl = curl_init($service_url);
       	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
       	$curl_response = curl_exec($curl);
       	curl_close($curl);
       	$respuesta = json_decode($curl_response,true);
-      	$service_url2 = "http://192.168.1.5:8080/v1/sinab/existencianacional?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&productos={$listadepunido}&fecha={$nuevafecha}";
+      	$service_url2 = "http://25.13.163.240:8080/v1/sinab/existencianacional?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&productos={$listadepunido}&fecha={$nuevafecha}";
 	    $curl2 = curl_init($service_url2);
 	    curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
 	    $curl_response2 = curl_exec($curl2);

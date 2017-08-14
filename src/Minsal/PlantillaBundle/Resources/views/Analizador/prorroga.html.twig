@@ -27,7 +27,11 @@
 		</thead>
 		<tbody>
 			
-			{% for dato in respuesta['respuesta'] %}
+			
+			{% if respuesta is null %}
+				<h1>No hay datos para mostrar</h1>
+			{% else %}
+				{% for dato in respuesta['respuesta'] %}
 				<tr>
 					<td>{{ dato["3"] }}</td>
 					<td>{{ dato["5"] }}</td>
@@ -45,8 +49,7 @@
 					<td>{{ dato["16"] }}</td>
 				</tr>
 			{% endfor %}
-			
-			
+			{% endif %}
 		</tbody>
 	</table>
 </div>

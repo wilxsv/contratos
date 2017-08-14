@@ -17,9 +17,6 @@ class MedicamentoController extends Controller
 {
 	public function depuracionAction($incremento,$contrato,$proveedor)
 	{	
-		//del contrato se obtiene el numero de modalidad compra
-		//del incremento se obtiene la programacion
-		//del proveedor pues se obtiene el proveedor :)
 		$em = $this->getDoctrine()->getManager();
 		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoIncremento')->findOneBy(array(
 			'incrementoid'=>$incremento,'contratoid'=>$contrato
@@ -31,11 +28,6 @@ class MedicamentoController extends Controller
 				));
 	    	$resumen->setIncrementoId($INCRE);
 	    	$resumen->setContratoId($contrato);
-	    	//compra a partir del id guardado en incremento tienen que ser con sqlnative
-	        /*sql = "SELECT numero_modalidad 
-	        		FROM ctl_modalidad_compra as mc 
-	        		INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id 
-	        		WHERE i.id = $incremento" */
 
 	        $compra = "SELECT  mc.numeroModalidad,mc.id
 	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
@@ -45,15 +37,6 @@ class MedicamentoController extends Controller
 	        foreach ($objcompra as $ob) {
         		$licitacion = $ob["numeroModalidad"];
         	}
-
-        	
-
-        	//Programacion a partir del id del incremento
-        	/*sql =  "SELECT p.idProgramacion 
-        			  FROM ctl_programacion AS p 
-        			  INNER JOIN ctl_incremento  AS i ON p.id=i.estimacion WHERE i.id = $incremento
-        	"*/
-
 
         	$pdql = "SELECT  p.id
         			 FROM MinsalModeloBundle:CtlProgramacion p
@@ -65,7 +48,7 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://192.168.1.5:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+			$service_url = "http://25.13.163.240:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
@@ -128,8 +111,8 @@ class MedicamentoController extends Controller
 			$PRORR = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(array(
 				'id' => $prorroga
 				));
-	    	$resumen->setProrrogaId($PRORR);
-	    	$resumen->setContratopId($contrato);
+	    	$resumen->setProrrogaid($PRORR);
+	    	$resumen->setContratopid($contrato);
 	    
 	        $compra = "SELECT  mc.numeroModalidad,mc.id
 	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
@@ -150,7 +133,7 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://192.168.1.5:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+			$service_url = "http://25.13.163.240:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
@@ -158,7 +141,8 @@ class MedicamentoController extends Controller
 		    $respuesta = json_decode($curl_response,true);
 		    $resumenm = $respuesta["respuesta"];
 
-		    $listadoId = array();
+		    if (! $resumenm=='') {
+		    	$listadoId = array();
 
 		    foreach ($resumenm as $p) {
 		    	array_push($listadoId, $p["0"]);
@@ -173,9 +157,15 @@ class MedicamentoController extends Controller
 
 		    $em->persist($resumen);
 		    $em->flush($resumen);
-		    
+		    }
+		    else{
+		    	$medicamentos = array();
+		    	$error = 'vacio';
+		    }
+		    $error = 'full';
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos
+		    	'medicamentos' => $medicamentos,
+		    	'error' =>$error
 		    	));
 		}else{
 			$listadoId = json_decode($re->getMedicamentos());
@@ -184,8 +174,10 @@ class MedicamentoController extends Controller
 		    ->add('from','MinsalModeloBundle:CtlProducto p')
 		    ->add('where',$qb->expr()->in('p.id',$listadoId));
 		    $medicamentos = $qb->getQuery()->getResult();
+		    $error = 'full';
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
-		    	'medicamentos' => $medicamentos));
+		    	'medicamentos' => $medicamentos,
+		    	'error'=>$error));
 		}
 	   
 
@@ -196,11 +188,6 @@ class MedicamentoController extends Controller
 	public function listadoAction($incremento)
 	{	
 		$em = $this->getDoctrine()->getManager();
-        //compra a partir del id guardado en incremento tienen que ser con sqlnative
-        /*sql = "SELECT numero_modalidad 
-        		FROM ctl_modalidad_compra as mc 
-        		INNER JOIN ctl_incremento as i ON i.incremento_modalidad_compra = mc.id 
-        		WHERE i.id = $incremento" */
 
         $compra = "SELECT  mc.numeroModalidad,mc.id
         				  FROM MinsalModeloBundle:CtlModalidadCompra mc
