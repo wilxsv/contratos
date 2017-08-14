@@ -163,7 +163,7 @@
                                                Proceso en depuracion de medicamentos
                                             {% else %}
                                                 {% if prorroga.estadoProrroga.id == 5 %}
-                                                    <a href="{{ path('minsal_contrato_analizador_prorroga',{'prorroga': prorroga.id }) }}" class="btn btn-info">Iniciar Analisis</a>
+                                                    <a href="{{ path('minsal_contrato_analizador_prorroga',{'prorroga': prorroga.id }) }}" class="btn btn-success">Iniciar Analisis</a>
                                                 {% elseif incremento.estadoIncremento.id == 10 %} 
                                                 Proceso en Cifrado Presupuestario UFI
                                                 {% endif %}
