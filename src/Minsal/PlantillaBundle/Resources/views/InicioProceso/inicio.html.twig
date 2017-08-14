@@ -328,7 +328,6 @@
 
         $(document).ready(function() {
             $("#Enviar").click(function() {
-                alert('se ha presionado el boton de enviar');
                 obtenerValores();
                 
             });
@@ -357,7 +356,7 @@
                 },
             })
             .done(function(data) {
-                alert(data);
+                $('#responsive-modal').modal('hide');
             })
             .fail(function() {
                 console.log("error");
