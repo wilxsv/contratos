@@ -92,7 +92,6 @@ class MedicamentoController extends Controller
 		    $error = 'full';
 		    return $this->render('MinsalPlantillaBundle:Producto:depuracion.html.twig',array(
 		    	'medicamentos' => $medicamentos,
-		    	'incrementop' => $incremento,
 		    	'error'=>$error));
 		}
 	   
