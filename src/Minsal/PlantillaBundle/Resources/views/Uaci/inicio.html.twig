@@ -33,8 +33,8 @@
 							</tr>
 						</thead>
 						<tbody>
-						{{dump(detalles)}}	
-							{# {% if incrementos %}
+
+							{% if incrementos %}
 								{% for incremento in incrementos %}
 									<tr class="info">
 										<td>{{ incremento.id }}</td>
@@ -48,7 +48,7 @@
 												<a class="btn btn-warning" href="{{ path('minsal_contrato_proveedores_uaci',{cod:incremento.id, tipo:'incremento', licitacion:incremento.numeroModalidadCompra.id}) }}"><span class="glyphicon glyphicon-eye-open"></span> Revisar</a>
 												<a href="{{ path('minsal_contrato_listado_medicamentos',{'incremento': incremento.id }) }}" class="btn btn-info">Depurar Medicamentos</a>
 											{% elseif incremento.estadoIncremento.id == 11%}
-												<a href="{{ path('minsal_detalle_observacion') }}" class="btn btn-info">Generar Oficios</a>
+												<a href="{{ path('minsal_detalle_observacion',{'incremento':incremento.id}) }}" class="btn btn-info">Generar Oficios</a>
 											{% endif %}
 
 										</td>
@@ -78,7 +78,7 @@
 
 
 							{% endif %}
-							 #}
+							
 						</tbody>
 					</table>
 				</div>
