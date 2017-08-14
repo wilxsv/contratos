@@ -41,7 +41,7 @@ class AnalizadorIncrementoController extends Controller
 					INNER JOIN MinsalModeloBundle:CtlContrato c WITH  pc.mtnContrato = c.id 
 					INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH pc.mtnProveedor = pr.id
 					INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id 
-					WHERE p.estadoProducto=9 AND p.id IN ($listadounido) AND mc.id = $compra
+					WHERE p.estadoProducto=9 AND p.id IN ($listadounido) AND mc.id = $compra AND pr.estadoProveedor=4
 					ORDER BY c.id ";
 		$medicamentoslista = $em->createQuery($dql2)->getResult();
 		$listadep = array();
@@ -98,7 +98,7 @@ class AnalizadorIncrementoController extends Controller
      		'dataCobertura'=>$dataCobertura,
      		'incremento'=>$incrementoObj,
      		'establecimientos'=>$listadoEstab,
-     		'debug'=>$service_url
+     		'debug'=>$medicamentoslista
      	));
 
 		
