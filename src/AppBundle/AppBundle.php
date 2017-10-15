@@ -22,16 +22,17 @@ class AppBundle extends Bundle
 class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
     protected $router, $security;
-    
+
     public function __construct(Router $router, SecurityContext $security)
     {
         $this->router = $router;
         $this->security = $security;
+
     }
-    
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        
+        $url = 'homepage';
         //$url = 'minsal_contrato_inicio_proceso_inicio';
         if($this->security->isGranted('ROLE_UNABAST')) {
             $url = 'minsal_contrato_inicio_proceso_inicio';
@@ -44,7 +45,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         }
 
         $response = new RedirectResponse($this->router->generate($url));
-            
+
         return $response;
     }
 }

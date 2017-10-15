@@ -16,13 +16,13 @@ class SecurityController extends Controller
 		$lastUserName = $authenticationUtils->getLastUsername();
 
 		return $this->render('MinsalPlantillaBundle:Seguridad:login.html.twig', array(
-			'last_username' => $lastUserName, 
+			'last_username' => $lastUserName,
 			'error' => $error)
 		);
 	}
 
 	public function loginCheckAction()
 	{
-		
+		global $url;
 	}
 }

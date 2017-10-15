@@ -18,7 +18,8 @@
 			<div class="white-box">
 				<h3 class="box-title m-b-0">Depuracion de Medicamentos Por Contrato</h3>
 				<p class="text-muted m-b-30">UACI</p>
-				
+				{% for msg in app.session.flashBag.get('success') %}{{ msg }}
+{% endfor %}
 				<div class="table-responsive">
 					<table id="meds" class="table table-striped">
 						<thead>
@@ -42,7 +43,7 @@
 									 	<td><input type="checkbox" value="{{ med.id }}" checked></td>
 									 {% elseif med.estadoProducto.id == 8 %}
 									 	<td><input type="checkbox" value="{{ med.id }}" ></td>
-									 {% else %} 
+									 {% else %}
 									 	<td><input type="checkbox" value="{{ med.id }}" checked></td>
 									 {% endif %}
 							</tr>
@@ -50,7 +51,7 @@
 					{% else %}
 						<div><h2>El siguiente contrato junto a la estimacion no poseen medicamentos del actual proveedor</h2></div>
 						{% endif %}
-							
+
 						</tbody>
 					</table>
 					<button id="Guardar" class="btn btn-danger">Guardar</button>
@@ -68,10 +69,10 @@
 	$(document).ready(function($) {
 		$('#Guardar').click(function() {
 			obtenerMedicamentos();
-		});	
+		});
 	});
 	function obtenerMedicamentos(){
-		
+
 		var medicamento;
 		var listaMedicamentos = [];
 
@@ -101,7 +102,7 @@
 		.fail(function() {
 			alert('Algo salio mal');
 		});
-		
+
 
 	}
 </script>

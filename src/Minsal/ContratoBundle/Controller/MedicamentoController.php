@@ -9,14 +9,28 @@ use Minsal\ModeloBundle\Entity\MtnMedicamentoProrroga;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 
 
 
 class MedicamentoController extends Controller
 {
-	public function depuracionAction($incremento,$contrato,$proveedor)
-	{	
+	private $api;
+	private $token;
+
+	public function getApi(){
+		$this->api = $this->container->getParameter('api_dominio')		;
+		return $this->api;
+	}
+
+	public function getToken(){
+		$this->token = $this->container->getParameter('api_token');
+		return $this->token;
+	}
+	public function depuracionAction($incremento,$contrato,$proveedor,Request $request)
+	{
+
 		$em = $this->getDoctrine()->getManager();
 		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoIncremento')->findOneBy(array(
 			'incrementoid'=>$incremento,'contratoid'=>$contrato
@@ -48,8 +62,13 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://25.13.163.240:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
-		    $curl = curl_init($service_url);
+
+			$service_url = "{$this->getApi()}v1/sinab/medicamentosestimacion?tocken={$this->getToken()}&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+print $service_url;
+$request->getSession()->getFlashBag()->add('success', $service_url);
+
+
+				$curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
 		    curl_close($curl);
@@ -94,14 +113,14 @@ class MedicamentoController extends Controller
 		    	'medicamentos' => $medicamentos,
 		    	'error'=>$error));
 		}
-	   
 
-		
+
+
 	}
 
 
 	public function depuracionProrrogaAction($prorroga,$contrato,$proveedor)
-	{	
+	{
 		$em = $this->getDoctrine()->getManager();
 		$re = $em->getRepository('MinsalModeloBundle:MtnMedicamentoProrroga')->findOneBy(array(
 			'prorrogaid'=>$prorroga,'contratopid'=>$contrato
@@ -113,7 +132,7 @@ class MedicamentoController extends Controller
 				));
 	    	$resumen->setProrrogaid($PRORR);
 	    	$resumen->setContratopid($contrato);
-	    
+
 	        $compra = "SELECT  mc.numeroModalidad,mc.id
 	        				  FROM MinsalModeloBundle:CtlModalidadCompra mc
 	        				  INNER JOIN MinsalModeloBundle:CtlProrroga prr WITH mc.id = prr.prorrogaModalidadCompra
@@ -133,7 +152,7 @@ class MedicamentoController extends Controller
         		$programacion = $ob["id"];
         	}
         	$url = urlencode($licitacion);
-			$service_url = "http://25.13.163.240:8080/v1/sinab/medicamentosestimacion?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
+			$service_url = "{getApi()}/v1/sinab/medicamentosestimacion?tocken={getToken()}&programacion={$programacion}&licitacion={$url}&proveedor={$proveedor}";
 		    $curl = curl_init($service_url);
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		    $curl_response = curl_exec($curl);
@@ -179,14 +198,14 @@ class MedicamentoController extends Controller
 		    	'medicamentos' => $medicamentos,
 		    	'error'=>$error));
 		}
-	   
 
-		
+
+
 	}
 
 
 	public function listadoAction($incremento)
-	{	
+	{
 		$em = $this->getDoctrine()->getManager();
 
         $compra = "SELECT  mc.numeroModalidad,mc.id
@@ -207,7 +226,7 @@ class MedicamentoController extends Controller
 		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.idProveedor ";
         $contratos = $em->createQuery($dql)->getResult();
 
-	   
+
 	    return $this->render('MinsalPlantillaBundle:Unabast:contratos.html.twig',array(
 	    	'contratos' => $contratos,
 	    	'compra' => $objcompra,
@@ -237,7 +256,7 @@ class MedicamentoController extends Controller
 		WHERE mc.id = '$numerocompra' AND pc.mtnProveedor=c.idProveedor ";
         $contratos = $em->createQuery($dql)->getResult();
 
-	   
+
 	    return $this->render('MinsalPlantillaBundle:Unabast:contratosProrrogas.html.twig',array(
 	    	'contratos' => $contratos,
 	    	'compra' => $objcompra,
@@ -247,7 +266,7 @@ class MedicamentoController extends Controller
 
 	public function cambioEstadoAction(Request $request)
 	{
-	
+
 		$estado = $request->get('estado');
 		$idCompra = $request->get('incrementoID');
 
@@ -260,16 +279,16 @@ class MedicamentoController extends Controller
     	->setParameter(1, $idCompra)
     	->getQuery();
 		$p = $q->execute();
-		return  new Response('Incremento Verificado Existosamente'); 
+		return  new Response('Incremento Verificado Existosamente');
 	}
 
 	public function cambioEstadoProrrogaAction(Request $request)
 	{
-				
+
 		$estado = $request->get('estado');
 		$idCompra = $request->get('prorrogaID');
 
-		$em = $this->getDoctrine()->getManager(); 
+		$em = $this->getDoctrine()->getManager();
 		$dql = "UPDATE MinsalModeloBundle:CtlProrroga p SET p.estadoProrroga = $estado WHERE p.id = '$idCompra' ";
 		$em->createQuery( $dql )->getResult();
 
@@ -283,7 +302,7 @@ class MedicamentoController extends Controller
 		->setParameter(1, $idCompra)
 		->getQuery();
 		$p = $q->execute();*/
-		return  new Response('Prorroga Verificada Existosamente'); 
+		return  new Response('Prorroga Verificada Existosamente');
 	}
 
 	public function estadoMedicamentosAction(Request $request){
@@ -291,7 +310,7 @@ class MedicamentoController extends Controller
 		$listaMedicamentos = $request->get('listaMedicamentos');
 
 		foreach ($listaMedicamentos as $medicamento) {
-			$em = $this->getDoctrine()->getManager(); 
+			$em = $this->getDoctrine()->getManager();
 			$obj = $em->getRepository('MinsalModeloBundle:CtlProducto')->find($medicamento['medicamento']);
 			//Buscamos por ID
 			$objestado = $em->getRepository('MinsalModeloBundle:CtlEstados')->findOneBy(array(
@@ -301,7 +320,7 @@ class MedicamentoController extends Controller
 
 			$em->persist($obj);
 			$em->flush($obj);
-		
+
 		}
 
 		return new Response('Productos Actualizados exitosamente');

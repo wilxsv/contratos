@@ -10,6 +10,7 @@ use Minsal\ModeloBundle\Entity\CtlContratosIncrementos;
 use Minsal\ModeloBundle\Entity\CtlContrato;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 /*
 	 * Direccion Fisica: src/Minsal/ContratoBundle/Controller/AnalizadorController.php
@@ -17,12 +18,15 @@ use Symfony\Component\HttpFoundation\Response;
 */
 
 class AnalizadorController extends Controller
-{	
-		
+{
+
+
+
 		//Funcion para el llamado de datos de las prorrogas
 		public function analizadorProrrogaAction($prorroga)
 		{
-			
+			$api = $this->container->getParameter('api_dominio');
+			$token = $this->container->getParameter('api_token');
 			$em = $this->getDoctrine()->getManager(); //Invocamos al manejador de Entidades
 
 			$prorrogaObj = $em->getRepository('MinsalModeloBundle:CtlProrroga')->findOneBy(array(
@@ -41,14 +45,14 @@ class AnalizadorController extends Controller
 			}
 			$listadounido = str_replace('[','', $listadounido);
 			$listadounido = str_replace(']','', $listadounido);
-			$listadounido = str_replace('"','', $listadounido); 
+			$listadounido = str_replace('"','', $listadounido);
 
 			$dql2 = "SELECT mc.id, mc.numeroModalidad, c.id as contrato, c.numeroContrato, p.codigoProducto, p.declargo, c.montoContrato, pc.cantidad, pc.precioUnitario, p.id,pr.nombreProveedor,pc.renglon,p.id as idproducto,pr.id as idproveedor
-			    	FROM MinsalModeloBundle:CtlProducto p 
-					INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH pc.mtnProducto = p.id  
-					INNER JOIN MinsalModeloBundle:CtlContrato c WITH  pc.mtnContrato = c.id 
+			    	FROM MinsalModeloBundle:CtlProducto p
+					INNER JOIN MinsalModeloBundle:MtnProductoContrato pc WITH pc.mtnProducto = p.id
+					INNER JOIN MinsalModeloBundle:CtlContrato c WITH  pc.mtnContrato = c.id
 					INNER JOIN MinsalModeloBundle:CtlProveedor pr WITH pc.mtnProveedor = pr.id
-					INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id 
+					INNER JOIN MinsalModeloBundle:CtlModalidadCompra mc WITH c.numeroModalidad = mc.id
 					WHERE p.estadoProducto=9 AND p.id IN ($listadounido) AND mc.id = $compra
 					ORDER BY c.id ";
 
@@ -71,9 +75,9 @@ class AnalizadorController extends Controller
 			$planificacion = $prorrogaObj->getPlanificacion()->getId(); //Obtenermos el ID de la programacion que se utilizara
 			$proveedor = implode(",", $prove);
 
-			
 
-			$service_url = "http://25.13.163.240:8080/v1/sinab/medicamentosplanificacionprorroga?tocken=eccbc87e4b5ce2fe28308fd9f2a7baf3&programacion={$planificacion}&licitacion={$licitacion}&proveedor={$proveedor}&producto={$producto}";
+
+			$service_url = "{$api}/v1/sinab/medicamentosplanificacionprorroga?tocken={$token}&programacion={$planificacion}&licitacion={$licitacion}&proveedor={$proveedor}&producto={$producto}";
 
 			$curl = curl_init($service_url);
       		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -84,7 +88,7 @@ class AnalizadorController extends Controller
 			return $this->render('MinsalPlantillaBundle:Analizador:prorroga.html.twig', array(
 				'servicio'=>$service_url,
 				'respuesta'=>$respuesta,
-				
+
 				));
 		}
 
@@ -103,14 +107,9 @@ class AnalizadorController extends Controller
 	    	->setParameter(1, $idIncremento)
 	    	->getQuery();
 			$p = $q->execute();
-			return  new Response('Incremento actualizado Existosamente'); 
+			return  new Response('Incremento actualizado Existosamente');
 
 
 		}
 
 }
-
-
-
-
-
